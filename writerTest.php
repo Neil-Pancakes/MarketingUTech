@@ -34,7 +34,7 @@
 
       <!-- Your Page Content Here -->
       <div ng-controller="taskFieldsController">
-        <form action="#" method="GET">
+        <form ng-submit="submitData()">
           <div id="taskHolderOjt" class="container">
               <div class="jumbotron">
                   <p style="font-size:30px;">Tasks for today <md-button id="addTaskBtn" class="btn md-raised" ng-click="addNewTask()" style=" background-color: #00d200; color:white;">Add Task <span class="fa fa-plus"></span></md-button></p>
@@ -167,7 +167,7 @@ $(document).ready(function(){
 <script>
     var app = angular.module('taskFieldsApp', ['ngMaterial']);
     var x=0;
-    app.controller('taskFieldsController', function($scope) {
+    app.controller('taskFieldsController', function($scope, $http) {
         $scope.articleSet = {articles: []};
         $scope.wordSet = {words: []};
         
@@ -191,6 +191,19 @@ $(document).ready(function(){
             if(x==0){
               $scope.show = false;
             }
+        };
+
+        $scope.submitData = function() {
+            $http({
+                method: 'GET',
+                url: 'http://localhost/Marketing/insertWriterTracker.php',
+                data: {
+                  'articleSet': $scope.articleSet.articles, 
+                  'wordSet': $scope.wordSet.words
+                }
+            }).then(function(data){
+               alert(JSON.stringify(data));
+            });
         };
     });
 
