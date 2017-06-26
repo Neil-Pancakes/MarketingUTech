@@ -46,24 +46,24 @@
                   <md-content layout-padding>
                        <div>
                             <md-input-container>
-                                <label>FB Balay</label>
-                                <input style="font-size:20px" name="fbbalayCnt" type="number" min="0">
+                                <label>Fix Bugs</label>
+                                <input style="font-size:20px" name="fixbugCnt" type="number" min="0">
                             </md-input-container>
                             <md-input-container>
-                                <label>Pinterest Balay</label>
-                                <input style="font-size:20px" name="pinterestbalayCnt" type="number" min="0">
+                                <label>Create Pages</label>
+                                <input style="font-size:20px" name="createpageCnt" type="number" min="0">
                             </md-input-container>
                             <md-input-container>
-                                <label>FB/Twitter/IG MB</label>
-                                <input style="font-size:20px" name="fbtwitterigMBCnt" type="number" min="0">
+                                <label>Responsive Design</label>
+                                <input style="font-size:20px" name="responsivedesignCnt" type="number" min="0">
                             </md-input-container>
                             <md-input-container>
-                                <label>FB/Twitter/IG Taft</label>
-                                <input style="font-size:20px" name="fbtwitterigTaftCnt" type="number" min="0">
+                                <label>Modify Pages/Files</label>
+                                <input style="font-size:20px" name="modifypageCnt" type="number" min="0">
                             </md-input-container>
                             <md-input-container>
-                                <label>FB WA</label>
-                                <input style="font-size:20px" name="fbwaCnt" type="number" min="0">
+                                <label>Miscellaneous</label>
+                                <input style="font-size:20px" name="miscCnt" type="number" min="0">
                             </md-input-container>
                         </div>
                   </md-content>
