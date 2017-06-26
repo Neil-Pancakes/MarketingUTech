@@ -1,14 +1,9 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Daily Tracker</title>
-  <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- REQUIRED JS SCRIPTS -->
 
@@ -28,10 +23,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="includes/font-awesome-4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="includes/ionicons-2.0.1/css/ionicons.min.css">
   <link rel="stylesheet" href="includes/AdminLTE-2.3.11/dist/css/AdminLTE.min.css">
-  <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
-        page. However, you can choose any other skin. Make sure you
-        apply the skin class to the body tag so the changes take effect.
-  -->
   <link rel="stylesheet" href="includes/AdminLTE-2.3.11/dist/css/skins/skin-purple.min.css">
   <link rel="shortcut icon" href="includes/img/universaltechlogo2.jpg" />
   <link rel="stylesheet" href="includes/css/styles.css">
@@ -43,32 +34,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
 	  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <style>
-        /*#headerLogo{
-            height: 30px;
-            width: 30px;
-        }*/
   </style>
  </head>
-<!--
-BODY TAG OPTIONS:
-=================
-Apply one or more of the following classes to get the
-desired effect
-|---------------------------------------------------------|
-| SKINS         | skin-blue                               |
-|               | skin-black                              |
-|               | skin-purple                             |
-|               | skin-yellow                             |
-|               | skin-red                                |
-|               | skin-green                              |
-|---------------------------------------------------------|
-|LAYOUT OPTIONS | fixed                                   |
-|               | layout-boxed                            |
-|               | layout-top-nav                          |
-|               | sidebar-collapse                        |
-|               | sidebar-mini                            |
-|---------------------------------------------------------|
--->
 <body class="hold-transition skin-purple sidebar-mini">
 <div class="wrapper">
 
@@ -292,13 +259,5 @@ desired effect
     </section>
     <!-- /.sidebar -->
   </aside>
-
- 
-
-
-<!-- Optionally, you can add Slimscroll and FastClick plugins.
-     Both of these plugins are recommended to enhance the
-     user experience. Slimscroll is required when using the
-     fixed layout. -->
 </body>
 </html>
