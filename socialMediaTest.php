@@ -47,28 +47,28 @@
                        <div>
                             <md-input-container>
                                 <label>FB Balay</label>
-                                <input style="font-size:20px" name="fbbalayCnt" ng-model="user.p1" type="number" min="0">
+                                <input style="font-size:20px" name="fbbalayCnt" type="number" min="0">
                             </md-input-container>
                             <md-input-container>
                                 <label>Pinterest Balay</label>
-                                <input style="font-size:20px" name="pinterestbalayCnt" ng-model="user.p2" type="number" min="0">
+                                <input style="font-size:20px" name="pinterestbalayCnt" type="number" min="0">
                             </md-input-container>
                             <md-input-container>
                                 <label>FB/Twitter/IG MB</label>
-                                <input style="font-size:20px" name="fbtwitterigMBCnt" ng-model="user.p3" type="number" min="0">
+                                <input style="font-size:20px" name="fbtwitterigMBCnt" type="number" min="0">
                             </md-input-container>
                             <md-input-container>
                                 <label>FB/Twitter/IG Taft</label>
-                                <input style="font-size:20px" name="fbtwitterigTaftCnt" ng-model="user.p4" type="number" min="0">
+                                <input style="font-size:20px" name="fbtwitterigTaftCnt" type="number" min="0">
                             </md-input-container>
                             <md-input-container>
                                 <label>FB WA</label>
-                                <input style="font-size:20px" name="fbwaCnt" ng-model="user.p5" type="number" min="0">
+                                <input style="font-size:20px" name="fbwaCnt" type="number" min="0">
                             </md-input-container>
                         </div>
                   </md-content>
                   <div class="footer" align="center">
-                      <md-button id="submitBtn" type="submit" class=" md-raised md-primary" ng-model="submitBtn">Submit</md-button>
+                      <md-button id="submitBtn" type="submit" class=" md-raised md-primary">Submit</md-button>
                   </div>
               </div>
           </div>
@@ -178,39 +178,11 @@ $(document).ready(function(){
 
 <script>
     var app = angular.module('taskFieldsApp', ['ngMaterial']);
-    var x=0;
     app.controller('taskFieldsController', function($scope) {
-        $scope.taskSet = {tasks: []};
         
-        $scope.taskSet.tasks = [];
-        $scope.addNewTask = function() {
-          $scope.taskSet.tasks.push(''/*{'id': '', 'name':'taskList'}*/);
-          x++;
-          if(x>0){
-            $scope.show = true;
-          }
-        };
-
-        $scope.removeTask = function(z) {
-            $scope.taskSet.tasks.splice(z, 1);
-            if(x>0){
-              x--;
-            }
-            if(x==0){
-              $scope.show = false;
-            }
-        };
     });
 
     app.config(function($mdThemingProvider) {
-
-    // Configure a dark theme with primary foreground yellow
-
-    $mdThemingProvider.theme('docs-dark', 'default')
-      .primaryPalette('yellow')
-      .dark();
-
-    
 
   });
 
