@@ -194,7 +194,19 @@ $(document).ready(function(){
         };
 
         $scope.submitData = function() {
-            $http({
+            $http.post('insertWriterTracker.php', {
+              'articleSet': $scope.articleSet.articles, 
+              'wordSet': $scope.wordSet.words
+              }).success(function(data, status){
+                $scope.articleSet = {articles: []};
+                $scope.wordSet = {words: []};
+                
+                $scope.articleSet.articles = [];
+                $scope.wordSet.words = [];
+                x=0;
+                $scope.show = false;
+              })
+            /*$http({
                 method: 'GET',
                 url: 'http://localhost/Marketing/insertWriterTracker.php',
                 data: {
@@ -203,7 +215,7 @@ $(document).ready(function(){
                 }
             }).then(function(data){
                alert(JSON.stringify(data));
-            });
+            });*/
         };
     });
 
