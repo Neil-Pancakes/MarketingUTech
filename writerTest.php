@@ -31,37 +31,66 @@
 
     <!-- Main content -->
     <section class="content">
+        <div ng-cloak ng-controller="taskFieldsController" data-ng-init="init()">
+          <md-content>
+            <md-tabs md-dynamic-height md-border-bottom>
+              <md-tab label="daily tracker">
+                <md-content class="md-padding">
+                  <h1 class="md-display-2">Daily Tracker</h1>
+                  <table>
+                    <thead>
+                        <tr>
+                            <th>Article</th>
+                            <th>Word Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="x in today">
+                        <td>{{ x.Article }}</td>
+                        <td>{{ x.WordCnt }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </md-content>
+              </md-tab>
+      <md-tab label="add tasks">
+        <md-content class="md-padding">
+            <div>
+              <form ng-submit="submitData()">
+                <div id="taskHolderOjt" class="container" style="max-width:100%;">
+                    <div class="jumbotron">
+                        <p style="font-size:50px;">Tasks for today <md-button id="addTaskBtn" class="btn md-raised" ng-click="addNewTask()" style=" background-color: #00d200; color:white;">Add Task <span class="fa fa-plus"></span></md-button></p>
+                        <div class="task-group">
+                        <fieldset data-ng-repeat = "field in articleSet.articles track by $index">
+                              <div>
+                                    <div style="display:inline-block;" class="col-xs-7">
+                                        <input type="text" class="inp form-control" placeholder="Article Name" name="articleList" ng-model="articleSet.articles[$index]" required>
+                                    </div>
+                                    <div style="display:inline-block;" class="col-xs-3">
+                                        <input type="number" class="inp form-control" placeholder="Words Changed" name="wordCntList" ng-model="wordSet.words[$index]" min="1" required>
+                                    </div>
+                                    <div style="display:inline-block;" class="col-xs-2">
+                                        <span>
+                                            <button type="button" class="btn delTaskBtn btn-danger" ng-click="removeTask($index)"><span class="fa fa-remove"></span></button>
+                                        </span>
+                                    </div>
+                                </div>
+                        </fieldset>
+                        </div>
+                        <div class="footer" align="center">
+                            <md-button ng-show="show" id="submitBtn" type="submit" class=" md-raised md-primary" ng-model="submitBtn" style="width:20%; margin-top:3%;">Submit</md-button>
+                        </div>
+                    </div>
+                </div>
+              </form>
+            </div>
+        </md-content>
+      </md-tab>
+    </md-tabs>
+  </md-content>
+</div>  
 
       <!-- Your Page Content Here -->
-      <div ng-controller="taskFieldsController">
-        <form ng-submit="submitData()">
-          <div id="taskHolderOjt" class="container">
-              <div class="jumbotron">
-                  <p style="font-size:30px;">Tasks for today <md-button id="addTaskBtn" class="btn md-raised" ng-click="addNewTask()" style=" background-color: #00d200; color:white;">Add Task <span class="fa fa-plus"></span></md-button></p>
-                  <div class="task-group">
-                  <fieldset data-ng-repeat = "field in articleSet.articles track by $index">
-                        <div>
-                              <div style="display:inline-block;" class="col-xs-7">
-                                  <input type="text" class="inp form-control" placeholder="Article Name" name="articleList" ng-model="articleSet.articles[$index]" required>
-                              </div>
-                              <div style="display:inline-block;" class="col-xs-3">
-                                  <input type="number" class="inp form-control" placeholder="Words Changed" name="wordCntList" ng-model="wordSet.words[$index]" min="1" required>
-                              </div>
-                              <div style="display:inline-block;" class="col-xs-2">
-                                  <span>
-                                      <button type="button" class="btn delTaskBtn btn-danger" ng-click="removeTask($index)"><span class="fa fa-remove"></span></button>
-                                  </span>
-                              </div>
-                          </div>
-                  </fieldset>
-                  </div>
-                  <div class="footer" align="center">
-                      <md-button ng-show="show" id="submitBtn" type="submit" class=" md-raised md-primary" ng-model="submitBtn" style="width:20%; margin-top:3%;">Submit</md-button>
-                  </div>
-              </div>
-          </div>
-        </form>
-      </div>
       </section>
     <!-- /.content -->
   </div>
@@ -168,6 +197,11 @@ $(document).ready(function(){
     var app = angular.module('taskFieldsApp', ['ngMaterial']);
     var x=0;
     app.controller('taskFieldsController', function($scope, $http) {
+        $scope.init = function () {
+          $http.get("queries/getMyDailyTrackerToday.php").then(function (response) {
+            $scope.today = response.data.records;
+          });  
+        };
         $scope.articleSet = {articles: []};
         $scope.wordSet = {words: []};
         
@@ -205,18 +239,10 @@ $(document).ready(function(){
                 $scope.wordSet.words = [];
                 x=0;
                 $scope.show = false;
+                $scope.init();
               })
-            /*$http({
-                method: 'GET',
-                url: 'http://localhost/Marketing/insertWriterTracker.php',
-                data: {
-                  'articleSet': $scope.articleSet.articles, 
-                  'wordSet': $scope.wordSet.words
-                }
-            }).then(function(data){
-               alert(JSON.stringify(data));
-            });*/
         };
+        
     });
 
 </script>
