@@ -37,6 +37,9 @@
   </style>
  </head>
 <body class="hold-transition skin-purple sidebar-mini">
+<?php
+  date_default_timezone_set("Asia/Manila");
+?>
 <div class="wrapper">
 
   <!-- Main Header -->
