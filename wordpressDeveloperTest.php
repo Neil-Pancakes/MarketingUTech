@@ -34,46 +34,115 @@
       </ol>
     </section>
 
+<!-- Main content -->
+    <section class="content">
+        <div ng-cloak ng-controller="taskFieldsController" data-ng-init="init()">
+          <md-content>
+            <md-tabs md-dynamic-height md-border-bottom>
+              <md-tab label="daily tracker">
+                <md-content class="md-padding">
+                  <span class="md-display-2" >Daily Tracker </span>
+                  
+                  <md-content>
+                    <md-list flex>
+                      <md-checkbox aria-label="Select All" ng-checked="isChecked()" md-indeterminate="isIndeterminate()" ng-click="toggleAll()">
+                        <span ng-if="isChecked()">Un-</span>Select All
+                      </md-checkbox>
+                      <form ng-submit="delData()">
+                        <div align="center">
+                          <md-button ng-show="delBtn" type="submit" class=" md-raised" style="width:20%; background-color:darkred; color:white;">Delete <span class="fa fa-trash"></span></md-button>
+                        </div>
+                        <md-list-item class="md-3-line" ng-repeat="x in today" ng-click="modal(x.Article, x.WordCnt, x.WriterId)">
+                          <div style="width:95%;" data-target="#optionModal" data-toggle="modal">
+                            <img src="includes/img/articleIcon.png" class="md-avatar" style="float:left"/>
+                            <div class="md-list-item-text">
+                            
+                              <h3 class="articleName">{{ x.Article }}</h3>
+                              <h4 class="wordsChanged">{{ x.WordCnt }} Words Changed</h4>
+                            </div>
+                          </div>
+                          <md-checkbox ng-model="deleteList[$index]" ng-checked="exists(x.WriterId, selected)" ng-click="toggle(x.WriterId, selected)" aria-label="checkbox">
+                            
+                          </md-checkbox>
+                        </md-list-item>
+                      </form>
+                      <!--Edit/Delete Modal-->
+                      <form ng-submit="editData()">
+                          <div id="optionModal" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h2 id="modalHeaderEditDelete">Task</h2>
+                                </div>
+                                <div class="modal-body">
+                                  <input type="text" class="inp form-control" ng-model="modalArticle" value="{{modalArticle}}" required>
+                                  <input type="text" class="inp form-control" ng-model="modalWordCnt" value="{{modalWordCnt}}" required>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="submit" class="btn btn-warning" onclick="$('#optionModal').modal('hide');">Edit <span class="fa fa-edit"></span></button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      </form>
+                      <!--END of Edit/Delete Modal-->
+                      
+                  </md-content>
+                </md-content>
+              </md-tab>
+              <md-tab label="add tasks">
+                <md-content class="md-padding">
+                    <form action="#" method="GET">
+                    <div id="taskHolderOjt" class="container">
+                        <div class="jumbotron">
+                            <p style="font-size:30px;">Task Count for today </p>
+                            <md-content layout-padding>
+                                <div>
+                                      <md-input-container>
+                                          <label>Fix Bugs</label>
+                                          <input style="font-size:20px" name="fixbugCnt" type="number" min="0">
+                                      </md-input-container>
+                                      <md-input-container>
+                                          <label>Create Pages</label>
+                                          <input style="font-size:20px" name="createpageCnt" type="number" min="0">
+                                      </md-input-container>
+                                      <md-input-container>
+                                          <label>Responsive Design</label>
+                                          <input style="font-size:20px" name="responsivedesignCnt" type="number" min="0">
+                                      </md-input-container>
+                                      <md-input-container>
+                                          <label>Modify Pages/Files</label>
+                                          <input style="font-size:20px" name="modifypageCnt" type="number" min="0">
+                                      </md-input-container>
+                                      <md-input-container>
+                                          <label>Miscellaneous</label>
+                                          <input style="font-size:20px" name="miscCnt" type="number" min="0">
+                                      </md-input-container>
+                                  </div>
+                            </md-content>
+                            <div class="footer" align="center">
+                                <md-button id="submitBtn" type="submit" class=" md-raised md-primary">Submit</md-button>
+                            </div>
+                        </div>
+                    </div>
+                  </form>
+                </md-content>
+              </md-tab>
+            </md-tabs>
+          </md-content>
+        </div>  
+
+      <!-- Your Page Content Here -->
+      </section>
+    <!-- /.content -->
+
+
     <!-- Main content -->
     <section class="content">
 
       <!-- Your Page Content Here -->
       <div ng-controller="taskFieldsController">
-        <form action="#" method="GET">
-          <div id="taskHolderOjt" class="container">
-              <div class="jumbotron">
-                  <p style="font-size:30px;">Task Count for today </p>
-                  <md-content layout-padding>
-                       <div>
-                            <md-input-container>
-                                <label>Fix Bugs</label>
-                                <input style="font-size:20px" name="fixbugCnt" type="number" min="0">
-                            </md-input-container>
-                            <md-input-container>
-                                <label>Create Pages</label>
-                                <input style="font-size:20px" name="createpageCnt" type="number" min="0">
-                            </md-input-container>
-                            <md-input-container>
-                                <label>Responsive Design</label>
-                                <input style="font-size:20px" name="responsivedesignCnt" type="number" min="0">
-                            </md-input-container>
-                            <md-input-container>
-                                <label>Modify Pages/Files</label>
-                                <input style="font-size:20px" name="modifypageCnt" type="number" min="0">
-                            </md-input-container>
-                            <md-input-container>
-                                <label>Miscellaneous</label>
-                                <input style="font-size:20px" name="miscCnt" type="number" min="0">
-                            </md-input-container>
-                        </div>
-                  </md-content>
-                  <div class="footer" align="center">
-                      <md-button id="submitBtn" type="submit" class=" md-raised md-primary">Submit</md-button>
-                  </div>
               </div>
-          </div>
-        </form>
-      </div>
       </section>
     <!-- /.content -->
   </div>
@@ -177,13 +246,184 @@ $(document).ready(function(){
 </script>
 
 <script>
+<script>
+$(document).ready(function(){
+    document.getElementById("year").innerHTML = new Date().getFullYear();
+    $('#homeTab').removeClass('active');
+    $('#trackerTab').addClass('active');
+});
+</script>
+
+<script>
     var app = angular.module('taskFieldsApp', ['ngMaterial']);
-    app.controller('taskFieldsController', function($scope) {
+    var x=0;
+    app.controller('taskFieldsController', function($scope, $http, $mdDialog) {
+        $scope.data = {};
+        $scope.items= [];
+        $scope.selected = [];
+        $scope.init = function () {
+          $http.get("queries/getMyDailyTrackerToday.php").then(function (response) {
+            $scope.today = response.data.records;
+            $scope.deleteList = [];
+            for($x=0; $x<$scope.today.length; $x++){
+              $scope.deleteList[$x] = false;
+              $scope.items.push($scope.today[$x].WriterId);
+            }
+          });  
+        };
+        $scope.articleSet = {articles: []};
+        $scope.wordSet = {words: []};
         
-    });
+        $scope.articleSet.articles = [];
+        $scope.wordSet.words = [];
+        $scope.addNewTask = function() {
+          $scope.articleSet.articles.push('');
+          $scope.wordSet.words.push('');
+          x++;
+          if(x>0){
+            $scope.show = true;
+          }
+        };
 
-    app.config(function($mdThemingProvider) {
+        $scope.removeTask = function(z) {
+            $scope.articleSet.articles.splice(z, 1);
+            $scope.wordSet.words.splice(z, 1);
+            if(x>0){
+              x--;
+            }
+            if(x==0){
+              $scope.show = false;
+            }
+        };
+        $scope.showAlert = function(ev) {
+          $mdDialog.show(
+            $mdDialog.alert()
+            .parent(angular.element(document.querySelector('#popupContainer')))
+            .clickOutsideToClose(true)
+            .title('Successful Insertion!')
+            .textContent('You have successfully ADDED Tasks.')
+            .ariaLabel('Alert Dialog Demo')
+            .ok('Got it!')
+            .targetEvent(ev)
+          );
+        }
 
+        $scope.showDelete = function(ev) {
+          $mdDialog.show(
+            $mdDialog.alert()
+            .parent(angular.element(document.querySelector('#popupContainer')))
+            .clickOutsideToClose(true)
+            .title('Successful Deletion!')
+            .textContent('You have successfully DELETED a Task.')
+            .ariaLabel('Alert Dialog Demo')
+            .ok('Got it!')
+            .targetEvent(ev)
+          );
+        }
+        
+        $scope.showEdit = function(ev) {
+          $mdDialog.show(
+            $mdDialog.alert()
+            .parent(angular.element(document.querySelector('#popupContainer')))
+            .clickOutsideToClose(true)
+            .title('Successful Edit!')
+            .textContent('You have successfully EDITED a Task.')
+            .ariaLabel('Alert Dialog Demo')
+            .ok('Got it!')
+            .targetEvent(ev)
+          );
+        }
+
+        $scope.submitData = function() {
+            $http.post('insertWriterTracker.php', {
+              'articleSet': $scope.articleSet.articles, 
+              'wordSet': $scope.wordSet.words
+              }).then(function(data, status){
+                $scope.articleSet = {articles: []};
+                $scope.wordSet = {words: []};
+                
+                $scope.articleSet.articles = [];
+                $scope.wordSet.words = [];
+                x=0;
+                $scope.show = false;
+                $scope.init();
+                $scope.showAlert();
+              })
+        };
+
+        $scope.editData = function() {
+          $http.post('editDailyTask.php', {
+            'id': $scope.modalWriterId,
+            'article': $scope.modalArticle,
+            'wordCnt': $scope.modalWordCnt
+          }).then(function(data, status){
+                $scope.init();
+                $scope.showEdit();
+          })
+        };
+
+        $scope.delData = function() {
+          for($x=$scope.selected.length; $x>-1; $x--){
+            $http.post('delDailyTask.php', {
+              'id': $scope.selected[$x],
+            }).then(function(data, status){
+                $scope.init();
+            })
+            $scope.selected.splice($x, 1);
+            $ndx = $scope.items.indexOf($scope.selected);
+            $scope.items.splice($ndx, 1);
+          }
+          $scope.showDelete();
+          if($scope.selected.length==0){
+            $scope.delBtn = false;
+          }
+        };
+
+        $scope.modal = function(article, wordCnt, id) {
+            $scope.modalArticle = article;
+            $scope.modalWordCnt = wordCnt;
+            $scope.modalWriterId = id;
+        };
+
+    $scope.toggle = function (item, list) {
+      var idx = list.indexOf(item);
+      if (idx > -1) {
+        list.splice(idx, 1);
+      }
+      else {
+        list.push(item);
+      }
+      if(list.length>0){
+        $scope.delBtn = true;
+      }else{
+        $scope.delBtn = false;
+      }
+    };
+
+    $scope.exists = function (item, list) {
+      return list.indexOf(item) > -1;
+    };
+
+    $scope.isChecked = function() {
+      return $scope.selected.length === $scope.items.length;
+    };
+
+    $scope.toggleAll = function() {
+      if ($scope.selected.length === $scope.items.length) {
+        for($x=0; $x<$scope.selected.length; $x++){
+          $scope.deleteList[$x] = false;
+        }
+        $scope.selected = [];
+        $scope.delBtn = false;
+      } else if ($scope.selected.length === 0 || $scope.selected.length > 0) {
+        $scope.selected = $scope.items.slice(0);
+        for($x=0; $x<$scope.selected.length; $x++){
+          $scope.deleteList[$x] = true;
+        }
+        $scope.delBtn = true;
+      }
+    };
   });
+</script>
 
 </script>
