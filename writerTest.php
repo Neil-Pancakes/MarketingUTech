@@ -233,7 +233,7 @@ $(document).ready(function(){
         $scope.items= [];
         $scope.selected = [];
         $scope.init = function () {
-          $http.get("queries/getMyDailyTrackerToday.php").then(function (response) {
+          $http.get("queries/getMyDailyTrackerTodayWriter.php").then(function (response) {
             $scope.today = response.data.records;
             $scope.deleteList = [];
             for($x=0; $x<$scope.today.length; $x++){

@@ -246,7 +246,6 @@ $(document).ready(function(){
 </script>
 
 <script>
-<script>
 $(document).ready(function(){
     document.getElementById("year").innerHTML = new Date().getFullYear();
     $('#homeTab').removeClass('active');
@@ -262,7 +261,7 @@ $(document).ready(function(){
         $scope.items= [];
         $scope.selected = [];
         $scope.init = function () {
-          $http.get("queries/getMyDailyTrackerToday.php").then(function (response) {
+          $http.get("queries/getMyDailyTrackerTodayWordpress.php").then(function (response) {
             $scope.today = response.data.records;
             $scope.deleteList = [];
             for($x=0; $x<$scope.today.length; $x++){
@@ -335,7 +334,7 @@ $(document).ready(function(){
         }
 
         $scope.submitData = function() {
-            $http.post('insertWriterTracker.php', {
+            $http.post('insertFunctions/insertWriterTracker.php', {
               'articleSet': $scope.articleSet.articles, 
               'wordSet': $scope.wordSet.words
               }).then(function(data, status){
@@ -352,7 +351,7 @@ $(document).ready(function(){
         };
 
         $scope.editData = function() {
-          $http.post('editDailyTask.php', {
+          $http.post('editFunctions/editDailyTaskWriter.php', {
             'id': $scope.modalWriterId,
             'article': $scope.modalArticle,
             'wordCnt': $scope.modalWordCnt
@@ -364,7 +363,7 @@ $(document).ready(function(){
 
         $scope.delData = function() {
           for($x=$scope.selected.length; $x>-1; $x--){
-            $http.post('delDailyTask.php', {
+            $http.post('deleteFunctions/delDailyTaskWriter.php', {
               'id': $scope.selected[$x],
             }).then(function(data, status){
                 $scope.init();
@@ -424,6 +423,4 @@ $(document).ready(function(){
       }
     };
   });
-</script>
-
 </script>
