@@ -36,17 +36,33 @@
             <md-tabs md-dynamic-height md-border-bottom>
               <md-tab label="daily tracker">
                 <md-content class="md-padding">
-                  <span class="md-display-2" >Daily Tracker</span>
+                  <span class="md-display-2" >Daily Tracker </span>
+                  
                   <md-content>
                     <md-list flex>
-                      <md-list-item class="md-3-line" ng-repeat="x in today" ng-click="modal(x.Article, x.WordCnt, x.WriterId)" data-target="#optionModal" data-toggle="modal">
-                        <img src="includes/img/articleIcon.png" class="md-avatar"/>
-                        <div class="md-list-item-text" layout="column">
-                          <h3 class="articleName">{{ x.Article }}</h3>
-                          <h4 class="wordsChanged">{{ x.WordCnt }} Words Changed</h4>
+                      <md-checkbox aria-label="Select All" ng-checked="isChecked()" md-indeterminate="isIndeterminate()" ng-click="toggleAll()">
+                        <span ng-if="isChecked()">Un-</span>Select All
+                      </md-checkbox>
+                      <form ng-submit="delData()">
+                        <div align="center">
+                          <md-button ng-show="delBtn" type="submit" class=" md-raised" style="width:20%; background-color:darkred; color:white;">Delete <span class="fa fa-trash"></span></md-button>
                         </div>
-                      </md-list-item>
-                      <form ng-submit="optionData()">
+                        <md-list-item class="md-3-line" ng-repeat="x in today" ng-click="modal(x.Article, x.WordCnt, x.WriterId)">
+                          <div style="width:95%;" data-target="#optionModal" data-toggle="modal">
+                            <img src="includes/img/articleIcon.png" class="md-avatar" style="float:left"/>
+                            <div class="md-list-item-text">
+                            
+                              <h3 class="articleName">{{ x.Article }}</h3>
+                              <h4 class="wordsChanged">{{ x.WordCnt }} Words Changed</h4>
+                            </div>
+                          </div>
+                          <md-checkbox ng-model="deleteList[$index]" ng-checked="exists(x.WriterId, selected)" ng-click="toggle(x.WriterId, selected)" aria-label="checkbox">
+                            
+                          </md-checkbox>
+                        </md-list-item>
+                      </form>
+                      <!--Edit/Delete Modal-->
+                      <form ng-submit="editData()">
                           <div id="optionModal" class="modal fade" role="dialog">
                             <div class="modal-dialog">
                               <div class="modal-content">
@@ -54,20 +70,17 @@
                                   <h2 id="modalHeaderEditDelete">Task</h2>
                                 </div>
                                 <div class="modal-body">
-                                  <input name="articleName" class="form-control" value="{{modalArticle}}">
-                                  <input name="wordCnt" class="form-control" value="{{modalWordCnt}}">
-                                  <input name="writerId" class="form-control" value="{{modalWriterId}}" ng-hide="true">
+                                  <input type="text" class="inp form-control" ng-model="modalArticle" value="{{modalArticle}}" required>
+                                  <input type="text" class="inp form-control" ng-model="modalWordCnt" value="{{modalWordCnt}}" required>
                                 </div>
                                 <div class="modal-footer">
-                                  <button type="submit" class="btn btn-danger" ng-click="optionData('delDailyTask')" data-dismiss="modal">Delete <span class="fa fa-trash"></span></button>
-                                  <button type="submit" class="btn btn-warning" ng-click="optionData('editDailyTask')" data-dismiss="modal">Edit <span class="fa fa-edit"></span></button>
-                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                  <button type="submit" class="btn btn-warning" onclick="$('#optionModal').modal('hide');">Edit <span class="fa fa-edit"></span></button>
                                 </div>
                               </div>
                             </div>
                           </div>
                       </form>
-                      
+                      <!--END of Edit/Delete Modal-->
                       
                   </md-content>
                 </md-content>
@@ -216,9 +229,17 @@ $(document).ready(function(){
     var app = angular.module('taskFieldsApp', ['ngMaterial']);
     var x=0;
     app.controller('taskFieldsController', function($scope, $http, $mdDialog) {
+        $scope.data = {};
+        $scope.items= [];
+        $scope.selected = [];
         $scope.init = function () {
           $http.get("queries/getMyDailyTrackerToday.php").then(function (response) {
             $scope.today = response.data.records;
+            $scope.deleteList = [];
+            for($x=0; $x<$scope.today.length; $x++){
+              $scope.deleteList[$x] = false;
+              $scope.items.push($scope.today[$x].WriterId);
+            }
           });  
         };
         $scope.articleSet = {articles: []};
@@ -251,7 +272,7 @@ $(document).ready(function(){
             .parent(angular.element(document.querySelector('#popupContainer')))
             .clickOutsideToClose(true)
             .title('Successful Insertion!')
-            .textContent('You have successfully ADDED a Task.')
+            .textContent('You have successfully ADDED Tasks.')
             .ariaLabel('Alert Dialog Demo')
             .ok('Got it!')
             .targetEvent(ev)
@@ -265,6 +286,19 @@ $(document).ready(function(){
             .clickOutsideToClose(true)
             .title('Successful Deletion!')
             .textContent('You have successfully DELETED a Task.')
+            .ariaLabel('Alert Dialog Demo')
+            .ok('Got it!')
+            .targetEvent(ev)
+          );
+        }
+        
+        $scope.showEdit = function(ev) {
+          $mdDialog.show(
+            $mdDialog.alert()
+            .parent(angular.element(document.querySelector('#popupContainer')))
+            .clickOutsideToClose(true)
+            .title('Successful Edit!')
+            .textContent('You have successfully EDITED a Task.')
             .ariaLabel('Alert Dialog Demo')
             .ok('Got it!')
             .targetEvent(ev)
@@ -288,13 +322,32 @@ $(document).ready(function(){
               })
         };
 
-        $scope.optionData = function(baseURL) {
-          $http.post('delDailyTask.php', {
-            'id': $scope.modalWriterId
+        $scope.editData = function() {
+          $http.post('editDailyTask.php', {
+            'id': $scope.modalWriterId,
+            'article': $scope.modalArticle,
+            'wordCnt': $scope.modalWordCnt
           }).then(function(data, status){
                 $scope.init();
-                $scope.showDelete();
+                $scope.showEdit();
           })
+        };
+
+        $scope.delData = function() {
+          for($x=$scope.selected.length; $x>-1; $x--){
+            $http.post('delDailyTask.php', {
+              'id': $scope.selected[$x],
+            }).then(function(data, status){
+                $scope.init();
+            })
+            $scope.selected.splice($x, 1);
+            $ndx = $scope.items.indexOf($scope.selected);
+            $scope.items.splice($ndx, 1);
+          }
+          $scope.showDelete();
+          if($scope.selected.length==0){
+            $scope.delBtn = false;
+          }
         };
 
         $scope.modal = function(article, wordCnt, id) {
@@ -302,7 +355,44 @@ $(document).ready(function(){
             $scope.modalWordCnt = wordCnt;
             $scope.modalWriterId = id;
         };
-        
-    });
 
+    $scope.toggle = function (item, list) {
+      var idx = list.indexOf(item);
+      if (idx > -1) {
+        list.splice(idx, 1);
+      }
+      else {
+        list.push(item);
+      }
+      if(list.length>0){
+        $scope.delBtn = true;
+      }else{
+        $scope.delBtn = false;
+      }
+    };
+
+    $scope.exists = function (item, list) {
+      return list.indexOf(item) > -1;
+    };
+
+    $scope.isChecked = function() {
+      return $scope.selected.length === $scope.items.length;
+    };
+
+    $scope.toggleAll = function() {
+      if ($scope.selected.length === $scope.items.length) {
+        for($x=0; $x<$scope.selected.length; $x++){
+          $scope.deleteList[$x] = false;
+        }
+        $scope.selected = [];
+        $scope.delBtn = false;
+      } else if ($scope.selected.length === 0 || $scope.selected.length > 0) {
+        $scope.selected = $scope.items.slice(0);
+        for($x=0; $x<$scope.selected.length; $x++){
+          $scope.deleteList[$x] = true;
+        }
+        $scope.delBtn = true;
+      }
+    };
+  });
 </script>

@@ -7,7 +7,9 @@ $result = $mysqli->query("SELECT writer_id, article_title, word_cnt FROM writer_
 
 $outp = "";
 while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
-    if ($outp != "") {$outp .= ",";}
+    if ($outp != "") {
+        $outp .= ",";
+    }
     $outp .= '{"Article":"'  . $rs["article_title"] . '",';
     $outp .= '"WriterId":"'   . $rs["writer_id"]        . '",';
     $outp .= '"WordCnt":"'   . $rs["word_cnt"]        . '"}';
