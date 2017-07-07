@@ -3,11 +3,13 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 require("../sql_connect.php");
 
-$result = $mysqli->query("SELECT wordpress_developer_id, fix_bug_cnt, create_pages_cnt,
-            responsive_design_cnt, modify_pages_cnt, misc_cnt
-            FROM wordpress_developer_tracker
-            WHERE track_date = CURDATE() AND account_id=1"); /*$_SESSION['account_id']*/
+$result = $mysqli->query("SELECT `wordpress_developer_id`, `fix_bug_cnt`, `create_pages_cnt`,
+            `responsive_design_cnt`, `modify_pages_cnt`, `misc_cnt`
+            FROM `wordpress_developer_tracker`
+            WHERE `track_date` = CURDATE() AND `account_id`=1"); /*$_SESSION['account_id']*/
+            
 $rs = $result->fetch_array(MYSQLI_ASSOC);
+
 $outp = "";
 $outp .= '{"WordpressId":"'  . $rs["wordpress_developer_id"] . '",';
 $outp .= '"FixBugCnt":"'   . $rs["fix_bug_cnt"]        . '",';
