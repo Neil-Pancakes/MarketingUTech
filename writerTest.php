@@ -61,7 +61,7 @@
                           </md-checkbox>
                         </md-list-item>
                       </form>
-                      <!--Edit/Delete Modal-->
+                      <!--Edit Modal-->
                       <form ng-submit="editData()">
                           <div id="optionModal" class="modal fade" role="dialog">
                             <div class="modal-dialog">
@@ -80,7 +80,7 @@
                             </div>
                           </div>
                       </form>
-                      <!--END of Edit/Delete Modal-->
+                      <!--END of Edit Modal-->
                       
                   </md-content>
                 </md-content>

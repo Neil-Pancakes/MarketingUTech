@@ -7,7 +7,7 @@
         $article = $request['article'];
         $wordCnt = $request['wordCnt'];
 
-        $query = "UPDATE writer_tracker SET article_title = '$article', word_cnt = $wordCnt WHERE writer_id = $id";
+        $query = "UPDATE `writer_tracker` SET `article_title` = '$article', `word_cnt` = $wordCnt WHERE `writer_id` = $id";
 
         $result = mysqli_query($mysqli, $query);
     }

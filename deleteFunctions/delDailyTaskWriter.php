@@ -6,7 +6,7 @@
         $id = $request['id'];
         
     
-    $query = "DELETE FROM writer_tracker WHERE writer_id = $id";
+    $query = "DELETE FROM `writer_tracker` WHERE `writer_id` = $id";
 
     $result = mysqli_query($mysqli, $query);
   }

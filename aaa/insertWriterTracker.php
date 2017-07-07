@@ -7,7 +7,7 @@
     $words = $request['wordSet'];
 
     for($x=0; $x<count($articles); $x++){
-        $query = "INSERT INTO writer_tracker (article_title, word_cnt, track_date, entry_time, account_id) VALUES 
+        $query = "INSERT INTO `writer_tracker` (`article_title`, `word_cnt`, `track_date`, `entry_time`, `account_id`) VALUES 
         ('".$articles[$x]."', '".$words[$x]."', CURDATE(), NOW(), 1)";
         /*SELECT CONVERT(DATE, GetDate());*/
         $result = mysqli_query($mysqli, $query);
