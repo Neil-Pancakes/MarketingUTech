@@ -7,18 +7,15 @@ $result = $mysqli->query("SELECT `ojt_webdev_id`, `fix_bugs_cnt`, `responsive_cn
 						FROM `ojt_webdev_tracker` 
 						WHERE `track_date` = CURDATE() AND `account_id`=1"); /*$_SESSION['account_id']*/
 
+$rs = $result->fetch_array(MYSQLI_ASSOC);
 $outp = "";
-while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
-    if ($outp != "") {
-        $outp .= ",";
-    }
-    $outp .= '{"OJT WebDev ID":"'  . $rs["ojt_webdev_id"] . '",';
-    $outp .= '"Bug Fix Count":"'   . $rs["fix_bugs_cnt"]        . '",';
-    $outp .= '"Response Count":"'   . $rs["responsive_cnt"]        . '",';
-    $outp .= '"Backup Count":"'   . $rs["backup_cnt"]        . '",';
-    $outp .= '"Optimize Count":"'   . $rs["optimize_cnt"]        . '",';
-    $outp .= '"Misc":"'   . $rs["misc_cnt"]        . '"}';
-}
+$outp .= '{"OJT WebDev ID":"'  . $rs["ojt_webdev_id"] . '",';
+$outp .= '"Bug Fix Count":"'   . $rs["fix_bugs_cnt"]        . '",';
+$outp .= '"Response Count":"'   . $rs["responsive_cnt"]        . '",';
+$outp .= '"Backup Count":"'   . $rs["backup_cnt"]        . '",';
+$outp .= '"Optimize Count":"'   . $rs["optimize_cnt"]        . '",';
+$outp .= '"Misc":"'   . $rs["misc_cnt"]        . '"}';
+
 $outp ='{"records":['.$outp.']}';
 $mysqli->close();
 

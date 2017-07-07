@@ -7,14 +7,11 @@ $result = $mysqli->query("SELECT `seospecialist_id`, `daily_task`
 						FROM `seo_specialist_tracker` 
 						WHERE `track_date` = CURDATE() AND `account_id`=1"); /*$_SESSION['account_id']*/
 
+$rs = $result->fetch_array(MYSQLI_ASSOC);
 $outp = "";
-while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
-    if ($outp != "") {
-        $outp .= ",";
-    }
-    $outp .= '{"SEO Specialist ID":"'  . $rs["seospecialist_id"] . '",';
-    $outp .= '"Daily Task":"'   . $rs["daily_task"]        . '"}';
-}
+$outp .= '{"SEO Specialist ID":"'  . $rs["seospecialist_id"] . '",';
+$outp .= '"Daily Task":"'   . $rs["daily_task"]        . '"}';
+
 $outp ='{"records":['.$outp.']}';
 $mysqli->close();
 
