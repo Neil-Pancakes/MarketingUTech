@@ -78,7 +78,7 @@
                                   </div>
                                   <md-list-item class="md-3-line">
                                     <div style="width:95%;">
-                                      <img src="includes/img/pageIcon.png" class="md-avatar" style="float:left"/>
+                                      <img src="includes/img/imageIcon.png" class="md-avatar" style="float:left"/>
                                       <div class="md-list-item-text">
                                         <br>
                                         <h3>Featured Image</h3>
@@ -90,7 +90,7 @@
 
                                   <md-list-item class="md-3-line">
                                     <div style="width:95%;">
-                                      <img src="includes/img/responsiveDesign.png" class="md-avatar" style="float:left"/>
+                                      <img src="includes/img/designIcon.png" class="md-avatar" style="float:left"/>
                                       <div class="md-list-item-text">
                                         <br>
                                         <h3>Graphic Designing</h3>
@@ -102,7 +102,7 @@
 
                                   <md-list-item class="md-3-line">
                                     <div style="width:95%;">
-                                      <img src="includes/img/articleIcon.png" class="md-avatar" style="float:left"/>
+                                      <img src="includes/img/bannerIcon.png" class="md-avatar" style="float:left"/>
                                       <div class="md-list-item-text">
                                         <br>
                                         <h3>Banner</h3>
