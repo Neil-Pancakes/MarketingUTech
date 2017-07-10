@@ -23,57 +23,155 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Daily Tracker
-        <small>Role in the Company (Im an OJT)</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li>
-      </ol>
-    </section>
 
-    <!-- Main content -->
-    <section class="content">
+      <section class="content">
+        <div ng-cloak ng-controller="taskFieldsController" data-ng-init="init()">
+          <md-content>
+            <md-tabs md-dynamic-height md-border-bottom>
+              <md-tab label="daily tracker">
+                <md-content class="md-padding">
+                  <span class="md-display-2" >Daily Tracker </span>
+                  <md-button class="md-warn md-raised" ng-if="exists==true" ng-click="modal()" data-target="#optionModal" data-toggle="modal">Edit <span class="fa fa-edit"></span></md-button>
+                   <!--Edit Modal-->
+                      <form ng-submit="editData()" >
+                          <div id="optionModal" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h2 id="modalHeaderEditDelete">Task</h2>
+                                </div>
+                                <div class="modal-body">
+                                  <md-content layout-padding>
+                                    <div> 
+                                    <input ng-model="modalwordpressId" value="{{modalmultimediaId}}" hidden>
+                                      <md-input-container>
+                                          <label>Featured Image</label>
+                                          <input type="text" class="inp form-control" ng-model="modalfeaturedimgCnt" value="{{modalfixbugCnt}}">
+                                      </md-input-container>
+                                      <md-input-container>
+                                          <label>Graphic Designing</label>
+                                          <input type="text" class="inp form-control" ng-model="modalgraphicdesigningCnt" value="{{modalcreatepageCnt}}">
+                                      </md-input-container>
+                                      <md-input-container>
+                                          <label>Banner</label>
+                                          <input type="text" class="inp form-control" ng-model="modalbannerCnt" value="{{modalresponsivedesignCnt}}">
+                                      </md-input-container>
+                                      <md-input-container>
+                                          <label>Miscellaneous</label>
+                                          <input type="text" class="inp form-control" ng-model="modalmiscCnt" value="{{modalmiscCnt}}">
+                                      </md-input-container>
+                                  </div>
+                                </md-content>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="submit" class="btn btn-warning" onclick="$('#optionModal').modal('hide');">Edit <span class="fa fa-edit"></span></button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          </form>
+                          <!--END of Edit Modal-->
+                            <md-content>
+                              <md-list flex>
+                                  <div align="center">
+                                    <md-button ng-show="delBtn" type="submit" class=" md-raised" style="width:20%; background-color:darkred; color:white;">Delete <span class="fa fa-trash"></span></md-button>
+                                  </div>
+                                  <md-list-item class="md-3-line">
+                                    <div style="width:95%;">
+                                      <img src="includes/img/pageIcon.png" class="md-avatar" style="float:left"/>
+                                      <div class="md-list-item-text">
+                                        <br>
+                                        <h3>Featured Image</h3>
+                                        <h3 class="articleName">{{ today[0].FeaturedImageCnt }}</h3>
+                                        
+                                      </div>
+                                    </div>
+                                  </md-list-item>
 
-      <!-- Your Page Content Here -->
-      <div ng-controller="taskFieldsController">
-        <form action="#" method="GET">
-          <div id="taskHolderOjt" class="container">
-              <div class="jumbotron">
-                  <p style="font-size:30px;">Task Count for today </p>
-                  <md-content layout-padding>
-                       <div>
-                            <md-input-container>
-                                <label>Featured Image</label>
-                                <input style="font-size:20px" name="imageCnt" ng-model="user.p1" type="number" min="0">
-                            </md-input-container>
-                            <md-input-container>
-                                <label>Graphic Designing</label>
-                                <input style="font-size:20px" name="graphicCnt" ng-model="user.p2" type="number" min="0">
-                            </md-input-container>
-                            <md-input-container>
-                                <label>Banner</label>
-                                <input style="font-size:20px" name="bannerCnt" ng-model="user.p3" type="number" min="0">
-                            </md-input-container>
-                            <md-input-container>
-                                <label>Miscellaneous</label>
-                                <input style="font-size:20px" name="miscCnt" ng-model="user.p4" type="number" min="0">
-                            </md-input-container>
-                        </div>
-                  </md-content>
-                  <div class="footer" align="center">
-                      <md-button id="submitBtn" type="submit" class=" md-raised md-primary" ng-model="submitBtn">Submit</md-button>
-                  </div>
-              </div>
-          </div>
-        </form>
-      </div>
-      </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
+                                  <md-list-item class="md-3-line">
+                                    <div style="width:95%;">
+                                      <img src="includes/img/responsiveDesign.png" class="md-avatar" style="float:left"/>
+                                      <div class="md-list-item-text">
+                                        <br>
+                                        <h3>Graphic Designing</h3>
+                                        <h3 class="articleName">{{ today[0].GraphicDesigningCnt }}</h3>
+                                        
+                                      </div>
+                                    </div>
+                                  </md-list-item>
+
+                                  <md-list-item class="md-3-line">
+                                    <div style="width:95%;">
+                                      <img src="includes/img/articleIcon.png" class="md-avatar" style="float:left"/>
+                                      <div class="md-list-item-text">
+                                        <br>
+                                        <h3>Banner</h3>
+                                        <h3 class="articleName">{{ today[0].BannerCnt }}</h3>
+                                        
+                                      </div>
+                                    </div>
+                                  </md-list-item>
+
+                                  <md-list-item class="md-3-line">
+                                    <div style="width:95%;">
+                                      <img src="includes/img/miscIcon.png" class="md-avatar" style="float:left"/>
+                                      <div class="md-list-item-text">
+                                        <br>
+                                        <h3>Miscellaneous</h3>
+                                        <h3 class="articleName">{{ today[0].MiscCnt }}</h3>
+                                        
+                                      </div>
+                                    </div>
+                                  </md-list-item>
+                            </md-content>
+                          </md-content>
+                        </md-tab>
+                        <md-tab label="add tasks">
+                          <md-content class="md-padding">
+                            <form ng-submit="submitData()">
+                              <div id="taskHolderOjt" class="container" style="max-width:100%;">
+                                  <div class="jumbotron" ng-if="exists==false">
+                                      <p style="font-size:30px;">Task Count for today </p>
+                                      <md-content layout-padding>
+                                          <div>
+                                                <md-input-container>
+                                                    <label>Featured Image</label>
+                                                    <input style="font-size:20px" ng-model="obj.featuredimgCnt" type="number" min="0">
+                                                </md-input-container>
+                                                <md-input-container>
+                                                    <label>Graphic Designing</label>
+                                                    <input style="font-size:20px" ng-model="obj.graphicdesigningCnt" type="number" min="0">
+                                                </md-input-container>
+                                                <md-input-container>
+                                                    <label>Banner</label>
+                                                    <input style="font-size:20px" ng-model="obj.bannerCnt" type="number" min="0">
+                                                </md-input-container>
+                                                <md-input-container>
+                                                    <label>Miscellaneous</label>
+                                                    <input style="font-size:20px" ng-model="obj.miscCnt" type="number" min="0">
+                                                </md-input-container>
+                                            </div>
+                                      </md-content>
+                                      <div class="footer" align="center">
+                                          <md-button id="submitBtn" type="submit" class=" md-raised md-primary" ng-model="submitBtn">Submit</md-button>
+                                      </div>
+                                  </div>
+                                  <div class="jumbotron" ng-if="exists==true">
+                                    <h2>You have already created a Task Count today</h2>
+                                  </div>
+                              </div>
+                            </form>
+                          </md-content>
+                        </md-tab>
+                      </md-tabs>
+                    </md-content>
+                  </div>  
+
+                <!-- Your Page Content Here -->
+                </section>
+              <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
 
 
   <!-- Main Footer -->
@@ -175,39 +273,82 @@ $(document).ready(function(){
 <script>
     var app = angular.module('taskFieldsApp', ['ngMaterial']);
     var x=0;
-    app.controller('taskFieldsController', function($scope) {
-        $scope.taskSet = {tasks: []};
+    app.controller('taskFieldsController', function($scope, $http, $mdDialog) {
+      $scope.obj = {
+        $featuredimgCnt: 0,
+        $graphicdesigningCnt: 0,
+        $bannerCnt: 0,
+        $miscCnt: 0
+      };
+       $scope.init = function () {
+          $http.get("queries/getMyDailyTrackerTodayMultimediaTracker.php").then(function (response) {
+            $scope.today = response.data.records;
+            if($scope.today[0].MultimediaId==""){
+              $scope.exists=false;
+            }else{
+              $scope.exists=true;
+            }
+          });  
+        };
         
-        $scope.taskSet.tasks = [];
-        $scope.addNewTask = function() {
-          $scope.taskSet.tasks.push(''/*{'id': '', 'name':'taskList'}*/);
-          x++;
-          if(x>0){
-            $scope.show = true;
-          }
+        $scope.showAlert = function(ev) {
+          $mdDialog.show(
+            $mdDialog.alert()
+            .parent(angular.element(document.querySelector('#popupContainer')))
+            .clickOutsideToClose(true)
+            .title('Successful Insertion!')
+            .textContent('You have successfully ADDED your Task Count.')
+            .ariaLabel('Alert Dialog Demo')
+            .ok('Got it!')
+            .targetEvent(ev)
+          );
+        }
+
+        
+        $scope.showEdit = function(ev) {
+          $mdDialog.show(
+            $mdDialog.alert()
+            .parent(angular.element(document.querySelector('#popupContainer')))
+            .clickOutsideToClose(true)
+            .title('Successful Edit!')
+            .textContent('You have successfully EDITED your Task Count.')
+            .ariaLabel('Alert Dialog Demo')
+            .ok('Got it!')
+            .targetEvent(ev)
+          );
+        }
+
+        $scope.submitData = function() {
+          $http.post('insertFunctions/insertMultimediaTracker.php', {
+              'featuredimgCnt': $scope.obj.featuredimgCnt, 
+              'graphicdesigningCnt': $scope.obj.graphicdesigningCnt,
+              'bannerCnt': $scope.obj.bannerCnt,
+              'miscCnt': $scope.obj.miscCnt
+              }).then(function(data, status){
+                $scope.init();
+                $scope.showAlert();
+              })
         };
 
-        $scope.removeTask = function(z) {
-            $scope.taskSet.tasks.splice(z, 1);
-            if(x>0){
-              x--;
-            }
-            if(x==0){
-              $scope.show = false;
-            }
+        $scope.editData = function() {
+          $http.post('editFunctions/editDailyTaskMultimedia.php', {
+            'id': $scope.modalmultimediaId,
+            'featuredimgCnt': $scope.modalfeaturedimgCnt, 
+            'graphicdesigningCnt': $scope.modalgraphicdesigningCnt,
+            'bannerCnt': $scope.modalbannerCnt,
+            'miscCnt': $scope.modalmiscCnt
+          }).then(function(data, status){
+                $scope.init();
+                $scope.showEdit();
+          })
         };
-    });
 
-    app.config(function($mdThemingProvider) {
-
-    // Configure a dark theme with primary foreground yellow
-
-    $mdThemingProvider.theme('docs-dark', 'default')
-      .primaryPalette('yellow')
-      .dark();
-
-    
-
+        $scope.modal = function() {
+            $scope.modalmultimediaId = $scope.today[0].MultimediaId;
+            $scope.modalfeaturedimgCnt = $scope.today[0].FeaturedImageCnt;
+            $scope.modalgraphicdesigningCnt = $scope.today[0].GraphicDesigningCnt;
+            $scope.modalbannerCnt = $scope.today[0].BannerCnt;
+            $scope.modalmiscCnt = $scope.today[0].MiscCnt;
+        };
   });
-
 </script>

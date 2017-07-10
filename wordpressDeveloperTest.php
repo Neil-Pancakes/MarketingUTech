@@ -200,16 +200,6 @@
       <!-- Your Page Content Here -->
       </section>
     <!-- /.content -->
-
-
-    <!-- Main content -->
-    <section class="content">
-
-      <!-- Your Page Content Here -->
-      <div ng-controller="taskFieldsController">
-              </div>
-      </section>
-    <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
 

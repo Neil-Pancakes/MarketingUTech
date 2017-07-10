@@ -82,7 +82,7 @@
                                     <md-option ng-repeat="x in options">{{x}}</md-option>
                                 </md-select>
                             </md-input-container>
-                              <textarea ng-model="taskDescSet.taskDesc[$index]" placeholder="Task Description 
+                              <textarea ng-model="taskDescSet.taskDesc[$index]" placeholder="Miscellaneous 
 
     Ex: I did this today..." rows="15" name="taskDescList" id="comment_text" cols="20" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" style="border:solid 1px lightgrey; margin-left:5%;" ng-model="status.p7" required></textarea>
                         
