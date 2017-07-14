@@ -40,7 +40,7 @@
                   
                   <md-content>
                     <md-list flex>
-                      <md-checkbox aria-label="Select All" ng-checked="isChecked()" md-indeterminate="isIndeterminate()" ng-click="toggleAll()">
+                      <md-checkbox aria-label="Select All" ng-checked="isChecked()" ng-click="toggleAll()">
                         <span ng-if="isChecked()">Un-</span>Select All
                       </md-checkbox>
                       <form ng-submit="delData()">
@@ -348,6 +348,9 @@ $(document).ready(function(){
           if($scope.selected.length==0){
             $scope.delBtn = false;
           }
+          if($scope.selected.length == $scope.items.length){
+            $scope.isChecked();
+          }
         };
 
         $scope.modal = function(article, wordCnt, id) {
@@ -368,6 +371,9 @@ $(document).ready(function(){
         $scope.delBtn = true;
       }else{
         $scope.delBtn = false;
+      }
+      if(list.length==$scope.items.length){
+        $scope.isChecked();
       }
     };
 
