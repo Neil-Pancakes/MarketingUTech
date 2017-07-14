@@ -97,10 +97,6 @@
       </section>
     <!-- /.content -->
 
-
-    <!-- Main content -->
-    <section class="content">
-
   </div>
   <!-- /.content-wrapper -->
 
@@ -209,7 +205,7 @@ $(document).ready(function(){
         $dailytask: "",
       };
        $scope.init = function () {
-          $http.get("queries/getMyDailyTrackerTodayCustomerSupport.php").then(function (response) {
+          $http.get("queries/getMyDailyTrackerTodayCustomerSupportTracker.php").then(function (response) {
             $scope.today = response.data.records;
             if($scope.today[0].CustomerSupportId==""){
               $scope.exists=false;

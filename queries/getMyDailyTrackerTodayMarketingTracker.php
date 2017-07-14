@@ -7,14 +7,11 @@ $result = $mysqli->query("SELECT `marketing_id`, `daily_task`
                         FROM `marketing_tracker` 
                         WHERE `track_date` = CURDATE() AND `account_id`=1"); /*$_SESSION['account_id']*/
 
+
+$rs = $result->fetch_array(MYSQLI_ASSOC);
 $outp = "";
-while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
-    if ($outp != "") {
-        $outp .= ",";
-    }
-    $outp .= '{"Marketing ID":"'  . $rs["marketing_id"] . '",';
-    $outp .= '"Daily Task":"'   . $rs["daily_task"]        . '"}';
-}
+$outp .= '{"MarketingId":"'  . $rs["marketing_id"] . '",';
+$outp .= '"DailyTask":"'   . $rs["daily_task"]        . '"}';
 $outp ='{"records":['.$outp.']}';
 $mysqli->close();
 

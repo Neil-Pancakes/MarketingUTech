@@ -301,14 +301,6 @@ $(document).ready(function(){
 </script>
 
 <script>
-$(document).ready(function(){
-    document.getElementById("year").innerHTML = new Date().getFullYear();
-    $('#homeTab').removeClass('active');
-    $('#trackerTab').addClass('active');
-});
-</script>
-
-<script>
     var app = angular.module('taskFieldsApp', ['ngMaterial']);
     var x=0;
     app.controller('taskFieldsController', function($scope, $http, $mdDialog) {

@@ -49,7 +49,7 @@
                         </div>
                         <md-list-item class="md-3-line" ng-repeat="x in today" ng-click="modal(x.Article, x.WordCnt, x.WriterId)">
                           <div style="width:95%;" data-target="#optionModal" data-toggle="modal">
-                            <img src="includes/img/articleIcon.png" class="md-avatar" style="float:left"/>
+                            <img src="includes/img/writerIcon.png" class="md-avatar" style="float:left"/>
                             <div class="md-list-item-text">
                             
                               <h3 class="articleName">{{ x.Article }}</h3>

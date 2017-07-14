@@ -1,21 +1,20 @@
 <?php 
-  require("sql_connect.php");
+  require("../sql_connect.php");
   $postdata = file_get_contents("php://input");
   $request = json_decode($postdata, true);
   if(count($request>0)){
-    $content_id = $request['content_id'];
-    $curated_cnt = $request['curated_cnt'];
-    $drafted_cnt = $request['drafted_cnt'];
-    $pictures_cnt = $request['pictures_cnt'];
-    $videos_cnt = $request['videos_cnt'];
-    $misc_cnt = $request['misc_cnt'];
+    $curated_cnt = (isset($request['curatedCnt'])? $request['curatedCnt']:0);
+    $drafted_cnt = (isset($request['draftedCnt'])? $request['draftedCnt']:0);
+    $pictures_cnt = (isset($request['pictureCnt'])? $request['pictureCnt']:0);
+    $videos_cnt = (isset($request['videoCnt'])? $request['videoCnt']:0);
+    $misc_cnt = (isset($request['miscCnt'])? $request['miscCnt']:0);
 
 
-    for($x=0; $x<count($articles); $x++){
-        $query = "INSERT INTO `content_marketing_assistant`(`content_marketing_assistant_id`, `curated_cnt`, `drafted_cnt`, `pictures_cnt`, `videos_cnt`, `misc_cnt`, `track_date`, `entry_time`, `account_id`) VALUES (".$content_id",".$curated_cnt",".$drafted_cnt",".$pictures_cnt",".$videos_cnt",".$misc_cnt",CURDATE(),NOW(),1)";)
-        /*SELECT CONVERT(DATE, GetDate());*/
-        $result = mysqli_query($mysqli, $query);
-    }
+    $query = "INSERT INTO `content_marketing_assistant_tracker`(`curated_cnt`, `drafted_cnt`, `pictures_cnt`, 
+        `videos_cnt`, `misc_cnt`, `track_date`, `entry_time`, `account_id`) 
+        VALUES ($curated_cnt, $drafted_cnt, $pictures_cnt, $videos_cnt, $misc_cnt,
+        CURDATE(),NOW(),1)";
+    $result = mysqli_query($mysqli, $query);
   }else{
       echo "error";
   }

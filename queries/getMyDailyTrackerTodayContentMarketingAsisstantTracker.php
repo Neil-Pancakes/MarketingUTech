@@ -7,18 +7,16 @@ $result = $mysqli->query("SELECT `content_marketing_assistant_id`, `curated_cnt`
 						FROM `content_marketing_assistant_tracker` 
 						WHERE `track_date` = CURDATE() AND `account_id`=1"); /*$_SESSION['account_id']*/
 
+$rs = $result->fetch_array(MYSQLI_ASSOC);
+
 $outp = "";
-while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
-    if ($outp != "") {
-        $outp .= ",";
-    }
-    $outp .= '{"Content Marketing Assistant ID":"'  . $rs["content_marketing_assistant_id"] . '",';
-    $outp .= '"Curated Count":"'   . $rs["curated_cnt"]        . '",';
-    $outp .= '"Drafted Count":"'   . $rs["drafted_cnt"]        . '",';
-    $outp .= '"Picture Count":"'   . $rs["pictures_cnt"]        . '",';
-    $outp .= '"Video Count":"'   . $rs["videos_cnt"]        . '",';
-    $outp .= '"Misc":"'   . $rs["misc_cnt"]        . '"}';
-}
+$outp .= '{"ContentMarketingAssistantId":"'  . $rs["content_marketing_assistant_id"] . '",';
+$outp .= '"CuratedCnt":"'   . $rs["curated_cnt"]        . '",';
+$outp .= '"DraftedCnt":"'   . $rs["drafted_cnt"]        . '",';
+$outp .= '"PictureCnt":"'   . $rs["pictures_cnt"]        . '",';
+$outp .= '"VideoCnt":"'   . $rs["videos_cnt"]        . '",';
+$outp .= '"MiscCnt":"'   . $rs["misc_cnt"]        . '"}';
+
 $outp ='{"records":['.$outp.']}';
 $mysqli->close();
 

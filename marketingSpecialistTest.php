@@ -32,26 +32,70 @@
     </section>
 
     <!-- Main content -->
+
+  <!-- Main content -->
     <section class="content">
+        <div ng-cloak ng-controller="taskFieldsController" data-ng-init="init()">
+          <md-content>
+            <md-tabs md-dynamic-height md-border-bottom>
+              <md-tab label="daily tracker">
+                <md-content class="md-padding">
+                  <span class="md-display-2" >Daily Tracker </span>
+                  <md-button class="md-warn md-raised" ng-if="exists==true" ng-click="modal()" data-target="#optionModal" data-toggle="modal">Edit <span class="fa fa-edit"></span></md-button>
+                  <md-card>
+                    <md-card-content>
+                        <div>{{today[0].DailyTask}}</div>
+                    </md-card-content>
+                  </md-card>
+                  <!--Edit Modal-->
+                      <form ng-submit="editData()">
+                          <div id="optionModal" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h2 id="modalHeaderEditDelete">Task</h2>
+                                </div>
+                                <div class="modal-body">
+                                  <input ng-model="modalmarketingId" hidden>
+                                  <textarea ng-model="modaldailytask" rows="15" ng-model="obj.dailyTask" id="comment_text" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="submit" class="btn btn-warning" onclick="$('#optionModal').modal('hide');">Edit <span class="fa fa-edit"></span></button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      </form>
+                      <!--END of Edit <Modal--></Modal-->
+                </md-content>         
+              </md-tab>
+                    <md-tab label="add tasks">
+                        <md-content class="md-padding" ng-if="exists==false">
+                            <form ng-submit="submitData()">
+                                <div id="taskHolderOjt" class="container">
+                                    <div class="jumbotron">
+                                        <p style="font-size:30px;">Tasks for today</p>
+                                        <div class="task-group">
+                                            <textarea placeholder="Task Description 
+
+                        Ex: I did this today..." rows="15" ng-model="obj.dailyTask" id="comment_text" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
+                                            <div class="footer" align="center">
+                                                <md-button id="submitBtn" type="submit" class=" md-raised md-primary" ng-model="submitBtn" style="width:60%; margin-right:10%">Submit</md-button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </md-content>
+                        <div class="jumbotron" ng-if="exists==true">
+                          <h2>You have already created a Task today</h2>
+                        </div>
+              </md-tab>
+            </md-tabs>
+          </md-content>
+        </div>  
 
       <!-- Your Page Content Here -->
-      <div ng-controller="taskFieldsController">
-        <form action="#" method="GET">
-          <div id="taskHolderOjt" class="container">
-              <div class="jumbotron">
-                  <p style="font-size:30px;">Tasks for today</p>
-                  <div class="task-group">
-                      <textarea placeholder="Task Description 
-
-Ex: I did this today..." rows="15" name="taskDesc" id="comment_text" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
-                    <div class="footer" align="center">
-                        <md-button id="submitBtn" type="submit" class=" md-raised md-primary" ng-model="submitBtn" style="width:60%; margin-right:10%">Submit</md-button>
-                    </div>
-                  </div>
-              </div>
-          </div>
-        </form>
-      </div>
       </section>
     <!-- /.content -->
   </div>
@@ -154,10 +198,74 @@ $(document).ready(function(){
 });
 </script>
 
+
 <script>
     var app = angular.module('taskFieldsApp', ['ngMaterial']);
-    app.controller('taskFieldsController', function($scope) {
+    var x=0;
+    app.controller('taskFieldsController', function($scope, $http, $mdDialog) {
+      $scope.obj = {
+        $dailytask: "",
+      };
+       $scope.init = function () {
+          $http.get("queries/getMyDailyTrackerTodayMarketingTracker.php").then(function (response) {
+            $scope.today = response.data.records;
+            if($scope.today[0].MarketingId==""){
+              $scope.exists=false;
+            }else{
+              $scope.exists=true;
+            }
+          });  
+        };
         
-    });
+        $scope.showAlert = function(ev) {
+          $mdDialog.show(
+            $mdDialog.alert()
+            .parent(angular.element(document.querySelector('#popupContainer')))
+            .clickOutsideToClose(true)
+            .title('Successful Insertion!')
+            .textContent('You have successfully ADDED a Task.')
+            .ariaLabel('Alert Dialog Demo')
+            .ok('Got it!')
+            .targetEvent(ev)
+          );
+        }
 
+        
+        $scope.showEdit = function(ev) {
+          $mdDialog.show(
+            $mdDialog.alert()
+            .parent(angular.element(document.querySelector('#popupContainer')))
+            .clickOutsideToClose(true)
+            .title('Successful Edit!')
+            .textContent('You have successfully EDITED your Task.')
+            .ariaLabel('Alert Dialog Demo')
+            .ok('Got it!')
+            .targetEvent(ev)
+          );
+        }
+
+        $scope.submitData = function() {
+          $http.post('insertFunctions/insertMarketingTracker.php', {
+              'dailyTask': $scope.obj.dailyTask
+              }).then(function(data, status){
+                $scope.init();
+                $scope.showAlert();
+              })
+        };
+
+        $scope.editData = function() {
+          $http.post('editFunctions/editDailyTaskMarketing.php', {
+            'id': $scope.modalmarketingId,
+            'dailytask': $scope.modaldailytask
+          }).then(function(data, status){
+                $scope.init();
+                $scope.showEdit();
+          })
+        };
+
+        $scope.modal = function() {
+            $scope.modalmarketingId = $scope.today[0].MarketingId;
+            $scope.modaldailytask = $scope.today[0].DailyTask;
+        };
+  });
 </script>
