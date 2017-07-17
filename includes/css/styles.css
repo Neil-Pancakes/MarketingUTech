@@ -18,3 +18,9 @@
   line-height: 1.4em;
   padding: 5px 8px;
 }
+
+#timestamp {
+  margin: auto;
+  text-align: center;
+  font-size: 5em;
+}

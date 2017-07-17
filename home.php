@@ -1,5 +1,6 @@
 <?php
-  include("dashboard.php");
+  require ("php_globals.php");
+  include ("dashboard.php");
 ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -7,8 +8,8 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Page Header
-        <small>Optional description</small>
+        Time Keeper
+        <small>UniversalTech</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
@@ -19,7 +20,28 @@
     <!-- Main content -->
     <section class="content">
     
-    <span id="clock>">Oten</span>
+    <div id="timestamp"></div>
+
+    <?php
+      $query = "SELECT `timeIn`, `timeOut`
+            FROM `timetable`
+            WHERE DATE(`date`) = DATE(CURRENT_TIMESTAMP)";
+      $result = mysqli_query($mysqli, $query);
+      if ($result->num_rows == 1){
+        echo "1 result found for today";
+        $row = mysqli_fetch_assoc($result);
+        if ($row['timeIn'] == 0) {
+          echo '<button type="button" class="btn btn-success">Time In</button>';
+        } else if ($row['timeIn'] != 0 && $row['timeOut'] == 0) {
+          echo '<button type="button" class="btn btn-danger">Time Out</button>';
+        }
+      } else {
+        echo "no entry for today";
+        //header("location:functions/timeInOut");
+      }
+      
+    ?>
+
 
     </section>
     <!-- /.content -->
@@ -118,22 +140,17 @@
 <script>
 $(document).ready(function(){
     $('#homeTab').addClass('active');
+
+    setInterval(timestamp, 1000);
 });
 
-var updateClock = function() {
-    function pad(n) {
-        return (n < 10) ? '0' + n : n;
-    }
-
-    var now = new Date();
-    var s = pad(now.getUTCHours()) + ':' +
-            pad(now.getUTCMinutes()) + ':' +
-            pad(now.getUTCSeconds());
-
-    $('#clock').html(s);
-
-    var delay = 1000 - (now % 1000);
-    setTimeout(updateClock, delay);
-};
+function timestamp() {
+    $.ajax({
+        url: "functions/timestamp.php",
+        success: function(data) {
+            $('#timestamp').html(data);
+        },
+    });
+}
 
 </script>
