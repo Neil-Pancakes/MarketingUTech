@@ -240,9 +240,10 @@
       </form>
       <!-- /.search form -->
 
+
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
-        <li class="header">HEADER</li>
+        <li class="header">UTech</li>
         <!-- Optionally, you can add icons to the links -->
         <li id="homeTab"><a href="home.php"><i class="fa fa-home"></i> <span>Home</span></a></li>
         <li id="trackerTab"><a href="tracker.php"><i class="fa fa-link"></i> <span>Tracker</span></a></li>
@@ -258,6 +259,8 @@
           </ul>
         </li>
       </ul>
+
+
       <!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->
