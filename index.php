@@ -1,12 +1,6 @@
 <?php
   session_start();
-  if(isset($_GET['lo'])){
-    session_destroy();
-  }
 
-  if(isset($_SESSION['userid'])){
-    header("location: pages/main-page.php");
-  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,7 +35,7 @@
 
     <div class="container">
 
-      <form class="form-signin" method="POST" action="app/php/">
+      <form class="form-signin" method="POST" action="functions/login">
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
@@ -71,7 +65,7 @@
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
       xhr.onload = function() {
         console.log('Signed in as: ' + xhr.responseText);
-        window.location.href = "pages/main-page.php";
+        window.location.href = "home.php";
       };
       xhr.send('idtoken=' + id_token);
     }

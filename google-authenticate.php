@@ -21,7 +21,7 @@
 	  //echo json_encode($userid);
 
 	  $qryUser =
-	  	'SELECT oauth_uid, firstName, lastName, email 
+	  	'SELECT id, oauth_uid, firstName, lastName, email 
 	  	 FROM users 
 	  	 WHERE oauth_uid = ' .$userid;
 	  $result = mysqli_query($mysqli, $qryUser);
@@ -37,9 +37,10 @@
 	  			session_start();
 
 	  			$row = mysqli_fetch_assoc($result);
-	  			$_SESSION['userid'] = $row['oauth_uid'];
-		  		$_SESSION['given_name'] = $row['firstName'];
-		  		$_SESSION['family_name'] = $row['lastName'];
+	  			$_SESSION['id'] = $row['id'];
+	  			$_SESSION['oauth_uid'] = $row['oauth_uid'];
+		  		$_SESSION['firstName'] = $row['firstName'];
+		  		$_SESSION['lastName'] = $row['lastName'];
 		  		$_SESSION['email'] = $row['email'];
 	  		}
 	  	}else{ 
@@ -48,11 +49,12 @@
 	  }else{
 	  	session_start();
 
-			$row = mysqli_fetch_assoc($result);
-			$_SESSION['userid'] = $row['oauth_uid'];
-  		$_SESSION['given_name'] = $row['firstName'];
-  		$_SESSION['family_name'] = $row['lastName'];
-  		$_SESSION['email'] = $row['email'];
+		$row = mysqli_fetch_assoc($result);
+		$_SESSION['id'] = $row['id'];
+		$_SESSION['oauth_uid'] = $row['oauth_uid'];
+		$_SESSION['firstName'] = $row['firstName'];
+		$_SESSION['lastName'] = $row['lastName'];
+		$_SESSION['email'] = $row['email'];
 	  }
 	} else {
 	  // Invalid ID token

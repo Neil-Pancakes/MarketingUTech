@@ -9,6 +9,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Google Sign-in -->
+    <meta name="google-signin-client_id" content="746015490934-gl3bvgacv9oq9b3kg1gpj4s2m76pa62j.apps.googleusercontent.com"/>
 
     <title>Daily Tracker</title>
 
@@ -20,12 +22,22 @@
     <script src="includes/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <!-- AdminLTE App -->
     <script src="includes/AdminLTE-2.3.11/dist/js/app.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+    <!-- Google Signout JS !-->
+    <script src="includes/js/googleSignout.js"></script>
+    <!-- Google Sign-in API -->
+    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+
     <script>
       $(document).ready(function(){
          $('#homeTab').addClass('active');
       })
     </script>
-
+    <!-- Styles.css !-->
     <link rel="stylesheet" href="includes/css/styles.css">
 
     <link rel="stylesheet" href="includes/bootstrap-3.3.7-dist/css/bootstrap.min.css">
@@ -35,12 +47,7 @@
     <link rel="stylesheet" href="includes/AdminLTE-2.3.11/dist/css/skins/skin-purple.min.css">
     <link rel="shortcut icon" href="includes/img/universaltechlogo2.jpg" />
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">   
 
   </head>
 
@@ -203,7 +210,7 @@
                     <a href="#" class="btn btn-default btn-flat">Profile</a>
                   </div>
                   <div class="pull-right">
-                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                    <a href="#" onclick="signOut()" class="btn btn-default btn-flat">Sign out</a>
                   </div>
                 </li>
               </ul>
