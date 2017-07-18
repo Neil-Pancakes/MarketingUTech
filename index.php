@@ -1,6 +1,11 @@
 <?php
+  ob_start();
   session_start();
 
+  if(isset($_SESSION['loggedin'])){
+    header("location: home.php");
+    die();
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,8 +13,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Google Sign-in Client ID-->
-    <meta name="google-signin-client_id" content="746015490934-gl3bvgacv9oq9b3kg1gpj4s2m76pa62j.apps.googleusercontent.com" />
+    <!-- Google Sign-in -->
+    <meta name="google-signin-client_id" content="746015490934-gl3bvgacv9oq9b3kg1gpj4s2m76pa62j.apps.googleusercontent.com"/>
+    <!-- Google Signout JS !-->
+    <script src="includes/js/googleSignout.js"></script>
+    <!-- Google Sign-in API -->
+    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 
     <title>Sign in</title>
 
@@ -58,17 +67,15 @@
     function onSuccess(googleUser) {
       var id_token = googleUser.getAuthResponse().id_token;
 
-      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-
       var xhr = new XMLHttpRequest();
-      xhr.open('POST', 'app/php/google-authenticate.php');
-      
-/*      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xhr.open('POST', 'functions/google-authenticate.php');
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
       xhr.onload = function() {
         console.log('Signed in as: ' + xhr.responseText);
+        console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
         window.location.href = "home.php";
       };
-      xhr.send('idtoken=' + id_token);*/
+      xhr.send('idtoken=' + id_token);
     }
     function onFailure(error) {
       console.log(error);

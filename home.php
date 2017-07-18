@@ -1,6 +1,6 @@
 <?php
-  require ("php_globals.php");
-  include ("dashboard.php");
+  ob_start();
+  require ("dashboard.php");
 ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -19,29 +19,29 @@
 
     <!-- Main content -->
     <section class="content">
-    
-    <div id="timestamp"></div>
 
-    <?php
-      $query = "SELECT `timeIn`, `timeOut`
-            FROM `timetable`
-            WHERE DATE(`date`) = DATE(CURRENT_TIMESTAMP)";
-      $result = mysqli_query($mysqli, $query);
-      if ($result->num_rows == 1){
-        echo "1 result found for today";
-        $row = mysqli_fetch_assoc($result);
-        if ($row['timeIn'] == 0) {
-          echo '<button type="button" class="btn btn-success">Time In</button>';
-        } else if ($row['timeIn'] != 0 && $row['timeOut'] == 0) {
-          echo '<button type="button" class="btn btn-danger">Time Out</button>';
-        }
-      } else {
-        echo "no entry for today";
-        //header("location:functions/timeInOut");
-      }
-      
-    ?>
-
+    <div class="col-lg-12">
+      <div id="timestamp"></div>
+        <div class="col-md-4 text-center">
+          <?php
+          $query = "SELECT `timeIn`, `timeOut`
+                FROM `timetable`
+                WHERE DATE(`date`) = DATE(CURRENT_TIMESTAMP)";
+          $result = mysqli_query($mysqli, $query);
+          if ($result->num_rows == 1){
+            $row = mysqli_fetch_assoc($result);
+            if ($row['timeIn'] == 0) {
+              echo '<button type="button" class="btn btn-success timeBtn" id="btnTimeIn">Time In</button>';
+            } else if ($row['timeIn'] != 0 && $row['timeOut'] == 0) {
+              echo '<button type="button" class="btn btn-danger timeBtn" id="btnTimeOut">Time Out</button>';
+            }
+          } else {
+            header("location:functions/timeInOut.php?newDays");
+          }
+          
+          ?>
+        </div>
+      </div>
 
     </section>
     <!-- /.content -->
@@ -152,5 +152,13 @@ function timestamp() {
         },
     });
 }
+
+$('#btnTimeIn').click(function (){
+  window.location.href = "functions/timeInOut.php?timeIn";
+});
+
+$('#btnTimeOut').click(function (){
+  window.location.href = "functions/timeInOut.php?timeOut";
+});
 
 </script>

@@ -1,4 +1,9 @@
 <?php
+  include("functions/sql_connect.php");
+  session_start();
+/*  if(!$_SESSION['loggedin']){
+    header("location:index.php");
+  }*/
   date_default_timezone_set("Asia/Manila");
 ?>
 
@@ -11,7 +16,11 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Google Sign-in -->
     <meta name="google-signin-client_id" content="746015490934-gl3bvgacv9oq9b3kg1gpj4s2m76pa62j.apps.googleusercontent.com"/>
-
+    <!-- Google Signout JS !-->
+    <script src="includes/js/googleSignout.js"></script>
+    <!-- Google Sign-in API -->
+    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+    
     <title>Daily Tracker</title>
 
     <!-- REQUIRED JS SCRIPTS -->
@@ -27,10 +36,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
-    <!-- Google Signout JS !-->
-    <script src="includes/js/googleSignout.js"></script>
-    <!-- Google Sign-in API -->
-    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 
     <script>
       $(document).ready(function(){

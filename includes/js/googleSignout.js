@@ -3,7 +3,7 @@ function signOut() {
   auth2.signOut().then(function () {
     localStorage.clear();
     console.log('User signed out.');
-    window.location.href = "login";
+    window.location.href = "../../functions/destroy_session.php";
   });
 }
 
