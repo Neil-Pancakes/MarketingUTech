@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 17, 2017 at 02:47 PM
+-- Generation Time: Jul 18, 2017 at 08:29 AM
 -- Server version: 5.6.25
 -- PHP Version: 5.6.11
 
@@ -60,6 +60,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `firstName` varchar(255) NOT NULL,
   `lastName` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `type` enum('OJT','Trainee','Probationary','Regular') DEFAULT NULL,
   `jobTitle` varchar(255) DEFAULT NULL,
   `birthday` date DEFAULT NULL,
@@ -81,8 +82,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `oauth_uid`, `firstName`, `lastName`, `email`, `type`, `jobTitle`, `birthday`, `dateHired`, `noOfAbsences`, `hoursLate`, `contactNumber`, `monthlyRate`, `scheduledTimeIn`, `scheduledTimeOut`, `OJT_hoursTotal`, `OJT_hoursRemaining`, `OJT_allowanceDaily`, `created`, `modified`) VALUES
-(1, '114331649460731421461', 'Francis', 'Yap', 'francisyap.utech@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-07-04 17:55:07', '2017-07-04 17:55:07');
+INSERT INTO `users` (`id`, `oauth_uid`, `firstName`, `lastName`, `email`, `password`, `type`, `jobTitle`, `birthday`, `dateHired`, `noOfAbsences`, `hoursLate`, `contactNumber`, `monthlyRate`, `scheduledTimeIn`, `scheduledTimeOut`, `OJT_hoursTotal`, `OJT_hoursRemaining`, `OJT_allowanceDaily`, `created`, `modified`) VALUES
+(1, '114331649460731421461', 'Francis', 'Yap', 'francisyap.utech@gmail.com', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-07-04 17:55:07', '2017-07-04 17:55:07');
 
 --
 -- Indexes for dumped tables

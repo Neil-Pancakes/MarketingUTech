@@ -62,12 +62,13 @@
 
       var xhr = new XMLHttpRequest();
       xhr.open('POST', 'app/php/google-authenticate.php');
-      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      
+/*      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
       xhr.onload = function() {
         console.log('Signed in as: ' + xhr.responseText);
         window.location.href = "home.php";
       };
-      xhr.send('idtoken=' + id_token);
+      xhr.send('idtoken=' + id_token);*/
     }
     function onFailure(error) {
       console.log(error);

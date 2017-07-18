@@ -1,6 +1,7 @@
 <?php
 	require('sql_connect.php');
 	require_once '../../vendor/autoload.php';
+	session_start();
 
 	// Get $id_token via HTTPS POST.
 	$id_token = $_POST['idtoken'];
@@ -15,11 +16,6 @@
 	  $family_name = $payload['family_name'];
 	  $email = $payload['email'];
 
-	  // If request specified a G Suite domain:
-	  //$domain = $payload['hd'];
-
-	  //echo json_encode($userid);
-
 	  $qryUser =
 	  	'SELECT id, oauth_uid, firstName, lastName, email 
 	  	 FROM users 
@@ -27,15 +23,13 @@
 	  $result = mysqli_query($mysqli, $qryUser);
 
 	  if(mysqli_num_rows($result) == 0) {
-	  	$insertUser = mysqli_query($mysqli, 
-	  		'INSERT INTO users (oauth_uid, firstName, lastName, email)
-			 VALUES ("'.$userid.'", "'.$given_name.'", "'.$family_name.'", "'.$email.'")
-	  	');
-	  	if($insertUser) {
-	  		//$result = mysqli_query($mysqli, $qryUser);
-	  		if(mysqli_num_rows($result) > 0){
-	  			session_start();
 
+	  	$query = 'INSERT INTO users (oauth_uid, firstName, lastName, email)
+			 VALUES ("'.$userid.'", "'.$given_name.'", "'.$family_name.'", "'.$email.'")';
+	  	$insertUser = mysqli_query($mysqli,$query);
+
+	  	if($insertUser) {
+	  		if(mysqli_num_rows($result) > 0){
 	  			$row = mysqli_fetch_assoc($result);
 	  			$_SESSION['id'] = $row['id'];
 	  			$_SESSION['oauth_uid'] = $row['oauth_uid'];
@@ -47,8 +41,6 @@
 	  		echo 'Insertion Error!';
 	  	}
 	  }else{
-	  	session_start();
-
 		$row = mysqli_fetch_assoc($result);
 		$_SESSION['id'] = $row['id'];
 		$_SESSION['oauth_uid'] = $row['oauth_uid'];
