@@ -1,6 +1,6 @@
 ![alt text](https://media.licdn.com/media/p/1/000/1be/032/258c49b.png "UniversalTech")
 # Employee Tracking System
-<strong>Exclusively for UniversalTech</strong>
+Exclusively for UniversalTech
 ---
 ## Authors
 **Time Keeping Module, Admin Dashboard, Reports**
@@ -8,6 +8,7 @@
    * Tristan James Lerias
    * Melvin Gaviola
    * Daniel Hans Tan
+
 **Task Tracker Module**
    * Neil Llenes
    * Jesus Manuel Ramos
@@ -29,4 +30,4 @@ Information present in this README is currently tentative and is subject to chan
 
 ---
 
-**All Rights Reserved 2017**
+**All Rights Reserved &copy 2017**
