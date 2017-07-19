@@ -24,6 +24,8 @@ Another purpose is to simplify the current method of HR in calculating the salar
 ---
 **DISCLAIMER**
 
-	Information present in this README is currently tentative and is subject to change.
+Information present in this README is currently tentative and is subject to change.
+
+---
 
 **All Rights Reserved 2017**
