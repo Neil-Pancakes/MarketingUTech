@@ -15,7 +15,7 @@
       }
     </style>
 </head>
-<body ng-app="taskFieldsApp" >
+<body ng-app="taskFieldsApp">
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -221,6 +221,7 @@
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
+</body>
 <script>
 $(document).ready(function(){
     document.getElementById("year").innerHTML = new Date().getFullYear();
