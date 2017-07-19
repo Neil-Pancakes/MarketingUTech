@@ -1,5 +1,7 @@
 ![alt text](https://media.licdn.com/media/p/1/000/1be/032/258c49b.png "UniversalTech")
+
 # Employee Tracking System
+
 Exclusively for UniversalTech
 ---
 ## Authors
@@ -30,4 +32,4 @@ Information present in this README is currently tentative and is subject to chan
 
 ---
 
-**All Rights Reserved &copy 2017**
+<p>All Rights Reserved &copy; 2017</p>
