@@ -12,7 +12,7 @@
    * Daniel Hans Tan
 
 **Task Tracker Module**
-   * Neil Llenes
+   * Neil Patrick Llenes
    * Jesus Manuel Ramos
    * Paulo Jade Rivera
 ---
