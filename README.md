@@ -1,7 +1,7 @@
 ![alt text](https://media.licdn.com/media/p/1/000/1be/032/258c49b.png "UniversalTech")
 
 # Employee Tracking System
-<p>Exclusively for UniversalTech</p>
+<p><strong>Exclusively for UniversalTech</strong></p>
 
 ---
 ## Authors
