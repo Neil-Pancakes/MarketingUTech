@@ -1,9 +1,6 @@
 <?php
+  include("functions/ifNotLoggedIn.php");
   include("functions/sql_connect.php");
-  session_start();
-/*  if(!$_SESSION['loggedin']){
-    header("location:index.php");
-  }*/
   date_default_timezone_set("Asia/Manila");
 ?>
 
@@ -16,44 +13,33 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Google Sign-in -->
     <meta name="google-signin-client_id" content="746015490934-gl3bvgacv9oq9b3kg1gpj4s2m76pa62j.apps.googleusercontent.com"/>
-    <!-- Google Signout JS !-->
-    <script src="includes/js/googleSignout.js"></script>
-    <!-- Google Sign-in API -->
-    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
-    
-    <title>Daily Tracker</title>
+
+    <title>UniversalTech</title>
 
     <!-- REQUIRED JS SCRIPTS -->
+    <script src="includes/js/jquery-3.2.1.min.js"></script>
+    <script src="includes/js/bootstrap.min.js"></script>
+    <script src="includes/js/AdminLTE_app.min.js"></script>
+    <script src="includes/js/angular.min.js"></script>
+    <script src="includes/js/angular-animate.min.js"></script>
+    <script src="includes/js/angular-aria.min.js"></script>
+    <script src="includes/js/angular-messages.min.js"></script>
+    <script src="includes/js/angular-material.min.js"></script>
+    <script src="includes/js/googleSignout.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 
-    <!-- jQuery 3.2.1 -->
-    <script src="includes/jQuery/jquery-3.2.1.min.js"></script>
-    <!-- Bootstrap 3.3.7 -->
-    <script src="includes/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="includes/AdminLTE-2.3.11/dist/js/app.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
-
-    <script>
-      $(document).ready(function(){
-         $('#homeTab').addClass('active');
-      })
-    </script>
     <!-- Styles.css !-->
     <link rel="stylesheet" href="includes/css/styles.css">
-
-    <link rel="stylesheet" href="includes/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="includes/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="includes/ionicons-2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="includes/AdminLTE-2.3.11/dist/css/AdminLTE.min.css">
-    <link rel="stylesheet" href="includes/AdminLTE-2.3.11/dist/css/skins/skin-purple.min.css">
-    <link rel="shortcut icon" href="includes/img/universaltechlogo2.jpg" />
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+    <link rel="stylesheet" href="includes/css/bootstrap.min.css">
+    <link rel="stylesheet" href="includes/css/font-awesome.min.css">
+    <link rel="stylesheet" href="includes/css/ionicons.min.css">
+    <link rel="stylesheet" href="includes/css/AdminLTE/AdminLTE.min.css">
+    <link rel="stylesheet" href="includes/css/AdminLTE/skins/skin-purple.min.css">
+    <link rel="stylesheet" href="includes/css/angular-material.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">   
 
+    <link rel="shortcut icon" href="includes/img/universaltechlogo2.jpg" />
+  
   </head>
 
   <body class="hold-transition skin-purple sidebar-mini">
@@ -64,11 +50,11 @@
     <header class="main-header">
 
       <!-- Logo -->
-      <a href="#" class="logo">
+      <a href="home.php" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>U</b>T</span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><!--<img src="includes/img/universaltechlogo2.jpg" id="headerLogo">-->  <b>Universal</b> Tech</span>
+        <span class="logo-lg"><b>Universal</b> Tech</span>
       </a>
 
       <!-- Header Navbar -->
@@ -228,60 +214,11 @@
         </div>
       </nav>
     </header>
-    <!-- Left side column. contains the logo and sidebar -->
-    <aside class="main-sidebar">
+    
+    <?php
+      //loads sidebar from external php
+      include ("dashboard/sidebar.php");
+    ?>
 
-      <!-- sidebar: style can be found in sidebar.less -->
-      <section class="sidebar">
-
-        <!-- Sidebar user panel (optional) -->
-        <div class="user-panel">
-          <div class="pull-left image">
-            <img src="includes/img/fancy2.png" class="img-circle" alt="User Image">
-          </div>
-          <div class="pull-left info">
-            <p>User</p>
-            <!-- Status -->
-            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-          </div>
-        </div>
-
-        <!-- search form (Optional) -->
-        <form action="#" method="get" class="sidebar-form">
-          <div class="input-group">
-            <input type="text" name="q" class="form-control" placeholder="Search...">
-                <span class="input-group-btn">
-                  <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                  </button>
-                </span>
-          </div>
-        </form>
-        <!-- /.search form -->
-
-
-        <!-- Sidebar Menu -->
-        <ul class="sidebar-menu">
-          <li class="header">UTech</li>
-          <!-- Optionally, you can add icons to the links -->
-          <li id="homeTab"><a href="home.php"><i class="fa fa-home"></i> <span>Home</span></a></li>
-          <li id="trackerTab"><a href="tracker.php"><i class="fa fa-link"></i> <span>Tracker</span></a></li>
-          <li class="treeview">
-            <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="#">Link in level 2</a></li>
-              <li><a href="#">Link in level 2</a></li>
-            </ul>
-          </li>
-        </ul>
-
-
-        <!-- /.sidebar-menu -->
-      </section>
-      <!-- /.sidebar -->
-    </aside>
   </body>
 </html>

@@ -19,14 +19,22 @@
   padding: 5px 8px;
 }
 
-#timestamp {
+.timestamp {
   margin: auto;
   text-align: center;
-  font-size: 5em;
+}
+
+#date {
+  font-size: 2em;
+}
+
+#time {
+  font-size: 4em;
 }
 
 .timeBtn {
   margin: auto;
   text-align: center;
   font-size: 1.5em;
+  padding-top: 5cm;
 }

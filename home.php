@@ -21,8 +21,17 @@
     <section class="content">
 
     <div class="col-lg-12">
-      <div id="timestamp"></div>
-        <div class="col-md-4 text-center">
+      <?php
+        if (isset($_GET['succ'])){
+            echo '<div class="alert alert-success" role="alert">'.$_SESSION['alertMsg'].'</div>';
+        }
+        if (isset($_GET['err'])){
+            echo '<div class="alert alert-danger" role="alert">'.$_SESSION['alertMsg'].'</div>';
+        }
+      ?>
+      <p class="timestamp" id="time"></p>
+      <p class="timestamp" id="date"></p>
+        <div class="col-md-12 text-center">
           <?php
           $query = "SELECT `timeIn`, `timeOut`
                 FROM `timetable`
@@ -34,11 +43,13 @@
               echo '<button type="button" class="btn btn-success timeBtn" id="btnTimeIn">Time In</button>';
             } else if ($row['timeIn'] != 0 && $row['timeOut'] == 0) {
               echo '<button type="button" class="btn btn-danger timeBtn" id="btnTimeOut">Time Out</button>';
+            } else if ($row['timeIn'] != 0 && $row['timeOut'] != 0) {
+              echo '<button type="button" class="btn btn-success timeBtn disabled">Time In</button>';
             }
           } else {
             header("location:functions/timeInOut.php?newDays");
+            exit();
           }
-          
           ?>
         </div>
       </div>
@@ -55,7 +66,7 @@
       Anything you want
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2017 <a href="#">UniversalTech</a>.</strong> All rights reserved.
   </footer>
 
   <!-- Control Sidebar -->
@@ -139,16 +150,21 @@
 
 <script>
 $(document).ready(function(){
-    $('#homeTab').addClass('active');
-
     setInterval(timestamp, 1000);
 });
 
 function timestamp() {
     $.ajax({
-        url: "functions/timestamp.php",
+        url: "functions/timestamp.php?time",
         success: function(data) {
-            $('#timestamp').html(data);
+            $('#time').html(data);
+        },
+    });    
+
+    $.ajax({
+        url: "functions/timestamp.php?date",
+        success: function(data) {
+            $('#date').html(data);
         },
     });
 }
