@@ -3,17 +3,10 @@
         include("dashboard.php");
 ?>
 <head>
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
-	  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
-      .addTaskBtn{
-          background-color: #00d200;
-          color:white;
-      }
+        label{
+            font-size:15px;
+        }
     </style>
 </head>
 <body ng-app="taskFieldsApp" >
@@ -43,8 +36,29 @@
                   <span class="md-display-2" >Daily Tracker </span>
                   <md-button class="md-warn md-raised" ng-if="exists==true" ng-click="modal()" data-target="#optionModal" data-toggle="modal">Edit <span class="fa fa-edit"></span></md-button>
                   <md-card>
+                    <md-card-title>
+                        <span class="md-subhead"> Create Website</span>
+                    </md-card-title>
                     <md-card-content>
-                        <div>{{today[0].DailyTask}}</div>
+                        <div>{{today[0].CreateWebsite}}</div>
+                    </md-card-content>
+                  </md-card>
+
+                  <md-card>
+                    <md-card-title>
+                        <span class="md-subhead"> Organize/Optimize</span>
+                    </md-card-title>
+                    <md-card-content>
+                        <div>{{today[0].Organize}}</div>
+                    </md-card-content>
+                  </md-card>
+
+                  <md-card>
+                    <md-card-title>
+                        <span class="md-subhead"> Miscellaneous</span>
+                    </md-card-title>
+                    <md-card-content>
+                        <div>{{today[0].Misc}}</div>
                     </md-card-content>
                   </md-card>
                   <!--Edit Modal-->
@@ -56,8 +70,10 @@
                                   <h2 id="modalHeaderEditDelete">Task</h2>
                                 </div>
                                 <div class="modal-body">
-                                  <input ng-model="modalmarketingId" hidden>
-                                  <textarea ng-model="modaldailytask" rows="15" value="obj.dailyTask" id="comment_text" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
+                                  <input ng-model="modalojtdevelopersystemId" hidden>
+                                  <textarea ng-model="modalcreatewebsite" rows="5" value="obj.createWebsite" id="comment_text" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
+                                  <textarea ng-model="modalorganize" rows="5" value="obj.organize" id="comment_text" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
+                                  <textarea ng-model="modalmisc" rows="5" value="obj.misc" id="comment_text" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
                                 </div>
                                 <div class="modal-footer">
                                   <button type="submit" class="btn btn-warning" onclick="$('#optionModal').modal('hide');">Edit <span class="fa fa-edit"></span></button>
@@ -72,13 +88,23 @@
                     <md-tab label="add tasks">
                         <md-content class="md-padding" ng-if="exists==false">
                             <form ng-submit="submitData()">
-                                <div id="taskHolderOjt" class="container">
+                                <div id="taskHolderOjt" class="container" style="max-width:100%;">
                                     <div class="jumbotron">
                                         <p style="font-size:30px;">Tasks for today</p>
                                         <div class="task-group">
-                                            <textarea placeholder="Task Description 
+                                        <label for="createWebsite">Create Website</label>
+                                            <textarea id="createWebsite" placeholder="Task Description 
 
-                        Ex: I did this today..." rows="15" ng-model="obj.dailyTask" id="comment_text" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
+                        Ex: I did this today..." rows="5" ng-model="obj.createWebsite" id="comment_text" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
+                                        <label for="orgOpt">Organize/Optimize</label>   
+                                            <textarea id="orgOpt" placeholder="Task Description 
+
+                        Ex: I did this today..." rows="5" ng-model="obj.organize" id="comment_text" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
+                                        <label for="misc">Miscellaneous</label>    
+                                            <textarea id="misc" placeholder="Task Description 
+
+                        Ex: I did this today..." rows="5" ng-model="obj.misc" id="comment_text" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
+                                            
                                             <div class="footer" align="center">
                                                 <md-button id="submitBtn" type="submit" class=" md-raised md-primary" ng-model="submitBtn" style="width:60%; margin-right:10%">Submit</md-button>
                                             </div>
@@ -87,7 +113,7 @@
                                 </div>
                             </form>
                         </md-content>
-                        <div class="jumbotron" ng-if="exists==true">
+                        <div class="jumbotron" ng-if="exists==true" style="max-width:100%;">
                           <h2>You have already created a Task today</h2>
                         </div>
               </md-tab>
@@ -204,12 +230,14 @@ $(document).ready(function(){
     var x=0;
     app.controller('taskFieldsController', function($scope, $http, $mdDialog) {
       $scope.obj = {
-        $dailytask: "",
+        $createWebsite: "",
+        $organize: "",
+        $misc: ""
       };
        $scope.init = function () {
-          $http.get("queries/getMyDailyTrackerTodayMarketingTracker.php").then(function (response) {
+          $http.get("queries/getMyDailyTrackerTodayOjtDeveloperSystemTracker.php").then(function (response) {
             $scope.today = response.data.records;
-            if($scope.today[0].MarketingId==""){
+            if($scope.today[0].OJTDeveloperSystemId==""){
               $scope.exists=false;
             }else{
               $scope.exists=true;
@@ -245,8 +273,10 @@ $(document).ready(function(){
         }
 
         $scope.submitData = function() {
-          $http.post('insertFunctions/insertMarketingTracker.php', {
-              'dailyTask': $scope.obj.dailyTask
+          $http.post('insertFunctions/insertOjtDeveloperSystem.php', {
+              'createWebsite': $scope.obj.createWebsite,
+              'organize': $scope.obj.organize,
+              'misc': $scope.obj.misc
               }).then(function(data, status){
                 $scope.init();
                 $scope.showAlert();
@@ -254,9 +284,11 @@ $(document).ready(function(){
         };
 
         $scope.editData = function() {
-          $http.post('editFunctions/editDailyTaskMarketing.php', {
-            'id': $scope.modalmarketingId,
-            'dailytask': $scope.modaldailytask
+          $http.post('editFunctions/editDailyTaskOJTSystemDeveloper.php', {
+            'id': $scope.modalojtdevelopersystemId,
+            'createWebsite': $scope.modalcreatewebsite,
+            'organize': $scope.modalorganize,
+            'misc': $scope.modalmisc
           }).then(function(data, status){
                 $scope.init();
                 $scope.showEdit();
@@ -264,8 +296,10 @@ $(document).ready(function(){
         };
 
         $scope.modal = function() {
-            $scope.modalmarketingId = $scope.today[0].MarketingId;
-            $scope.modaldailytask = $scope.today[0].DailyTask;
+            $scope.modalojtdevelopersystemId = $scope.today[0].OJTDeveloperSystemId;
+            $scope.modalcreatewebsite = $scope.today[0].CreateWebsite;
+            $scope.modalorganize = $scope.today[0].Organize;
+            $scope.modalmisc = $scope.today[0].Misc;
         };
   });
 </script>
