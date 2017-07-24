@@ -141,7 +141,7 @@ $(document).ready(function(){
             for($x=0; $x<$scope.today.length; $x++){
               $scope.deleteList[$x] = false;
               $scope.items.push($scope.today[$x].WriterId);
-              }
+            }
           });  
         };
         $scope.articleSet = {articles: []};
