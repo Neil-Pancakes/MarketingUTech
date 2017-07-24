@@ -82,10 +82,10 @@
                                 <fieldset data-ng-repeat = "field in articleSet.articles track by $index">
                                       <div>
                                             <div style="display:inline-block;" class="col-xs-7">
-                                                <input type="text" class="inp form-control" placeholder="Article Name" name="articleList" ng-model="articleSet.articles[$index]" required>
+                                                <input type="text" class="inp form-control" placeholder="Article Name" ng-model="articleSet.articles[$index]" required>
                                             </div>
                                             <div style="display:inline-block;" class="col-xs-3">
-                                                <input type="number" class="inp form-control" placeholder="Words Changed" name="wordCntList" ng-model="wordSet.words[$index]" min="1" required>
+                                                <input type="number" class="inp form-control" placeholder="Words Changed" ng-model="wordSet.words[$index]" min="1" required>
                                             </div>
                                             <div style="display:inline-block;" class="col-xs-2">
                                                 <span>

@@ -12,9 +12,9 @@ while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
     if ($outp != "") {
         $outp .= ",";
     }
-    $outp .= '{"Data Processor ID":"'  . $rs["data_processor_id"] . '",';
-    $outp .= '"Daily Task":"'   . $rs["daily_task"]        . '",';
-    $outp .= '"Task Status":"'   . $rs["task_status"]        . '"}';
+    $outp .= '{"DataProcessorId":"'  . $rs["data_processor_id"] . '",';
+    $outp .= '"DailyTask":"'   . $rs["daily_task"]        . '",';
+    $outp .= '"TaskStatus":"'   . $rs["task_status"]        . '"}';
 }
 $outp ='{"records":['.$outp.']}';
 $mysqli->close();
