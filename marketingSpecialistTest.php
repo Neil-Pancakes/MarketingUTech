@@ -72,7 +72,7 @@
                     <md-tab label="add tasks">
                         <md-content class="md-padding" ng-if="exists==false">
                             <form ng-submit="submitData()">
-                                <div id="taskHolderOjt" class="container">
+                                <div id="taskHolderOjt" class="container" style="max-width:100%;">
                                     <div class="jumbotron">
                                         <p style="font-size:30px;">Tasks for today</p>
                                         <div class="task-group">

@@ -9,7 +9,7 @@
     $competitor = (isset($request['competitor'])? $request['competitor']:'No');
     $relationship = (isset($request['relationship'])? $request['relationship']: 'No');
     $misc = (isset($request['misc'])? $request['misc']: '');
-
+    
     $query = "INSERT INTO `ojt_seo_tracker`(`comment`, `site_audit`, `schema_markup`, 
         `competitor_backlink_analysis`, `relationship_link_research`, `misc`, `track_date`, 
         `entry_time`, `account_id`) 

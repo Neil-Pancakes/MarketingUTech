@@ -204,7 +204,7 @@
                                               <md-option ng-repeat="x in options">{{x}}</md-option>
                                           </md-select>
                                       </md-input-container>
-                                        <textarea ng-model="taskDesc" placeholder="Miscellaneous 
+                                        <textarea ng-model="status.taskDesc" placeholder="Miscellaneous 
 
               Ex: I did this today..." rows="15"id="comment_text" cols="20" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" style="border:solid 1px lightgrey; margin-left:5%;"></textarea>
                                   
@@ -332,12 +332,18 @@ $(document).ready(function(){
     var x=0;
     app.controller('taskFieldsController', function($scope, $http, $mdDialog) {
       $scope.options = ["Yes", "No"];
-      
+      $scope.status = {
+        $p1: "",
+        $p2: "",
+        $p3: "",
+        $p4: "",
+        $p5: "",
+        $taskDesc: ""
+      };
        $scope.init = function () {
           $http.get("queries/getMyDailyTrackerTodayOjtSeoTracker.php").then(function (response) {
             $scope.today = response.data.records;
             if($scope.today[0].OJTSeoId==""){
-              alert("Hey");
               $scope.exists=false;
             }else{
               $scope.exists=true;
@@ -379,7 +385,7 @@ $(document).ready(function(){
               'schemaMarkup': $scope.status.p3,
               'competitor': $scope.status.p4,
               'relationship': $scope.status.p5,
-              'misc': $scope.taskDesc
+              'misc': $scope.status.taskDesc
               }).then(function(data, status){
                 $scope.init();
                 $scope.showAlert();
