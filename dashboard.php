@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Daily Tracker</title>
+  <title>UniversalTech</title>
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- REQUIRED JS SCRIPTS -->
 
@@ -19,45 +19,7 @@
   })
 </script>
      
-  <link rel="stylesheet" href="includes/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="includes/font-awesome-4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="includes/ionicons-2.0.1/css/ionicons.min.css">
-  <link rel="stylesheet" href="includes/AdminLTE-2.3.11/dist/css/AdminLTE.min.css">
-  <link rel="stylesheet" href="includes/AdminLTE-2.3.11/dist/css/skins/skin-purple.min.css">
-  <link rel="shortcut icon" href="includes/img/universaltechlogo2.jpg" />
-  <link rel="stylesheet" href="includes/css/styles.css">
-   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
-	  <style>
-      .addTaskBtn{
-          background-color: #00d200;
-          color:white;
-      }
-    </style>
- </head>
-<body class="hold-transition skin-purple sidebar-mini">
-<?php
-  include("functions/ifNotLoggedIn.php");
-  include("functions/sql_connect.php");
-  date_default_timezone_set("Asia/Manila");
-?>
-
-<!DOCTYPE html>
-<html>
-  <head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <!-- Google Sign-in -->
-    <meta name="google-signin-client_id" content="746015490934-gl3bvgacv9oq9b3kg1gpj4s2m76pa62j.apps.googleusercontent.com"/>
-
-    <title>UniversalTech</title>
-
+    
     <!-- REQUIRED JS SCRIPTS -->
     <script src="includes/js/jquery-3.2.1.min.js"></script>
     <script src="includes/js/bootstrap.min.js"></script>
@@ -69,7 +31,12 @@
     <script src="includes/js/angular-material.min.js"></script>
     <script src="includes/js/googleSignout.js"></script>
     <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+    
     <!-- Styles.css !-->
     <link rel="stylesheet" href="includes/css/styles.css">
     <link rel="stylesheet" href="includes/css/bootstrap.min.css">
@@ -82,9 +49,28 @@
 
     <link rel="shortcut icon" href="includes/img/universaltechlogo2.jpg" />
   
-  </head>
 
-  <body class="hold-transition skin-purple sidebar-mini">
+  <link rel="stylesheet" href="includes/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="includes/font-awesome-4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="includes/ionicons-2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="includes/AdminLTE-2.3.11/dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="includes/AdminLTE-2.3.11/dist/css/skins/skin-purple.min.css">
+  <link rel="shortcut icon" href="includes/img/universaltechlogo2.jpg" />
+  <link rel="stylesheet" href="includes/css/styles.css">
+   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+	  <style>
+      .addTaskBtn{
+          background-color: #00d200;
+          color:white;
+      }
+    </style>
+ </head>
+<body class="hold-transition skin-purple sidebar-mini">
+<?php
+  //include("functions/ifNotLoggedIn.php");
+  include("functions/sql_connect.php");
+  date_default_timezone_set("Asia/Manila");
+?>
 
   <div class="wrapper">
 
