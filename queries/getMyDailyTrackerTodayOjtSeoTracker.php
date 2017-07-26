@@ -10,12 +10,12 @@ $result = $mysqli->query("SELECT `ojt_seo_id`, `comment`, `site_audit`,
 
 $rs = $result->fetch_array(MYSQLI_ASSOC);
 $outp = "";
-$outp .= '{"OJT SEO ID":"'  . $rs["ojt_seo_id"] . '",';
+$outp .= '{"OJTSeoId":"'  . $rs["ojt_seo_id"] . '",';
 $outp .= '"Comment":"'   . $rs["comment"]        . '",';
-$outp .= '"Site Audit":"'   . $rs["site_audit"]        . '",';
-$outp .= '"Schema Markup":"'   . $rs["schema_markup"]        . '",';
-$outp .= '"Competitor Backlink Analysis":"'   . $rs["competitor_backlink_analysis"]        . '",';
-$outp .= '"Relationship Link Research":"'   . $rs["relationship_link_research"]        . '",';
+$outp .= '"SiteAudit":"'   . $rs["site_audit"]        . '",';
+$outp .= '"SchemaMarkup":"'   . $rs["schema_markup"]        . '",';
+$outp .= '"CompetitorBacklinkAnalysis":"'   . $rs["competitor_backlink_analysis"]        . '",';
+$outp .= '"RelationshipLinkResearch":"'   . $rs["relationship_link_research"]        . '",';
 $outp .= '"Misc":"'   . $rs["misc"]        . '"}';
 
 $outp ='{"records":['.$outp.']}';

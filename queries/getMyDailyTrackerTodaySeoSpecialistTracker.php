@@ -9,8 +9,8 @@ $result = $mysqli->query("SELECT `seospecialist_id`, `daily_task`
 
 $rs = $result->fetch_array(MYSQLI_ASSOC);
 $outp = "";
-$outp .= '{"SEO Specialist ID":"'  . $rs["seospecialist_id"] . '",';
-$outp .= '"Daily Task":"'   . $rs["daily_task"]        . '"}';
+$outp .= '{"SEOSpecialistId":"'  . $rs["seospecialist_id"] . '",';
+$outp .= '"DailyTask":"'   . $rs["daily_task"]        . '"}';
 
 $outp ='{"records":['.$outp.']}';
 $mysqli->close();

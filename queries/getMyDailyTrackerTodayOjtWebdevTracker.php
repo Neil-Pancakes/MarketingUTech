@@ -9,12 +9,12 @@ $result = $mysqli->query("SELECT `ojt_webdev_id`, `fix_bugs_cnt`, `responsive_cn
 
 $rs = $result->fetch_array(MYSQLI_ASSOC);
 $outp = "";
-$outp .= '{"OJT WebDev ID":"'  . $rs["ojt_webdev_id"] . '",';
-$outp .= '"Bug Fix Count":"'   . $rs["fix_bugs_cnt"]        . '",';
-$outp .= '"Response Count":"'   . $rs["responsive_cnt"]        . '",';
-$outp .= '"Backup Count":"'   . $rs["backup_cnt"]        . '",';
-$outp .= '"Optimize Count":"'   . $rs["optimize_cnt"]        . '",';
-$outp .= '"Misc":"'   . $rs["misc_cnt"]        . '"}';
+$outp .= '{"OJTWebDevId":"'  . $rs["ojt_webdev_id"] . '",';
+$outp .= '"FixBugCnt":"'   . $rs["fix_bugs_cnt"]        . '",';
+$outp .= '"ResponsiveCnt":"'   . $rs["responsive_cnt"]        . '",';
+$outp .= '"BackupCnt":"'   . $rs["backup_cnt"]        . '",';
+$outp .= '"OptimizeCnt":"'   . $rs["optimize_cnt"]        . '",';
+$outp .= '"MiscCnt":"'   . $rs["misc_cnt"]        . '"}';
 
 $outp ='{"records":['.$outp.']}';
 $mysqli->close();

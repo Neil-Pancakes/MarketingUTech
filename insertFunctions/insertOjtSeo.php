@@ -1,22 +1,22 @@
 <?php 
-  require("sql_connect.php");
+  require("../sql_connect.php");
   $postdata = file_get_contents("php://input");
   $request = json_decode($postdata, true);
   if(count($request>0)){
-    $ojt_seo_id = $request['ojt_seo_id'];
-    $comment = $request['comment'];
-    $site_audit = $request['site_audit'];
-    $schema_markup = $request['schema_markup'];
-    $competitor = $request['competitor'];
-    $relationship = $request['relationship'];
-    $misc = $request['misc'];
-
-
-    for($x=0; $x<count($articles); $x++){
-        $query = "INSERT INTO `ojt_seo`(`ojt_seo_id`, `comment`, `site_audit`, `schema_markup`, `competitor_backlink_analysis`, `relationship_link_research`, `misc`, `track_date`, `entry_time`, `account_id`) VALUES (".$ojt_seo_id",".$comment",".$site_audit",".$schema_markup",".$competitor",".$relationship",".$misc",CURDATE(),NOW(),1)";
-        /*SELECT CONVERT(DATE, GetDate());*/
-        $result = mysqli_query($mysqli, $query);
-    }
+    $comment = (isset($request['comment'])? $request['comment']:'No');
+    $site_audit = (isset($request['siteAudit'])? $request['siteAudit']:'No');
+    $schema_markup = (isset($request['schemaMarkup'])? $request['schemaMarkup']:'No');
+    $competitor = (isset($request['competitor'])? $request['competitor']:'No');
+    $relationship = (isset($request['relationship'])? $request['relationship']: 'No');
+    $misc = (isset($request['misc'])? $request['misc']: '');
+    
+    $query = "INSERT INTO `ojt_seo_tracker`(`comment`, `site_audit`, `schema_markup`, 
+        `competitor_backlink_analysis`, `relationship_link_research`, `misc`, `track_date`, 
+        `entry_time`, `account_id`) 
+        VALUES ('$comment','$site_audit','$schema_markup','$competitor',
+        '$relationship','$misc', CURDATE(), NOW(), 1)";
+    $result = mysqli_query($mysqli, $query);
+    echo $result;
   }else{
       echo "error";
   }

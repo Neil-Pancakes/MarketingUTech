@@ -56,7 +56,7 @@
                                   <h2 id="modalHeaderEditDelete">Task</h2>
                                 </div>
                                 <div class="modal-body">
-                                  <input ng-model="modalmarketingId" hidden>
+                                  <input ng-model="modalseoId" hidden>
                                   <textarea ng-model="modaldailytask" rows="15" value="obj.dailyTask" id="comment_text" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
                                 </div>
                                 <div class="modal-footer">
@@ -72,7 +72,7 @@
                     <md-tab label="add tasks">
                         <md-content class="md-padding" ng-if="exists==false">
                             <form ng-submit="submitData()">
-                                <div id="taskHolderOjt" class="container" style="max-width:100%;">
+                                <div id="taskHolderOjt" class="container">
                                     <div class="jumbotron">
                                         <p style="font-size:30px;">Tasks for today</p>
                                         <div class="task-group">
@@ -207,9 +207,9 @@ $(document).ready(function(){
         $dailytask: "",
       };
        $scope.init = function () {
-          $http.get("queries/getMyDailyTrackerTodayMarketingTracker.php").then(function (response) {
+          $http.get("queries/getMyDailyTrackerTodaySeoSpecialistTracker.php").then(function (response) {
             $scope.today = response.data.records;
-            if($scope.today[0].MarketingId==""){
+            if($scope.today[0].SEOSpecialistId==""){
               $scope.exists=false;
             }else{
               $scope.exists=true;
@@ -245,7 +245,7 @@ $(document).ready(function(){
         }
 
         $scope.submitData = function() {
-          $http.post('insertFunctions/insertMarketingTracker.php', {
+          $http.post('insertFunctions/insertSeoSpecialistTracker.php', {
               'dailyTask': $scope.obj.dailyTask
               }).then(function(data, status){
                 $scope.init();
@@ -254,8 +254,8 @@ $(document).ready(function(){
         };
 
         $scope.editData = function() {
-          $http.post('editFunctions/editDailyTaskMarketing.php', {
-            'id': $scope.modalmarketingId,
+          $http.post('editFunctions/editDailyTaskSeoSpecialist.php', {
+            'id': $scope.modalseoId,
             'dailytask': $scope.modaldailytask
           }).then(function(data, status){
                 $scope.init();
@@ -264,7 +264,7 @@ $(document).ready(function(){
         };
 
         $scope.modal = function() {
-            $scope.modalmarketingId = $scope.today[0].MarketingId;
+            $scope.modalseoId = $scope.today[0].SEOSpecialistId;
             $scope.modaldailytask = $scope.today[0].DailyTask;
         };
   });
