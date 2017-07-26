@@ -18,3 +18,23 @@
   line-height: 1.4em;
   padding: 5px 8px;
 }
+
+.timestamp {
+  margin: auto;
+  text-align: center;
+}
+
+#date {
+  font-size: 2em;
+}
+
+#time {
+  font-size: 4em;
+}
+
+.timeBtn {
+  margin: auto;
+  text-align: center;
+  font-size: 1.5em;
+  padding-top: 5cm;
+}
