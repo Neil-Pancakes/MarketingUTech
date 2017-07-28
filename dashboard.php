@@ -1,5 +1,5 @@
 <?php
-  //include("functions/ifNotLoggedIn.php");
+  include("functions/ifNotLoggedIn.php");
   include("functions/sql_connect.php");
   date_default_timezone_set("Asia/Manila");
 ?>
