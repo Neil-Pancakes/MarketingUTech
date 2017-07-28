@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="includes/css/ionicons.min.css">
     <link rel="stylesheet" href="includes/css/AdminLTE/AdminLTE.min.css">
     <link rel="stylesheet" href="includes/css/AdminLTE/skins/skin-purple.min.css">
-    <!-- <link rel="stylesheet" href="includes/css/angular-material.min.css"> -->
+    <link rel="stylesheet" href="includes/css/angular-material.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">   
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.dataTables.min.css">
