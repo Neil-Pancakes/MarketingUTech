@@ -1,30 +1,38 @@
+<?php
+  include("functions/ifNotLoggedIn.php");
+  include("functions/sql_connect.php");
+  date_default_timezone_set("Asia/Manila");
+?>
+
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>UniversalTech</title>
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <head>
 
-     
-    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Google Sign-in -->
+    <meta name="google-signin-client_id" content="746015490934-gl3bvgacv9oq9b3kg1gpj4s2m76pa62j.apps.googleusercontent.com"/>
+
+    <title>UniversalTech</title>
+
     <!-- REQUIRED JS SCRIPTS -->
-    <script src="includes/js/angular.min.js"></script>
-    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
-
     <script src="includes/js/jquery-3.2.1.min.js"></script>
+    <script src="node_modules/moment/moment.js"></script>
     <script src="includes/js/bootstrap.min.js"></script>
     <script src="includes/js/AdminLTE_app.min.js"></script>
+    <!-- <script src="includes/js/angular.min.js"></script>
     <script src="includes/js/angular-animate.min.js"></script>
     <script src="includes/js/angular-aria.min.js"></script>
     <script src="includes/js/angular-messages.min.js"></script>
-    <script src="includes/js/angular-material.min.js"></script>
+    <script src="includes/js/angular-material.min.js"></script> -->
     <script src="includes/js/googleSignout.js"></script>
-    
+    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+    <script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
+    <script src="includes/sweetalert/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
     <!-- Styles.css !-->
     <link rel="stylesheet" href="includes/css/styles.css">
     <link rel="stylesheet" href="includes/css/bootstrap.min.css">
@@ -32,28 +40,25 @@
     <link rel="stylesheet" href="includes/css/ionicons.min.css">
     <link rel="stylesheet" href="includes/css/AdminLTE/AdminLTE.min.css">
     <link rel="stylesheet" href="includes/css/AdminLTE/skins/skin-purple.min.css">
-    <link rel="stylesheet" href="includes/css/angular-material.min.css">
+    <!-- <link rel="stylesheet" href="includes/css/angular-material.min.css"> -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">   
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" href="includes/sweetalert/sweetalert.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
 
     <link rel="shortcut icon" href="includes/img/universaltechlogo2.jpg" />
-  
-  <link rel="stylesheet" href="includes/ionicons-2.0.1/css/ionicons.min.css">
-  <link rel="shortcut icon" href="includes/img/universaltechlogo2.jpg" />
-  <link rel="stylesheet" href="includes/css/styles.css">
-   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
-	  <style>
-      .addTaskBtn{
-          background-color: #00d200;
-          color:white;
+
+    <style>
+      .sweet-alert {
+        background-color: #F8F8F8;
+        box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
       }
     </style>
- </head>
-<body class="hold-transition skin-purple sidebar-mini">
-<?php
-  //include("functions/ifNotLoggedIn.php");
-  include("functions/sql_connect.php");
-  date_default_timezone_set("Asia/Manila");
-?>
+  
+  </head>
+
+  <body class="hold-transition skin-purple sidebar-mini">
 
   <div class="wrapper">
 
@@ -93,7 +98,7 @@
                       <a href="#">
                         <div class="pull-left">
                           <!-- User Image -->
-                          <img src="includes/img/fancy2.png" class="img-circle" alt="User Image">
+                          <img src=<?php echo '"'.$_SESSION['picture'].'"'?> class="img-circle" alt="User Image">
                         </div>
                         <!-- Message title and timestamp -->
                         <h4>
@@ -177,18 +182,18 @@
               <!-- Menu Toggle Button -->
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <!-- The user image in the navbar-->
-                <img src="includes/img/fancy2.png" class="user-image" alt="User Image">
+                <img src=<?php echo '"'.$_SESSION['picture'].'"'?> class="user-image" alt="User Image">
                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                <span class="hidden-xs">User</span>
+                <span class="hidden-xs"><?php echo $_SESSION['firstName']." ".$_SESSION['lastName'] ?></span>
               </a>
               <ul class="dropdown-menu">
                 <!-- The user image in the menu -->
                 <li class="user-header">
-                  <img src="includes/img/fancy2.png" class="img-circle" alt="User Image">
+                  <img src=<?php echo '"'.$_SESSION['picture'].'"'?> class="img-circle" alt="User Image">
 
                   <p>
-                    User - Web Developer
-                    <small>Member since Nov. 2012</small>
+                    <?php echo $_SESSION['firstName']." ".$_SESSION['lastName'] ?>
+                    <small><?php echo $_SESSION['email'] ?></small>
                   </p>
                 </li>
                 <!-- Menu Body -->
@@ -231,85 +236,5 @@
       include ("dashboard/sidebar.php");
     ?>
 
-    </section>
-    <!-- /.sidebar -->
-  </aside>
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Create the tabs -->
-    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-      <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-      <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-    </ul>
-    <!-- Tab panes -->
-    <div class="tab-content">
-      <!-- Home tab content -->
-      <div class="tab-pane " id="control-sidebar-home-tab">
-        <h3 class="control-sidebar-heading">Recent Activity</h3>
-        <ul class="control-sidebar-menu">
-          <li>
-            <a href="javascript:;">
-              <i class="menu-icon fa fa-birthday-cake bg-red"></i>
-
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-
-                <p>Will be 23 on April 24th</p>
-              </div>
-            </a>
-          </li>
-        </ul>
-        <!-- /.control-sidebar-menu -->
-
-        <h3 class="control-sidebar-heading">Tasks Progress</h3>
-        <ul class="control-sidebar-menu">
-          <li>
-            <a href="javascript:;">
-              <h4 class="control-sidebar-subheading">
-                Custom Template Design
-                <span class="pull-right-container">
-                  <span class="label label-danger pull-right">70%</span>
-                </span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-              </div>
-            </a>
-          </li>
-        </ul>
-        <!-- /.control-sidebar-menu -->
-
-      </div>
-      <!-- /.tab-pane -->
-      <!-- Stats tab content -->
-      <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
-      <!-- /.tab-pane -->
-      <!-- Settings tab content -->
-      <div class="tab-pane" id="control-sidebar-settings-tab">
-        <form method="post">
-          <h3 class="control-sidebar-heading">General Settings</h3>
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Report panel usage
-              <input type="checkbox" class="pull-right" checked>
-            </label>
-
-            <p>
-              Some information about this general settings option
-            </p>
-          </div>
-          <!-- /.form-group -->
-        </form>
-      </div>
-      <!-- /.tab-pane -->
-    </div>
-  </aside>
-  <!-- /.control-sidebar -->
-  <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
-  <div class="control-sidebar-bg"></div>
-</body>
+  </body>
 </html>

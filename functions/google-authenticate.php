@@ -16,6 +16,7 @@
 	  $given_name = $payload['given_name'];
 	  $family_name = $payload['family_name'];
 	  $email = $payload['email'];
+	  $picture = $payload['picture'];
 
 	  $qryUser = 'SELECT `id`, `oauth_uid`, `firstName`, `lastName`, `email` FROM `users` WHERE `oauth_uid` = '.$oauth_uid;
 	  $result = mysqli_query($mysqli, $qryUser);
@@ -36,6 +37,7 @@
 		  		$_SESSION['firstName'] = $row['firstName'];
 		  		$_SESSION['lastName'] = $row['lastName'];
 		  		$_SESSION['email'] = $row['email'];
+		  		$_SESSION['picture'] = $row['picture'];
 	  		}
 	  	} else{
 	  		echo 'Insertion Error!';
@@ -50,6 +52,7 @@
 		$_SESSION['firstName'] = $row['firstName'];
 		$_SESSION['lastName'] = $row['lastName'];
 		$_SESSION['email'] = $row['email'];
+		$_SESSION['picture'] = $picture;
 	  }
 	} else {
 	  $_SESSION['error'] = "invalid ID token";
