@@ -1,7 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
-require("../sql_connect.php");
+require("../functions/sql_connect.php");
 
 $result = $mysqli->query("SELECT `ojt_developer_system_id`, `create_website`, `organize`, `misc` 
 						FROM `ojt_developer_system_tracker` 

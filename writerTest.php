@@ -303,29 +303,8 @@
 
 <script>
 $(document).ready(function(){
-  
-
     document.getElementById("year").innerHTML = new Date().getFullYear();
     $('#homeTab').removeClass('active');
     $('#trackerTab').addClass('active');
-    $('.main-sidebar').height($(document).outerHeight()); 
-    function onElementHeightChange(elm, callback) {
-    var lastHeight = elm.clientHeight, newHeight;
-        (function run() {
-            newHeight = elm.clientHeight;
-            if (lastHeight != newHeight)
-                callback();
-            lastHeight = newHeight;
-
-            if (elm.onElementHeightChangeTimer)
-                clearTimeout(elm.onElementHeightChangeTimer);
-
-            elm.onElementHeightChangeTimer = setTimeout(run, 200);
-        })();
-    }
-    onElementHeightChange(document.body, function () {
-        alert('Body height changed');
-        $('.main-sidebar').height($(document).outerHeight());
-    });
 });
 </script>

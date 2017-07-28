@@ -37,11 +37,9 @@
 
     <link rel="shortcut icon" href="includes/img/universaltechlogo2.jpg" />
   
-  <link rel="stylesheet" href="includes/ionicons-2.0.1/css/ionicons.min.css">
   <link rel="shortcut icon" href="includes/img/universaltechlogo2.jpg" />
   <link rel="stylesheet" href="includes/css/styles.css">
-   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
-	  <style>
+    <style>
       .addTaskBtn{
           background-color: #00d200;
           color:white;

@@ -1,7 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
-require("../sql_connect.php");
+require("../functions/sql_connect.php");
 
 $result = $mysqli->query("SELECT `writer`.`writer_id`, `writer`.`article_title`,
 CONCAT(`acc`.`fname`,' ', `acc`.`lname`) AS `name`, `acc`.`account_id`

@@ -1,7 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
-require("../sql_connect.php");
+require("../functions/sql_connect.php");
 
 $result = $mysqli->query("SELECT `seospecialist_id`, `daily_task` 
 						FROM `seo_specialist_tracker` 

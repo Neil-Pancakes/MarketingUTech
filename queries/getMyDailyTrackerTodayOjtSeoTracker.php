@@ -1,7 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
-require("../sql_connect.php");
+require("../functions/sql_connect.php");
 
 $result = $mysqli->query("SELECT `ojt_seo_id`, `comment`, `site_audit`, 
                         `schema_markup`, `competitor_backlink_analysis`, `relationship_link_research`, `misc` 

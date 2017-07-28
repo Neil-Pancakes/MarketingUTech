@@ -1,7 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
-require("../sql_connect.php");
+require("../functions/sql_connect.php");
 
 $result = $mysqli->query("SELECT `wordpress_developer_id`, `fix_bug_cnt`, `create_pages_cnt`,
             `responsive_design_cnt`, `modify_pages_cnt`, `misc_cnt`
