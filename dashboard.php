@@ -1,5 +1,5 @@
 <?php
-  include("functions/ifNotLoggedIn.php");
+  //include("functions/ifNotLoggedIn.php");
   include("functions/sql_connect.php");
   date_default_timezone_set("Asia/Manila");
 ?>
@@ -21,7 +21,6 @@
     <script src="node_modules/moment/moment.js"></script>
     <script src="includes/js/bootstrap.min.js"></script>
     <script src="includes/js/AdminLTE_app.min.js"></script>
-    <script src="includes/js/angular.min.js"></script>
     <script src="includes/js/angular.min.js"></script>
     <script src="includes/js/angular-animate.min.js"></script>
     <script src="includes/js/angular-aria.min.js"></script>
