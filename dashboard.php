@@ -5,37 +5,25 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>UniversalTech</title>
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- REQUIRED JS SCRIPTS -->
 
-<!-- jQuery 3.2.1 -->
-<script src="includes/jQuery/jquery-3.2.1.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="includes/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-<!-- AdminLTE App -->
-<script src="includes/AdminLTE-2.3.11/dist/js/app.min.js"></script>
-<script>
-  $(document).ready(function(){
-     $('#homeTab').addClass('active');
-  })
-</script>
      
     
     <!-- REQUIRED JS SCRIPTS -->
+    <script src="includes/js/angular.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+
     <script src="includes/js/jquery-3.2.1.min.js"></script>
     <script src="includes/js/bootstrap.min.js"></script>
     <script src="includes/js/AdminLTE_app.min.js"></script>
-    <script src="includes/js/angular.min.js"></script>
     <script src="includes/js/angular-animate.min.js"></script>
     <script src="includes/js/angular-aria.min.js"></script>
     <script src="includes/js/angular-messages.min.js"></script>
     <script src="includes/js/angular-material.min.js"></script>
     <script src="includes/js/googleSignout.js"></script>
-    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
     
     <!-- Styles.css !-->
     <link rel="stylesheet" href="includes/css/styles.css">
@@ -49,12 +37,7 @@
 
     <link rel="shortcut icon" href="includes/img/universaltechlogo2.jpg" />
   
-
-  <link rel="stylesheet" href="includes/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="includes/font-awesome-4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="includes/ionicons-2.0.1/css/ionicons.min.css">
-  <link rel="stylesheet" href="includes/AdminLTE-2.3.11/dist/css/AdminLTE.min.css">
-  <link rel="stylesheet" href="includes/AdminLTE-2.3.11/dist/css/skins/skin-purple.min.css">
   <link rel="shortcut icon" href="includes/img/universaltechlogo2.jpg" />
   <link rel="stylesheet" href="includes/css/styles.css">
    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
@@ -248,26 +231,6 @@
       include ("dashboard/sidebar.php");
     ?>
 
-
-      <!-- Sidebar Menu -->
-      <ul class="sidebar-menu">
-        <li class="header">HEADER</li>
-        <!-- Optionally, you can add icons to the links -->
-        <li id="homeTab"><a href="home.php"><i class="fa fa-home"></i> <span>Home</span></a></li>
-        <li id="trackerTab"><a href="tracker.php"><i class="fa fa-link"></i> <span>Tracker</span></a></li>
-        <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="#">Link in level 2</a></li>
-            <li><a href="#">Link in level 2</a></li>
-          </ul>
-        </li>
-      </ul>
-      <!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->
   </aside>
@@ -282,7 +245,7 @@
     <!-- Tab panes -->
     <div class="tab-content">
       <!-- Home tab content -->
-      <div class="tab-pane active" id="control-sidebar-home-tab">
+      <div class="tab-pane " id="control-sidebar-home-tab">
         <h3 class="control-sidebar-heading">Recent Activity</h3>
         <ul class="control-sidebar-menu">
           <li>

@@ -67,7 +67,6 @@
                           </div>
                       </form>
                       <!--END of Edit Modal-->
-                      
                   </md-content>
                 </md-content>
               </md-tab>
@@ -113,22 +112,18 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  <?php
-    require("footer.php");
-  ?>
+    <?php
+      require("footer.php"); //FOOTER IS THE CAUSE OF THE DASHBOARD BUG//
+    ?>
 </div>
 <!-- ./wrapper -->
-<script>
-$(document).ready(function(){
-    document.getElementById("year").innerHTML = new Date().getFullYear();
-    $('#homeTab').removeClass('active');
-    $('#trackerTab').addClass('active');
-});
-</script>
 
 <script>
     var app = angular.module('taskFieldsApp', ['ngMaterial']);
     var x=0;
+    app.config(['$qProvider', function ($qProvider) {
+      $qProvider.errorOnUnhandledRejections(false);
+    }]);
     app.controller('taskFieldsController', function($scope, $http, $mdDialog) {
         $scope.data = {};
         $scope.items= [];
@@ -303,4 +298,34 @@ $(document).ready(function(){
       }
     };
   });
+</script>
+
+
+<script>
+$(document).ready(function(){
+  
+
+    document.getElementById("year").innerHTML = new Date().getFullYear();
+    $('#homeTab').removeClass('active');
+    $('#trackerTab').addClass('active');
+    $('.main-sidebar').height($(document).outerHeight()); 
+    function onElementHeightChange(elm, callback) {
+    var lastHeight = elm.clientHeight, newHeight;
+        (function run() {
+            newHeight = elm.clientHeight;
+            if (lastHeight != newHeight)
+                callback();
+            lastHeight = newHeight;
+
+            if (elm.onElementHeightChangeTimer)
+                clearTimeout(elm.onElementHeightChangeTimer);
+
+            elm.onElementHeightChangeTimer = setTimeout(run, 200);
+        })();
+    }
+    onElementHeightChange(document.body, function () {
+        alert('Body height changed');
+        $('.main-sidebar').height($(document).outerHeight());
+    });
+});
 </script>
