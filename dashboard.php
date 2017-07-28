@@ -21,11 +21,12 @@
     <script src="node_modules/moment/moment.js"></script>
     <script src="includes/js/bootstrap.min.js"></script>
     <script src="includes/js/AdminLTE_app.min.js"></script>
-    <!-- <script src="includes/js/angular.min.js"></script>
+    <script src="includes/js/angular.min.js"></script>
+    <script src="includes/js/angular.min.js"></script>
     <script src="includes/js/angular-animate.min.js"></script>
     <script src="includes/js/angular-aria.min.js"></script>
     <script src="includes/js/angular-messages.min.js"></script>
-    <script src="includes/js/angular-material.min.js"></script> -->
+    <script src="includes/js/angular-material.min.js"></script>
     <script src="includes/js/googleSignout.js"></script>
     <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
     <script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
@@ -50,6 +51,10 @@
     <link rel="shortcut icon" href="includes/img/universaltechlogo2.jpg" />
 
     <style>
+      .sweet-alert {
+        background-color: #F8F8F8;
+        box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
+      }
       .sweet-alert {
         background-color: #F8F8F8;
         box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
