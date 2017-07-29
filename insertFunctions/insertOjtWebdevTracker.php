@@ -8,10 +8,11 @@
     $bkupCnt = (isset($request['backupCnt'])? $request['backupCnt']:0);
     $optiCnt = (isset($request['optimizeCnt'])? $request['optimizeCnt']:0);
     $misc = (isset($request['miscCnt'])? $request['miscCnt']:0);
+    $userId = $_SESSION['user_id'];
 
     $query = "INSERT INTO `ojt_webdev_tracker`(`fix_bugs_cnt`, `responsive_cnt`, `backup_cnt`, `optimize_cnt`, 
-        `misc_cnt`, `track_date`, `entry_time`, `account_id`) 
-        VALUES ($fixCnt, $responCnt, $bkupCnt, $optiCnt, $misc, CURDATE(), NOW(), 1)";
+        `misc_cnt`, `track_date`, `entry_time`, `user_id`) 
+        VALUES ($fixCnt, $responCnt, $bkupCnt, $optiCnt, $misc, CURDATE(), NOW(), $userId)";
         /*SELECT CONVERT(DATE, GetDate());*/
     $result = mysqli_query($mysqli, $query);
   }else{

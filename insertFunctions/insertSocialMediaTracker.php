@@ -8,10 +8,11 @@
     $mbcnt = (isset($request['MBCnt'])? $request['MBCnt']:0);
     $taftcnt = (isset($request['taftCnt'])? $request['taftCnt']:0);
     $wacnt = (isset($request['WACnt'])? $request['WACnt']:0);
-    
+    $userId = $_SESSION['user_id'];
+
     $query = "INSERT INTO `social_media_tracker`(`fb_balay_cnt`, `pinterest_balay_cnt`, `mb_cnt`, 
-      `taft_cnt`, `wa_cnt`, `track_date`, `entry_time`, `account_id`) 
-      VALUES ($fbcnt, $pinterestcnt, $mbcnt, $taftcnt, $wacnt, CURDATE(), NOW(), 1)";
+      `taft_cnt`, `wa_cnt`, `track_date`, `entry_time`, `user_id`) 
+      VALUES ($fbcnt, $pinterestcnt, $mbcnt, $taftcnt, $wacnt, CURDATE(), NOW(), $userId)";
 
     $result = mysqli_query($mysqli, $query);
   }else{

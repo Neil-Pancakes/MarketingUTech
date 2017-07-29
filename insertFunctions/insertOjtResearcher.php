@@ -6,11 +6,13 @@
     $ojt_researcher_id = $request['ojt_researcher_id'];
     $niche = $request['niche'];
     $num_companies = $request['num_companies'];
-
+    $userId = $_SESSION['user_id'];
 
     for($x=0; $x<count($articles); $x++){
-        $query = "INSERT INTO `ojt_researcher`(`ojt_researcher_id`, `niche`, `num_companies`, `track_date`, `entry_time`, `account_id`) VALUES (".$ojt_researcher_id",".$niche",".$num_companies",CURDATE(),NOW(),1)";
-        /*SELECT CONVERT(DATE, GetDate());*/
+        $query = "INSERT INTO `ojt_researcher`(`ojt_researcher_id`, `niche`, `num_companies`, `track_date`, 
+        `entry_time`, `user_id`) 
+        VALUES (".$ojt_researcher_id",".$niche",".$num_companies",CURDATE(),NOW(), $userId)";
+        
         $result = mysqli_query($mysqli, $query);
     }
   }else{

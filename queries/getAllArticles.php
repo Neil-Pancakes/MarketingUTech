@@ -4,11 +4,11 @@ header("Content-Type: application/json; charset=UTF-8");
 require("../functions/sql_connect.php");
 
 $result = $mysqli->query("SELECT `writer`.`writer_id`, `writer`.`article_title`,
-CONCAT(`acc`.`fname`,' ', `acc`.`lname`) AS `name`, `acc`.`account_id`
+CONCAT(`u`.`firstName`,' ', `u`.`lastName`) AS `name`, `u`.`id`
 FROM `writer_tracker` `writer`
-INNER JOIN `account` `acc`
-ON `acc`.`account_id` = `writer`.`account_id`
-ORDER BY `writer`.`article_title` "); /*$_SESSION['account_id']*/
+INNER JOIN `users` `u`
+ON `u`.`id` = `writer`.`user_id`
+ORDER BY `writer`.`article_title` ");
 
 $outp = "";
 while($rs = $result->fetch_array(MYSQLI_ASSOC)) {

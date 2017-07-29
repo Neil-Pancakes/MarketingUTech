@@ -4,10 +4,11 @@
   $request = json_decode($postdata, true);
   if(count($request>0)){
     $dTask = $request['dailyTask'];
-    
+    $userId = $_SESSION['user_id'];
+
     $query = "INSERT INTO `seo_specialist_tracker`(`daily_task`, `track_date`, 
-        `entry_time`, `account_id`) 
-        VALUES ('$dTask', CURDATE(), NOW(), 1)";
+        `entry_time`, `user_id`) 
+        VALUES ('$dTask', CURDATE(), NOW(), $userId)";
         /*SELECT CONVERT(DATE, GetDate());*/
     $result = mysqli_query($mysqli, $query);
   }else{

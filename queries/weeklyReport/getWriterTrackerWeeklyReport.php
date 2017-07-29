@@ -4,11 +4,12 @@ header("Content-Type: application/json; charset=UTF-8");
 require("../../functions/sql_connect.php");
 
 $result = $mysqli->query("
-SELECT CONCAT(`acc`.`fname`,' ', `acc`.`lname`) AS `name`, `acc`.`role`, `acc`.`job_title`, 
+SELECT CONCAT(`u`.`fname`,' ', `u`.`lname`) AS `name`, `u`.`role`, `u`.`job_title`, 
 `w`.`article_title`, `w`.`word_cnt`, `w`.`entry_time`
 FROM `writer_tracker` `w`
-INNER JOIN `account` `acc`
-ON `w`.`track_date` >= subdate(CURRENT_DATE, 7) AND `w`.`track_date` <= (CURRENT_DATE) AND `w`.`account_id` = `acc`.`account_id`
+INNER JOIN `users` `u`
+ON `w`.`track_date` >= subdate(CURRENT_DATE, 7) AND `w`.`track_date` <= (CURRENT_DATE) AND 
+`w`.`user_id` = `u`.`id`
 ");
 
 $outp = "";

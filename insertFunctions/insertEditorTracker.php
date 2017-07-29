@@ -6,10 +6,11 @@
     $articles = $request['articleSet'];
     $words = $request['wordSet'];
     $array =  (array) $articles;
+    $userId = $_SESSION['user_id'];
 
     for($x=0; $x<count($articles); $x++){
-        $query = "INSERT INTO `editor_tracker`(`writer_id`, `word_cnt`, `track_date`, `entry_time`, `account_id`) 
-        VALUES (".$array[$x]['WriterId'].", $words[$x], CURDATE(), NOW(), 3)";
+        $query = "INSERT INTO `editor_tracker`(`writer_id`, `word_cnt`, `track_date`, `entry_time`, `user_id`) 
+        VALUES (".$array[$x]['WriterId'].", $words[$x], CURDATE(), NOW(), $userId)";
         $result = mysqli_query($mysqli, $query);
     }
   }else{

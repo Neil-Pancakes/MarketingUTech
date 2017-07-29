@@ -6,11 +6,11 @@
     $create_website = $request['createWebsite'];
     $organize = $request['organize'];
     $misc = $request['misc'];
-
+    $userId = $_SESSION['user_id'];
 
     $query = "INSERT INTO `ojt_developer_system_tracker`(`create_website`, `organize`, `misc`, 
-        `track_date`, `entry_time`, `account_id`) 
-        VALUES ('$create_website', '$organize', '$misc', CURDATE(), NOW(), 1)";
+        `track_date`, `entry_time`, `user_id`) 
+        VALUES ('$create_website', '$organize', '$misc', CURDATE(), NOW(), $userId)";
         /*SELECT CONVERT(DATE, GetDate());*/
     $result = mysqli_query($mysqli, $query);
   }else{

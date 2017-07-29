@@ -8,12 +8,12 @@
     $pictures_cnt = (isset($request['pictureCnt'])? $request['pictureCnt']:0);
     $videos_cnt = (isset($request['videoCnt'])? $request['videoCnt']:0);
     $misc_cnt = (isset($request['miscCnt'])? $request['miscCnt']:0);
-
+    $userId = $_SESSION['user_id'];
 
     $query = "INSERT INTO `content_marketing_assistant_tracker`(`curated_cnt`, `drafted_cnt`, `pictures_cnt`, 
-        `videos_cnt`, `misc_cnt`, `track_date`, `entry_time`, `account_id`) 
+        `videos_cnt`, `misc_cnt`, `track_date`, `entry_time`, `user_id`) 
         VALUES ($curated_cnt, $drafted_cnt, $pictures_cnt, $videos_cnt, $misc_cnt,
-        CURDATE(),NOW(),1)";
+        CURDATE(), NOW(), $userId)";
     $result = mysqli_query($mysqli, $query);
   }else{
       echo "error";

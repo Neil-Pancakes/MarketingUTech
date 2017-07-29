@@ -7,10 +7,11 @@
     $graphic = (isset($request['graphicdesigningCnt'])? $request['graphicdesigningCnt']:0);
     $banner = (isset($request['bannerCnt'])? $request['bannerCnt']:0);
     $misc = (isset($request['miscCnt'])? $request['miscCnt']:0);
+    $userId = $_SESSION['user_id'];
 
-
-    $query = "INSERT INTO `multimedia_tracker`(`featured_image_cnt`, `graphic_designing_cnt`, `banner_cnt`, `misc_cnt`, `track_date`, `entry_time`, `account_id`) 
-        VALUES ($feature, $graphic, $banner, $misc, CURDATE(),NOW(),1)";
+    $query = "INSERT INTO `multimedia_tracker`(`featured_image_cnt`, `graphic_designing_cnt`, 
+    `banner_cnt`, `misc_cnt`, `track_date`, `entry_time`, `user_id`) 
+        VALUES ($feature, $graphic, $banner, $misc, CURDATE(), NOW(), $userId)";
         /*SELECT CONVERT(DATE, GetDate());*/
     $result = mysqli_query($mysqli, $query);
   }else{
