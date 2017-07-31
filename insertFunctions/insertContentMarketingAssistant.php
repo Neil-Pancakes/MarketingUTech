@@ -2,6 +2,8 @@
   require("../functions/sql_connect.php");
   $postdata = file_get_contents("php://input");
   $request = json_decode($postdata, true);
+  session_start();
+
   if(count($request>0)){
     $curated_cnt = (isset($request['curatedCnt'])? $request['curatedCnt']:0);
     $drafted_cnt = (isset($request['draftedCnt'])? $request['draftedCnt']:0);

@@ -2,6 +2,7 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 require("../functions/sql_connect.php");
+session_start();
 
 $val = $_SESSION['user_id'];
 $result = $mysqli->query("SELECT `social_media_id`, `fb_balay_cnt`, `pinterest_balay_cnt`, `mb_cnt`, `taft_cnt`, `wa_cnt` 

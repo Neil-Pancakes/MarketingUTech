@@ -2,6 +2,8 @@
   require("../functions/sql_connect.php");
   $postdata = file_get_contents("php://input");
   $request = json_decode($postdata, true);
+  session_start();
+
   if(count($request>0)){
     $daily_task = $request['taskSet'];
     $task_status = $request['statusSet'];

@@ -2,6 +2,8 @@
   require("../functions/sql_connect.php");
   $postdata = file_get_contents("php://input");
   $request = json_decode($postdata, true);
+  session_start();
+
   if(count($request>0)){
     $fixCnt = (isset($request['fixbugCnt'])? $request['fixbugCnt']:0);
     $responCnt = (isset($request['responsiveCnt'])? $request['responsiveCnt']:0);

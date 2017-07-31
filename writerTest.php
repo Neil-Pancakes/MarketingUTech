@@ -117,6 +117,7 @@
     ?>
 </div>
 <!-- ./wrapper -->
+</body>
 
 <script>
     var app = angular.module('taskFieldsApp', ['ngMaterial']);
