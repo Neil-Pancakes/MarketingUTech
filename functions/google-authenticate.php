@@ -18,7 +18,7 @@
 	  $email = $payload['email'];
 	  $picture = $payload['picture'];
 
-	  $qryUser = 'SELECT `id`, `oauth_uid`, `firstName`, `lastName`, `email` FROM `users` WHERE `oauth_uid` = '.$oauth_uid;
+	  $qryUser = 'SELECT `id`, `oauth_uid`, `firstName`, `lastName`, `email`, `jobTitle` FROM `users` WHERE `oauth_uid` = '.$oauth_uid;
 	  $result = mysqli_query($mysqli, $qryUser);
 
 	  if(mysqli_num_rows($result) == 0) {
@@ -38,6 +38,8 @@
 		  		$_SESSION['lastName'] = $row['lastName'];
 		  		$_SESSION['email'] = $row['email'];
 		  		$_SESSION['picture'] = $row['picture'];
+
+				//$_SESSION['jobTitle'] = $row['jobTitle']
 	  		}
 	  	} else{
 	  		echo 'Insertion Error!';
@@ -45,7 +47,7 @@
 	  } else {
 
 		$row = mysqli_fetch_assoc($result);
-
+		
 		$_SESSION['loggedin'] = true;
 		$_SESSION['user_id'] = $row['id'];
 		$_SESSION['oauth_uid'] = $row['oauth_uid'];
@@ -53,6 +55,8 @@
 		$_SESSION['lastName'] = $row['lastName'];
 		$_SESSION['email'] = $row['email'];
 		$_SESSION['picture'] = $picture;
+
+		//$_SESSION['jobTitle'] = $row['jobTitle']
 	  }
 	} else {
 	  $_SESSION['error'] = "invalid ID token";
