@@ -5,9 +5,8 @@ require("../functions/sql_connect.php");
 session_start();
 
 $val = $_SESSION['user_id'];
-$val2 = 'writer'.'_tracker';
 $result = $mysqli->query("SELECT `writer_id`, `article_title`, `word_cnt` 
-            FROM `$val2`
+            FROM `writer_tracker`
             WHERE `track_date` = CURDATE() AND `user_id`= $val");  
 
 $outp = "";
