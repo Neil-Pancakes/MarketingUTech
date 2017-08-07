@@ -1,15 +1,6 @@
-<!--THIS IS ALSO USED FOR TRACKIMO CUSTOMER SUPPORT AND SEO Specialist/Internet Marketing-->
 <?php
         include("dashboard.php");
 ?>
-<head>
-    <style>
-      .addTaskBtn{
-          background-color: #00d200;
-          color:white;
-      }
-    </style>
-</head>
 <body ng-app="taskFieldsApp" >
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -20,8 +11,7 @@
         <small>Role in the Company (Im an OJT)</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Tracker</a></li>
       </ol>
     </section>
 
@@ -36,7 +26,8 @@
                   <md-button class="md-warn md-raised" ng-if="exists==true" ng-click="modal()" data-target="#optionModal" data-toggle="modal">Edit <span class="fa fa-edit"></span></md-button>
                   <md-card>
                     <md-card-content>
-                        <div>{{today[0].DailyTask}}</div>
+                        <h2>{{today[0].Niche}}</h2>
+                        <h4>{{today[0].NumOfCompanies}}</h4>
                     </md-card-content>
                   </md-card>
                   <!--Edit Modal-->
@@ -48,8 +39,9 @@
                                   <h2 id="modalHeaderEditDelete">Task</h2>
                                 </div>
                                 <div class="modal-body">
-                                  <input ng-model="modalcustomersupportId" hidden>
-                                  <textarea ng-model="modaldailytask" rows="15" ng-model="obj.dailyTask" id="comment_text" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
+                                  <input ng-model="modalojtresearcherId" hidden>
+                                  <textarea ng-model="modalniche" rows="5" id="comment_text" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
+                                  <input class="form-control" ng-model="modalnumofcompanies" placeholder="Number of Companies (Status)">
                                 </div>
                                 <div class="modal-footer">
                                   <button type="submit" class="btn btn-warning" onclick="$('#optionModal').modal('hide');">Edit <span class="fa fa-edit"></span></button>
@@ -64,17 +56,22 @@
                     <md-tab label="add tasks">
                         <md-content class="md-padding" ng-if="exists==false">
                             <form ng-submit="submitData()">
-                                <div id="taskHolderOjt" class="container">
+                                <div id="taskHolderOjt" class="container"  style="max-width:100%;">
                                     <div class="jumbotron">
                                         <p style="font-size:30px;">Tasks for today</p>
                                         <div class="task-group">
-                                            <textarea placeholder="Task Description 
+                                          <label for="niche">Niche</label><br>
+                                            <textarea id="niche" placeholder="Task Description 
 
-                        Ex: I did this today..." rows="15" ng-model="obj.dailyTask" id="comment_text" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
-                                            <div class="footer" align="center">
-                                                <md-button id="submitBtn" type="submit" class=" md-raised md-primary" ng-model="submitBtn" style="width:60%; margin-right:10%">Submit</md-button>
+                        Ex: I did this today..." rows="5" ng-model="obj.niche" id="comment_text" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
+                                          <br><br>
+                                          <label for="NumOfCompanies">Number of Companies</label><br>
+                                              <input class="form-control" id="NumOfCompanies" ng-model="obj.numOfCompanies" placeholder="Number of Companies (Status)" style="width:50%; float:left;">
+                                            <br><br><br>
+                                            <div align="center">
+                                              <md-button id="submitBtn" type="submit" class=" md-raised md-primary" ng-model="submitBtn" style="width:60%; margin-right:10%">Submit</md-button>
                                             </div>
-                                        </div>
+                                      </div>
                                     </div>
                                 </div>
                             </form>
@@ -187,13 +184,7 @@
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
-<script>
-$(document).ready(function(){
-    document.getElementById("year").innerHTML = new Date().getFullYear();
-    $('#homeTab').removeClass('active');
-    $('#trackerTab').addClass('active');
-});
-</script>
+</body>
 
 <script>
     var app = angular.module('taskFieldsApp', ['ngMaterial']);
@@ -203,12 +194,13 @@ $(document).ready(function(){
     }]);
     app.controller('taskFieldsController', function($scope, $http, $mdDialog) {
       $scope.obj = {
-        $dailytask: "",
+        $niche: "",
+        $numOfCompanies: 0
       };
        $scope.init = function () {
-          $http.get("queries/getMyDailyTrackerTodayCustomerSupport.php").then(function (response) {
+          $http.get("queries/getMyDailyTrackerTodayOjtResearchTracker.php").then(function (response) {
             $scope.today = response.data.records;
-            if($scope.today[0].CustomerSupportId==""){
+            if($scope.today[0].OJTResearcherId==""){
               $scope.exists=false;
             }else{
               $scope.exists=true;
@@ -244,8 +236,9 @@ $(document).ready(function(){
         }
 
         $scope.submitData = function() {
-          $http.post('insertFunctions/insertTrackimoCsTracker.php', {
-              'dailyTask': $scope.obj.dailyTask
+          $http.post('insertFunctions/insertOjtResearcher.php', {
+              'niche': $scope.obj.niche,
+              'numOfCompanies': $scope.obj.numOfCompanies
               }).then(function(data, status){
                 $scope.init();
                 $scope.showAlert();
@@ -253,9 +246,10 @@ $(document).ready(function(){
         };
 
         $scope.editData = function() {
-          $http.post('editFunctions/editDailyTaskCustomerSupport.php', {
-            'id': $scope.modalcustomersupportId,
-            'dailytask': $scope.modaldailytask
+          $http.post('editFunctions/editDailyTaskOjtResearcher.php', {
+            'id': $scope.modalojtresearcherId,
+            'niche': $scope.modalniche,
+            'numOfCompanies': $scope.modalnumofcompanies
           }).then(function(data, status){
                 $scope.init();
                 $scope.showEdit();
@@ -263,8 +257,17 @@ $(document).ready(function(){
         };
 
         $scope.modal = function() {
-            $scope.modalcustomersupportId = $scope.today[0].CustomerSupportId;
-            $scope.modaldailytask = $scope.today[0].DailyTask;
+            $scope.modalojtresearcherId = $scope.today[0].OJTResearcherId;
+            $scope.modalniche = $scope.today[0].Niche;
+            $scope.modalnumofcompanies = $scope.today[0].NumOfCompanies;
         };
   });
+</script>
+
+<script>
+$(document).ready(function(){
+    document.getElementById("year").innerHTML = new Date().getFullYear();
+    $('#homeTab').removeClass('active');
+    $('#trackerTab').addClass('active');
+});
 </script>
