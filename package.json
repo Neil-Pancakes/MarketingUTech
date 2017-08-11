@@ -1,0 +1,23 @@
+{
+  "name": "eims",
+  "version": "1.0.0",
+  "description": "![alt text](https://media.licdn.com/media/p/1/000/1be/032/258c49b.png \"UniversalTech\")",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xTJz/MarketingUTech.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xTJz/MarketingUTech/issues"
+  },
+  "homepage": "https://github.com/xTJz/MarketingUTech#readme",
+  "dependencies": {
+    "bootstrap-sweetalert": "^1.0.1",
+    "moment": "^2.18.1"
+  }
+}

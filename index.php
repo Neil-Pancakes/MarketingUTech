@@ -36,12 +36,12 @@
     </div>
 
     <div class="container">
-      <form class="form-signin" method="POST" action="functions/login">
+      <form class="form-signin" method="POST" action="functions/login.php">
         <!-- <h2 class="form-signin-heading">Please sign in</h2> -->
         <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email address" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required>
         <div class="checkbox">
           <label>
             <input type="checkbox" value="remember-me"> Remember me
@@ -56,13 +56,14 @@
   
   <script>
     function onSuccess(googleUser) {
-
-      swal({
-           title: "Logging in as:",
-           text: googleUser.getBasicProfile().getName(),
-           allowOutsideClick: false
-      });
-      swal.showLoading();
+      // if() {
+      //   swal({
+      //        title: "Logging in as:",
+      //        text: googleUser.getBasicProfile().getName(),
+      //        allowOutsideClick: false
+      //   });
+      //   swal.showLoading();
+      // }
 
       var id_token = googleUser.getAuthResponse().id_token;
 
@@ -75,7 +76,7 @@
       xhr.send('idtoken=' + id_token);
     }
     function onFailure(error) {
-      console.log(error);
+      window.location.href = "index.php";
     }
     function renderButton() {
       gapi.signin2.render('my-signin2', {

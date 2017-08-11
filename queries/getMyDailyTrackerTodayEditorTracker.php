@@ -7,6 +7,7 @@ session_start();
 $val = $_SESSION['user_id'];
 $result = $mysqli->query("SELECT `e`.`editor_id`, `e`.`writer_id`, `e`.`word_cnt`, 
 CONCAT(`u`.`firstName`,' ', `u`.`lastName`) AS `name`, `w`.`article_title`
+
 FROM `editor_tracker` `e`
 INNER JOIN `writer_tracker` `w`
 ON `w`.`writer_id` = `e`.`writer_id` AND `e`.`track_date` = CURDATE() AND `e`.`user_id`=$val
@@ -22,7 +23,6 @@ while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
     $outp .= '{"EditorId":"'  . $rs["editor_id"] . '",';
     $outp .= '"WriterId":"'   . $rs["writer_id"]        . '",';
     $outp .= '"WriterName":"'   . $rs["name"]        . '",';
-    $outp .= '"Article":"'   . $rs["article_title"]        . '",';
     $outp .= '"WordCount":"'   . $rs["word_cnt"]        . '"}';
 }
 $outp ='{"records":['.$outp.']}';

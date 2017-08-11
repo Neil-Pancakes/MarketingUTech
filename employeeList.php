@@ -120,7 +120,7 @@
                                     <label>Address</label>
                                     <div>'.$row["address"].'</div><br><br>
                                     <label>Birthday</label>
-                                    <div>'.$row["birthday"].'</div>
+                                    <div>'.$birthday.'</div>
                                   </div>
 
                                 <!-- if type is OJT else hide -->
@@ -451,7 +451,6 @@
       cancelButtonText: "Cancel",
       cancelButtonClass: "btn-danger",
       closeOnConfirm: false,
-      closeOnCancel: false,
       showLoaderOnConfirm: true
     },
       function (isConfirm) {
@@ -471,8 +470,6 @@
                 }
               });
             }, 1500);
-          } else {
-            swal("Cancelled", "Update cancelled", "error");
           }
       });
 

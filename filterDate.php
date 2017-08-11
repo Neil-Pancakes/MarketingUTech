@@ -16,32 +16,43 @@
 	            $timeIn = date("h:i A", strtotime($row["timeIn"]));
 	            if($row["timeOut"] == 0){
 	              $timeOut = "-";
-	              $noOfHours = 0;
 	              $renderedTime = 0;
+	              $underTime = "-";
 	            }else{
 	              $timeOut = date("h:i A", strtotime($row["timeOut"]));
-	              $noOfHours = $timeOut - $timeIn;
-
-	              $datetime1 = date_create($row["timeIn"]);
-	              $datetime2 = date_create($row["timeOut"]);
-	              $interval = date_diff($datetime1, $datetime2);
-	              $renderedTime = $interval->format('%h hours %i minutes');
+	              $datetime1 = date("h:i", strtotime($row["timeIn"]));
+	              $datetime1 = strtotime($datetime1);
+	              $datetime2 = date("h:i", strtotime($row["timeOut"]));
+                  $datetime2 = strtotime($datetime2);
+	              $renderedTime = number_format(round(($datetime2 - $datetime1)/3600,1),1);
+                  $underTime = number_format(8.0 - $renderedTime, 1);
 	            }
 
 	            if($row["lunchIn"] == 0){
 	            	$lunchIn = "-";
+	            	$renderedLunch = "-";
 	            }else{
 	            	$lunchIn = date("h:i A", strtotime($row["lunchIn"]));
 	            }
 
 	            if($row["lunchOut"] == 0){
 	            	$lunchOut = "-";
+	            	$renderedLunch = "-";
 	            }else{
 	            	$lunchOut = date("h:i A", strtotime($row["lunchOut"]));
-	            	$datetime3 = date_create($row["lunchIn"]);
-	              	$datetime4 = date_create($row["lunchOut"]);
-	              	$interval = date_diff($datetime3, $datetime4);
-	              	$renderedLunch = $interval->format('%h hours %i minutes');
+	            	$datetime3 = date("h:i", strtotime($row["lunchIn"]));
+	            	$datetime3 = strtotime($datetime3);
+	            	$datetime4 = date("h:i", strtotime($row["lunchOut"]));
+                  	$datetime4 = strtotime($datetime4);
+	              	$renderedLunch = number_format(round(($datetime4 - $datetime3)/3600,1),1);
+	              	$datetime1 = date("h:i", strtotime($row["timeIn"]));
+	              	$datetime1 = strtotime($datetime1);
+	              	$datetime2 = date("h:i", strtotime($row["timeOut"]));
+                  	$datetime2 = strtotime($datetime2);
+                  	if($row["timeOut"] > 0){
+                    	$renderedTime = number_format(round((($datetime2 - $datetime1)/3600) - $renderedLunch, 1),1);
+                    	$underTime = number_format(8.0 - $renderedTime, 1);
+                  	}
 	            }
 
 	            echo '
@@ -53,7 +64,7 @@
 	                  <td>'.$lunchOut.'</td>
 	                  <td>'.$renderedTime.'</td>
 	                  <td>'.$renderedLunch.'</td>
-	                  <td></td>
+	                  <td>'.$underTime.'</td>
 	              </tr>
 	            ';
 	          }

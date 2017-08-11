@@ -30,24 +30,24 @@
             <div class='col-md-2' style="padding-left: 0px">
                 <div class="form-group">
                     <div class='input-group date' id='since-datetimepicker'>
-                        <input id="since" type='text' name="since" class="form-control" placeholder="Start date" />
+                        <input id="since" type='text' name="since" class="form-control" placeholder="Start date" required />
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
                     </div>
                 </div>
             </div>
-            <div class='col-md-2'>
+            <div class='col-md-2' style="padding-left: 0px">
                 <div class="form-group">
                     <div class='input-group date' id='until-datetimepicker'>
-                        <input id="until" type='text' name="until" class="form-control" placeholder="End date" />
+                        <input id="until" type='text' name="until" class="form-control" placeholder="End date" required />
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
                     </div>
                 </div>
             </div> 
-            <div class='col-md-2'>
+            <div class='col-md-2' style="padding-left: 0px">
                 <div class="form-group">
                     
                     <div class='input-group date' id='until-datetimepicker'>
@@ -107,19 +107,16 @@
                 $timeIn = date("h:i A", strtotime($row["timeIn"]));
                 if($row["timeOut"] == 0){
                   $timeOut = "-";
-                  $noOfHours = 0;
-                  $renderedTime = 0;
+                  $renderedTime = "-";
+                  $underTime = "-";
                 }else{
                   $timeOut = date("h:i A", strtotime($row["timeOut"]));
-                  $noOfHours = $timeOut - $timeIn;
-
-                  // $datetime1 = date_create($row["timeIn"]);
-                  // $datetime2 = date_create($row["timeOut"]);
-                  // $interval = date_diff($datetime1, $datetime2);
-                  // $renderedTime = $interval->format('%h hours %i minutes');
-                  $datetime1 = strtotime($row["timeIn"]);
-                  $datetime2 = strtotime($row["timeOut"]);
+                  $datetime1 = date("h:i", strtotime($row["timeIn"]));
+                  $datetime1 = strtotime($datetime1);
+                  $datetime2 = date("h:i", strtotime($row["timeOut"]));
+                  $datetime2 = strtotime($datetime2);
                   $renderedTime = number_format(round(($datetime2 - $datetime1)/3600,1),1);
+                  $underTime = number_format(8.0 - $renderedTime, 1);
                 }
 
                 if($row["lunchIn"] == 0){
@@ -134,21 +131,20 @@
                   $renderedLunch = "-";
                 }else{
                   $lunchOut = date("h:i A", strtotime($row["lunchOut"]));
-                  // $datetime3 = date_create($row["lunchIn"]);
-                  // $datetime4 = date_create($row["lunchOut"]);
-                  // $interval = date_diff($datetime3, $datetime4);
-                  // $renderedLunch = $interval->format('%h hours %i minutes');
-                  $datetime3 = strtotime($row["lunchIn"]);
-                  $datetime4 = strtotime($row["lunchOut"]);
+                  $datetime3 = date("h:i", strtotime($row["lunchIn"]));
+                  $datetime3 = strtotime($datetime3);
+                  $datetime4 = date("h:i", strtotime($row["lunchOut"]));
+                  $datetime4 = strtotime($datetime4);
                   $renderedLunch = number_format(round(($datetime4 - $datetime3)/3600,1),1);
-
-                  $datetime1 = strtotime($row["timeIn"]);
-                  $datetime2 = strtotime($row["timeOut"]);
-                  $renderedTime = number_format(round((($datetime2 - $datetime1)/3600) - $renderedLunch, 1),1);
+                  $datetime1 = date("h:i", strtotime($row["timeIn"]));
+                  $datetime1 = strtotime($datetime1);
+                  $datetime2 = date("h:i", strtotime($row["timeOut"]));
+                  $datetime2 = strtotime($datetime2);
+                  if($row["timeOut"] > 0){
+                    $renderedTime = number_format(round((($datetime2 - $datetime1)/3600) - $renderedLunch, 1),1);
+                    $underTime = number_format(8.0 - $renderedTime, 1);
+                  }       
                 }
-
-                $underTime = number_format(8.0 - $renderedTime, 1);
-
                 echo '
                   <tr>
                       <td>'.$date.'</td>
@@ -256,6 +252,7 @@
 <script>
   $(document).ready(function(){
       $('#timetable').DataTable({
+        "responsive": true,
         "pagingType": "full_numbers",
         "lengthMenu": [[-1, 15, 16, 30, 31], ["All", 15, 16, 30 ,31]],
         "order": [],
@@ -345,8 +342,6 @@
             // Reenable the inputs
             $inputs.prop("disabled", false);
         });
-      }else{
-        alert("Invalid input");
       }
   });
 </script>

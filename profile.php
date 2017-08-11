@@ -1,124 +1,85 @@
 <?php
-  ob_start();
-  require ("dashboard.php");
+  require ("php_globals.php");
+  include ("dashboard.php");
 ?>
 
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        Time Keeper
-        <small>UniversalTech</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li>
-      </ol>
+    	<?php
+    		$query = "SELECT *
+                  FROM `users`
+                  WHERE id = ".$_SESSION["user_id"];
+            $result = mysqli_query($mysqli, $query);
+            if($result){
+	            $row = mysqli_fetch_assoc($result);
+	            echo "<h1>
+				        Profile
+				        <small>".$row["firstName"]." ".$row["lastName"]."</small>
+				      </h1>". "<ol class='breadcrumb'>
+				        <li><a href='#'><i class='fa fa-dashboard'></i> Level</a></li>
+				        <li class='active'>Here</li>
+				      </ol>";
+			}
+    	?>
     </section>
-
     <!-- Main content -->
     <section class="content">
+    	<?php
+	    	echo "
+	    	<div class='modal-content'>
+	        <div class='modal-header'>
+	          <h4 class='modal-title'><strong>View</strong></h4>
+	        </div>
+	        <div class='modal-body'>
+	              <div class='row'>
+	                <div class='col-md-3'>
+	                  <h4>Basic Info</h4>
+	                  <label>First Name</label><br>
+	                  <div>".$row["firstName"]."</div><br><br>
+	                  <label>Last Name</label><br>
+	                  <div>".$row["firstName"]."</div><br><br>
+	                  <label>Email</label><br>
+	                  <div>".$row["email"]."</div><br><br>
+	                  <label>Job Title</label><br>
+	                  <div>".$row["jobTitle"]."</div><br><br>
+	                  <label>Work Status</label><br>
+	                  <div>".$row["workStatus"]."</div><br><br>
+	                </div>
+                  	<div class='col-md-3'>
+                    	<h4>Contact Number</h4>
+                    	<label>Mobile Number</label>
+                    	<div>".$row["mobileNumber"]."</div><br><br>
+                    	<label>Telephone Number</label>
+                    	<div>".$row["telephoneNumber"]."</div><br><br>
+                  	</div>
+                  	<div class='col-md-3'>
+                  		<h4>Other Info</h4>
+                    	<label>Address</label>
+                    	<div>".$row["address"]."</div><br><br>
+                    	<label>Birthday</label>
+                    	<div>".$row["birthday"]."</div>
+                  	</div>";
 
-    <div class="col-lg-6">
-        <div id="alertMsg">
-          <?php
-            if (isset($_GET['succ'])){
-                echo '<div class="alert alert-success" role="alert">'.$_SESSION['alertMsg'].'</div>';
-            }
-            if (isset($_GET['err'])){
-                echo '<div class="alert alert-danger" role="alert">'.$_SESSION['alertMsg'].'</div>';
-            }
-          ?>
-        </div>
-        <p class="timestamp" id="time"></p>
-        <p class="timestamp" id="date"></p>
-        <div id="time-btns">
-          <?php
-            $query = "SELECT `timeIn`, `timeOut`, `lunchIn`, `lunchOut`
-                  FROM `timetable`
-                  WHERE DATE(`date`) = DATE(CURRENT_TIMESTAMP) AND user_id = ".$_SESSION["user_id"];
-            $result = mysqli_query($mysqli, $query);
-            if ($result->num_rows == 1){
-              $row = mysqli_fetch_assoc($result);
-              if ($row['timeIn'] == 0) {
-                echo '<div class="col-md-12 text-center">';
-                echo '<button type="button" class="btn btn-success timeBtn" id="btnTimeIn">Time In</button>';
-                echo '</div>';
-              } else if ($row['timeIn'] != 0 && $row['timeOut'] == 0 && $row['lunchIn'] == 0 && $row['lunchOut'] == 0) {
-                echo '<div class="col-md-6 text-center">';
-                echo '<button type="button" class="btn btn-danger timeBtn" id="btnTimeOut">Time Out</button>';
-                echo '</div>';
-                echo '<div class="col-md-6 text-center">';
-                echo '<button type="button" class="btn btn-warning timeBtn" id="btnLunchIn">Lunch Time In</button>';
-                echo '</div>';
-              } else if ($row['timeIn'] != 0 && $row['timeOut'] == 0 && $row['lunchIn'] != 0 && $row['lunchOut'] == 0) {
-                echo '<div class="col-md-6 text-center">';
-                echo '<button type="button" class="btn btn-danger timeBtn" id="btnTimeOut">Time Out</button>';
-                echo '</div>';
-                echo '<div class="col-md-6 text-center">';
-                echo '<button type="button" class="btn btn-warning timeBtn" id="btnLunchOut">Lunch Time Out</button>';
-                echo '</div>';
-              } else if ($row['timeIn'] != 0 && $row['timeOut'] == 0 && $row['lunchIn'] != 0 && $row['lunchOut'] != 0) {
-                echo '<div class="col-md-12 text-center">';
-                echo '<button type="button" class="btn btn-danger timeBtn" id="btnTimeOut">Time Out</button>';
-                echo '</div>';
-              } else if ($row['timeIn'] != 0 && $row['timeOut'] != 0) {
-                echo '<div class="col-md-12 text-center">';
-                echo '<button type="button" class="btn btn-success timeBtn disabled">Time In</button>';
-                echo '</div>';
-              }
-            } else {
-              header("location:functions/timeInOut.php?newDays");
-              exit();
-            }
-          ?>
-        </div>
-      </div>
-
-      <div class="container">
-        <div class="col-md-6 div-table">
-          <h2>Time History Today</h2>
-          <table class="table table-condensed">
-            <tbody id="timeToday-tbody">
-              <?php
-                $query = "SELECT `timeIn`, `timeOut`, `lunchIn`, `lunchOut`, `date`
-                      FROM `timetable`
-                      WHERE DATE(`date`) = DATE(CURRENT_TIMESTAMP) AND user_id = ".$_SESSION["user_id"];
-                $result = mysqli_query($mysqli, $query);
-                if ($result->num_rows == 1){
-                  $row = mysqli_fetch_assoc($result);
-                  if($row['timeOut'] != 0){
-                    echo '<tr>';
-                    echo '<td>Timed Out: </td>';
-                    echo '<td>'.$row['timeOut'].'</td>';
-                    echo '</tr>';
-                  }
-                  if($row['lunchOut'] != 0){
-                    echo '<tr>';
-                    echo '<td>Lunch Out: </td>';
-                    echo '<td>'.$row['lunchOut'].'</td>';
-                    echo '</tr>';
-                  }
-                  if($row['lunchIn'] != 0){
-                    echo '<tr>';
-                    echo '<td>Lunch In: </td>';
-                    echo '<td>'.$row['lunchIn'].'</td>';
-                    echo '</tr>';
-                  }
-                  if($row['timeIn'] != 0){
-                    echo '<tr>';
-                    echo '<td>Time In: </td>';
-                    echo '<td>'.$row['timeIn'].'</td>';
-                    echo '</tr>';
-                  }
-                }
-              ?>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
+                  	if($row['workStatus'] == '')
+                  	echo "
+                  		<div class='col-md-3'>
+	                  		<!-- if type is OJT else hide -->
+	                  		<h4>OJT Details</h4>
+		                	<div id='view_ojt_info'".$row["id"]." class='col-md-3'>
+	                  		<label>Total hours</label><br>
+	                  		<div>".$row["OJT_hoursTotal"]."</div><br><br>
+	                  		<label>Hours Remaining</label><br>
+	                  		<div>".$row["OJT_hoursRemaining"]."</div><br><br>
+	                  		<label>Allowance Daily</label><br>
+	                  		<div>".$row["OJT_allowanceDaily"]."</div><br><br>
+	              		</div>";
+	      		echo "
+		      			</div>
+		      		</div>
+		        ";
+	    ?>
     </section>
     <!-- /.content -->
   </div>
@@ -146,7 +107,7 @@
               <i class="menu-icon fa fa-birthday-cake bg-red"></i>
 
               <div class="menu-info">
-                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+                <h4 class="control-sidebar-subheading">Langdon`s Birthday</h4>
 
                 <p>Will be 23 on April 24th</p>
               </div>
@@ -201,7 +162,7 @@
     </div>
   </aside>
   <!-- /.control-sidebar -->
-  <!-- Add the sidebar's background. This div must be placed
+  <!-- Add the sidebar`s background. This div must be placed
        immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
 </div>
@@ -275,6 +236,7 @@ function timestamp() {
         cancelButtonText: "Cancel",
         cancelButtonClass: "btn-danger",
         closeOnConfirm: false,
+        closeOnCancel: false,
         showLoaderOnConfirm: true
       },
       function (isConfirm) {
@@ -315,6 +277,8 @@ function timestamp() {
                   $btn.prop("disabled", false);
               });
             }, 500);
+          } else {
+            swal("Cancelled", "", "error");
           }
       });
   }

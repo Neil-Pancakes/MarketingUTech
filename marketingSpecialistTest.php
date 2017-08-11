@@ -50,7 +50,7 @@
                                 </div>
                                 <div class="modal-body">
                                   <input ng-model="modalmarketingId" hidden>
-                                  <textarea ng-model="modaldailytask" rows="15" value="obj.dailyTask" id="comment_text" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
+                                  <textarea ng-model="modaldailytask" rows="15" ng-model="obj.dailyTask" id="comment_text" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
                                 </div>
                                 <div class="modal-footer">
                                   <button type="submit" class="btn btn-warning" onclick="$('#optionModal').modal('hide');">Edit <span class="fa fa-edit"></span></button>
@@ -65,7 +65,7 @@
                     <md-tab label="add tasks">
                         <md-content class="md-padding" ng-if="exists==false">
                             <form ng-submit="submitData()">
-                                <div id="taskHolderOjt" class="container" style="max-width:100%;">
+                                <div id="taskHolderOjt" class="container">
                                     <div class="jumbotron">
                                         <p style="font-size:30px;">Tasks for today</p>
                                         <div class="task-group">

@@ -23,7 +23,10 @@
 
 	  if(mysqli_num_rows($result) == 0) {
 
-	  	$query = 'INSERT INTO `users` (`oauth_uid`, `firstName`, `lastName`, `email`) VALUES ("'.$oauth_uid.'", "'.$given_name.'", "'.$family_name.'", "'.$email.'")';
+	  	//hashed default password
+	  	$password_hashed = password_hash("password", PASSWORD_DEFAULT);
+
+	  	$query = 'INSERT INTO `users` (`oauth_uid`, `firstName`, `lastName`, `email`, `password`, `picture`) VALUES ("'.$oauth_uid.'", "'.$given_name.'", "'.$family_name.'", "'.$email.'", "'.$password_hashed.'", "'.$picture.'")';
 	  	$insertUser = mysqli_query($mysqli,$query);
 
 	  	if($insertUser) {
@@ -38,7 +41,6 @@
 		  		$_SESSION['lastName'] = $row['lastName'];
 		  		$_SESSION['email'] = $row['email'];
 		  		$_SESSION['picture'] = $row['picture'];
-
 				//$_SESSION['jobTitle'] = $row['jobTitle']
 	  		}
 	  	} else{
@@ -55,8 +57,7 @@
 		$_SESSION['lastName'] = $row['lastName'];
 		$_SESSION['email'] = $row['email'];
 		$_SESSION['picture'] = $picture;
-
-		//$_SESSION['jobTitle'] = $row['jobTitle']
+    //$_SESSION['jobTitle'] = $row['jobTitle']
 	  }
 	} else {
 	  $_SESSION['error'] = "invalid ID token";

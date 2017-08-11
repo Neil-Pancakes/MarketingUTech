@@ -21,18 +21,14 @@
     <script src="node_modules/moment/moment.js"></script>
     <script src="includes/js/bootstrap.min.js"></script>
     <script src="includes/js/AdminLTE_app.min.js"></script>
-    <script src="includes/js/angular.min.js"></script>
-    <script src="includes/js/angular-animate.min.js"></script>
-    <script src="includes/js/angular-aria.min.js"></script>
-    <script src="includes/js/angular-messages.min.js"></script>
-    <script src="includes/js/angular-material.min.js"></script>
     <script src="includes/js/googleSignout.js"></script>
     <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
     <script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
     <script src="includes/sweetalert/sweetalert.min.js"></script>
+    <script src="includes/js/xmlConverter.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-
+    
     <!-- Styles.css !-->
     <link rel="stylesheet" href="includes/css/styles.css">
     <link rel="stylesheet" href="includes/css/bootstrap.min.css">
@@ -40,23 +36,55 @@
     <link rel="stylesheet" href="includes/css/ionicons.min.css">
     <link rel="stylesheet" href="includes/css/AdminLTE/AdminLTE.min.css">
     <link rel="stylesheet" href="includes/css/AdminLTE/skins/skin-purple.min.css">
-    <link rel="stylesheet" href="includes/css/angular-material.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">   
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.dataTables.min.css">
     <link rel="stylesheet" href="includes/sweetalert/sweetalert.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 
     <link rel="shortcut icon" href="includes/img/universaltechlogo2.jpg" />
 
     <style>
-      .sweet-alert {
-        background-color: #F8F8F8;
-        box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
+      a {
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .container {
+        font-family: 'Roboto', sans-serif;
       }
       .sweet-alert {
         background-color: #F8F8F8;
         box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
+      }
+      .calendar th {
+        height: 30px;
+        text-align: center;
+        font-weight: 700;
+      }
+      .calendar td {
+        height: 100px;
+      }
+      .calendar td a {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      .today {
+        background: green;
+      }
+      .calendar th:nth-of-type(7), .calendar td:nth-of-type(7) {
+        color: blue;
+      }
+      .calendar th:nth-of-type(1), .calendar td:nth-of-type(1) {
+        color: red;
+      }
+      
+      .calendar.table-bordered > tbody > tr > td{
+          border:1px solid black;
+      }
+      .calendar.table-bordered > tbody > tr > th{
+          border:1px solid black;
       }
     </style>
   
@@ -218,7 +246,7 @@
                 <!-- Menu Footer-->
                 <li class="user-footer">
                   <div class="pull-left">
-                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                    <a href="profile.php" class="btn btn-default btn-flat">Profile</a>
                   </div>
                   <div class="pull-right">
                     <a href="#" onclick="signOut()" class="btn btn-default btn-flat">Sign out</a>

@@ -1,6 +1,20 @@
 <?php
         include("dashboard.php");
 ?>
+<head>
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+	  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+      .addTaskBtn{
+          background-color: #00d200;
+          color:white;
+      }
+    </style>
+</head>
 <body ng-app="taskFieldsApp" >
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -26,7 +40,7 @@
                   
                   <md-content>
                     <md-list flex>
-                      <md-checkbox aria-label="Select All" ng-checked="isChecked()" ng-click="toggleAll()">
+                      <md-checkbox aria-label="Select All" ng-checked="isChecked()" md-indeterminate="isIndeterminate()" ng-click="toggleAll()">
                         <span ng-if="isChecked()">Un-</span>Select All
                       </md-checkbox>
                       <form ng-submit="delData()">
@@ -81,10 +95,10 @@
                                 <fieldset data-ng-repeat = "field in articleSet.articles track by $index">
                                       <div>
                                             <div style="display:inline-block;" class="col-xs-7">
-                                                <input type="text" class="inp form-control" placeholder="Article Name" ng-model="articleSet.articles[$index]" required>
+                                                <input type="text" class="inp form-control" placeholder="Article Name" name="articleList" ng-model="articleSet.articles[$index]" required>
                                             </div>
                                             <div style="display:inline-block;" class="col-xs-3">
-                                                <input type="number" class="inp form-control" placeholder="Words Changed" ng-model="wordSet.words[$index]" min="1" required>
+                                                <input type="number" class="inp form-control" placeholder="Words Changed" name="wordCntList" ng-model="wordSet.words[$index]" min="1" required>
                                             </div>
                                             <div style="display:inline-block;" class="col-xs-2">
                                                 <span>
@@ -130,7 +144,6 @@
         $scope.items= [];
         $scope.selected = [];
         $scope.init = function () {
-          $scope.items.splice(0, $scope.items.length);
           $http.get("queries/getMyDailyTrackerTodayWriter.php").then(function (response) {
             $scope.today = response.data.records;
             $scope.deleteList = [];
@@ -246,9 +259,6 @@
           if($scope.selected.length==0){
             $scope.delBtn = false;
           }
-          if($scope.selected.length == $scope.items.length){
-            $scope.isChecked();
-          }
         };
 
         $scope.modal = function(article, wordCnt, id) {
@@ -269,9 +279,6 @@
         $scope.delBtn = true;
       }else{
         $scope.delBtn = false;
-      }
-      if(list.length==$scope.items.length){
-        $scope.isChecked();
       }
     };
 
