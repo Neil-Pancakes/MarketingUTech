@@ -11,7 +11,7 @@
     $query = "INSERT INTO `seo_specialist_tracker`(`daily_task`, `track_date`, 
         `entry_time`, `user_id`) 
         VALUES ('$dTask', CURDATE(), NOW(), $userId)";
-        /*SELECT CONVERT(DATE, GetDate());*/
+    
     $result = mysqli_query($mysqli, $query);
   }else{
       echo "error";

@@ -6,7 +6,7 @@
 
   if(count($request>0)){
     $ojt_id = $request['ojt_developer_system_id'];
-    $create_website = $request['create_website'];
+    $create_website = $request['createWebsite'];
     $organize = $request['organize'];
     $misc = $request['misc'];
     $userId = $_SESSION['user_id'];
@@ -14,9 +14,7 @@
     $query = "INSERT INTO `ojt_developer_system_tracker`(`create_website`, `organize`, `misc`, 
         `track_date`, `entry_time`, `user_id`) 
         VALUES ('$create_website', '$organize', '$misc', CURDATE(), NOW(), $userId)";
-        /*SELECT CONVERT(DATE, GetDate());*/
         $result = mysqli_query($mysqli, $query);
-    }
   }else{
       echo "error";
   }
