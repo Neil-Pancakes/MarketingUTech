@@ -228,6 +228,9 @@ $(document).ready(function(){
 <script>
     var app = angular.module('taskFieldsApp', ['ngMaterial']);
     var x=0;
+    app.config(['$qProvider', function ($qProvider) {
+      $qProvider.errorOnUnhandledRejections(false);
+    }]);
     app.controller('taskFieldsController', function($scope, $http, $mdDialog) {
       $scope.obj = {
         $createWebsite: "",

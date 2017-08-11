@@ -367,9 +367,7 @@
       // Abort any pending request
       if (request) {
           request.abort();
-      }
-
-    
+      }    
       // setup some local variables
       var $form = $(this);
 

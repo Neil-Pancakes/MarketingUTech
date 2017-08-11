@@ -56,7 +56,6 @@
   
   <script>
     function onSuccess(googleUser) {
-
       // if() {
       //   swal({
       //        title: "Logging in as:",

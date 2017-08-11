@@ -145,7 +145,6 @@
                     $underTime = number_format(8.0 - $renderedTime, 1);
                   }       
                 }
-
                 echo '
                   <tr>
                       <td>'.$date.'</td>

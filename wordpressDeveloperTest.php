@@ -1,24 +1,6 @@
-<!-- -----BASE CODE FOR THE TRACKERS----- -->
-<!-- -----BASE CODE FOR THE TRACKERS----- -->
-<!-- -----BASE CODE FOR THE TRACKERS----- -->
-
 <?php
         include("dashboard.php");
 ?>
-<head>
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
-	  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <style>
-      .addTaskBtn{
-          background-color: #00d200;
-          color:white;
-      }
-    </style>
-</head>
 <body ng-app="taskFieldsApp" >
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -29,8 +11,7 @@
         <small>Role in the Company (Im an OJT)</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Tracker</a></li>
       </ol>
     </section>
 
@@ -292,18 +273,16 @@
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
-<script>
-$(document).ready(function(){
-    document.getElementById("year").innerHTML = new Date().getFullYear();
-    $('#homeTab').removeClass('active');
-    $('#trackerTab').addClass('active');
-});
-</script>
+</body>
 
 <script>
     var app = angular.module('taskFieldsApp', ['ngMaterial']);
     var x=0;
+    app.config(['$qProvider', function ($qProvider) {
+      $qProvider.errorOnUnhandledRejections(false);
+    }]);
     app.controller('taskFieldsController', function($scope, $http, $mdDialog) {
+      
       $scope.obj = {
         $fixbugCnt: 0,
         $createpageCnt: 0,
@@ -385,4 +364,11 @@ $(document).ready(function(){
             $scope.modalmiscCnt = $scope.today[0].MiscCnt;
         };
   });
+</script>
+<script>
+$(document).ready(function(){
+    document.getElementById("year").innerHTML = new Date().getFullYear();
+    $('#homeTab').removeClass('active');
+    $('#trackerTab').addClass('active');
+});
 </script>

@@ -28,8 +28,7 @@
     <script src="includes/sweetalert/sweetalert.min.js"></script>
     <script src="includes/js/xmlConverter.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-
-
+    
     <!-- Styles.css !-->
     <link rel="stylesheet" href="includes/css/styles.css">
     <link rel="stylesheet" href="includes/css/bootstrap.min.css">

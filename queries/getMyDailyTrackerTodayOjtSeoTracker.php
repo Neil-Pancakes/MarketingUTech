@@ -1,12 +1,14 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
-require("../sql_connect.php");
+require("../functions/sql_connect.php");
+session_start();
 
+$val = $_SESSION['user_id'];
 $result = $mysqli->query("SELECT `ojt_seo_id`, `comment`, `site_audit`, 
                         `schema_markup`, `competitor_backlink_analysis`, `relationship_link_research`, `misc` 
                         FROM `ojt_seo_tracker` 
-                        WHERE `track_date` = CURDATE() AND `account_id`=1"); /*$_SESSION['account_id']*/
+                        WHERE `track_date` = CURDATE() AND `user_id`=$val");
 
 $rs = $result->fetch_array(MYSQLI_ASSOC);
 $outp = "";

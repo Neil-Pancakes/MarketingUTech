@@ -6,12 +6,6 @@
         include("dashboard.php");
 ?>
 <head>
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
-	  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
       .addTaskBtn{
           background-color: #00d200;
@@ -199,9 +193,71 @@ $(document).ready(function(){
 
 <script>
     var app = angular.module('taskFieldsApp', ['ngMaterial']);
-    app.controller('taskFieldsController', function($scope) {
-        $scope.options = ["Yes", "No"];
-    });
+    var x=0;
+    app.config(['$qProvider', function ($qProvider) {
+      $qProvider.errorOnUnhandledRejections(false);
+    }]);
+    app.controller('taskFieldsController', function($scope, $http, $mdDialog) {
+      $scope.options = ["Yes", "No"];
+      $scope.status = {
+        $p1: "",
+        $p2: "",
+        $p3: "",
+        $p4: "",
+        $p5: "",
+        $taskDesc: ""
+      };
+       $scope.init = function () {
+          $http.get("queries/getMyDailyTrackerTodayOjtSeoTracker.php").then(function (response) {
+            $scope.today = response.data.records;
+            if($scope.today[0].OJTSeoId==""){
+              $scope.exists=false;
+            }else{
+              $scope.exists=true;
+            }
+          }); 
+        };
+        
+        $scope.showAlert = function(ev) {
+          $mdDialog.show(
+            $mdDialog.alert()
+            .parent(angular.element(document.querySelector('#popupContainer')))
+            .clickOutsideToClose(true)
+            .title('Successful Insertion!')
+            .textContent('You have successfully ADDED Task.')
+            .ariaLabel('Alert Dialog Demo')
+            .ok('Got it!')
+            .targetEvent(ev)
+          );
+        }
+
+        
+        $scope.showEdit = function(ev) {
+          $mdDialog.show(
+            $mdDialog.alert()
+            .parent(angular.element(document.querySelector('#popupContainer')))
+            .clickOutsideToClose(true)
+            .title('Successful Edit!')
+            .textContent('You have successfully EDITED your Task Count.')
+            .ariaLabel('Alert Dialog Demo')
+            .ok('Got it!')
+            .targetEvent(ev)
+          );
+        }
+
+        $scope.submitData = function() {
+          $http.post('insertFunctions/insertOJTSeo.php', {
+              'comment': $scope.status.p1,
+              'siteAudit': $scope.status.p2,
+              'schemaMarkup': $scope.status.p3,
+              'competitor': $scope.status.p4,
+              'relationship': $scope.status.p5,
+              'misc': $scope.status.taskDesc
+              }).then(function(data, status){
+                $scope.init();
+                $scope.showAlert();
+              })
+        };
 
 
 </script>
