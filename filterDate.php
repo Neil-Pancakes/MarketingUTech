@@ -20,12 +20,22 @@
 	              $underTime = "-";
 	            }else{
 	              $timeOut = date("h:i A", strtotime($row["timeOut"]));
-	              $datetime1 = date("h:i", strtotime($row["timeIn"]));
+	              $datetime1 = date("H:i", strtotime($row["timeIn"]));
 	              $datetime1 = strtotime($datetime1);
-	              $datetime2 = date("h:i", strtotime($row["timeOut"]));
+	              $datetime2 = date("H:i", strtotime($row["timeOut"]));
                   $datetime2 = strtotime($datetime2);
-	              $renderedTime = number_format(round(($datetime2 - $datetime1)/3600,1),1);
+	              $renderedTime = abs(number_format(round(($datetime2 - $datetime1)/3600,1),1));
                   $underTime = number_format(8.0 - $renderedTime, 1);
+                  if($underTime < 0){
+                    $overTime = abs($underTime);
+                    $underTime = 0;
+                  }else{
+                    $overTime = 0;
+                  }
+
+                  if($renderedTime > 8 && $row['overtimeStatus'] != 'true'){
+                    $renderedTime = 8;
+                  }
 	            }
 
 	            if($row["lunchIn"] == 0){
@@ -40,18 +50,28 @@
 	            	$renderedLunch = "-";
 	            }else{
 	            	$lunchOut = date("h:i A", strtotime($row["lunchOut"]));
-	            	$datetime3 = date("h:i", strtotime($row["lunchIn"]));
+	            	$datetime3 = date("H:i", strtotime($row["lunchIn"]));
 	            	$datetime3 = strtotime($datetime3);
-	            	$datetime4 = date("h:i", strtotime($row["lunchOut"]));
+	            	$datetime4 = date("H:i", strtotime($row["lunchOut"]));
                   	$datetime4 = strtotime($datetime4);
 	              	$renderedLunch = number_format(round(($datetime4 - $datetime3)/3600,1),1);
-	              	$datetime1 = date("h:i", strtotime($row["timeIn"]));
+	              	$datetime1 = date("H:i", strtotime($row["timeIn"]));
 	              	$datetime1 = strtotime($datetime1);
-	              	$datetime2 = date("h:i", strtotime($row["timeOut"]));
+	              	$datetime2 = date("H:i", strtotime($row["timeOut"]));
                   	$datetime2 = strtotime($datetime2);
                   	if($row["timeOut"] > 0){
-                    	$renderedTime = number_format(round((($datetime2 - $datetime1)/3600) - $renderedLunch, 1),1);
+                    	abs($renderedTime = number_format(round((($datetime2 - $datetime1)/3600) - $renderedLunch, 1),1));
                     	$underTime = number_format(8.0 - $renderedTime, 1);
+                    	if($underTime < 0){
+	                      $overTime = abs($underTime);
+	                      $underTime = 0;
+	                    }else{
+	                      $overTime = 0;
+	                    }
+
+	                    if($renderedTime > 8 && $row['overtimeStatus'] != 'true'){
+	                      $renderedTime = 8;
+	                    }
                   	}
 	            }
 
@@ -65,6 +85,7 @@
 	                  <td>'.$renderedTime.'</td>
 	                  <td>'.$renderedLunch.'</td>
 	                  <td>'.$underTime.'</td>
+	                  <td>'.$overTime.'</td>
 	              </tr>
 	            ';
 	          }

@@ -218,6 +218,12 @@
 		                    $datetime2 = strtotime($row["timeOut"]);
 		                    $renderedTime = number_format(round(($datetime2 - $datetime1)/3600,1),1);
 		                    $underTime = number_format(8.0 - $renderedTime, 1);
+		                    if($underTime < 0){
+		                      $overTime = abs($underTime);
+		                      $underTime = 0;
+		                    }else{
+		                      $overTime = 0;
+		                    }
 
 			                 if($row["lunchOut"] > 0){
 				               $datetime3 = strtotime($row["lunchIn"]);
@@ -227,11 +233,17 @@
 				               $datetime2 = strtotime($row["timeOut"]);
 				               $renderedTime = number_format(round((($datetime2 - $datetime1)/3600) - $renderedLunch, 1),2);
 				               $underTime = number_format(8.0 - $renderedTime, 1);
+				               if($underTime < 0){
+			                      $overTime = abs($underTime);
+			                      $underTime = 0;
+			                    }else{
+			                      $overTime = 0;
+			                    }
 				            }
 		                }
 
 		                $query = 'UPDATE timetable
-							SET totalHours = "'.$renderedTime.'", undertime = "'.$underTime.'"
+							SET totalHours = "'.$renderedTime.'", undertime = "'.$underTime.'", overtime = "'.$overTime.'"
 							WHERE user_id = "'.$user_id.'" AND date = DATE(CURRENT_TIMESTAMP)
 		                ';
 
