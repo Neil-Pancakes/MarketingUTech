@@ -27,6 +27,7 @@
 		$query  = "SELECT TIME_TO_SEC(TIMEDIFF(`timeOut`,`timeIn`)) / 60 FROM `timetable` WHERE `id` = ";
 	}
 
+
 	function createNewDays(){
 		global $mysqli;
 		$user_id = $_SESSION['user_id'];
@@ -151,6 +152,7 @@
 		if(!hasTime('timeIn', $user_id)){
 			$query = 'UPDATE `timetable` SET `timeIn` = CURRENT_TIMESTAMP WHERE `user_id` = "'.$user_id.'" AND DATE(`date`) = DATE(CURRENT_TIMESTAMP);';
 			if(mysqli_query($mysqli, $query)){
+
 				timeBtns();
 				timeToday();
 			} else {
@@ -266,6 +268,7 @@
 
 	//LunchIn
 	if(isset($_GET['lunchIn']) && isset($_SESSION['user_id'])){
+
 		$user_id = $_SESSION['user_id'];
 		if(!hasTime("lunchIn", $user_id)){
 			$query = 'UPDATE `timetable` 

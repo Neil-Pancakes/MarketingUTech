@@ -1,6 +1,5 @@
-<!--THIS IS ALSO USED FOR TRACKIMO CUSTOMER SUPPORT AND SEO Specialist/Internet Marketing-->
 <?php
-        include("dashboard.php");
+  include("dashboard_LOCAL_13708.php");
 ?>
 <head>
     <style>
@@ -228,6 +227,9 @@ $(document).ready(function(){
 <script>
     var app = angular.module('taskFieldsApp', ['ngMaterial']);
     var x=0;
+    app.config(['$qProvider', function ($qProvider) {
+      $qProvider.errorOnUnhandledRejections(false);
+    }]);
     app.controller('taskFieldsController', function($scope, $http, $mdDialog) {
       $scope.obj = {
         $createWebsite: "",

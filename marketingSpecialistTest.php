@@ -1,14 +1,7 @@
-<!--THIS IS ALSO USED FOR TRACKIMO CUSTOMER SUPPORT AND SEO Specialist/Internet Marketing-->
 <?php
-        include("dashboard.php");
+  include("dashboard_LOCAL_13708.php");
 ?>
 <head>
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
-	  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
       .addTaskBtn{
           background-color: #00d200;
@@ -202,6 +195,9 @@ $(document).ready(function(){
 <script>
     var app = angular.module('taskFieldsApp', ['ngMaterial']);
     var x=0;
+    app.config(['$qProvider', function ($qProvider) {
+      $qProvider.errorOnUnhandledRejections(false);
+    }]);
     app.controller('taskFieldsController', function($scope, $http, $mdDialog) {
       $scope.obj = {
         $dailytask: "",

@@ -1,11 +1,13 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
-require("../sql_connect.php");
+require("../functions/sql_connect.php");
+session_start();
 
+$val = $_SESSION['user_id'];
 $result = $mysqli->query("SELECT `trackimo_cs_id`, `daily_task` 
             FROM `trackimo_cs_tracker` 
-            WHERE `track_date` = CURDATE() AND `account_id`=1"); /*$_SESSION['account_id']*/
+            WHERE `track_date` = CURDATE() AND `user_id`=$val");
 
 $outp = "";
 $rs = $result->fetch_array(MYSQLI_ASSOC);
