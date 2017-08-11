@@ -15,7 +15,7 @@
       }
     </style>
 </head>
-<body ng-app="taskFieldsApp">
+<body ng-app="taskFieldsApp" >
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -48,16 +48,16 @@
                         <div align="center">
                           <md-button ng-show="delBtn" type="submit" class=" md-raised" style="width:20%; background-color:darkred; color:white;">Delete <span class="fa fa-trash"></span></md-button>
                         </div>
-                        <md-list-item class="md-3-line" ng-repeat="x in today" ng-click="modal(x.EditorId, x.WriterId, x.WriterName, x.WordCount, x.Article)">
+                        <md-list-item class="md-3-line" ng-repeat="x in today" ng-click="modal(x.Article, x.WordCnt, x.WriterId)">
                           <div style="width:95%;" data-target="#optionModal" data-toggle="modal">
                             <img src="includes/img/articleIcon.png" class="md-avatar" style="float:left"/>
                             <div class="md-list-item-text">
-                              <h3 class="articleName"><strong>{{ x.Article }}</strong></h3>
                               <h3>{{ x.WriterName }}</h3>
+                              <h3 class="articleName">{{ x.WriterId }}</h3>
                               <h4 class="wordsChanged">{{ x.WordCount }} Words Changed</h4>
                             </div>
                           </div>
-                          <md-checkbox ng-model="deleteList[$index]" ng-checked="exists(x.EditorId, selected)" ng-click="toggle(x.EditorId, selected)" aria-label="checkbox">
+                          <md-checkbox ng-model="deleteList[$index]" ng-checked="exists(x.WriterId, selected)" ng-click="toggle(x.WriterId, selected)" aria-label="checkbox">
                             
                           </md-checkbox>
                         </md-list-item>
@@ -71,12 +71,8 @@
                                   <h2 id="modalHeaderEditDelete">Task</h2>
                                 </div>
                                 <div class="modal-body">
-                                  <select class="form-control" ng-model="modalArticle" ng-options="x.Article for x in articleList"></select>
-                                  <!--REQUIRES THE STORAGE OF AN OBJECT IN ORDER TO DISPLAY THE NAME-->
-                                  <input type="text" class="inp form-control" ng-model="modalWordCnt" required>
-                                  <input type="text" class="inp form-control" ng-model="modalEditorId" required>
-                                  <input type="text" class="inp form-control" ng-model="modalWriterName" required>
-                                  <input type="text" class="inp form-control" ng-model="modalWriterId" required>
+                                  <input type="text" class="inp form-control" ng-model="modalArticle" value="{{modalArticle}}" required>
+                                  <input type="text" class="inp form-control" ng-model="modalWordCnt" value="{{modalWordCnt}}" required>
                                 </div>
                                 <div class="modal-footer">
                                   <button type="submit" class="btn btn-warning" onclick="$('#optionModal').modal('hide');">Edit <span class="fa fa-edit"></span></button>
@@ -225,7 +221,6 @@
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
-</body>
 <script>
 $(document).ready(function(){
     document.getElementById("year").innerHTML = new Date().getFullYear();
@@ -242,13 +237,12 @@ $(document).ready(function(){
         $scope.items= [];
         $scope.selected = [];
         $scope.init = function () {
-          $scope.items.splice(0, $scope.items.length);
           $http.get("queries/getMyDailyTrackerTodayEditorTracker.php").then(function (response) {
             $scope.today = response.data.records;
             $scope.deleteList = [];
             for($x=0; $x<$scope.today.length; $x++){
               $scope.deleteList[$x] = false;
-              $scope.items.push($scope.today[$x].EditorId);
+              $scope.items.push($scope.today[$x].WriterId);
             }
           });
           $http.get("queries/getAllArticles.php").then(function (response){
@@ -355,7 +349,7 @@ $(document).ready(function(){
 
         $scope.delData = function() {
           for($x=$scope.selected.length; $x>-1; $x--){
-            $http.post('deleteFunctions/delDailyTaskEditor.php', {
+            $http.post('deleteFunctions/delDailyTaskWriter.php', {
               'id': $scope.selected[$x],
             }).then(function(data, status){
                 $scope.init();
@@ -368,17 +362,12 @@ $(document).ready(function(){
           if($scope.selected.length==0){
             $scope.delBtn = false;
           }
-          if($scope.selected.length == $scope.items.length){
-            $scope.isChecked();
-          }
         };
 
-        $scope.modal = function(editorId, writerId, writerName, wordCnt, article) {
+        $scope.modal = function(article, wordCnt, id) {
             $scope.modalArticle = article;
             $scope.modalWordCnt = wordCnt;
-            $scope.modalEditorId = editorId;
-            $scope.modalWriterName = writerName;
-            $scope.modalWriterId = writerId;
+            $scope.modalWriterId = id;
         };
 
     $scope.toggle = function (item, list) {

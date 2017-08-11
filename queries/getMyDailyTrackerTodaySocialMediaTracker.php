@@ -9,12 +9,12 @@ $result = $mysqli->query("SELECT `social_media_id`, `fb_balay_cnt`, `pinterest_b
 
 $rs = $result->fetch_array(MYSQLI_ASSOC);
 $outp = "";
-$outp .= '{"SocialMediaId":"'  . $rs["social_media_id"] . '",';
-$outp .= '"FacebookCnt":"'   . $rs["fb_balay_cnt"]        . '",';
-$outp .= '"PinterestCnt":"'   . $rs["pinterest_balay_cnt"]        . '",';
-$outp .= '"MBCnt":"'   . $rs["mb_cnt"]        . '",';
-$outp .= '"TaftCnt":"'   . $rs["taft_cnt"]        . '",';
-$outp .= '"WACnt":"'   . $rs["wa_cnt"]        . '"}';
+$outp .= '{"Social Media ID":"'  . $rs["social_media_id"] . '",';
+$outp .= '"Facebook Count":"'   . $rs["fb_balay_cnt"]        . '",';
+$outp .= '"Pinterest Count":"'   . $rs["pinterest_balay_cnt"]        . '",';
+$outp .= '"MB count":"'   . $rs["mb_cnt"]        . '",';
+$outp .= '"Taft Count":"'   . $rs["taft_cnt"]        . '",';
+$outp .= '"WA count":"'   . $rs["wa_cnt"]        . '"}';
 
 $outp ='{"records":['.$outp.']}';
 $mysqli->close();

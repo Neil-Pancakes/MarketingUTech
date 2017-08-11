@@ -3,7 +3,7 @@
 	$server_address = "localhost"; 
 	$username = "root";
 	$password = "";
-	$database_name = "attendancetracker";
+	$database_name = "tracker";
 
 	$mysqli = new mysqli($server_address, $username, $password, $database_name);
 	
