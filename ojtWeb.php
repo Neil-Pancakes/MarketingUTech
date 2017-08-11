@@ -1,9 +1,5 @@
-<!-- -----BASE CODE FOR THE TRACKERS----- -->
-<!-- -----BASE CODE FOR THE TRACKERS----- -->
-<!-- -----BASE CODE FOR THE TRACKERS----- -->
-
 <?php
-        include("dashboard.php");
+  include("dashboard_LOCAL_13708.php");
 ?>
 <head>
     <style>

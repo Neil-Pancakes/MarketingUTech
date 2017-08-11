@@ -830,73 +830,73 @@ ALTER TABLE `additional_task_tracker`
 --
 ALTER TABLE `editor_tracker`
   ADD CONSTRAINT `editor_tracker_fk1` FOREIGN KEY (`writer_id`) REFERENCES `writer_tracker` (`writer_id`),
-  ADD CONSTRAINT `writer_tracker_fk2` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`);
+  ADD CONSTRAINT `writer_tracker_fk2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user`);
 
 --
 -- Constraints for table `marketing_tracker`
 --
 ALTER TABLE `marketing_tracker`
-  ADD CONSTRAINT `marketing_tracker_fk` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`);
+  ADD CONSTRAINT `marketing_tracker_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
 -- Constraints for table `multimedia_tracker`
 --
 ALTER TABLE `multimedia_tracker`
-  ADD CONSTRAINT `multimedia_tracker_fk` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`);
+  ADD CONSTRAINT `multimedia_tracker_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
 -- Constraints for table `ojt_developer_system_tracker`
 --
 ALTER TABLE `ojt_developer_system_tracker`
-  ADD CONSTRAINT `ojt_developer_system_fk` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`);
+  ADD CONSTRAINT `ojt_developer_system_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
 -- Constraints for table `ojt_researcher_tracker`
 --
 ALTER TABLE `ojt_researcher_tracker`
-  ADD CONSTRAINT `ojt_researcher_fk` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`);
+  ADD CONSTRAINT `ojt_researcher_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
 -- Constraints for table `ojt_seo_tracker`
 --
 ALTER TABLE `ojt_seo_tracker`
-  ADD CONSTRAINT `ojt_seo_fk` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`);
+  ADD CONSTRAINT `ojt_seo_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
 -- Constraints for table `ojt_webdev_tracker`
 --
 ALTER TABLE `ojt_webdev_tracker`
-  ADD CONSTRAINT `ojt_webdev_fk` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`);
+  ADD CONSTRAINT `ojt_webdev_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
 -- Constraints for table `seo_specialist_tracker`
 --
 ALTER TABLE `seo_specialist_tracker`
-  ADD CONSTRAINT `seo_fk` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`);
+  ADD CONSTRAINT `seo_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
 -- Constraints for table `social_media_tracker`
 --
 ALTER TABLE `social_media_tracker`
-  ADD CONSTRAINT `social_media_tracker_fk` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`);
+  ADD CONSTRAINT `social_media_tracker_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`users_id`);
 
 --
 -- Constraints for table `trackimo_cs_tracker`
 --
 ALTER TABLE `trackimo_cs_tracker`
-  ADD CONSTRAINT `trackimo_cs_tracker_fk` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`);
+  ADD CONSTRAINT `trackimo_cs_tracker_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
 -- Constraints for table `wordpress_developer_tracker`
 --
 ALTER TABLE `wordpress_developer_tracker`
-  ADD CONSTRAINT `wordpress_developer_fk` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`);
+  ADD CONSTRAINT `wordpress_developer_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
 -- Constraints for table `writer_tracker`
 --
 ALTER TABLE `writer_tracker`
-  ADD CONSTRAINT `writer_tracker_fk` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`);
+  ADD CONSTRAINT `writer_tracker_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
