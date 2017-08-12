@@ -10,7 +10,7 @@
             <img src=<?php echo '"'.$_SESSION['picture'].'"'?> class="img-circle" alt="User Image">
           </div>
           <div class="pull-left info">
-            <p><?php echo $_SESSION['firstName'] ?></p>
+            <p><?php echo $_SESSION['firstName']; ?></p>
             <!-- Status -->
             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
           </div>
@@ -31,7 +31,27 @@
 
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
-          <li class="header">UTech</li>
+          <li class="header">
+            <?php 
+              if (isset($_SESSION['jobTitle']) && $_SESSION['jobTitle'] != null) {
+                echo $_SESSION['jobTitle'];
+              } else {
+                echo "User";
+              }
+            ?>
+          </li>
+
+          <!-- Sidebar PHP Start -->
+          <?php
+            // if(isset($_SESSION['user_id']) && isset($_SESSION['jobTitle']) {
+            //   switch ($_SESSION['jobTitle']) {
+
+            //     case "Editor"
+
+            //   }
+            // }
+          ?>
+
           <!-- Optionally, you can add icons to the links -->
           <li id="homeTab"><a href="home.php"><i class="fa fa-home"></i> <span>Home</span></a></li>
           <li id="trackerTab"><a href="tracker.php"><i class="fa fa-link"></i> <span>Tracker</span></a></li>
@@ -46,6 +66,7 @@
               <li><a href="#">Link in level 2</a></li>
             </ul>
           </li>
+
         </ul>
 
 

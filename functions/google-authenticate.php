@@ -41,7 +41,7 @@
 		  		$_SESSION['lastName'] = $row['lastName'];
 		  		$_SESSION['email'] = $row['email'];
 		  		$_SESSION['picture'] = $row['picture'];
-				//$_SESSION['jobTitle'] = $row['jobTitle']
+				$_SESSION['jobTitle'] = $row['jobTitle'];
 	  		}
 	  	} else{
 	  		echo 'Insertion Error!';
@@ -57,7 +57,7 @@
 		$_SESSION['lastName'] = $row['lastName'];
 		$_SESSION['email'] = $row['email'];
 		$_SESSION['picture'] = $picture;
-    //$_SESSION['jobTitle'] = $row['jobTitle']
+    	$_SESSION['jobTitle'] = $row['jobTitle'];
 	  }
 	} else {
 	  $_SESSION['error'] = "invalid ID token";

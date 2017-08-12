@@ -27,9 +27,11 @@
 		$_SESSION['lastName'] = $row['lastName'];
 		$_SESSION['email'] = $row['email'];
 		$_SESSION['picture'] = $row['picture'];
+		$_SESSION['jobTitle'] = $row['jobTitle'];
 
 		header("Location: ../home.php");
 	} else {
+		$_SESSION['error'] = "Username or Password is invalid.";
 		header("Location: ../index.php?err");
 	}
 ?>

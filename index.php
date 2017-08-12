@@ -35,9 +35,20 @@
       <img src="includes/img/utech_logo.png" class="logo">
     </div>
 
+    <?php 
+      if(isset($_GET['err']) && isset($_SESSION["error"])) {
+        echo '
+            <div class="row">
+              <div class="col-md-3"></div>
+              <div class="col-md-6 text-center alert alert-danger" role="alert">
+                '.$_SESSION["error"].'
+              </div>
+            </div>';
+      }
+    ?>
+
     <div class="container">
       <form class="form-signin" method="POST" action="functions/login.php">
-        <!-- <h2 class="form-signin-heading">Please sign in</h2> -->
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email address" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
@@ -48,22 +59,17 @@
           </label>
         </div>
         <div>
-          <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+          <button class="btn btn-lg btn-primary btn-block" onclick="showLoading()" type="submit">Sign in</button>
           <div class="google-signin-button btn-block" id="my-signin2"></div>
         </div>
       </form>
     </div> <!-- /container -->
   
-  <script>
+  <script type="text/javascript">
+
     function onSuccess(googleUser) {
-      // if() {
-      //   swal({
-      //        title: "Logging in as:",
-      //        text: googleUser.getBasicProfile().getName(),
-      //        allowOutsideClick: false
-      //   });
-      //   swal.showLoading();
-      // }
+
+      showLoadingGoogle(googleUser);
 
       var id_token = googleUser.getAuthResponse().id_token;
 
@@ -75,9 +81,11 @@
       };
       xhr.send('idtoken=' + id_token);
     }
+
     function onFailure(error) {
       window.location.href = "index.php";
     }
+
     function renderButton() {
       gapi.signin2.render('my-signin2', {
         'scope': 'profile email',
@@ -88,6 +96,23 @@
         'onsuccess': onSuccess,
         'onfailure': onFailure
       });
+    }
+
+    function showLoadingGoogle(googleUser){
+      swal({
+       title: "Logging in as:",
+       text: googleUser.getBasicProfile().getName(),
+       allowOutsideClick: false
+      });
+      swal.showLoading();
+    }
+
+    function showLoading(){
+      swal({
+       title: "Logging in",
+       allowOutsideClick: false
+      });
+      swal.showLoading();
     }
   </script>
 
