@@ -68,19 +68,6 @@
                 <th>Overtime</th>
             </tr>
         </thead>
-        <tfoot>
-            <tr>
-                <th>Date</th>
-                <th>Time In</th>
-                <th>Time Out</th>
-                <th>Lunch Time In</th>
-                <th>Lunch Time Out</th>
-                <th>Rendered Time</th>
-                <th>Rendered Lunch</th>
-                <th>Late / Undertime</th>
-                <th>Overtime</th>
-            </tr>
-        </tfoot>
         <tbody id="timetable-tbody">
           <?php
             $month = date('F');
@@ -208,8 +195,7 @@
                         }
                       echo '
                         </td>
-                  </tr>
-                ';
+                  </tr>';
               }
             }
           ?>
