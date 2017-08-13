@@ -1,5 +1,5 @@
 <?php
-	require ("php_globals.php");
+	require ("../../functions/php_globals.php");
 
 	if(isset($_GET['user_id']) && isset($_GET['date_id']) && isset($_GET['date'])){
 		$user_id = $_GET['user_id'];

@@ -1,6 +1,14 @@
 <?php
-  include("dashboard_LOCAL_13708.php");
+  include("../dashboard/dashboard.php");
 ?>
+<head>
+    <style>
+      .addTaskBtn{
+          background-color: #00d200;
+          color:white;
+      }
+    </style>
+</head>
 <body ng-app="taskFieldsApp" >
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -41,8 +49,8 @@
                                   <h2 id="modalHeaderEditDelete">Task</h2>
                                 </div>
                                 <div class="modal-body">
-                                  <input ng-model="modalseoId" hidden>
-                                  <textarea ng-model="modaldailytask" rows="15" value="obj.dailyTask" id="comment_text" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
+                                  <input ng-model="modalmarketingId" hidden>
+                                  <textarea ng-model="modaldailytask" rows="15" ng-model="obj.dailyTask" id="comment_text" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
                                 </div>
                                 <div class="modal-footer">
                                   <button type="submit" class="btn btn-warning" onclick="$('#optionModal').modal('hide');">Edit <span class="fa fa-edit"></span></button>
@@ -176,15 +184,14 @@
 </div>
 <!-- ./wrapper -->
 <script>
-$(document).ready(function(){
-    document.getElementById("year").innerHTML = new Date().getFullYear();
-    $('#homeTab').removeClass('active');
-    $('#trackerTab').addClass('active');
-});
-</script>
+  document.getElementById("taskTracker").setAttribute("class", "active");
 
+  $(document).ready(function(){
+      document.getElementById("year").innerHTML = new Date().getFullYear();
+      $('#homeTab').removeClass('active');
+      $('#trackerTab').addClass('active');
+  });
 
-<script>
     var app = angular.module('taskFieldsApp', ['ngMaterial']);
     var x=0;
     app.config(['$qProvider', function ($qProvider) {
@@ -195,9 +202,9 @@ $(document).ready(function(){
         $dailytask: "",
       };
        $scope.init = function () {
-          $http.get("queries/getMyDailyTrackerTodaySeoSpecialistTracker.php").then(function (response) {
+          $http.get("../../queries/getMyDailyTrackerTodayMarketingTracker.php").then(function (response) {
             $scope.today = response.data.records;
-            if($scope.today[0].SEOSpecialistId==""){
+            if($scope.today[0].MarketingId==""){
               $scope.exists=false;
             }else{
               $scope.exists=true;
@@ -233,7 +240,7 @@ $(document).ready(function(){
         }
 
         $scope.submitData = function() {
-          $http.post('insertFunctions/insertSeoSpecialistTracker.php', {
+          $http.post('../../insertFunctions/insertMarketingTracker.php', {
               'dailyTask': $scope.obj.dailyTask
               }).then(function(data, status){
                 $scope.init();
@@ -242,8 +249,8 @@ $(document).ready(function(){
         };
 
         $scope.editData = function() {
-          $http.post('editFunctions/editDailyTaskSeoSpecialist.php', {
-            'id': $scope.modalseoId,
+          $http.post('../../editFunctions/editDailyTaskMarketing.php', {
+            'id': $scope.modalmarketingId,
             'dailytask': $scope.modaldailytask
           }).then(function(data, status){
                 $scope.init();
@@ -252,7 +259,7 @@ $(document).ready(function(){
         };
 
         $scope.modal = function() {
-            $scope.modalseoId = $scope.today[0].SEOSpecialistId;
+            $scope.modalmarketingId = $scope.today[0].MarketingId;
             $scope.modaldailytask = $scope.today[0].DailyTask;
         };
   });

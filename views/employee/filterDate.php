@@ -1,5 +1,5 @@
 <?php
-	require ("php_globals.php");
+	require ("../../functions/php_globals.php");
 	session_start();
 
 	if(isset($_GET['since']) && isset($_GET['until'])){
@@ -41,6 +41,7 @@
 	            if($row["lunchIn"] == 0){
 	            	$lunchIn = "-";
 	            	$renderedLunch = "-";
+	            	$overTime = "-";
 	            }else{
 	            	$lunchIn = date("h:i A", strtotime($row["lunchIn"]));
 	            }
@@ -48,6 +49,7 @@
 	            if($row["lunchOut"] == 0){
 	            	$lunchOut = "-";
 	            	$renderedLunch = "-";
+	            	$overTime = "-";
 	            }else{
 	            	$lunchOut = date("h:i A", strtotime($row["lunchOut"]));
 	            	$datetime3 = date("H:i", strtotime($row["lunchIn"]));

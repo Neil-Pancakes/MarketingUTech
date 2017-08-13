@@ -13,7 +13,7 @@ INNER JOIN `writer_tracker` `w`
 ON `w`.`writer_id` = `e`.`writer_id` AND `e`.`track_date` = CURDATE() AND `e`.`user_id`=$val
 INNER JOIN `users` `u`
 ON `w`.`user_id` = `u`.`id`
-GROUP BY `e`.`writer_id`"); /
+GROUP BY `e`.`writer_id`"); 
 
 $outp = "";
 while($rs = $result->fetch_array(MYSQLI_ASSOC)) {

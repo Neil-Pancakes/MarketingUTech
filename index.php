@@ -31,23 +31,24 @@
 
   <body>
 
-    <div class="col-md-12 text-center">
-      <img src="includes/img/utech_logo.png" class="logo">
-    </div>
-
-    <?php 
-      if(isset($_GET['err']) && isset($_SESSION["error"])) {
-        echo '
-            <div class="row">
-              <div class="col-md-3"></div>
-              <div class="col-md-6 text-center alert alert-danger" role="alert">
-                '.$_SESSION["error"].'
-              </div>
-            </div>';
-      }
-    ?>
-
     <div class="container">
+
+      <div class="col-md-12 text-center">
+        <img src="includes/img/utech_logo.png" class="logo">
+      </div>
+
+      <?php 
+        if(isset($_GET['err']) && isset($_SESSION["error"])) {
+          echo '
+              <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6 text-center alert alert-danger" role="alert">
+                  '.$_SESSION["error"].'
+                </div>
+              </div>';
+        }
+      ?>
+      
       <form class="form-signin" method="POST" action="functions/login.php">
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email address" required autofocus>

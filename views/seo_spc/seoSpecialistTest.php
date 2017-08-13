@@ -1,31 +1,11 @@
 <?php
-include("dashboard_LOCAL_13708.php");
+  include("../dashboard/dashboard.php");
 ?>
-<head>
-  
-    <style>
-      .addTaskBtn{
-          background-color: #00d200;
-          color:white;
-      }
-    </style>
-</head>
 <body ng-app="taskFieldsApp" >
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Daily Tracker
-        <small>Role in the Company (Im an OJT)</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li>
-      </ol>
-    </section>
 
-    <!-- Main content -->
+  <!-- Main content -->
     <section class="content">
         <div ng-cloak ng-controller="taskFieldsController" data-ng-init="init()">
           <md-content>
@@ -48,8 +28,8 @@ include("dashboard_LOCAL_13708.php");
                                   <h2 id="modalHeaderEditDelete">Task</h2>
                                 </div>
                                 <div class="modal-body">
-                                  <input ng-model="modalcustomersupportId" hidden>
-                                  <textarea ng-model="modaldailytask" rows="15" ng-model="obj.dailyTask" id="comment_text" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
+                                  <input ng-model="modalseoId" hidden>
+                                  <textarea ng-model="modaldailytask" rows="15" value="obj.dailyTask" id="comment_text" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
                                 </div>
                                 <div class="modal-footer">
                                   <button type="submit" class="btn btn-warning" onclick="$('#optionModal').modal('hide');">Edit <span class="fa fa-edit"></span></button>
@@ -90,7 +70,6 @@ include("dashboard_LOCAL_13708.php");
       <!-- Your Page Content Here -->
       </section>
     <!-- /.content -->
-
   </div>
   <!-- /.content-wrapper -->
 
@@ -183,9 +162,15 @@ include("dashboard_LOCAL_13708.php");
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
-
-
 <script>
+  document.getElementById("taskTracker").setAttribute("class", "active");
+
+  $(document).ready(function(){
+      document.getElementById("year").innerHTML = new Date().getFullYear();
+      $('#homeTab').removeClass('active');
+      $('#trackerTab').addClass('active');
+  });
+
     var app = angular.module('taskFieldsApp', ['ngMaterial']);
     var x=0;
     app.config(['$qProvider', function ($qProvider) {
@@ -196,14 +181,14 @@ include("dashboard_LOCAL_13708.php");
         $dailytask: "",
       };
        $scope.init = function () {
-          $http.get("queries/getMyDailyTrackerTodayCustomerSupportTracker.php").then(function (response) {
+          $http.get("../../queries/getMyDailyTrackerTodaySeoSpecialistTracker.php").then(function (response) {
             $scope.today = response.data.records;
-            if($scope.today[0].CustomerSupportId==""){
+            if($scope.today[0].SEOSpecialistId==""){
               $scope.exists=false;
             }else{
               $scope.exists=true;
             }
-          });
+          });  
         };
         
         $scope.showAlert = function(ev) {
@@ -234,7 +219,7 @@ include("dashboard_LOCAL_13708.php");
         }
 
         $scope.submitData = function() {
-          $http.post('insertFunctions/insertTrackimoCsTracker.php', {
+          $http.post('../../insertFunctions/insertSeoSpecialistTracker.php', {
               'dailyTask': $scope.obj.dailyTask
               }).then(function(data, status){
                 $scope.init();
@@ -243,8 +228,8 @@ include("dashboard_LOCAL_13708.php");
         };
 
         $scope.editData = function() {
-          $http.post('editFunctions/editDailyTaskCustomerSupport.php', {
-            'id': $scope.modalcustomersupportId,
+          $http.post('../../editFunctions/editDailyTaskSeoSpecialist.php', {
+            'id': $scope.modalseoId,
             'dailytask': $scope.modaldailytask
           }).then(function(data, status){
                 $scope.init();
@@ -253,7 +238,7 @@ include("dashboard_LOCAL_13708.php");
         };
 
         $scope.modal = function() {
-            $scope.modalcustomersupportId = $scope.today[0].CustomerSupportId;
+            $scope.modalseoId = $scope.today[0].SEOSpecialistId;
             $scope.modaldailytask = $scope.today[0].DailyTask;
         };
   });

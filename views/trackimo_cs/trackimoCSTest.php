@@ -1,32 +1,20 @@
 <?php
-  include("dashboard_LOCAL_13708.php");
+  include("../dashboard/dashboard.php");
 ?>
 <head>
-    <style>
-      .addTaskBtn{
-          background-color: #00d200;
-          color:white;
-      }
-    </style>
+  <style>
+    .addTaskBtn{
+        background-color: #00d200;
+        color:white;
+    }
+  </style>
 </head>
+
 <body ng-app="taskFieldsApp" >
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Daily Tracker
-        <small>Role in the Company (Im an OJT)</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li>
-      </ol>
-    </section>
 
     <!-- Main content -->
-
-  <!-- Main content -->
     <section class="content">
         <div ng-cloak ng-controller="taskFieldsController" data-ng-init="init()">
           <md-content>
@@ -49,7 +37,7 @@
                                   <h2 id="modalHeaderEditDelete">Task</h2>
                                 </div>
                                 <div class="modal-body">
-                                  <input ng-model="modalmarketingId" hidden>
+                                  <input ng-model="modalcustomersupportId" hidden>
                                   <textarea ng-model="modaldailytask" rows="15" ng-model="obj.dailyTask" id="comment_text" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
                                 </div>
                                 <div class="modal-footer">
@@ -91,6 +79,7 @@
       <!-- Your Page Content Here -->
       </section>
     <!-- /.content -->
+
   </div>
   <!-- /.content-wrapper -->
 
@@ -183,85 +172,80 @@
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
-<script>
-$(document).ready(function(){
-    document.getElementById("year").innerHTML = new Date().getFullYear();
-    $('#homeTab').removeClass('active');
-    $('#trackerTab').addClass('active');
-});
-</script>
 
 
 <script>
-    var app = angular.module('taskFieldsApp', ['ngMaterial']);
-    var x=0;
-    app.config(['$qProvider', function ($qProvider) {
-      $qProvider.errorOnUnhandledRejections(false);
-    }]);
-    app.controller('taskFieldsController', function($scope, $http, $mdDialog) {
-      $scope.obj = {
-        $dailytask: "",
+  document.getElementById("taskTracker").setAttribute("class", "active");
+
+  var app = angular.module('taskFieldsApp', ['ngMaterial']);
+  var x=0;
+  app.config(['$qProvider', function ($qProvider) {
+    $qProvider.errorOnUnhandledRejections(false);
+  }]);
+  app.controller('taskFieldsController', function($scope, $http, $mdDialog) {
+    $scope.obj = {
+      $dailytask: "",
+    };
+     $scope.init = function () {
+        $http.get("../../queries/getMyDailyTrackerTodayCustomerSupportTracker.php").then(function (response) {
+          $scope.today = response.data.records;
+          if($scope.today[0].CustomerSupportId==""){
+            $scope.exists=false;
+          }else{
+            $scope.exists=true;
+          }
+        });
       };
-       $scope.init = function () {
-          $http.get("queries/getMyDailyTrackerTodayMarketingTracker.php").then(function (response) {
-            $scope.today = response.data.records;
-            if($scope.today[0].MarketingId==""){
-              $scope.exists=false;
-            }else{
-              $scope.exists=true;
-            }
-          });  
-        };
-        
-        $scope.showAlert = function(ev) {
-          $mdDialog.show(
-            $mdDialog.alert()
-            .parent(angular.element(document.querySelector('#popupContainer')))
-            .clickOutsideToClose(true)
-            .title('Successful Insertion!')
-            .textContent('You have successfully ADDED a Task.')
-            .ariaLabel('Alert Dialog Demo')
-            .ok('Got it!')
-            .targetEvent(ev)
-          );
-        }
+      
+      $scope.showAlert = function(ev) {
+        $mdDialog.show(
+          $mdDialog.alert()
+          .parent(angular.element(document.querySelector('#popupContainer')))
+          .clickOutsideToClose(true)
+          .title('Successful Insertion!')
+          .textContent('You have successfully ADDED a Task.')
+          .ariaLabel('Alert Dialog Demo')
+          .ok('Got it!')
+          .targetEvent(ev)
+        );
+      }
 
-        
-        $scope.showEdit = function(ev) {
-          $mdDialog.show(
-            $mdDialog.alert()
-            .parent(angular.element(document.querySelector('#popupContainer')))
-            .clickOutsideToClose(true)
-            .title('Successful Edit!')
-            .textContent('You have successfully EDITED your Task.')
-            .ariaLabel('Alert Dialog Demo')
-            .ok('Got it!')
-            .targetEvent(ev)
-          );
-        }
+      
+      $scope.showEdit = function(ev) {
+        $mdDialog.show(
+          $mdDialog.alert()
+          .parent(angular.element(document.querySelector('#popupContainer')))
+          .clickOutsideToClose(true)
+          .title('Successful Edit!')
+          .textContent('You have successfully EDITED your Task.')
+          .ariaLabel('Alert Dialog Demo')
+          .ok('Got it!')
+          .targetEvent(ev)
+        );
+      }
 
-        $scope.submitData = function() {
-          $http.post('insertFunctions/insertMarketingTracker.php', {
-              'dailyTask': $scope.obj.dailyTask
-              }).then(function(data, status){
-                $scope.init();
-                $scope.showAlert();
-              })
-        };
+      $scope.submitData = function() {
+        $http.post('../../insertFunctions/insertTrackimoCsTracker.php', {
+            'dailyTask': $scope.obj.dailyTask
+            }).then(function(data, status){
+              $scope.init();
+              $scope.showAlert();
+            })
+      };
 
-        $scope.editData = function() {
-          $http.post('editFunctions/editDailyTaskMarketing.php', {
-            'id': $scope.modalmarketingId,
-            'dailytask': $scope.modaldailytask
-          }).then(function(data, status){
-                $scope.init();
-                $scope.showEdit();
-          })
-        };
+      $scope.editData = function() {
+        $http.post('../../editFunctions/editDailyTaskCustomerSupport.php', {
+          'id': $scope.modalcustomersupportId,
+          'dailytask': $scope.modaldailytask
+        }).then(function(data, status){
+              $scope.init();
+              $scope.showEdit();
+        })
+      };
 
-        $scope.modal = function() {
-            $scope.modalmarketingId = $scope.today[0].MarketingId;
-            $scope.modaldailytask = $scope.today[0].DailyTask;
-        };
+      $scope.modal = function() {
+          $scope.modalcustomersupportId = $scope.today[0].CustomerSupportId;
+          $scope.modaldailytask = $scope.today[0].DailyTask;
+      };
   });
 </script>

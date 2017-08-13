@@ -187,80 +187,83 @@
 </body>
 
 <script>
-    var app = angular.module('taskFieldsApp', ['ngMaterial']);
-    var x=0;
-    app.config(['$qProvider', function ($qProvider) {
-      $qProvider.errorOnUnhandledRejections(false);
-    }]);
-    app.controller('taskFieldsController', function($scope, $http, $mdDialog) {
-      $scope.obj = {
-        $niche: "",
-        $numOfCompanies: 0
+  document.getElementById("taskTracker").setAttribute("class", "active");
+
+  var app = angular.module('taskFieldsApp', ['ngMaterial']);
+  var x=0;
+  app.config(['$qProvider', function ($qProvider) {
+    $qProvider.errorOnUnhandledRejections(false);
+  }]);
+  
+  app.controller('taskFieldsController', function($scope, $http, $mdDialog) {
+    $scope.obj = {
+      $niche: "",
+      $numOfCompanies: 0
+    };
+     $scope.init = function () {
+        $http.get("../../queries/getMyDailyTrackerTodayOjtResearchTracker.php").then(function (response) {
+          $scope.today = response.data.records;
+          if($scope.today[0].OJTResearcherId==""){
+            $scope.exists=false;
+          }else{
+            $scope.exists=true;
+          }
+        });  
       };
-       $scope.init = function () {
-          $http.get("../../queries/getMyDailyTrackerTodayOjtResearchTracker.php").then(function (response) {
-            $scope.today = response.data.records;
-            if($scope.today[0].OJTResearcherId==""){
-              $scope.exists=false;
-            }else{
-              $scope.exists=true;
-            }
-          });  
-        };
-        
-        $scope.showAlert = function(ev) {
-          $mdDialog.show(
-            $mdDialog.alert()
-            .parent(angular.element(document.querySelector('#popupContainer')))
-            .clickOutsideToClose(true)
-            .title('Successful Insertion!')
-            .textContent('You have successfully ADDED a Task.')
-            .ariaLabel('Alert Dialog Demo')
-            .ok('Got it!')
-            .targetEvent(ev)
-          );
-        }
+      
+      $scope.showAlert = function(ev) {
+        $mdDialog.show(
+          $mdDialog.alert()
+          .parent(angular.element(document.querySelector('#popupContainer')))
+          .clickOutsideToClose(true)
+          .title('Successful Insertion!')
+          .textContent('You have successfully ADDED a Task.')
+          .ariaLabel('Alert Dialog Demo')
+          .ok('Got it!')
+          .targetEvent(ev)
+        );
+      }
 
-        
-        $scope.showEdit = function(ev) {
-          $mdDialog.show(
-            $mdDialog.alert()
-            .parent(angular.element(document.querySelector('#popupContainer')))
-            .clickOutsideToClose(true)
-            .title('Successful Edit!')
-            .textContent('You have successfully EDITED your Task.')
-            .ariaLabel('Alert Dialog Demo')
-            .ok('Got it!')
-            .targetEvent(ev)
-          );
-        }
+      
+      $scope.showEdit = function(ev) {
+        $mdDialog.show(
+          $mdDialog.alert()
+          .parent(angular.element(document.querySelector('#popupContainer')))
+          .clickOutsideToClose(true)
+          .title('Successful Edit!')
+          .textContent('You have successfully EDITED your Task.')
+          .ariaLabel('Alert Dialog Demo')
+          .ok('Got it!')
+          .targetEvent(ev)
+        );
+      }
 
-        $scope.submitData = function() {
-          $http.post('../../insertFunctions/insertOjtResearcher.php', {
-              'niche': $scope.obj.niche,
-              'numOfCompanies': $scope.obj.numOfCompanies
-              }).then(function(data, status){
-                $scope.init();
-                $scope.showAlert();
-              })
-        };
+      $scope.submitData = function() {
+        $http.post('../../insertFunctions/insertOjtResearcher.php', {
+            'niche': $scope.obj.niche,
+            'numOfCompanies': $scope.obj.numOfCompanies
+            }).then(function(data, status){
+              $scope.init();
+              $scope.showAlert();
+            })
+      };
 
-        $scope.editData = function() {
-          $http.post('../../editFunctions/editDailyTaskOjtResearcher.php', {
-            'id': $scope.modalojtresearcherId,
-            'niche': $scope.modalniche,
-            'numOfCompanies': $scope.modalnumofcompanies
-          }).then(function(data, status){
-                $scope.init();
-                $scope.showEdit();
-          })
-        };
+      $scope.editData = function() {
+        $http.post('../../editFunctions/editDailyTaskOjtResearcher.php', {
+          'id': $scope.modalojtresearcherId,
+          'niche': $scope.modalniche,
+          'numOfCompanies': $scope.modalnumofcompanies
+        }).then(function(data, status){
+              $scope.init();
+              $scope.showEdit();
+        })
+      };
 
-        $scope.modal = function() {
-            $scope.modalojtresearcherId = $scope.today[0].OJTResearcherId;
-            $scope.modalniche = $scope.today[0].Niche;
-            $scope.modalnumofcompanies = $scope.today[0].NumOfCompanies;
-        };
+      $scope.modal = function() {
+          $scope.modalojtresearcherId = $scope.today[0].OJTResearcherId;
+          $scope.modalniche = $scope.today[0].Niche;
+          $scope.modalnumofcompanies = $scope.today[0].NumOfCompanies;
+      };
   });
 </script>
 

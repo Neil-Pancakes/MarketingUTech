@@ -16,11 +16,6 @@
         Timetable
         <small>UniversalTech</small>
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li>
-      </ol>
-    </section>
 
     <!-- Main content -->
     <section class="content">
@@ -95,10 +90,11 @@
 
             if($date <= 15){
               $since = date('Y-m-d', strtotime($year."-".$month."-01"));
-              $qry = 'SELECT * FROM timetable WHERE user_id = '.$_SESSION['user_id'].' AND timeIn != 0 AND date BETWEEN "'.$since.'" AND "'.$until.'"';
+              //AND timeIn != 0
+              $qry = 'SELECT * FROM timetable WHERE user_id = '.$_SESSION['user_id'].' AND date BETWEEN "'.$since.'" AND "'.$until.'"';
             }else{
               $since = date('Y-m-d', strtotime($year."-".$month."-16"));
-              $qry = 'SELECT * FROM timetable WHERE user_id = '.$_SESSION['user_id'].' AND timeIn != 0 AND date BETWEEN "'.$since.'" AND "'.$until.'"';
+              $qry = 'SELECT * FROM timetable WHERE user_id = '.$_SESSION['user_id'].' AND date BETWEEN "'.$since.'" AND "'.$until.'"';
             }
 
             $result = mysqli_query($mysqli, $qry);
@@ -275,6 +271,8 @@
 </div>
 <!-- ./wrapper -->
 <script>
+  document.getElementById("viewTimetable").setAttribute("class", "active");
+
   $(document).ready(function(){
       $('#timetable').DataTable({
         "responsive": true,

@@ -1,5 +1,5 @@
 <?php
-  include("dashboard_LOCAL_13708.php");
+  include("../dashboard/dashboard.php");
 ?>
 <head>
     <style>
@@ -45,7 +45,7 @@
                         </div>
                         <md-list-item class="md-3-line" ng-repeat="x in today" ng-click="modal(x.DailyTask, x.TaskStatus, x.DataProcessorId)">
                           <div style="width:95%;" data-target="#optionModal" data-toggle="modal">
-                            <img src="includes/img/dataprocessor.png" class="md-avatar" style="float:left"/>
+                            <img src="../../includes/img/dataprocessor.png" class="md-avatar" style="float:left"/>
                             <div class="md-list-item-text">
                             
                               <h3 class="articleName">{{ x.DailyTask }}</h3>
@@ -126,15 +126,6 @@
       </section>
     <!-- /.content -->
   </div>
-  <!-- Main Footer -->
-  <footer class="main-footer">
-    <!-- To the right -->
-    <div class="pull-right hidden-xs">
-      Marketing Department Daily Tracker
-    </div>
-    <!-- Default to the left -->
-    <strong>Copyright &copy; <span id="year"></span> <a href="#">Company</a>.</strong> All rights reserved.
-  </footer>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -215,183 +206,194 @@
 </div>
 <!-- ./wrapper -->
 <script>
-$(document).ready(function(){
-    document.getElementById("year").innerHTML = new Date().getFullYear();
-    $('#homeTab').removeClass('active');
-    $('#trackerTab').addClass('active');
-});
-</script>
+  document.getElementById("taskTracker").setAttribute("class", "active");
 
-<script>
-    var app = angular.module('taskFieldsApp', ['ngMaterial']);
-    var x=0;
-    app.config(['$qProvider', function ($qProvider) {
-      $qProvider.errorOnUnhandledRejections(false);
-    }]);
-    app.controller('taskFieldsController', function($scope, $http, $mdDialog) {
-        $scope.data = {};
-        $scope.items= [];
-        $scope.selected = [];
-        $scope.init = function () {
-          $scope.items.splice(0, $scope.items.length);
-          $http.get("queries/getMyDailyTrackerTodayDataProcessorTracker.php").then(function (response) {
-            $scope.today = response.data.records;
-            $scope.deleteList = [];
-            for($x=0; $x<$scope.today.length; $x++){
-              $scope.deleteList[$x] = false;
-              $scope.items.push($scope.today[$x].DataProcessorId);
-            }
-          });  
-        };
-        
-       
-        $scope.taskDescSet = {taskDesc: []};
-        $scope.statusSet = {status: []};
-        $scope.taskDescSet.taskDesc = [];
-        $scope.statusSet.status = [];
-   
-        $scope.addNewTask = function() {
-          $scope.taskDescSet.taskDesc.push('');
-          $scope.statusSet.status.push('');
-          x++;
-          if(x>0){
-            $scope.show = true;
-          }
-        };
-        $scope.removeTask = function(z) {
-            $scope.taskDescSet.taskDesc.splice(z, 1);
-            $scope.statusSet.status.splice(z, 1);
-            if(x>0){
-              x--;
-            }
-            if(x==0){
-              $scope.show = false;
-            }
-        };
-        $scope.showAlert = function(ev) {
-          $mdDialog.show(
-            $mdDialog.alert()
-            .parent(angular.element(document.querySelector('#popupContainer')))
-            .clickOutsideToClose(true)
-            .title('Successful Insertion!')
-            .textContent('You have successfully ADDED Tasks.')
-            .ariaLabel('Alert Dialog Demo')
-            .ok('Got it!')
-            .targetEvent(ev)
-          );
-        }
-        $scope.showDelete = function(ev) {
-          $mdDialog.show(
-            $mdDialog.alert()
-            .parent(angular.element(document.querySelector('#popupContainer')))
-            .clickOutsideToClose(true)
-            .title('Successful Deletion!')
-            .textContent('You have successfully DELETED a Task.')
-            .ariaLabel('Alert Dialog Demo')
-            .ok('Got it!')
-            .targetEvent(ev)
-          );
-        }
-        
-        $scope.showEdit = function(ev) {
-          $mdDialog.show(
-            $mdDialog.alert()
-            .parent(angular.element(document.querySelector('#popupContainer')))
-            .clickOutsideToClose(true)
-            .title('Successful Edit!')
-            .textContent('You have successfully EDITED a Task.')
-            .ariaLabel('Alert Dialog Demo')
-            .ok('Got it!')
-            .targetEvent(ev)
-          );
-        }
-        $scope.submitData = function() {
-            $http.post('insertFunctions/insertDataProcessorTracker.php', {
-              'taskSet': $scope.taskDescSet.taskDesc, 
-              'statusSet': $scope.statusSet.status
-              }).then(function(data, status){
-                $scope.taskDescSet = {taskSet: []};
-                $scope.statusSet = {status: []};
-                
-                $scope.taskDescSet.taskDesc = [];
-                $scope.statusSet.status = [];
-                x=0;
-                $scope.show = false;
-                $scope.init();
-                $scope.showAlert();
-              })
-        };
-        $scope.editData = function() {
-          $http.post('editFunctions/editDailyTaskDataProcessor.php', {
-            'id': $scope.modalDataProcessorId,
-            'status': $scope.modalStatus,
-            'task': $scope.modalTask
-          }).then(function(data, status){
-                $scope.init();
-                $scope.showEdit();
-          })
-        };
-        $scope.delData = function() {
-          for($x=$scope.selected.length; $x>-1; $x--){
-            $http.post('deleteFunctions/delDailyTaskDataProcessor.php', {
-              'id': $scope.selected[$x],
-            }).then(function(data, status){
-                $scope.init();
-            })
-            $scope.selected.splice($x, 1);
-            $ndx = $scope.items.indexOf($scope.selected);
-            $scope.items.splice($ndx, 1);
-          }
-          $scope.showDelete();
-          if($scope.selected.length==0){
-            $scope.delBtn = false;
-          }
-          if($scope.selected.length == $scope.items.length){
-            $scope.isChecked();
-          }
-        };
-        $scope.modal = function(task, status, id) {
-            $scope.modalDataProcessorId = id;
-            $scope.modalStatus = status;
-            $scope.modalTask = task;
-        };
-    $scope.toggle = function (item, list) {
-      var idx = list.indexOf(item);
-      if (idx > -1) {
-        list.splice(idx, 1);
-      }
-      else {
-        list.push(item);
-      }
-      if(list.length>0){
-        $scope.delBtn = true;
-      }else{
-        $scope.delBtn = false;
-      }
-      if(list.length==$scope.items.length){
-        $scope.isChecked();
-      }
-    };
-    $scope.exists = function (item, list) {
-      return list.indexOf(item) > -1;
-    };
-    $scope.isChecked = function() {
-      return $scope.selected.length === $scope.items.length;
-    };
-    $scope.toggleAll = function() {
-      if ($scope.selected.length === $scope.items.length) {
-        for($x=0; $x<$scope.selected.length; $x++){
-          $scope.deleteList[$x] = false;
-        }
-        $scope.selected = [];
-        $scope.delBtn = false;
-      } else if ($scope.selected.length === 0 || $scope.selected.length > 0) {
-        $scope.selected = $scope.items.slice(0);
-        for($x=0; $x<$scope.selected.length; $x++){
-          $scope.deleteList[$x] = true;
-        }
-        $scope.delBtn = true;
-      }
-    };
+  $(document).ready(function(){
+      $('#homeTab').removeClass('active');
+      $('#trackerTab').addClass('active');
   });
+
+  var app = angular.module('taskFieldsApp', ['ngMaterial']);
+  var x=0;
+  app.config(['$qProvider', function ($qProvider) {
+    $qProvider.errorOnUnhandledRejections(false);
+  }]);
+
+  app.controller('taskFieldsController', function($scope, $http, $mdDialog) {
+      $scope.data = {};
+      $scope.items= [];
+      $scope.selected = [];
+      $scope.init = function () {
+        $scope.items.splice(0, $scope.items.length);
+        $http.get("../../queries/getMyDailyTrackerTodayDataProcessorTracker.php").then(function (response) {
+          $scope.today = response.data.records;
+          $scope.deleteList = [];
+          for($x=0; $x<$scope.today.length; $x++){
+            $scope.deleteList[$x] = false;
+            $scope.items.push($scope.today[$x].DataProcessorId);
+          }
+        });  
+      };
+      
+      $scope.taskDescSet = {taskDesc: []};
+      $scope.statusSet = {status: []};
+      $scope.taskDescSet.taskDesc = [];
+      $scope.statusSet.status = [];
+ 
+      $scope.addNewTask = function() {
+        $scope.taskDescSet.taskDesc.push('');
+        $scope.statusSet.status.push('');
+        x++;
+        if(x>0){
+          $scope.show = true;
+        }
+      };
+
+      $scope.removeTask = function(z) {
+          $scope.taskDescSet.taskDesc.splice(z, 1);
+          $scope.statusSet.status.splice(z, 1);
+          if(x>0){
+            x--;
+          }
+          if(x==0){
+            $scope.show = false;
+          }
+      };
+
+      $scope.showAlert = function(ev) {
+        $mdDialog.show(
+          $mdDialog.alert()
+          .parent(angular.element(document.querySelector('#popupContainer')))
+          .clickOutsideToClose(true)
+          .title('Successful Insertion!')
+          .textContent('You have successfully ADDED Tasks.')
+          .ariaLabel('Alert Dialog Demo')
+          .ok('Got it!')
+          .targetEvent(ev)
+        );
+      }
+
+      $scope.showDelete = function(ev) {
+        $mdDialog.show(
+          $mdDialog.alert()
+          .parent(angular.element(document.querySelector('#popupContainer')))
+          .clickOutsideToClose(true)
+          .title('Successful Deletion!')
+          .textContent('You have successfully DELETED a Task.')
+          .ariaLabel('Alert Dialog Demo')
+          .ok('Got it!')
+          .targetEvent(ev)
+        );
+      }
+
+      $scope.showEdit = function(ev) {
+        $mdDialog.show(
+          $mdDialog.alert()
+          .parent(angular.element(document.querySelector('#popupContainer')))
+          .clickOutsideToClose(true)
+          .title('Successful Edit!')
+          .textContent('You have successfully EDITED a Task.')
+          .ariaLabel('Alert Dialog Demo')
+          .ok('Got it!')
+          .targetEvent(ev)
+        );
+      }
+
+      $scope.submitData = function() {
+          $http.post('../../insertFunctions/insertDataProcessorTracker.php', {
+            'taskSet': $scope.taskDescSet.taskDesc, 
+            'statusSet': $scope.statusSet.status
+            }).then(function(data, status){
+              $scope.taskDescSet = {taskSet: []};
+              $scope.statusSet = {status: []};
+              
+              $scope.taskDescSet.taskDesc = [];
+              $scope.statusSet.status = [];
+              x=0;
+              $scope.show = false;
+              $scope.init();
+              $scope.showAlert();
+            })
+      };
+
+      $scope.editData = function() {
+        $http.post('../../editFunctions/editDailyTaskDataProcessor.php', {
+          'id': $scope.modalDataProcessorId,
+          'status': $scope.modalStatus,
+          'task': $scope.modalTask
+        }).then(function(data, status){
+              $scope.init();
+              $scope.showEdit();
+        })
+      };
+
+      $scope.delData = function() {
+        for($x=$scope.selected.length; $x>-1; $x--){
+          $http.post('../../deleteFunctions/delDailyTaskDataProcessor.php', {
+            'id': $scope.selected[$x],
+          }).then(function(data, status){
+              $scope.init();
+          })
+          $scope.selected.splice($x, 1);
+          $ndx = $scope.items.indexOf($scope.selected);
+          $scope.items.splice($ndx, 1);
+        }
+        $scope.showDelete();
+        if($scope.selected.length==0){
+          $scope.delBtn = false;
+        }
+        if($scope.selected.length == $scope.items.length){
+          $scope.isChecked();
+        }
+      };
+
+      $scope.modal = function(task, status, id) {
+          $scope.modalDataProcessorId = id;
+          $scope.modalStatus = status;
+          $scope.modalTask = task;
+      };
+
+      $scope.toggle = function (item, list) {
+        var idx = list.indexOf(item);
+        if (idx > -1) {
+          list.splice(idx, 1);
+        }
+        else {
+          list.push(item);
+        }
+        if(list.length>0){
+          $scope.delBtn = true;
+        }else{
+          $scope.delBtn = false;
+        }
+        if(list.length==$scope.items.length){
+          $scope.isChecked();
+        }
+      };
+
+      $scope.exists = function (item, list) {
+        return list.indexOf(item) > -1;
+      };
+
+      $scope.isChecked = function() {
+        return $scope.selected.length === $scope.items.length;
+      };
+
+      $scope.toggleAll = function() {
+        if ($scope.selected.length === $scope.items.length) {
+          for($x=0; $x<$scope.selected.length; $x++){
+            $scope.deleteList[$x] = false;
+          }
+          $scope.selected = [];
+          $scope.delBtn = false;
+        } else if ($scope.selected.length === 0 || $scope.selected.length > 0) {
+          $scope.selected = $scope.items.slice(0);
+          for($x=0; $x<$scope.selected.length; $x++){
+            $scope.deleteList[$x] = true;
+          }
+          $scope.delBtn = true;
+        }
+      };
+
+    });
 </script>

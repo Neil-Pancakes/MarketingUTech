@@ -16,7 +16,7 @@
     <!-- Google Sign-in -->
     <meta name="google-signin-client_id" content="746015490934-gl3bvgacv9oq9b3kg1gpj4s2m76pa62j.apps.googleusercontent.com"/>
 
-    <title>UniversalTech</title>
+    <title>EIMS - Universal Tech</title>
 
     <!-- REQUIRED JS SCRIPTS -->
     <script src="../../includes/js/jquery-3.2.1.min.js"></script>
@@ -111,9 +111,7 @@
 
       <!-- Logo -->
       <a href="../home/home.php" class="logo">
-        <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>U</b>T</span>
-        <!-- logo for regular state and mobile devices -->
         <span class="logo-lg"><b>Universal</b> Tech</span>
       </a>
 

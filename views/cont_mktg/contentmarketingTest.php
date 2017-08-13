@@ -12,19 +12,7 @@
 <body ng-app="taskFieldsApp" >
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Daily Tracker
-        <small>Role in the Company (Im an OJT)</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li>
-      </ol>
-    </section>
-
-
+    
     <!-- Main content -->
     <section class="content">
         <div ng-cloak ng-controller="taskFieldsController" data-ng-init="init()">
@@ -273,14 +261,13 @@
 </div>
 <!-- ./wrapper -->
 <script>
-$(document).ready(function(){
-    $('#homeTab').removeClass('active');
-    $('#trackerTab').addClass('active');
-});
-</script>
+  document.getElementById("taskTracker").setAttribute("class", "active");
+  
+  $(document).ready(function(){
+      $('#homeTab').removeClass('active');
+      $('#trackerTab').addClass('active');
+  });
 
-
-<script>
     var app = angular.module('taskFieldsApp', ['ngMaterial']);
     var x=0;
     app.config(['$qProvider', function ($qProvider) {

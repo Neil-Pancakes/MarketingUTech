@@ -95,20 +95,6 @@
                 <th>Edit</th>
             </tr>
         </thead>
-        <tfoot>
-            <tr>
-                <th>Date</th>
-                <th>Time In</th>
-                <th>Time Out</th>
-                <th>Lunch Time In</th>
-                <th>Lunch Time Out</th>
-                <th>Rendered Time</th>
-                <th>Rendered Lunch</th>
-                <th>Late / Undertime</th>
-                <th>Overtime</th>
-                <th>Edit</th>
-            </tr>
-        </tfoot>
         <tbody id="timetable-tbody">
           <?php
             $month = date('F');
@@ -261,10 +247,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
-  <?php
-    include ("dashboard/footer.php");
-  ?>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">

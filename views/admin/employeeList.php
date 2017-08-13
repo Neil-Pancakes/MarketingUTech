@@ -357,6 +357,8 @@
 </div>
 <!-- ./wrapper -->
 <script>
+  document.getElementById("employeeList").setAttribute("class", "active");
+
   $(document).ready(function(){
       $('#empList').DataTable({
         "responsive": true,

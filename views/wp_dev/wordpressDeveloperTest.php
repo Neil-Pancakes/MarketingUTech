@@ -1,19 +1,9 @@
 <?php
-        include("dashboard_LOCAL_13708.php");
+  include("../dashboard/dashboard.php");
 ?>
 <body ng-app="taskFieldsApp" >
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Daily Tracker
-        <small>Role in the Company (Im an OJT)</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Tracker</a></li>
-      </ol>
-    </section>
 
 <!-- Main content -->
     <section class="content">
@@ -74,7 +64,7 @@
                         </div>
                         <md-list-item class="md-3-line">
                           <div style="width:95%;">
-                            <img src="includes/img/bugFix.png" class="md-avatar" style="float:left"/>
+                            <img src="../../includes/img/bugFix.png" class="md-avatar" style="float:left"/>
                             <div class="md-list-item-text">
                               <br>
                               <h3>Fix Bugs</h3>
@@ -85,7 +75,7 @@
                         </md-list-item>
                         <md-list-item class="md-3-line">
                           <div style="width:95%;">
-                            <img src="includes/img/pageIcon.png" class="md-avatar" style="float:left"/>
+                            <img src="../../includes/img/pageIcon.png" class="md-avatar" style="float:left"/>
                             <div class="md-list-item-text">
                               <br>
                               <h3>Create Pages</h3>
@@ -97,7 +87,7 @@
 
                         <md-list-item class="md-3-line">
                           <div style="width:95%;">
-                            <img src="includes/img/responsiveDesign.png" class="md-avatar" style="float:left"/>
+                            <img src="../../includes/img/responsiveDesign.png" class="md-avatar" style="float:left"/>
                             <div class="md-list-item-text">
                               <br>
                               <h3>Responsive Design</h3>
@@ -109,7 +99,7 @@
 
                         <md-list-item class="md-3-line">
                           <div style="width:95%;">
-                            <img src="includes/img/articleIcon.png" class="md-avatar" style="float:left"/>
+                            <img src="../../includes/img/articleIcon.png" class="md-avatar" style="float:left"/>
                             <div class="md-list-item-text">
                               <br>
                               <h3>Modify Pages</h3>
@@ -121,7 +111,7 @@
 
                         <md-list-item class="md-3-line">
                           <div style="width:95%;">
-                            <img src="includes/img/miscIcon.png" class="md-avatar" style="float:left"/>
+                            <img src="../../includes/img/miscIcon.png" class="md-avatar" style="float:left"/>
                             <div class="md-list-item-text">
                               <br>
                               <h3>Miscellaneous</h3>
@@ -183,17 +173,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
-
-  <!-- Main Footer -->
-  <footer class="main-footer">
-    <!-- To the right -->
-    <div class="pull-right hidden-xs">
-      Marketing Department Daily Tracker
-    </div>
-    <!-- Default to the left -->
-    <strong>Copyright &copy; <span id="year"></span> <a href="#">Company</a>.</strong> All rights reserved.
-  </footer>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -276,99 +255,99 @@
 </body>
 
 <script>
-    var app = angular.module('taskFieldsApp', ['ngMaterial']);
-    var x=0;
-    app.config(['$qProvider', function ($qProvider) {
-      $qProvider.errorOnUnhandledRejections(false);
-    }]);
-    app.controller('taskFieldsController', function($scope, $http, $mdDialog) {
-      
-      $scope.obj = {
-        $fixbugCnt: 0,
-        $createpageCnt: 0,
-        $responsivedesignCnt: 0,
-        $modifypageCnt: 0,
-        $miscCnt: 0
-      };
-       $scope.init = function () {
-          $http.get("queries/getMyDailyTrackerTodayWordpress.php").then(function (response) {
-            $scope.today = response.data.records;
-            if($scope.today[0].WordpressId==""){
-              $scope.exists=false;
-            }else{
-              $scope.exists=true;
-            }
-          });  
-        };
-        
-        $scope.showAlert = function(ev) {
-          $mdDialog.show(
-            $mdDialog.alert()
-            .parent(angular.element(document.querySelector('#popupContainer')))
-            .clickOutsideToClose(true)
-            .title('Successful Insertion!')
-            .textContent('You have successfully ADDED Task.')
-            .ariaLabel('Alert Dialog Demo')
-            .ok('Got it!')
-            .targetEvent(ev)
-          );
-        }
+  document.getElementById("taskTracker").setAttribute("class", "active");
 
-        
-        $scope.showEdit = function(ev) {
-          $mdDialog.show(
-            $mdDialog.alert()
-            .parent(angular.element(document.querySelector('#popupContainer')))
-            .clickOutsideToClose(true)
-            .title('Successful Edit!')
-            .textContent('You have successfully EDITED your Task Count.')
-            .ariaLabel('Alert Dialog Demo')
-            .ok('Got it!')
-            .targetEvent(ev)
-          );
-        }
-
-        $scope.submitData = function() {
-          $http.post('insertFunctions/insertWordpressTracker.php', {
-              'fixbugCnt': $scope.obj.fixbugCnt, 
-              'createpageCnt': $scope.obj.createpageCnt,
-              'responsivedesignCnt': $scope.obj.responsivedesignCnt,
-              'modifypageCnt': $scope.obj.modifypageCnt,
-              'miscCnt': $scope.obj.miscCnt
-              }).then(function(data, status){
-                $scope.init();
-                $scope.showAlert();
-              })
-        };
-
-        $scope.editData = function() {
-          $http.post('editFunctions/editDailyTaskWordpress.php', {
-            'id': $scope.modalwordpressId,
-            'fixbugCnt': $scope.modalfixbugCnt,
-            'createpageCnt': $scope.modalcreatepageCnt,
-            'responsivedesignCnt': $scope.modalresponsivedesignCnt,
-            'modifypageCnt': $scope.modalmodifypageCnt,
-            'miscCnt': $scope.modalmiscCnt
-          }).then(function(data, status){
-                $scope.init();
-                $scope.showEdit();
-          })
-        };
-
-        $scope.modal = function() {
-            $scope.modalwordpressId = $scope.today[0].WordpressId;
-            $scope.modalfixbugCnt = $scope.today[0].FixBugCnt;
-            $scope.modalcreatepageCnt = $scope.today[0].CreatePagesCnt;
-            $scope.modalresponsivedesignCnt = $scope.today[0].ResponsiveDesignCnt;
-            $scope.modalmodifypageCnt = $scope.today[0].ModifyPagesCnt;
-            $scope.modalmiscCnt = $scope.today[0].MiscCnt;
-        };
-  });
-</script>
-<script>
-$(document).ready(function(){
-    document.getElementById("year").innerHTML = new Date().getFullYear();
+  $(document).ready(function(){
     $('#homeTab').removeClass('active');
     $('#trackerTab').addClass('active');
-});
+  });
+
+  var app = angular.module('taskFieldsApp', ['ngMaterial']);
+  var x=0;
+  app.config(['$qProvider', function ($qProvider) {
+    $qProvider.errorOnUnhandledRejections(false);
+  }]);
+  app.controller('taskFieldsController', function($scope, $http, $mdDialog) {
+    
+    $scope.obj = {
+      $fixbugCnt: 0,
+      $createpageCnt: 0,
+      $responsivedesignCnt: 0,
+      $modifypageCnt: 0,
+      $miscCnt: 0
+    };
+     $scope.init = function () {
+        $http.get("../../queries/getMyDailyTrackerTodayWordpress.php").then(function (response) {
+          $scope.today = response.data.records;
+          if($scope.today[0].WordpressId==""){
+            $scope.exists=false;
+          }else{
+            $scope.exists=true;
+          }
+        });  
+      };
+      
+      $scope.showAlert = function(ev) {
+        $mdDialog.show(
+          $mdDialog.alert()
+          .parent(angular.element(document.querySelector('#popupContainer')))
+          .clickOutsideToClose(true)
+          .title('Successful Insertion!')
+          .textContent('You have successfully ADDED Task.')
+          .ariaLabel('Alert Dialog Demo')
+          .ok('Got it!')
+          .targetEvent(ev)
+        );
+      }
+
+      
+      $scope.showEdit = function(ev) {
+        $mdDialog.show(
+          $mdDialog.alert()
+          .parent(angular.element(document.querySelector('#popupContainer')))
+          .clickOutsideToClose(true)
+          .title('Successful Edit!')
+          .textContent('You have successfully EDITED your Task Count.')
+          .ariaLabel('Alert Dialog Demo')
+          .ok('Got it!')
+          .targetEvent(ev)
+        );
+      }
+
+      $scope.submitData = function() {
+        $http.post('../../insertFunctions/insertWordpressTracker.php', {
+            'fixbugCnt': $scope.obj.fixbugCnt, 
+            'createpageCnt': $scope.obj.createpageCnt,
+            'responsivedesignCnt': $scope.obj.responsivedesignCnt,
+            'modifypageCnt': $scope.obj.modifypageCnt,
+            'miscCnt': $scope.obj.miscCnt
+            }).then(function(data, status){
+              $scope.init();
+              $scope.showAlert();
+            })
+      };
+
+      $scope.editData = function() {
+        $http.post('../../editFunctions/editDailyTaskWordpress.php', {
+          'id': $scope.modalwordpressId,
+          'fixbugCnt': $scope.modalfixbugCnt,
+          'createpageCnt': $scope.modalcreatepageCnt,
+          'responsivedesignCnt': $scope.modalresponsivedesignCnt,
+          'modifypageCnt': $scope.modalmodifypageCnt,
+          'miscCnt': $scope.modalmiscCnt
+        }).then(function(data, status){
+              $scope.init();
+              $scope.showEdit();
+        })
+      };
+
+      $scope.modal = function() {
+          $scope.modalwordpressId = $scope.today[0].WordpressId;
+          $scope.modalfixbugCnt = $scope.today[0].FixBugCnt;
+          $scope.modalcreatepageCnt = $scope.today[0].CreatePagesCnt;
+          $scope.modalresponsivedesignCnt = $scope.today[0].ResponsiveDesignCnt;
+          $scope.modalmodifypageCnt = $scope.today[0].ModifyPagesCnt;
+          $scope.modalmiscCnt = $scope.today[0].MiscCnt;
+      };
+  });
 </script>

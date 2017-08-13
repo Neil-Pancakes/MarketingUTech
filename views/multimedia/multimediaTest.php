@@ -1,22 +1,20 @@
 <?php
-  include("dashboard_LOCAL_13708.php");
+  include("../dashboard/dashboard.php");
 ?>
+<head>
+    <style>
+      .addTaskBtn{
+          background-color: #00d200;
+          color:white;
+      }
+    </style>
+</head>
 <body ng-app="taskFieldsApp" >
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Daily Tracker
-        <small>Role in the Company (Im an OJT)</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li>
-      </ol>
-    </section>
 
-    <section class="content">
+      <section class="content">
         <div ng-cloak ng-controller="taskFieldsController" data-ng-init="init()">
           <md-content>
             <md-tabs md-dynamic-height md-border-bottom>
@@ -35,28 +33,24 @@
                                 <div class="modal-body">
                                   <md-content layout-padding>
                                     <div> 
-                                      <input ng-model="modalsocialmediaId" hidden>
-                                        <md-input-container>
-                                            <label>FB Balay</label>
-                                            <input type="text" class="inp form-control" ng-model="modalfacebookCnt">
-                                        </md-input-container>
-                                        <md-input-container>
-                                            <label>Pinterest Balay</label>
-                                            <input type="text" class="inp form-control" ng-model="modalpinterestCnt">
-                                        </md-input-container>
-                                        <md-input-container>
-                                            <label>FB/Twitter/IG MB</label>
-                                            <input type="text" class="inp form-control" ng-model="modalmbCnt">
-                                        </md-input-container>
-                                        <md-input-container>
-                                            <label>FB/Twitter/IG Taft</label>
-                                            <input type="text" class="inp form-control" ng-model="modaltaftCnt">
-                                        </md-input-container>
-                                        <md-input-container>
-                                            <label>FB WA</label>
-                                            <input type="text" class="inp form-control" ng-model="modalwaCnt">
-                                        </md-input-container>
-                                    </div>
+                                    <input ng-model="modalwordpressId" value="{{modalmultimediaId}}" hidden>
+                                      <md-input-container>
+                                          <label>Featured Image</label>
+                                          <input type="text" class="inp form-control" ng-model="modalfeaturedimgCnt" value="{{modalfixbugCnt}}">
+                                      </md-input-container>
+                                      <md-input-container>
+                                          <label>Graphic Designing</label>
+                                          <input type="text" class="inp form-control" ng-model="modalgraphicdesigningCnt" value="{{modalcreatepageCnt}}">
+                                      </md-input-container>
+                                      <md-input-container>
+                                          <label>Banner</label>
+                                          <input type="text" class="inp form-control" ng-model="modalbannerCnt" value="{{modalresponsivedesignCnt}}">
+                                      </md-input-container>
+                                      <md-input-container>
+                                          <label>Miscellaneous</label>
+                                          <input type="text" class="inp form-control" ng-model="modalmiscCnt" value="{{modalmiscCnt}}">
+                                      </md-input-container>
+                                  </div>
                                 </md-content>
                                 </div>
                                 <div class="modal-footer">
@@ -74,11 +68,11 @@
                                   </div>
                                   <md-list-item class="md-3-line">
                                     <div style="width:95%;">
-                                      <img src="includes/img/imageIcon.png" class="md-avatar" style="float:left"/>
+                                      <img src="../../includes/img/imageIcon.png" class="md-avatar" style="float:left"/>
                                       <div class="md-list-item-text">
                                         <br>
-                                        <h3>FB Balay</h3>
-                                        <h3 class="articleName">{{ today[0].FacebookCnt }}</h3>
+                                        <h3>Featured Image</h3>
+                                        <h3 class="articleName">{{ today[0].FeaturedImageCnt }}</h3>
                                         
                                       </div>
                                     </div>
@@ -86,11 +80,11 @@
 
                                   <md-list-item class="md-3-line">
                                     <div style="width:95%;">
-                                      <img src="includes/img/designIcon.png" class="md-avatar" style="float:left"/>
+                                      <img src="../../includes/img/designIcon.png" class="md-avatar" style="float:left"/>
                                       <div class="md-list-item-text">
                                         <br>
-                                        <h3>Pinterest Balay</h3>
-                                        <h3 class="articleName">{{ today[0].PinterestCnt }}</h3>
+                                        <h3>Graphic Designing</h3>
+                                        <h3 class="articleName">{{ today[0].GraphicDesigningCnt }}</h3>
                                         
                                       </div>
                                     </div>
@@ -98,11 +92,11 @@
 
                                   <md-list-item class="md-3-line">
                                     <div style="width:95%;">
-                                      <img src="includes/img/bannerIcon.png" class="md-avatar" style="float:left"/>
+                                      <img src="../../includes/img/bannerIcon.png" class="md-avatar" style="float:left"/>
                                       <div class="md-list-item-text">
                                         <br>
-                                        <h3>FB/Twitter/IG MB</h3>
-                                        <h3 class="articleName">{{ today[0].MBCnt }}</h3>
+                                        <h3>Banner</h3>
+                                        <h3 class="articleName">{{ today[0].BannerCnt }}</h3>
                                         
                                       </div>
                                     </div>
@@ -110,22 +104,11 @@
 
                                   <md-list-item class="md-3-line">
                                     <div style="width:95%;">
-                                      <img src="includes/img/miscIcon.png" class="md-avatar" style="float:left"/>
+                                      <img src="../../includes/img/miscIcon.png" class="md-avatar" style="float:left"/>
                                       <div class="md-list-item-text">
                                         <br>
-                                        <h3>FB/Twitter/IG Taft</h3>
-                                        <h3 class="articleName">{{ today[0].TaftCnt }}</h3>
-                                        
-                                      </div>
-                                    </div>
-                                  </md-list-item>
-                                  <md-list-item class="md-3-line">
-                                    <div style="width:95%;">
-                                      <img src="includes/img/miscIcon.png" class="md-avatar" style="float:left"/>
-                                      <div class="md-list-item-text">
-                                        <br>
-                                        <h3>FB WA</h3>
-                                        <h3 class="articleName">{{ today[0].WACnt }}</h3>
+                                        <h3>Miscellaneous</h3>
+                                        <h3 class="articleName">{{ today[0].MiscCnt }}</h3>
                                         
                                       </div>
                                     </div>
@@ -141,27 +124,23 @@
                                       <p style="font-size:30px;">Task Count for today </p>
                                       <md-content layout-padding>
                                           <div>
-                                            <md-input-container>
-                                              <label>FB Balay</label>
-                                              <input style="font-size:20px" ng-model="obj.fbbalayCnt" type="number" min="0">
-                                          </md-input-container>
-                                          <md-input-container>
-                                              <label>Pinterest Balay</label>
-                                              <input style="font-size:20px" ng-model="obj.pinterestbalayCnt" type="number" min="0">
-                                          </md-input-container>
-                                          <md-input-container>
-                                              <label>FB/Twitter/IG MB</label>
-                                              <input style="font-size:20px" ng-model="obj.fbtwitterigMBCnt" type="number" min="0">
-                                          </md-input-container>
-                                          <md-input-container>
-                                              <label>FB/Twitter/IG Taft</label>
-                                              <input style="font-size:20px" ng-model="obj.fbtwitterigTaftCnt" type="number" min="0">
-                                          </md-input-container>
-                                          <md-input-container>
-                                              <label>FB WA</label>
-                                              <input style="font-size:20px" ng-model="obj.fbwaCnt" type="number" min="0">
-                                          </md-input-container>
-                                        </div>
+                                                <md-input-container>
+                                                    <label>Featured Image</label>
+                                                    <input style="font-size:20px" ng-model="obj.featuredimgCnt" type="number" min="0">
+                                                </md-input-container>
+                                                <md-input-container>
+                                                    <label>Graphic Designing</label>
+                                                    <input style="font-size:20px" ng-model="obj.graphicdesigningCnt" type="number" min="0">
+                                                </md-input-container>
+                                                <md-input-container>
+                                                    <label>Banner</label>
+                                                    <input style="font-size:20px" ng-model="obj.bannerCnt" type="number" min="0">
+                                                </md-input-container>
+                                                <md-input-container>
+                                                    <label>Miscellaneous</label>
+                                                    <input style="font-size:20px" ng-model="obj.miscCnt" type="number" min="0">
+                                                </md-input-container>
+                                            </div>
                                       </md-content>
                                       <div class="footer" align="center">
                                           <md-button id="submitBtn" type="submit" class=" md-raised md-primary" ng-model="submitBtn">Submit</md-button>
@@ -180,17 +159,9 @@
 
                 <!-- Your Page Content Here -->
                 </section>
-
-    </div>
-  <!-- Main Footer -->
-  <footer class="main-footer">
-    <!-- To the right -->
-    <div class="pull-right hidden-xs">
-      Marketing Department Daily Tracker
-    </div>
-    <!-- Default to the left -->
-    <strong>Copyright &copy; <span id="year"></span> <a href="#">Company</a>.</strong> All rights reserved.
-  </footer>
+              <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -271,15 +242,13 @@
 </div>
 <!-- ./wrapper -->
 <script>
-$(document).ready(function(){
-    document.getElementById("year").innerHTML = new Date().getFullYear();
-    $('#homeTab').removeClass('active');
-    $('#trackerTab').addClass('active');
-});
-</script>
+  document.getElementById("taskTracker").setAttribute("class", "active");
 
+  $(document).ready(function(){
+      $('#homeTab').removeClass('active');
+      $('#trackerTab').addClass('active');
+  });
 
-<script>
     var app = angular.module('taskFieldsApp', ['ngMaterial']);
     var x=0;
     app.config(['$qProvider', function ($qProvider) {
@@ -287,16 +256,15 @@ $(document).ready(function(){
     }]);
     app.controller('taskFieldsController', function($scope, $http, $mdDialog) {
       $scope.obj = {
-        $fbbalayCnt: 0,
-        $pinterestbalayCnt: 0,
-        $fbtwitterigMBCnt: 0,
-        $fbtwitterigTaftCnt: 0,
-        $fbwaCnt: 0
+        $featuredimgCnt: 0,
+        $graphicdesigningCnt: 0,
+        $bannerCnt: 0,
+        $miscCnt: 0
       };
        $scope.init = function () {
-          $http.get("queries/getMyDailyTrackerTodaySocialMediaTracker.php").then(function (response) {
+          $http.get("../../queries/getMyDailyTrackerTodayMultimediaTracker.php").then(function (response) {
             $scope.today = response.data.records;
-            if($scope.today[0].SocialMediaId==""){
+            if($scope.today[0].MultimediaId==""){
               $scope.exists=false;
             }else{
               $scope.exists=true;
@@ -316,6 +284,7 @@ $(document).ready(function(){
             .targetEvent(ev)
           );
         }
+
         
         $scope.showEdit = function(ev) {
           $mdDialog.show(
@@ -329,38 +298,38 @@ $(document).ready(function(){
             .targetEvent(ev)
           );
         }
+
         $scope.submitData = function() {
-          $http.post('insertFunctions/insertSocialMediaTracker.php', {
-              'facebookCnt': $scope.obj.fbbalayCnt, 
-              'pinterestCnt': $scope.obj.pinterestbalayCnt,
-              'MBCnt': $scope.obj.fbtwitterigMBCnt,
-              'taftCnt': $scope.obj.fbtwitterigTaftCnt,
-              'WACnt': $scope.obj.fbwaCnt
+          $http.post('../../insertFunctions/insertMultimediaTracker.php', {
+              'featuredimgCnt': $scope.obj.featuredimgCnt, 
+              'graphicdesigningCnt': $scope.obj.graphicdesigningCnt,
+              'bannerCnt': $scope.obj.bannerCnt,
+              'miscCnt': $scope.obj.miscCnt
               }).then(function(data, status){
                 $scope.init();
                 $scope.showAlert();
               })
         };
+
         $scope.editData = function() {
-          $http.post('editFunctions/editDailyTaskSocialMedia.php', {
-            'id': $scope.modalsocialmediaId,
-            'facebookCnt': $scope.modalfacebookCnt, 
-            'pinterestCnt': $scope.modalpinterestCnt,
-            'mbCnt': $scope.modalmbCnt,
-            'taftCnt': $scope.modaltaftCnt,
-            'waCnt': $scope.modalwaCnt
+          $http.post('../../editFunctions/editDailyTaskMultimedia.php', {
+            'id': $scope.modalmultimediaId,
+            'featuredimgCnt': $scope.modalfeaturedimgCnt, 
+            'graphicdesigningCnt': $scope.modalgraphicdesigningCnt,
+            'bannerCnt': $scope.modalbannerCnt,
+            'miscCnt': $scope.modalmiscCnt
           }).then(function(data, status){
                 $scope.init();
                 $scope.showEdit();
           })
         };
+
         $scope.modal = function() {
-            $scope.modalsocialmediaId = $scope.today[0].SocialMediaId;
-            $scope.modalfacebookCnt = $scope.today[0].FacebookCnt;
-            $scope.modalpinterestCnt = $scope.today[0].PinterestCnt;
-            $scope.modalmbCnt = $scope.today[0].MBCnt;
-            $scope.modaltaftCnt = $scope.today[0].TaftCnt;
-            $scope.modalwaCnt = $scope.today[0].WACnt;
+            $scope.modalmultimediaId = $scope.today[0].MultimediaId;
+            $scope.modalfeaturedimgCnt = $scope.today[0].FeaturedImageCnt;
+            $scope.modalgraphicdesigningCnt = $scope.today[0].GraphicDesigningCnt;
+            $scope.modalbannerCnt = $scope.today[0].BannerCnt;
+            $scope.modalmiscCnt = $scope.today[0].MiscCnt;
         };
   });
 </script>

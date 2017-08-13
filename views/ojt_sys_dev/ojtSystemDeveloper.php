@@ -216,15 +216,14 @@
 </div>
 <!-- ./wrapper -->
 <script>
-$(document).ready(function(){
-    document.getElementById("year").innerHTML = new Date().getFullYear();
-    $('#homeTab').removeClass('active');
-    $('#trackerTab').addClass('active');
-});
-</script>
+  document.getElementById("taskTracker").setAttribute("class", "active");
+  
+  $(document).ready(function(){
+      document.getElementById("year").innerHTML = new Date().getFullYear();
+      $('#homeTab').removeClass('active');
+      $('#trackerTab').addClass('active');
+  });
 
-
-<script>
     var app = angular.module('taskFieldsApp', ['ngMaterial']);
     var x=0;
     app.config(['$qProvider', function ($qProvider) {

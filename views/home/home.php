@@ -10,74 +10,75 @@
         Time Keeper
         <small>UniversalTech</small>
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li>
-      </ol>
-    </section>
 
     <!-- Main content -->
     <section class="content">
 
-    <div class="col-lg-6">
-        <div id="alertMsg">
-          <?php
-            if (isset($_GET['succ'])){
-                echo '<div class="alert alert-success" role="alert">'.$_SESSION['alertMsg'].'</div>';
-            }
-            if (isset($_GET['err'])){
-                echo '<div class="alert alert-danger" role="alert">'.$_SESSION['alertMsg'].'</div>';
-            }
-          ?>
-        </div>
-        <p class="timestamp" id="time"></p>
-        <p class="timestamp" id="date"></p>
-        <div id="time-btns">
-          <?php
-            $query = "SELECT `timeIn`, `timeOut`, `lunchIn`, `lunchOut`
-                  FROM `timetable`
-                  WHERE DATE(`date`) = DATE(CURRENT_TIMESTAMP) AND user_id = ".$_SESSION["user_id"];
-            $result = mysqli_query($mysqli, $query);
-            if ($result->num_rows == 1){
-              $row = mysqli_fetch_assoc($result);
-              if ($row['timeIn'] == 0) {
-                echo '<div class="col-md-12 text-center">';
-                echo '<button type="button" class="btn btn-success timeBtn" id="btnTimeIn">Time In</button>';
-                echo '</div>';
-              } else if ($row['timeIn'] != 0 && $row['timeOut'] == 0 && $row['lunchIn'] == 0 && $row['lunchOut'] == 0) {
-                echo '<div class="col-md-6 text-center">';
-                echo '<button type="button" class="btn btn-danger timeBtn" id="btnTimeOut">Time Out</button>';
-                echo '</div>';
-                echo '<div class="col-md-6 text-center">';
-                echo '<button type="button" class="btn btn-warning timeBtn" id="btnLunchIn">Lunch Time In</button>';
-                echo '</div>';
-              } else if ($row['timeIn'] != 0 && $row['timeOut'] == 0 && $row['lunchIn'] != 0 && $row['lunchOut'] == 0) {
-                echo '<div class="col-md-6 text-center">';
-                echo '<button type="button" class="btn btn-danger timeBtn" id="btnTimeOut">Time Out</button>';
-                echo '</div>';
-                echo '<div class="col-md-6 text-center">';
-                echo '<button type="button" class="btn btn-warning timeBtn" id="btnLunchOut">Lunch Time Out</button>';
-                echo '</div>';
-              } else if ($row['timeIn'] != 0 && $row['timeOut'] == 0 && $row['lunchIn'] != 0 && $row['lunchOut'] != 0) {
-                echo '<div class="col-md-12 text-center">';
-                echo '<button type="button" class="btn btn-danger timeBtn" id="btnTimeOut">Time Out</button>';
-                echo '</div>';
-              } else if ($row['timeIn'] != 0 && $row['timeOut'] != 0) {
-                echo '<div class="col-md-12 text-center">';
-                echo '<button type="button" class="btn btn-success timeBtn disabled">Time In</button>';
-                echo '</div>';
-              }
-            } else {
-              header("location:../../functions/timeInOut.php?newDays");
-              exit();
-            }
-          ?>
-        </div>
+    <div class="col-md-6">
+      <div id="alertMsg">
+        <?php
+          if (isset($_GET['succ'])){
+              echo '<div class="alert alert-success" role="alert">'.$_SESSION['alertMsg'].'</div>';
+          }
+          if (isset($_GET['err'])){
+              echo '<div class="alert alert-danger" role="alert">'.$_SESSION['alertMsg'].'</div>';
+          }
+        ?>
       </div>
 
-      <div class="container">
-        <div class="col-md-6 div-table">
-          <h2>Time History Today</h2>
+      <div class="col-md-12">
+        <br><br>
+        <p class="timestamp" id="time"></p>
+        <p class="timestamp" id="date"></p>
+        <br><br>
+      </div>
+
+      <div id="time-btns">
+        <?php
+          $query = "SELECT `timeIn`, `timeOut`, `lunchIn`, `lunchOut`
+                FROM `timetable`
+                WHERE DATE(`date`) = DATE(CURRENT_TIMESTAMP) AND user_id = ".$_SESSION["user_id"];
+          $result = mysqli_query($mysqli, $query);
+          if ($result->num_rows == 1){
+            $row = mysqli_fetch_assoc($result);
+            if ($row['timeIn'] == 0) {
+              echo '<div class="col-md-12 text-center">';
+              echo '<button type="button" class="btn btn-success timeBtn" id="btnTimeIn">Time In</button>';
+              echo '</div>';
+            } else if ($row['timeIn'] != 0 && $row['timeOut'] == 0 && $row['lunchIn'] == 0 && $row['lunchOut'] == 0) {
+              echo '<div class="col-md-6 text-center">';
+              echo '<button type="button" class="btn btn-danger timeBtn" id="btnTimeOut">Time Out</button>';
+              echo '</div>';
+              echo '<div class="col-md-6 text-center">';
+              echo '<button type="button" class="btn btn-warning timeBtn" id="btnLunchIn">Lunch Time In</button>';
+              echo '</div>';
+            } else if ($row['timeIn'] != 0 && $row['timeOut'] == 0 && $row['lunchIn'] != 0 && $row['lunchOut'] == 0) {
+              echo '<div class="col-md-6 text-center">';
+              echo '<button type="button" class="btn btn-danger timeBtn" id="btnTimeOut">Time Out</button>';
+              echo '</div>';
+              echo '<div class="col-md-6 text-center">';
+              echo '<button type="button" class="btn btn-warning timeBtn" id="btnLunchOut">Lunch Time Out</button>';
+              echo '</div>';
+            } else if ($row['timeIn'] != 0 && $row['timeOut'] == 0 && $row['lunchIn'] != 0 && $row['lunchOut'] != 0) {
+              echo '<div class="col-md-12 text-center">';
+              echo '<button type="button" class="btn btn-danger timeBtn" id="btnTimeOut">Time Out</button>';
+              echo '</div>';
+            } else if ($row['timeIn'] != 0 && $row['timeOut'] != 0) {
+              echo '<div class="col-md-12 text-center">';
+              echo '<button type="button" class="btn btn-success timeBtn disabled">Time In</button>';
+              echo '</div>';
+            }
+          } else {
+            header("location:../../functions/timeInOut.php?newDays");
+            exit();
+          }
+        ?>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="col-md-6 div-table">
+        <h2>Time History Today</h2>
           <table class="table table-condensed">
             <tbody id="timeToday-tbody">
               <?php
@@ -228,6 +229,8 @@ function timestamp() {
 }
 </script>
 <script type="text/javascript">
+  document.getElementById("homeTab").setAttribute("class", "active");
+
   $(document).on('click', '#btnTimeIn', function(event){
     ajax("../../functions/timeInOut.php?timeIn", "Time in?", "", "Time IN Successful!", "Time in");
   });

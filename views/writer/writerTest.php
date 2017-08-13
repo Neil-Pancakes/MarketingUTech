@@ -301,8 +301,9 @@
 
 
 <script>
-$(document).ready(function(){
-    $('#homeTab').removeClass('active');
-    $('#trackerTab').addClass('active');
-});
+  document.getElementById("taskTracker").setAttribute("class", "active");
+  $(document).ready(function(){
+      $('#homeTab').removeClass('active');
+      $('#trackerTab').addClass('active');
+  });
 </script>

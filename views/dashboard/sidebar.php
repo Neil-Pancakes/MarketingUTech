@@ -47,34 +47,80 @@
 
           <?php
           //LINK DECLARATIONS
+            $editor = '<li id="taskTracker"><a href="../editor/editorTest.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
+            $writer = '<li id="taskTracker"><a href="../writer/writerTest.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
+            $trackimo_cs = '<li id="taskTracker"><a href="../trackimo_cs/trackimoCSTest.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
+            $soc_med = '<li id="taskTracker"><a href="../soc_med/socialMediaTest.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
+            $multimedia = '<li id="taskTracker"><a href="../multimedia/multimediaTest.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
+            $data_proc = '<li id="taskTracker"><a href="../data_processor/dataprocessorTest.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
+            $seo_spc = '<li id="taskTracker"><a href="../seo_spc/seoSpecialistTest.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
+            $wp_dev = '<li id="taskTracker"><a href="../wp_dev/wordpressDeveloperTest.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
+            $cont_mktg = '<li id="taskTracker"><a href="../cont_mktg/contentmarketingTest.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
+            $ojt_web = '<li id="taskTracker"><a href="../ojt_web_dev/ojtWeb.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
+            $ojt_seo = '<li id="taskTracker"><a href="../ojt_seo/ojtSeo.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
+            $ojt_sys_dev = '<li id="taskTracker"><a href="../ojt_sys_dev/ojtSystemDeveloper.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
+            $ojt_research = '<li id="taskTracker"><a href="../ojt_research/ojtResearch.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
 
             if (isset($_SESSION['user_id']) && isset($_SESSION['jobTitle'])) {
               switch ($_SESSION['jobTitle']) {
+                case "Editor":
+                  echo $editor;
+                  break;
                 case "Writer":
-                  echo '<li id="taskTracker"><a href="../writer/writerTest.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
+                  echo $writer;
+                  break;
+                case "Trackimo Customer Support":
+                  echo $trackimo_cs;
+                  break;
+                case "Social Media Specialist":
+                  echo $soc_med;
+                  break;
+                case "Multimedia Specialist":
+                  echo $multimedia;
+                  break;
+                case "Data Processor":
+                  echo $data_proc;
+                  break;
+                case "SEO Specialist":
+                  echo $seo_spc;
+                  break;
+                case "Wordpress Developer":
+                  echo $wp_dev;
                   break;
                 case "Content Marketing Assistant":
-                  echo '<li id="taskTracker"><a href="../content_marketing/contentmarketingTest.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
+                  echo $cont_mktg;
                   break;
                 case "OJT Web Development":
-                  echo '<li id="taskTracker"><a href="../ojt_web_dev/ojtWeb.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
+                  echo $ojt_web;
                   break;
                 case "OJT SEO":
-                  echo '<li id="taskTracker"><a href="../ojt_seo/ojtSeo.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
+                  echo $ojt_seo;
                   break;
                 case "OJT System Developer":
-                  echo '<li id="taskTracker"><a href="../ojt_sys_dev/ojtSystemDeveloper.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
+                  echo $ojt_sys_dev;
                   break;
                 case "OJT Researcher":
-                  echo '<li id="taskTracker"><a href="../ojt_research/ojtResearch.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
+                  echo $ojt_research;
                   break;
 
               }
               if (isAdmin($_SESSION['user_id'])) {
                 echo '<li class="header">Administrator</li>';
-                echo '<li><a href="../admin/employeeList.php"><i class="fa fa-th-list"></i> <span>Employee List</span></a></li>';
+                echo '<li id="employeeList"><a href="../admin/employeeList.php"><i class="fa fa-th-list"></i> <span>Employee List</span></a></li>';
                 echo '<li class="treeview">
-                        <a href="#"><i class="fa fa-link"></i> <span>Reports</span>
+                        <a href="#"><i class="fa fa-money"></i> <span>Finance Reports</span>
+                          <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                          </span>
+                        </a>
+                        <ul class="treeview-menu">
+                          <li><a href="#">Weekly</a></li>
+                          <li><a href="#">Monthly</a></li>
+                          <li><a href="#">Yearly</a></li>
+                        </ul>
+                      </li>';
+                echo '<li class="treeview">
+                        <a href="#"><i class="fa fa-tasks"></i> <span>Task Reports</span>
                           <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                           </span>
@@ -91,25 +137,27 @@
 
           <!-- Optionally, you can add icons to the links -->
           <li class="header">Tasks</li>
-          <li id="taskTracker"><a href="../writer/writerTest.php"><i class="fa fa-tasks"></i> <span>Writer</span></a></li>
-          <li><a href="../content_marketing/contentmarketingTest.php"><i class="fa fa-tasks"></i> <span>contentmarketingTest</span></a></li>
-
-          <li><a href="../ojt_research/ojtResearch.php"><i class="fa fa-tasks"></i> <span>ojtResearch</span></a></li>
-          <li><a href="../ojt_seo/ojtSeo.php"><i class="fa fa-tasks"></i> <span>ojtSeo</span></a></li>
-          <li><a href="../ojt_sys_dev/ojtSystemDeveloper.php"><i class="fa fa-tasks"></i> <span>ojtSystemDeveloper</span></a></li>
-          <li><a href="../ojt_web_dev/ojtWeb.php"><i class="fa fa-tasks"></i> <span>ojtWeb</span></a></li>
-
-
-          <li class="header">Samples</li>
           <li class="treeview">
-            <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
+            <a href="#"><i class="fa fa-tasks"></i> <span>Task Testing</span>
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="#">Link in level 2</a></li>
-              <li><a href="#">Link in level 2</a></li>
+              <li><a href="../writer/writerTest.php"><i class="fa fa-tasks"></i> <span>writerTest</span></a></li>
+              <li><a href="../editor/editorTest.php"><i class="fa fa-tasks"></i> <span>editorTest</span></a></li>
+              <li><a href="../wp_dev/wordpressDeveloperTest.php"><i class="fa fa-tasks"></i> <span>wordpressDeveloperTest</span></a></li>
+              <li><a href="../trackimo_cs/trackimoCSTest.php"><i class="fa fa-tasks"></i> <span>trackimoCSTest</span></a></li>
+              <li><a href="../soc_med/socialMediaTest.php"><i class="fa fa-tasks"></i> <span>socialMediaTest</span></a></li>
+              <li><a href="../seo_spc/seoSpecialistTest.php"><i class="fa fa-tasks"></i> <span>seoSpecialistTest</span></a></li>
+              <li><a href="../multimedia/multimediaTest.php"><i class="fa fa-tasks"></i> <span>multimediaTest</span></a></li>
+              <li><a href="../mktg_spc/marketingSpecialistTest.php"><i class="fa fa-tasks"></i> <span>marketingSpecialistTest</span></a></li>
+              <li><a href="../data_processor/dataprocessorTest.php"><i class="fa fa-tasks"></i> <span>dataprocessorTest</span></a></li>
+              <li><a href="../cont_mktg/contentmarketingTest.php"><i class="fa fa-tasks"></i> <span>contentmarketingTest</span></a></li>
+              <li><a href="../ojt_research/ojtResearch.php"><i class="fa fa-tasks"></i> <span>ojtResearch</span></a></li>
+              <li><a href="../ojt_seo/ojtSeo.php"><i class="fa fa-tasks"></i> <span>ojtSeo</span></a></li>
+              <li><a href="../ojt_sys_dev/ojtSystemDeveloper.php"><i class="fa fa-tasks"></i> <span>ojtSystemDeveloper</span></a></li>
+              <li><a href="../ojt_web_dev/ojtWeb.php"><i class="fa fa-tasks"></i> <span>ojtWeb</span></a></li>
             </ul>
           </li>
 
