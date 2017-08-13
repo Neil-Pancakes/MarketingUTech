@@ -206,10 +206,6 @@
   </div>
   <!-- /.content-wrapper -->
 
-  <?php
-    include ("dashboard/footer.php");
-  ?>
-
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Create the tabs -->

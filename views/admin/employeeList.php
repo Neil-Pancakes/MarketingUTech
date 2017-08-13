@@ -1,6 +1,10 @@
 <?php
   require ("../../functions/php_globals.php");
   include ("../dashboard/dashboard.php");
+
+  if (!isAdmin($_SESSION['user_id'])) {
+    header("Location:../home/home.php");
+  }
 ?>
 
 <!-- Content Wrapper. Contains page content -->

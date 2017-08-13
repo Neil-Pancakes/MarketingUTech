@@ -1,5 +1,10 @@
 <?php
   include("../dashboard/dashboard.php");
+
+  // $testJobTitle = 'Social Media Specialist';
+  // if($_SESSION['jobTitle'] != $testJobTitle && !isOfJobTitle($_SESSION['user_id'], $testJobTitle)) {
+  //   header("Location:../home/home.php");
+  // }
 ?>
 <body ng-app="taskFieldsApp" >
   <!-- Content Wrapper. Contains page content -->

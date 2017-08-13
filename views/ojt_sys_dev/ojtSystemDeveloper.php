@@ -1,5 +1,10 @@
 <?php
   include("../dashboard/dashboard.php");
+
+  // $testJobTitle = 'OJT System Developer';
+  // if($_SESSION['jobTitle'] != $testJobTitle && !isOfJobTitle($_SESSION['user_id'], $testJobTitle)) {
+  //   header("Location:../home/home.php");
+  // }
 ?>
 <head>
     <style>

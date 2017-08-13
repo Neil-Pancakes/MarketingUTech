@@ -1,10 +1,13 @@
 <?php
-  ob_start();
   require ("../../functions/php_globals.php");
   require ("../dashboard/dashboard.php");
 
+  if (!isAdmin($_SESSION['user_id'])) {
+    header("Location:../home/home.php");
+  }
+
   if(!isset($_GET["id"])){
-    header("location: employeeList.php");
+    header("Location:employeeList.php");
   }
 
   $qry = "SElECT * FROM users WHERE id = ".$_GET['id'];
@@ -12,7 +15,7 @@
 
   if($result){
     if(mysqli_num_rows($result) != 1){
-      header("location: employeeList.php");
+      header("Location:employeeList.php");
     }
   }
 
