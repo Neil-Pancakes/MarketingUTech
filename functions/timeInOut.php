@@ -219,7 +219,7 @@
 						if($row["timeOut"] > 0){
 		                    $datetime1 = strtotime($row["timeIn"]);
 		                    $datetime2 = strtotime($row["timeOut"]);
-		                    $renderedTime = number_format(round(($datetime2 - $datetime1)/3600,1),1);
+		                    $renderedTime = abs(number_format(round(($datetime2 - $datetime1)/3600,1),1));
 		                    $underTime = number_format(8.0 - $renderedTime, 1);
 		                    if($underTime < 0){
 		                      $overTime = abs($underTime);
@@ -234,7 +234,7 @@
 				               $renderedLunch = number_format(round(($datetime4 - $datetime3)/3600,1),1);
 				               $datetime1 = strtotime($row["timeIn"]);
 				               $datetime2 = strtotime($row["timeOut"]);
-				               $renderedTime = number_format(round((($datetime2 - $datetime1)/3600) - $renderedLunch, 1),2);
+				               $renderedTime = abs(number_format(round((($datetime2 - $datetime1)/3600) - $renderedLunch, 1),2));
 				               $underTime = number_format(8.0 - $renderedTime, 1);
 				               if($underTime < 0){
 			                      $overTime = abs($underTime);

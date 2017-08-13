@@ -172,10 +172,42 @@
                       <td>'.$timeOut.'</td>
                       <td>'.$lunchIn.'</td>
                       <td>'.$lunchOut.'</td>
-                      <td>'.$renderedTime.'</td>
-                      <td>'.$renderedLunch.'</td>
-                      <td>'.$underTime.'</td>
-                      <td>'.$overTime.'</td>
+                      <td>
+                        ';
+                        if($renderedTime != "-"){
+                          echo sprintf("%.1f", $renderedTime);
+                        }else{
+                          echo $renderedTime;
+                        }
+                      echo '
+                      </td>
+                      <td>
+                        ';
+                        if($renderedLunch != "-"){
+                          echo sprintf("%.1f", $renderedLunch);
+                        }else{
+                          echo $renderedLunch;
+                        }
+                      echo '
+                      </td>
+                      <td>
+                        ';
+                        if($underTime != "-"){
+                          echo sprintf("%.1f", $underTime);
+                        }else{
+                          echo $underTime;
+                        }
+                      echo '
+                      </td>
+                      <td>
+                        ';
+                        if($overTime != "-"){
+                          echo sprintf("%.1f", $overTime);
+                        }else{
+                          echo $overTime;
+                        }
+                      echo '
+                        </td>
                   </tr>
                 ';
               }

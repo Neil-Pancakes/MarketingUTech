@@ -197,7 +197,22 @@
                       <td>'.$renderedLunch.'</td>
                       <td>'.$underTime.'</td>
                       <td>'.$overTime.'</td>
-                      <td> <button type="button" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#edit'.$row["id"].'"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>
+                      <td> 
+                      <button type="button" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#edit'.$row["id"].'"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+                      ';
+
+                      $function_true = "ajax('OTStatus".$row["id"]."', 'overtimeStatus.php?status=true&user_id=".$_GET["id"]."&date_id=".$row["id"]."')";
+                      $function_false = "ajax('OTStatus".$row["id"]."', 'overtimeStatus.php?status=false&user_id=".$_GET["id"]."&date_id=".$row["id"]."')";
+                      echo '<span id="OTStatus'.$row["id"].'">';
+                      if($row["overtimeStatus"] == 'true'){
+                        echo '<button id="btnFalse'.$row["id"].'" type="button" class="btn btn-xs btn-danger" onclick="'.$function_false.'"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></button>';
+                      }else{
+                        echo '<button id="btnTrue'.$row["id"].'" type="button" class="btn btn-xs btn-success" onclick="'.$function_true.'"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></button>';
+                      }
+                      echo '</span>';
+
+                      echo '
+                      </td>
                       <!-- Modal -->
                       <div id="edit'.$row["id"].'" class="modal fade" role="dialog">
                         <div class="modal-dialog">
@@ -459,4 +474,40 @@
 
     return false;
   });
+</script>
+<script>
+  function ajax(btnID, phpUrl){
+    swal({
+      title: "Are you sure?",
+      text: "Update employee info",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonClass: "btn-success",
+      confirmButtonText: "Update",
+      cancelButtonText: "Cancel",
+      cancelButtonClass: "btn-danger",
+      closeOnConfirm: false,
+      showLoaderOnConfirm: true
+    },
+      function (isConfirm) {
+          if (isConfirm) {
+            setTimeout(function(){
+              $.ajax({
+                type: 'GET',
+                url: phpUrl,
+                success: function (data) {
+                  swal("Success!", "Employee info has been updated", "success");
+                  $('.modal').modal('hide');
+                  document.getElementById(btnID).innerHTML=data;
+                },
+                error: function (data) {
+                  swal("Error!", "An error has occurred", "error");
+                }
+              });
+            }, 1500);
+          }
+      });
+
+    return false;
+  }
 </script>
