@@ -30,7 +30,7 @@
                   $datetime1 = strtotime($datetime1);
                   $datetime2 = date("h:i", strtotime($row["timeOut"]));
                   $datetime2 = strtotime($datetime2);
-                  $renderedTime = number_format(round(($datetime2 - $datetime1)/3600,2),1);
+                  $renderedTime = abs(number_format(round(($datetime2 - $datetime1)/3600,2),1));
                   $underTime = number_format(8.0 - $renderedTime, 1);
                 }
 
@@ -58,7 +58,7 @@
                   $datetime2 = date("h:i", strtotime($row["timeOut"]));
                   $datetime2 = strtotime($datetime2);
                   if($row["timeOut"] > 0){
-                    $renderedTime = number_format(round((($datetime2 - $datetime1)/3600) - $renderedLunch, 1),1);
+                    $renderedTime = abs(number_format(round((($datetime2 - $datetime1)/3600) - $renderedLunch, 1),1));
                     $underTime = number_format(8.0 - $renderedTime, 1);
                   }       
                 }
