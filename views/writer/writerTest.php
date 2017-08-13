@@ -19,12 +19,9 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>Daily Tracker
-        <small>Role in the Company (Im an OJT)</small>
+      <h1>Writer
+        <small>UniversalTech</small>
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Tracker</a></li>
-      </ol>
     </section>
 
     <!-- Main content -->
@@ -124,6 +121,9 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar Start-->
+  <?php include '../dashboard/control_sidebar.php'; ?>
 
 </div>
 <!-- ./wrapper -->

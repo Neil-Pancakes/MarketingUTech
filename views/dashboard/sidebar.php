@@ -131,6 +131,7 @@
                           <li><a href="#">Yearly</a></li>
                         </ul>
                       </li>';
+                echo '<li id="announcements"><a href="../admin/announcements.php"><i class="fa fa-sticky-note"></i><span>Announcements</span></a></li>';
               }
             }
           ?>
