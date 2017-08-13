@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 13, 2017 at 08:19 AM
+-- Generation Time: Aug 13, 2017 at 06:22 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.1
 
@@ -45,6 +45,22 @@ CREATE TABLE `additional_task_tracker` (
   `track_date` date DEFAULT NULL,
   `entry_time` datetime DEFAULT NULL,
   `additional_task_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `announcement`
+--
+
+CREATE TABLE `announcement` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `isBroadcast` enum('true','false') NOT NULL DEFAULT 'false',
+  `message` varchar(255) DEFAULT NULL,
+  `createdByUserID` int(11) DEFAULT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -157,7 +173,8 @@ CREATE TABLE `marketing_tracker` (
 INSERT INTO `marketing_tracker` (`marketing_id`, `daily_task`, `track_date`, `entry_time`, `user_id`) VALUES
 (1, 'Yass', '2017-07-12', '2017-07-12 13:57:07', 1),
 (2, 'HUZZAHHH! It works bebe! ;)', '2017-07-21', '2017-07-21 17:52:00', 1),
-(3, 'This is a test', '2017-07-31', '2017-07-31 16:58:24', 4);
+(3, 'This is a test', '2017-07-31', '2017-07-31 16:58:24', 4),
+(4, 'rkgnerjklogn', '2017-08-13', '2017-08-13 21:43:08', 3);
 
 -- --------------------------------------------------------
 
@@ -182,7 +199,8 @@ CREATE TABLE `multimedia_tracker` (
 
 INSERT INTO `multimedia_tracker` (`multimedia_id`, `featured_image_cnt`, `graphic_designing_cnt`, `banner_cnt`, `misc_cnt`, `track_date`, `entry_time`, `user_id`) VALUES
 (2, 1, 2, 0, 4, '2017-07-10', '2017-07-10 16:25:37', 1),
-(3, 2, 3, 5, 0, '2017-07-31', '2017-07-31 16:57:57', 4);
+(3, 2, 3, 5, 0, '2017-07-31', '2017-07-31 16:57:57', 4),
+(4, 123, 3232, 231123, 21321, '2017-08-13', '2017-08-13 21:47:02', 3);
 
 -- --------------------------------------------------------
 
@@ -306,7 +324,8 @@ CREATE TABLE `seo_specialist_tracker` (
 
 INSERT INTO `seo_specialist_tracker` (`seospecialist_id`, `daily_task`, `track_date`, `entry_time`, `user_id`) VALUES
 (1, 'I did a lot today', '2017-07-24', '2017-07-24 14:05:36', 1),
-(2, 'Woot woot!!!', '2017-07-31', '2017-07-31 16:55:50', 4);
+(2, 'Woot woot!!!', '2017-07-31', '2017-07-31 16:55:50', 4),
+(3, 'id itr', '2017-08-13', '2017-08-13 21:49:15', 3);
 
 -- --------------------------------------------------------
 
@@ -382,7 +401,7 @@ INSERT INTO `timetable` (`id`, `user_id`, `date`, `timeIn`, `timeOut`, `lunchIn`
 (22, 4, '2017-08-10', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-01 09:02:08', '2017-08-01 09:02:08'),
 (23, 4, '2017-08-11', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-01 09:02:08', '2017-08-01 09:02:08'),
 (24, 4, '2017-08-12', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-01 09:02:08', '2017-08-01 09:02:08'),
-(25, 4, '2017-08-13', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-01 09:02:09', '2017-08-01 09:02:09'),
+(25, 4, '2017-08-13', '2017-08-13 15:12:56', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-01 09:02:09', '2017-08-13 15:12:56'),
 (26, 4, '2017-08-14', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-01 09:02:09', '2017-08-01 09:02:09'),
 (27, 4, '2017-08-15', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-01 09:02:09', '2017-08-01 09:02:09'),
 (28, 4, '2017-08-16', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-01 09:02:09', '2017-08-01 09:02:09'),
@@ -453,10 +472,10 @@ INSERT INTO `timetable` (`id`, `user_id`, `date`, `timeIn`, `timeOut`, `lunchIn`
 (93, 1, '2017-08-29', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-11 09:43:49', '2017-08-11 09:43:49'),
 (94, 1, '2017-08-30', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-11 09:43:49', '2017-08-11 09:43:49'),
 (95, 1, '2017-08-31', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-11 09:43:49', '2017-08-11 09:43:49'),
-(96, 3, '2017-08-11', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-11 09:44:13', '2017-08-11 09:44:13'),
+(96, 3, '2017-08-11', '2017-08-13 00:30:00', '2017-08-13 10:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-11 09:44:13', '2017-08-11 09:44:13'),
 (97, 3, '2017-08-12', '2017-08-12 01:41:09', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-11 09:44:13', '2017-08-11 09:44:13'),
 (98, 3, '2017-08-13', '2017-08-13 03:49:14', '2017-08-13 04:38:45', '2017-08-13 03:49:17', '2017-08-13 03:49:20', '0.8', '0.0', 'false', '7.2', 0, NULL, '2017-08-11 09:44:13', '2017-08-13 04:38:45'),
-(99, 3, '2017-08-14', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-11 09:44:13', '2017-08-11 09:44:13'),
+(99, 3, '2017-08-14', '2017-08-13 16:09:20', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-11 09:44:13', '2017-08-13 16:09:20'),
 (100, 3, '2017-08-15', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-11 09:44:13', '2017-08-11 09:44:13'),
 (101, 3, '2017-08-16', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-11 09:44:13', '2017-08-11 09:44:13'),
 (102, 3, '2017-08-17', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-11 09:44:13', '2017-08-11 09:44:13'),
@@ -498,7 +517,8 @@ INSERT INTO `trackimo_cs_tracker` (`trackimo_cs_id`, `daily_task`, `track_date`,
 (3, 'Ayy waddap', '2017-07-12', '2017-07-12 13:45:55', 4),
 (4, 'So I did a lot today! SOO MUCH', '2017-07-31', '2017-07-31 16:50:01', 4),
 (5, '', '2017-08-07', '2017-08-07 10:07:00', 4),
-(6, '', '2017-08-07', '2017-08-07 10:07:43', 4);
+(6, '', '2017-08-07', '2017-08-07 10:07:43', 4),
+(7, 'gfsrfdf', '2017-08-13', '2017-08-13 21:55:28', 3);
 
 -- --------------------------------------------------------
 
@@ -624,7 +644,8 @@ INSERT INTO `writer_tracker` (`writer_id`, `article_title`, `word_cnt`, `track_d
 (88, 'diez', 123, '2017-07-13', '2017-07-13 13:30:22', 1),
 (89, 'Ayyyyy We have integrated', 160, '2017-07-31', '2017-07-31 16:18:29', 4),
 (90, 'Woot!!! :D', 223, '2017-07-31', '2017-07-31 16:18:30', 4),
-(93, 'Test 04-08-2017', 122, '2017-08-04', '2017-08-04 13:43:56', 4);
+(93, 'Test 04-08-2017', 122, '2017-08-04', '2017-08-04 13:43:56', 4),
+(95, 'Meme', 1333, '2017-08-13', '2017-08-13 21:25:00', 3);
 
 --
 -- Indexes for dumped tables
@@ -643,6 +664,12 @@ ALTER TABLE `additional_task`
 ALTER TABLE `additional_task_tracker`
   ADD PRIMARY KEY (`additional_task_tracker_id`),
   ADD KEY `additional_task_tracker_fk` (`additional_task_id`);
+
+--
+-- Indexes for table `announcement`
+--
+ALTER TABLE `announcement`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `content_marketing_assistant_tracker`
@@ -766,6 +793,11 @@ ALTER TABLE `writer_tracker`
 --
 
 --
+-- AUTO_INCREMENT for table `announcement`
+--
+ALTER TABLE `announcement`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `content_marketing_assistant_tracker`
 --
 ALTER TABLE `content_marketing_assistant_tracker`
@@ -774,7 +806,7 @@ ALTER TABLE `content_marketing_assistant_tracker`
 -- AUTO_INCREMENT for table `data_processor_tracker`
 --
 ALTER TABLE `data_processor_tracker`
-  MODIFY `data_processor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `data_processor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `editor_tracker`
 --
@@ -789,12 +821,12 @@ ALTER TABLE `holidays`
 -- AUTO_INCREMENT for table `marketing_tracker`
 --
 ALTER TABLE `marketing_tracker`
-  MODIFY `marketing_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `marketing_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `multimedia_tracker`
 --
 ALTER TABLE `multimedia_tracker`
-  MODIFY `multimedia_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `multimedia_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `ojt_developer_system_tracker`
 --
@@ -819,7 +851,7 @@ ALTER TABLE `ojt_webdev_tracker`
 -- AUTO_INCREMENT for table `seo_specialist_tracker`
 --
 ALTER TABLE `seo_specialist_tracker`
-  MODIFY `seospecialist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `seospecialist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `social_media_tracker`
 --
@@ -834,7 +866,7 @@ ALTER TABLE `timetable`
 -- AUTO_INCREMENT for table `trackimo_cs_tracker`
 --
 ALTER TABLE `trackimo_cs_tracker`
-  MODIFY `trackimo_cs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `trackimo_cs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `users`
 --
@@ -849,7 +881,7 @@ ALTER TABLE `wordpress_developer_tracker`
 -- AUTO_INCREMENT for table `writer_tracker`
 --
 ALTER TABLE `writer_tracker`
-  MODIFY `writer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+  MODIFY `writer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 --
 -- Constraints for dumped tables
 --
