@@ -1,5 +1,5 @@
 <?php
-	require ("php_globals.php");
+	require ("../../functions/php_globals.php");
 
 	if(isset($_GET['id']) && isset($_GET['firstName']) && isset($_GET['lastName']) && isset($_GET['email']) && isset($_GET['jobTitle']) && isset($_GET['workStatus']) && isset($_GET['birthday']) && isset($_GET['address'])){
 		$id = $_GET['id'];
@@ -9,7 +9,7 @@
 		$jobTitle = $_GET['jobTitle'];
 		$workStatus = $_GET['workStatus'];
 		$birthday = $_GET['birthday'];
-		$address = mysql_real_escape_string($_GET['address']);
+		$address = mysqli_real_escape_string($mysqli, $_GET['address']);
 
 		if(isset($_GET['mobileNumber'])){
 			$mobileNumber = $_GET['mobileNumber'];

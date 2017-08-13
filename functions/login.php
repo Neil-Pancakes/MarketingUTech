@@ -15,7 +15,7 @@
 		$pass_db = $row['password'];
 	} else {
 		$_SESSION['error'] = "Username or Password is invalid.";
-		header("Location: ../index.php?err");
+		header("Location: ../index?err");
 	}
 
 	if( password_verify($pass, $pass_db) ) {
@@ -26,12 +26,15 @@
 		$_SESSION['firstName'] = $row['firstName'];
 		$_SESSION['lastName'] = $row['lastName'];
 		$_SESSION['email'] = $row['email'];
-		$_SESSION['picture'] = $row['picture'];
 		$_SESSION['jobTitle'] = $row['jobTitle'];
 
-		header("Location: ../home.php");
+		if($row['picture'] == null) {
+			$_SESSION['picture'] = "../../includes/img/fancy2.png";
+		}
+
+		header("Location: ../views/home/home.php");
 	} else {
 		$_SESSION['error'] = "Username or Password is invalid.";
-		header("Location: ../index.php?err");
+		header("Location: ../index?err");
 	}
 ?>

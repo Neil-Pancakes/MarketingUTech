@@ -1,5 +1,5 @@
 <?php
-	require ("php_globals.php");
+	require ("../../functions/php_globals.php");
 	session_start();
 
 	if(isset($_GET['since']) && isset($_GET['until'])){

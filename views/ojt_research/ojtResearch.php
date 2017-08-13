@@ -1,5 +1,5 @@
 <?php
-  include("dashboard_LOCAL_13708.php");
+  include("../dashboard/dashboard.php");
 ?>
 <body ng-app="taskFieldsApp" >
   <!-- Content Wrapper. Contains page content -->
@@ -198,7 +198,7 @@
         $numOfCompanies: 0
       };
        $scope.init = function () {
-          $http.get("queries/getMyDailyTrackerTodayOjtResearchTracker.php").then(function (response) {
+          $http.get("../../queries/getMyDailyTrackerTodayOjtResearchTracker.php").then(function (response) {
             $scope.today = response.data.records;
             if($scope.today[0].OJTResearcherId==""){
               $scope.exists=false;
@@ -236,7 +236,7 @@
         }
 
         $scope.submitData = function() {
-          $http.post('insertFunctions/insertOjtResearcher.php', {
+          $http.post('../../insertFunctions/insertOjtResearcher.php', {
               'niche': $scope.obj.niche,
               'numOfCompanies': $scope.obj.numOfCompanies
               }).then(function(data, status){
@@ -246,7 +246,7 @@
         };
 
         $scope.editData = function() {
-          $http.post('editFunctions/editDailyTaskOjtResearcher.php', {
+          $http.post('../../editFunctions/editDailyTaskOjtResearcher.php', {
             'id': $scope.modalojtresearcherId,
             'niche': $scope.modalniche,
             'numOfCompanies': $scope.modalnumofcompanies

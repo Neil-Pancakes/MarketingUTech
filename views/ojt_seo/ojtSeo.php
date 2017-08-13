@@ -1,5 +1,5 @@
 <?php
-  include("dashboard_LOCAL_13708.php");
+  include("../dashboard/dashboard.php");
 ?>
 
 <head>
@@ -90,7 +90,7 @@
                         </div>
                         <md-list-item class="md-3-line">
                           <div style="width:95%;">
-                            <img src="includes/img/bugFix.png" class="md-avatar" style="float:left"/>
+                            <img src="../../includes/img/bugFix.png" class="md-avatar" style="float:left"/>
                             <div class="md-list-item-text">
                               <br>
                               <h3>Comment</h3>
@@ -101,7 +101,7 @@
                         </md-list-item>
                         <md-list-item class="md-3-line">
                           <div style="width:95%;">
-                            <img src="includes/img/pageIcon.png" class="md-avatar" style="float:left"/>
+                            <img src="../../includes/img/pageIcon.png" class="md-avatar" style="float:left"/>
                             <div class="md-list-item-text">
                               <br>
                               <h3>Site Audit</h3>
@@ -113,7 +113,7 @@
 
                         <md-list-item class="md-3-line">
                           <div style="width:95%;">
-                            <img src="includes/img/responsiveDesign.png" class="md-avatar" style="float:left"/>
+                            <img src="../../includes/img/responsiveDesign.png" class="md-avatar" style="float:left"/>
                             <div class="md-list-item-text">
                               <br>
                               <h3>Schema Markup</h3>
@@ -125,7 +125,7 @@
 
                         <md-list-item class="md-3-line">
                           <div style="width:95%;">
-                            <img src="includes/img/articleIcon.png" class="md-avatar" style="float:left"/>
+                            <img src="../../includes/img/articleIcon.png" class="md-avatar" style="float:left"/>
                             <div class="md-list-item-text">
                               <br>
                               <h3>Competitor Backlink Analysis</h3>
@@ -137,7 +137,7 @@
 
                         <md-list-item class="md-3-line">
                           <div style="width:95%;">
-                            <img src="includes/img/miscIcon.png" class="md-avatar" style="float:left"/>
+                            <img src="../../includes/img/miscIcon.png" class="md-avatar" style="float:left"/>
                             <div class="md-list-item-text">
                               <br>
                               <h3>Relationship Link Research</h3>
@@ -219,17 +219,6 @@
   </div>
   <!-- /.content-wrapper -->
 
-
-  <!-- Main Footer -->
-  <footer class="main-footer">
-    <!-- To the right -->
-    <div class="pull-right hidden-xs">
-      Marketing Department Daily Tracker
-    </div>
-    <!-- Default to the left -->
-    <strong>Copyright &copy; <span id="year"></span> <a href="#">Company</a>.</strong> All rights reserved.
-  </footer>
-
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Create the tabs -->
@@ -310,7 +299,6 @@
 <!-- ./wrapper -->
 <script>
 $(document).ready(function(){
-    document.getElementById("year").innerHTML = new Date().getFullYear();
     $('#homeTab').removeClass('active');
     $('#trackerTab').addClass('active');
 });
@@ -333,7 +321,7 @@ $(document).ready(function(){
         $taskDesc: ""
       };
        $scope.init = function () {
-          $http.get("queries/getMyDailyTrackerTodayOjtSeoTracker.php").then(function (response) {
+          $http.get("../../queries/getMyDailyTrackerTodayOjtSeoTracker.php").then(function (response) {
             $scope.today = response.data.records;
             if($scope.today[0].OJTSeoId==""){
               $scope.exists=false;
@@ -369,7 +357,7 @@ $(document).ready(function(){
           );
         }
         $scope.submitData = function() {
-          $http.post('insertFunctions/insertOJTSeo.php', {
+          $http.post('../../insertFunctions/insertOJTSeo.php', {
               'comment': $scope.status.p1,
               'siteAudit': $scope.status.p2,
               'schemaMarkup': $scope.status.p3,
@@ -382,7 +370,7 @@ $(document).ready(function(){
               })
         };
         $scope.editData = function() {
-          $http.post('editFunctions/editDailyTaskOJTSeo.php', {
+          $http.post('../../editFunctions/editDailyTaskOJTSeo.php', {
             'id': $scope.modalojtseoId,
             'comment': $scope.modalcomment,
             'site': $scope.modalsite,

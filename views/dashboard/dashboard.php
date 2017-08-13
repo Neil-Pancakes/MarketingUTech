@@ -1,6 +1,8 @@
 <?php
-  include("functions/ifNotLoggedIn.php");
-  include("functions/sql_connect.php");
+  include("../../functions/ifNotLoggedIn.php");
+  include("../../functions/php_globals.php");
+  include("../../functions/generalDBFunctions.php");
+
   date_default_timezone_set("Asia/Manila");
 ?>
 
@@ -17,33 +19,43 @@
     <title>UniversalTech</title>
 
     <!-- REQUIRED JS SCRIPTS -->
-    <script src="includes/js/jquery-3.2.1.min.js"></script>
-    <script src="node_modules/moment/moment.js"></script>
-    <script src="includes/js/bootstrap.min.js"></script>
-    <script src="includes/js/AdminLTE_app.min.js"></script>
-    <script src="includes/js/googleSignout.js"></script>
+    <script src="../../includes/js/jquery-3.2.1.min.js"></script>
+    <script src="../../node_modules/moment/moment.js"></script>
+    <script src="../../includes/js/bootstrap.min.js"></script>
+    <script src="../../includes/js/AdminLTE_app.min.js"></script>
+    <script src="../../includes/js/googleSignout.js"></script>
+    <script src="../../includes/sweetalert/sweetalert.min.js"></script>
+    <script src="../../includes/js/xmlConverter.js"></script>
+
+    <!-- AngularJS Dependencies - For Tasks -->
+    <script src="../../includes/js/angular.min.js"></script>
+    <script src="../../includes/js/angular-animate.min.js"></script>
+    <script src="../../includes/js/angular-aria.min.js"></script>
+    <script src="../../includes/js/angular-messages.min.js"></script>
+    <script src="../../includes/js/angular-material.min.js"></script>
+
     <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
     <script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
-    <script src="includes/sweetalert/sweetalert.min.js"></script>
-    <script src="includes/js/xmlConverter.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
     
     <!-- Styles.css !-->
-    <link rel="stylesheet" href="includes/css/styles.css">
-    <link rel="stylesheet" href="includes/css/bootstrap.min.css">
-    <link rel="stylesheet" href="includes/css/font-awesome.min.css">
-    <link rel="stylesheet" href="includes/css/ionicons.min.css">
-    <link rel="stylesheet" href="includes/css/AdminLTE/AdminLTE.min.css">
-    <link rel="stylesheet" href="includes/css/AdminLTE/skins/skin-purple.min.css">
+    <link rel="stylesheet" href="../../includes/css/styles.css">
+    <link rel="stylesheet" href="../../includes/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../includes/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../includes/css/ionicons.min.css">
+    <link rel="stylesheet" href="../../includes/css/AdminLTE/AdminLTE.min.css">
+    <link rel="stylesheet" href="../../includes/css/AdminLTE/skins/skin-purple.min.css">
+    <link rel="stylesheet" href="../../includes/sweetalert/sweetalert.css">
+    <link rel="stylesheet" href="../../includes/css/angular-material.min.css">
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">   
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.dataTables.min.css">
-    <link rel="stylesheet" href="includes/sweetalert/sweetalert.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 
-    <link rel="shortcut icon" href="includes/img/universaltechlogo2.jpg" />
+    <link rel="shortcut icon" href="../../includes/img/universaltechlogo2.jpg" />
 
     <style>
       a {
@@ -98,7 +110,7 @@
     <header class="main-header">
 
       <!-- Logo -->
-      <a href="home.php" class="logo">
+      <a href="../home/home.php" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>U</b>T</span>
         <!-- logo for regular state and mobile devices -->
@@ -246,7 +258,7 @@
                 <!-- Menu Footer-->
                 <li class="user-footer">
                   <div class="pull-left">
-                    <a href="profile.php" class="btn btn-default btn-flat">Profile</a>
+                    <a href="../user/profile.php" class="btn btn-default btn-flat">Profile</a>
                   </div>
                   <div class="pull-right">
                     <a href="#" onclick="signOut()" class="btn btn-default btn-flat">Sign out</a>
@@ -265,7 +277,7 @@
     
     <?php
       //loads sidebar from external php
-      include ("dashboard/sidebar.php");
+      include ("sidebar.php");
     ?>
 
   </body>

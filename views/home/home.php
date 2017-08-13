@@ -1,6 +1,5 @@
 <?php
-  ob_start();
-  require ("dashboard.php");
+  require ("../dashboard/dashboard.php");
 ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -69,7 +68,7 @@
                 echo '</div>';
               }
             } else {
-              header("location:functions/timeInOut.php?newDays");
+              header("location:../../functions/timeInOut.php?newDays");
               exit();
             }
           ?>
@@ -125,7 +124,7 @@
   <!-- /.content-wrapper -->
 
   <?php
-    include ("dashboard/footer.php");
+    //include ("../dashboard/footer.php");
   ?>
 
   <!-- Control Sidebar -->
@@ -214,14 +213,14 @@ $(document).ready(function(){
 
 function timestamp() {
     $.ajax({
-        url: "functions/timestamp.php?time",
+        url: "../../functions/timestamp.php?time",
         success: function(data) {
             $('#time').html(data);
         },
     });    
 
     $.ajax({
-        url: "functions/timestamp.php?date",
+        url: "../../functions/timestamp.php?date",
         success: function(data) {
             $('#date').html(data);
         },
@@ -230,19 +229,19 @@ function timestamp() {
 </script>
 <script type="text/javascript">
   $(document).on('click', '#btnTimeIn', function(event){
-    ajax("functions/timeInOut.php?timeIn", "Time in?", "", "Time IN Successful!", "Time in");
+    ajax("../../functions/timeInOut.php?timeIn", "Time in?", "", "Time IN Successful!", "Time in");
   });
 
   $(document).on('click', '#btnTimeOut', function(event){
-    ajax("functions/timeInOut.php?timeOut", "Time Out?", "", "Time OUT Successful!", "Time out");
+    ajax("../../functions/timeInOut.php?timeOut", "Time Out?", "", "Time OUT Successful!", "Time out");
   });
 
   $(document).on('click', '#btnLunchIn', function(event){
-    ajax("functions/timeInOut.php?lunchIn", "Lunch in?", "", "Lunch IN Successful!", "Lunch in");
+    ajax("../../functions/timeInOut.php?lunchIn", "Lunch in?", "", "Lunch IN Successful!", "Lunch in");
   });
 
   $(document).on('click', '#btnLunchOut', function(event){
-    ajax("functions/timeInOut.php?lunchOut",  "Lunch out?", "", "Lunch OUT Successful!", "Lunch out");
+    ajax("../../functions/timeInOut.php?lunchOut",  "Lunch out?", "", "Lunch OUT Successful!", "Lunch out");
   });
 
   function ajax(phpUrl, titleText, textText, successText, confirmBtnText){

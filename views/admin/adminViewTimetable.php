@@ -1,21 +1,42 @@
 <?php
   ob_start();
-  require ("php_globals.php");
-  require ("dashboard.php");
+  require ("../../functions/php_globals.php");
+  require ("../dashboard/dashboard.php");
 
-  if(!isset($_SESSION['user_id'])){
-    header("location: index.php");
+  if(!isset($_GET["id"])){
+    header("location: employeeList.php");
   }
+
+  $qry = "SElECT * FROM users WHERE id = ".$_GET['id'];
+  $result = mysqli_query($mysqli, $qry);
+
+  if($result){
+    if(mysqli_num_rows($result) != 1){
+      header("location: employeeList.php");
+    }
+  }
+
+  $_SESSION["filter_id"] = $_GET["id"];
 ?>
 
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        Timetable
-        <small>UniversalTech</small>
-      </h1>
+      <?php
+        $row = mysqli_fetch_assoc($result);
+        if(substr($row["lastName"], -1) == "s"){
+          $header = $row["firstName"].' '.$row["lastName"].'\' Timetable';
+        }else{
+          $header = $row["firstName"].' '.$row["lastName"].'\'s Timetable';
+        }
+        echo '
+          <h1>
+            '.$header.'
+            <small>UniversalTech</small>
+          </h1>
+        ';
+      ?>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
         <li class="active">Here</li>
@@ -25,12 +46,12 @@
     <!-- Main content -->
     <section class="content">
       <h4>Filter Date</h4>
-      <form id="filterDate" action="filterDate.php" method="GET">
+      <form id="filterDate" action="adminFilterDate.php" method="GET">
         <div class="since-until-datepicker">
             <div class='col-md-2' style="padding-left: 0px">
                 <div class="form-group">
                     <div class='input-group date' id='since-datetimepicker'>
-                        <input id="since" type='text' name="since" class="form-control" placeholder="Start date" required />
+                        <input id="since" type='text' name="since" class="form-control" placeholder="Start date" required/>
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
@@ -40,7 +61,7 @@
             <div class='col-md-2' style="padding-left: 0px">
                 <div class="form-group">
                     <div class='input-group date' id='until-datetimepicker'>
-                        <input id="until" type='text' name="until" class="form-control" placeholder="End date" required />
+                        <input id="until" type='text' name="until" class="form-control" placeholder="End date" required/>
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
@@ -59,7 +80,7 @@
             </div> 
         </div>
       </form>
-      <table id="timetable" class="display" cellspacing="0" width="100%">
+      <table id="timetable" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
             <tr>
                 <th>Date</th>
@@ -71,6 +92,7 @@
                 <th>Rendered Lunch</th>
                 <th>Late / Undertime</th>
                 <th>Overtime</th>
+                <th>Edit</th>
             </tr>
         </thead>
         <tfoot>
@@ -84,6 +106,7 @@
                 <th>Rendered Lunch</th>
                 <th>Late / Undertime</th>
                 <th>Overtime</th>
+                <th>Edit</th>
             </tr>
         </tfoot>
         <tbody id="timetable-tbody">
@@ -95,10 +118,10 @@
 
             if($date <= 15){
               $since = date('Y-m-d', strtotime($year."-".$month."-01"));
-              $qry = 'SELECT * FROM timetable WHERE user_id = '.$_SESSION['user_id'].' AND timeIn != 0 AND date BETWEEN "'.$since.'" AND "'.$until.'"';
+              $qry = 'SELECT * FROM timetable WHERE user_id = '.$_GET["id"].' AND date BETWEEN "'.$since.'" AND "'.$until.'"';
             }else{
               $since = date('Y-m-d', strtotime($year."-".$month."-16"));
-              $qry = 'SELECT * FROM timetable WHERE user_id = '.$_SESSION['user_id'].' AND timeIn != 0 AND date BETWEEN "'.$since.'" AND "'.$until.'"';
+              $qry = 'SELECT * FROM timetable WHERE user_id = '.$_GET["id"].' AND date BETWEEN "'.$since.'" AND "'.$until.'"';
             }
 
             $result = mysqli_query($mysqli, $qry);
@@ -106,22 +129,29 @@
             if($result){
               while($row = mysqli_fetch_assoc($result)){
                 $date = date_format(date_create($row["date"]), "F d, Y");
-                $timeIn = date("h:i A", strtotime($row["timeIn"]));
+                if($row["timeIn"] == 0){
+                  $input_timeIn = $timeIn = "-";
+                }else{
+                  $timeIn = date("h:i A", strtotime($row["timeIn"]));
+                  $input_timeIn = date("H:i", strtotime($row["timeIn"]));
+                }
                 if($row["timeOut"] == 0){
-                  $timeOut = "-";
+                  $input_timeOut = $timeOut = "-";
                   $renderedTime = "-";
                   $underTime = "-";
+                  $overTime = "-";
                 }else{
                   $timeOut = date("h:i A", strtotime($row["timeOut"]));
+                  $input_timeOut = date("H:i", strtotime($row["timeOut"]));
                   $datetime1 = date("H:i", strtotime($row["timeIn"]));
                   $datetime1 = strtotime($datetime1);
                   $datetime2 = date("H:i", strtotime($row["timeOut"]));
                   $datetime2 = strtotime($datetime2);
-                  $renderedTime = abs(number_format(round(($datetime2 - $datetime1)/3600,1),1));
+                  $renderedTime = abs(number_format(round(($datetime2 - $datetime1)/3600,2),1));
                   $underTime = number_format(8.0 - $renderedTime, 1);
                   if($underTime < 0){
-                    $overTime = abs($underTime);
-                    $underTime = 0;
+                      $overTime = abs($underTime);
+                      $underTime = 0;
                   }else{
                     $overTime = 0;
                   }
@@ -132,17 +162,19 @@
                 }
 
                 if($row["lunchIn"] == 0){
-                  $lunchIn = "-";
+                  $input_lunchIn = $lunchIn = "-";
                   $renderedLunch = "-";
                 }else{
                   $lunchIn = date("h:i A", strtotime($row["lunchIn"]));
+                  $input_lunchIn = date("H:i", strtotime($row["lunchIn"]));
                 }
 
                 if($row["lunchOut"] == 0){
-                  $lunchOut = "-";
+                  $input_lunchOut = $lunchOut = "-";
                   $renderedLunch = "-";
                 }else{
                   $lunchOut = date("h:i A", strtotime($row["lunchOut"]));
+                  $input_lunchOut = date("H:i", strtotime($row["lunchOut"]));
                   $datetime3 = date("H:i", strtotime($row["lunchIn"]));
                   $datetime3 = strtotime($datetime3);
                   $datetime4 = date("H:i", strtotime($row["lunchOut"]));
@@ -167,8 +199,9 @@
                     }
                   }       
                 }
+
                 echo '
-                  <tr>
+                  <tr id="edit'.$row["id"].'">
                       <td>'.$date.'</td>
                       <td>'.$timeIn.'</td>
                       <td>'.$timeOut.'</td>
@@ -178,6 +211,45 @@
                       <td>'.$renderedLunch.'</td>
                       <td>'.$underTime.'</td>
                       <td>'.$overTime.'</td>
+                      <td> <button type="button" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#edit'.$row["id"].'"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>
+                      <!-- Modal -->
+                      <div id="edit'.$row["id"].'" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                          <!-- Update Modal content-->
+                          <form id="edit-form" action="updateEmployeeTimetable.php" method="GET">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title"><strong>'.$date.'</strong></h4>
+                              </div>
+                              <div class="modal-body">
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <input type="text" name="user_id" value="'.$_GET["id"].'" hidden />
+                                    <input type="text" name="date_id" value="'.$row["id"].'" hidden />
+                                    <input type="text" name="date" value="'.$date.'" hidden />
+                                    <label for="timeIn">Time In</label><br>
+                                    <input type="time" name="timeIn" value="'.$input_timeIn.'" /><br><br>
+                                    <label for="timeOut">Time Out</label><br>
+                                    <input type="time" name="timeOut" value="'.$input_timeOut.'" /><br><br>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <label for="lunchIn">Lunch In</label><br>
+                                    <input type="time" name="lunchIn" value="'.$input_lunchIn.'" /><br><br>
+                                    <label for="lunchOut">Lucn Out</label><br>
+                                    <input type="time" name="lunchOut" value="'.$input_lunchOut.'" /><br><br>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <input type="submit" class="btn btn-warning" value="Edit" />
+                              </div>
+                            </div>
+                          </form>
+
+                        </div>
+                      </div>
                   </tr>
                 ';
               }
@@ -319,52 +391,90 @@
       // Abort any pending request
       if (request) {
           request.abort();
-      }
+      }    
+      // setup some local variables
+      var $form = $(this);
 
-      if(since && until){
-        // setup some local variables
-        var $form = $(this);
+      // Let's select and cache all the fields
+      var $inputs = $form.find("input, select, button, textarea");
 
-        // Let's select and cache all the fields
-        var $inputs = $form.find("input, select, button, textarea");
+      // Serialize the data in the form
+      var serializedData = $form.serialize();
 
-        // Serialize the data in the form
-        var serializedData = $form.serialize();
+      // Let's disable the inputs for the duration of the Ajax request.
+      // Note: we disable elements AFTER the form data has been serialized.
+      // Disabled form elements will not be serialized.
+      $inputs.prop("disabled", true);
 
-        // Let's disable the inputs for the duration of the Ajax request.
-        // Note: we disable elements AFTER the form data has been serialized.
-        // Disabled form elements will not be serialized.
-        $inputs.prop("disabled", true);
+      // Fire off the request to /form.php
+      request = $.ajax({
+          url: "adminFilterDate.php",
+          type: "GET",
+          data: serializedData
+      });
 
-        // Fire off the request to /form.php
-        request = $.ajax({
-            url: "filterDate.php",
-            type: "GET",
-            data: serializedData
-        });
+      // Callback handler that will be called on success
+      request.done(function (response, textStatus, jqXHR){
+          // Log a message to the console
+          console.log("Hooray, it worked!");
+          document.getElementById("timetable-tbody").innerHTML=response;
+      });
 
-        // Callback handler that will be called on success
-        request.done(function (response, textStatus, jqXHR){
-            // Log a message to the console
-            console.log("Hooray, it worked!");
-            document.getElementById("timetable-tbody").innerHTML=response;
-        });
+      // Callback handler that will be called on failure
+      request.fail(function (jqXHR, textStatus, errorThrown){
+          // Log the error to the console
+          console.error(
+              "The following error occurred: "+
+              textStatus, errorThrown
+          );
+      });
 
-        // Callback handler that will be called on failure
-        request.fail(function (jqXHR, textStatus, errorThrown){
-            // Log the error to the console
-            console.error(
-                "The following error occurred: "+
-                textStatus, errorThrown
-            );
-        });
+      // Callback handler that will be called regardless
+      // if the request failed or succeeded
+      request.always(function () {
+          // Reenable the inputs
+          $inputs.prop("disabled", false);
+      });
+  });
+</script>
+<script>
+  $(document).on('submit', '[id^=edit-form]', function (e) {
+    e.preventDefault(); 
 
-        // Callback handler that will be called regardless
-        // if the request failed or succeeded
-        request.always(function () {
-            // Reenable the inputs
-            $inputs.prop("disabled", false);
-        });
-      }
+    var data = $(this).serialize();
+
+    swal({
+      title: "Are you sure?",
+      text: "Edit employee timetable",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonClass: "btn-success",
+      confirmButtonText: "Update",
+      cancelButtonText: "Cancel",
+      cancelButtonClass: "btn-danger",
+      closeOnConfirm: false,
+      showLoaderOnConfirm: true
+    },
+      function (isConfirm) {
+          if (isConfirm) {
+            setTimeout(function(){
+              $.ajax({
+                type: 'GET',
+                url: 'updateEmployeeTimetable.php',
+                data: data,
+                success: function (data) {
+                  swal("Success!", "Employee timetable has been updated", "success");
+                  $('.modal').modal('hide');
+                  document.getElementById("timetable-tbody").innerHTML=data;
+                },
+                error: function (data) {
+                  swal("Error!", "An error has occurred", "error");
+                }
+              });
+            }, 1500);
+          }
+      });
+
+    return false;
   });
 </script>

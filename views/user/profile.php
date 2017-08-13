@@ -1,6 +1,6 @@
 <?php
-  require ("php_globals.php");
-  include ("dashboard.php");
+  require ("../../functions/php_globals.php");
+  include ("../dashboard/dashboard.php");
 ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -86,7 +86,7 @@
   <!-- /.content-wrapper -->
 
   <?php
-    include ("dashboard/footer.php");
+    //include ("../dashboard/footer.php");
   ?>
 
   <!-- Control Sidebar -->
@@ -168,118 +168,3 @@
 </div>
 <!-- ./wrapper -->
 
-<script>
-$(document).ready(function(){
-    setInterval(timestamp, 1000);
-});
-
-function timestamp() {
-    $.ajax({
-        url: "functions/timestamp.php?time",
-        success: function(data) {
-            $('#time').html(data);
-        },
-    });    
-
-    $.ajax({
-        url: "functions/timestamp.php?date",
-        success: function(data) {
-            $('#date').html(data);
-        },
-    });
-}
-</script>
-<script type="text/javascript">
-  $(document).on('click', '#btnTimeIn', function(event){
-    ajax("functions/timeInOut.php?timeIn", "Time in?", "", "Time IN Successful!", "Time in");
-  });
-
-  $(document).on('click', '#btnTimeOut', function(event){
-    ajax("functions/timeInOut.php?timeOut", "Time Out?", "", "Time OUT Successful!", "Time out");
-  });
-
-  $(document).on('click', '#btnLunchIn', function(event){
-    ajax("functions/timeInOut.php?lunchIn", "Lunch in?", "", "Lunch IN Successful!", "Lunch in");
-  });
-
-  $(document).on('click', '#btnLunchOut', function(event){
-    ajax("functions/timeInOut.php?lunchOut",  "Lunch out?", "", "Lunch OUT Successful!", "Lunch out");
-  });
-
-  function ajax(phpUrl, titleText, textText, successText, confirmBtnText){
-      // Variable to hold request
-      var request;
-
-      // Prevent default posting of form - put here to work in case of errors
-      event.preventDefault();
-
-      // Abort any pending request
-      if (request) {
-          request.abort();
-      }
-
-      // setup some local variables
-      var $btn = $(this);
-
-      // Let's disable the button for the duration of the Ajax request.
-      // Note: we disable elements AFTER the form data has been serialized.
-      // Disabled form elements will not be serialized.
-      $btn.prop("disabled", true);
-
-      swal({
-        title: titleText,
-        text: textText,
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonClass: "btn-success",
-        confirmButtonText: confirmBtnText,
-        cancelButtonText: "Cancel",
-        cancelButtonClass: "btn-danger",
-        closeOnConfirm: false,
-        closeOnCancel: false,
-        showLoaderOnConfirm: true
-      },
-      function (isConfirm) {
-          if (isConfirm) {
-            setTimeout(function(){
-              request = $.ajax({
-                url: phpUrl,
-                type: "GET"
-              });
-
-              // Callback handler that will be called on success
-              request.done(function (response, textStatus, jqXHR){
-                  var parts = response.split('|');
-                  if(parts[1] == "fail"){
-                    swal("Error!", "An error has occurred", "error");
-                  }else{
-                    swal(successText, "", "success");
-                    //document.getElementById("alertMsg").innerHTML=parts[0];
-                    document.getElementById("time-btns").innerHTML=parts[0];
-                    document.getElementById("timeToday-tbody").innerHTML=parts[1];
-                  }       
-              });
-
-              // Callback handler that will be called on failure
-              request.fail(function (jqXHR, textStatus, errorThrown){
-                  swal("Error!", "An error has occurred", "error");
-                  // Log the error to the console
-                  console.error(
-                      "The following error occurred: "+
-                      textStatus, errorThrown
-                  );
-              });
-
-              // Callback handler that will be called regardless
-              // if the request failed or succeeded
-              request.always(function () {
-                  // Reenable the inputs
-                  $btn.prop("disabled", false);
-              });
-            }, 500);
-          } else {
-            swal("Cancelled", "", "error");
-          }
-      });
-  }
-</script>

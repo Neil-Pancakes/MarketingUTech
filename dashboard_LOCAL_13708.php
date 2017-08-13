@@ -226,7 +226,7 @@
     
     <?php
       //loads sidebar from external php
-      include ("dashboard/sidebar.php");
+      include ("views/dashboard/sidebar.php");
     ?>
 
     </section>

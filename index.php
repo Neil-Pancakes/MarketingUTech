@@ -3,7 +3,7 @@
   session_start();
 
   if(isset($_SESSION['loggedin'])){
-    header("location: home.php");
+    header("location:views/home/home.php");
     die();
   }
 ?>
@@ -77,13 +77,13 @@
       xhr.open('POST', 'functions/google-authenticate.php');
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
       xhr.onload = function() {
-        window.location.href = "home.php";
+        window.location.href = "views/home/home.php";
       };
       xhr.send('idtoken=' + id_token);
     }
 
     function onFailure(error) {
-      window.location.href = "index.php";
+      window.location.href = "index";
     }
 
     function renderButton() {

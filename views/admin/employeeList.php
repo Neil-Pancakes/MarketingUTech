@@ -1,6 +1,6 @@
 <?php
-  require ("php_globals.php");
-  include ("dashboard.php");
+  require ("../../functions/php_globals.php");
+  include ("../dashboard/dashboard.php");
 ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -31,6 +31,7 @@
                 <th class="no-sort">View/Edit/Delete</th>
             </tr>
         </thead>
+        <!--
         <tfoot>
             <tr>
                 <th>Name</th>
@@ -42,6 +43,7 @@
                 <th>View/Edit/Delete</th>
             </tr>
         </tfoot>
+        -->
         <tbody id="empList-tbody">
           <?php
             $qry = 'SELECT * FROM users';
@@ -275,16 +277,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
-  <!-- Main Footer -->
-  <footer class="main-footer">
-    <!-- To the right -->
-    <div class="pull-right hidden-xs">
-      Anything you want
-    </div>
-    <!-- Default to the left -->
-    <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
-  </footer>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">

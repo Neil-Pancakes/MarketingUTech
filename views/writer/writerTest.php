@@ -1,5 +1,5 @@
 <?php
-        include("dashboard_LOCAL_13708.php");
+  include("../dashboard/dashboard.php");
 ?>
 <head>
     <style>
@@ -14,8 +14,7 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        Daily Tracker
+      <h1>Daily Tracker
         <small>Role in the Company (Im an OJT)</small>
       </h1>
       <ol class="breadcrumb">
@@ -43,7 +42,7 @@
                         </div>
                         <md-list-item class="md-3-line" ng-repeat="x in today" ng-click="modal(x.Article, x.WordCnt, x.WriterId)">
                           <div style="width:95%;" data-target="#optionModal" data-toggle="modal">
-                            <img src="includes/img/writerIcon.png" class="md-avatar" style="float:left"/>
+                            <img src="../../includes/img/writerIcon.png" class="md-avatar" style="float:left"/>
                             <div class="md-list-item-text">
                             
                               <h3 class="articleName">{{ x.Article }}</h3>
@@ -120,9 +119,7 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-    <?php
-      require("footer.php"); //FOOTER IS THE CAUSE OF THE DASHBOARD BUG//
-    ?>
+
 </div>
 <!-- ./wrapper -->
 </body>
@@ -138,7 +135,7 @@
         $scope.items= [];
         $scope.selected = [];
         $scope.init = function () {
-          $http.get("queries/getMyDailyTrackerTodayWriter.php").then(function (response) {
+          $http.get("../../queries/getMyDailyTrackerTodayWriter.php").then(function (response) {
             $scope.today = response.data.records;
             $scope.deleteList = [];
             for($x=0; $x<$scope.today.length; $x++){
@@ -211,7 +208,7 @@
         }
 
         $scope.submitData = function() {
-            $http.post('insertFunctions/insertWriterTracker.php', {
+            $http.post('../../insertFunctions/insertWriterTracker.php', {
               'articleSet': $scope.articleSet.articles, 
               'wordSet': $scope.wordSet.words
               }).then(function(data, status){
@@ -228,7 +225,7 @@
         };
 
         $scope.editData = function() {
-          $http.post('editFunctions/editDailyTaskWriter.php', {
+          $http.post('../../editFunctions/editDailyTaskWriter.php', {
             'id': $scope.modalWriterId,
             'article': $scope.modalArticle,
             'wordCnt': $scope.modalWordCnt
@@ -240,7 +237,7 @@
 
         $scope.delData = function() {
           for($x=$scope.selected.length; $x>-1; $x--){
-            $http.post('deleteFunctions/delDailyTaskWriter.php', {
+            $http.post('../../deleteFunctions/delDailyTaskWriter.php', {
               'id': $scope.selected[$x],
             }).then(function(data, status){
                 $scope.init();
@@ -305,7 +302,6 @@
 
 <script>
 $(document).ready(function(){
-    document.getElementById("year").innerHTML = new Date().getFullYear();
     $('#homeTab').removeClass('active');
     $('#trackerTab').addClass('active');
 });

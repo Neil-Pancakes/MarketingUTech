@@ -1,5 +1,5 @@
 <?php
-  include("dashboard_LOCAL_13708.php");
+  include("../dashboard/dashboard.php");
 ?>
 <head>
     <style>
@@ -237,7 +237,7 @@ $(document).ready(function(){
         $misc: ""
       };
        $scope.init = function () {
-          $http.get("queries/getMyDailyTrackerTodayOjtDeveloperSystemTracker.php").then(function (response) {
+          $http.get("../../queries/getMyDailyTrackerTodayOjtDeveloperSystemTracker.php").then(function (response) {
             $scope.today = response.data.records;
             if($scope.today[0].OJTDeveloperSystemId==""){
               $scope.exists=false;
@@ -275,7 +275,7 @@ $(document).ready(function(){
         }
 
         $scope.submitData = function() {
-          $http.post('insertFunctions/insertOjtDeveloperSystem.php', {
+          $http.post('../../insertFunctions/insertOjtDeveloperSystem.php', {
               'createWebsite': $scope.obj.createWebsite,
               'organize': $scope.obj.organize,
               'misc': $scope.obj.misc
@@ -286,7 +286,7 @@ $(document).ready(function(){
         };
 
         $scope.editData = function() {
-          $http.post('editFunctions/editDailyTaskOJTSystemDeveloper.php', {
+          $http.post('../../editFunctions/editDailyTaskOJTSystemDeveloper.php', {
             'id': $scope.modalojtdevelopersystemId,
             'createWebsite': $scope.modalcreatewebsite,
             'organize': $scope.modalorganize,

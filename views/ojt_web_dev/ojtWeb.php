@@ -1,5 +1,5 @@
 <?php
-  include("dashboard_LOCAL_13708.php");
+  include("../dashboard/dashboard.php");
 ?>
 <head>
     <style>
@@ -24,7 +24,6 @@
       </ol>
     </section>
 
-
     <!-- Main content -->
     <section class="content">
         <div ng-cloak ng-controller="taskFieldsController" data-ng-init="init()">
@@ -45,22 +44,22 @@
                                 <div class="modal-body">
                                   <md-content layout-padding>
                                     <div> 
-                                    <input ng-model="modalcontentmarketingassistantId" hidden>
+                                    <input ng-model="modalojtwebdevId" hidden>
                                       <md-input-container>
-                                          <label>Curated</label>
-                                          <input type="text" class="inp form-control" ng-model="modalcuratedCnt">
+                                          <label>Fix Bugs</label>
+                                          <input type="text" class="inp form-control" ng-model="modalfixbugCnt">
                                       </md-input-container>
                                       <md-input-container>
-                                          <label>Drafted</label>
-                                          <input type="text" class="inp form-control" ng-model="modaldraftedCnt">
+                                          <label>Responsive</label>
+                                          <input type="text" class="inp form-control" ng-model="modalresponsiveCnt">
                                       </md-input-container>
                                       <md-input-container>
-                                          <label>Pictures</label>
-                                          <input type="text" class="inp form-control" ng-model="modalpictureCnt">
+                                          <label>Backup</label>
+                                          <input type="text" class="inp form-control" ng-model="modalbackupCnt">
                                   </md-input-container>
                                       <md-input-container>
-                                          <label>Videos</label>
-                                          <input type="text" class="inp form-control" ng-model="modalvideoCnt">
+                                          <label>Optimize</label>
+                                          <input type="text" class="inp form-control" ng-model="modaloptimizeCnt">
                                   </md-input-container>
                                       <md-input-container>
                                           <label>Miscellaneous</label>
@@ -84,34 +83,22 @@
                         </div>
                         <md-list-item class="md-3-line">
                           <div style="width:95%;">
-                            <img src="includes/img/curatedIcon.png" class="md-avatar" style="float:left"/>
+                            <img src="../../includes/img/bugFix.png" class="md-avatar" style="float:left"/>
                             <div class="md-list-item-text">
                               <br>
-                              <h3>Curated</h3>
-                              <h3 class="articleName">{{ today[0].CuratedCnt }}</h3>
+                              <h3>Fix Bugs</h3>
+                              <h3 class="articleName">{{ today[0].FixBugCnt }}</h3>
                               
                             </div>
                           </div>
                         </md-list-item>
                         <md-list-item class="md-3-line">
                           <div style="width:95%;">
-                            <img src="includes/img/draftedIcon.png" class="md-avatar" style="float:left"/>
+                            <img src="../../includes/img/pageIcon.png" class="md-avatar" style="float:left"/>
                             <div class="md-list-item-text">
                               <br>
-                              <h3>Drafted</h3>
-                              <h3 class="articleName">{{ today[0].DraftedCnt }}</h3>
-                              
-                            </div>
-                          </div>
-                        </md-list-item>
-
-                        <md-list-item class="md-3-line">
-                          <div style="width:95%;">
-                            <img src="includes/img/pictureIcon.png" class="md-avatar" style="float:left"/>
-                            <div class="md-list-item-text">
-                              <br>
-                              <h3>Pictures</h3>
-                              <h3 class="articleName">{{ today[0].PictureCnt }}</h3>
+                              <h3>Responsive</h3>
+                              <h3 class="articleName">{{ today[0].ResponsiveCnt }}</h3>
                               
                             </div>
                           </div>
@@ -119,11 +106,11 @@
 
                         <md-list-item class="md-3-line">
                           <div style="width:95%;">
-                            <img src="includes/img/videoIcon.png" class="md-avatar" style="float:left"/>
+                            <img src="../../includes/img/responsiveDesign.png" class="md-avatar" style="float:left"/>
                             <div class="md-list-item-text">
                               <br>
-                              <h3>Videos</h3>
-                              <h3 class="articleName">{{ today[0].VideoCnt }}</h3>
+                              <h3>Backup</h3>
+                              <h3 class="articleName">{{ today[0].BackupCnt }}</h3>
                               
                             </div>
                           </div>
@@ -131,7 +118,19 @@
 
                         <md-list-item class="md-3-line">
                           <div style="width:95%;">
-                            <img src="includes/img/miscIcon.png" class="md-avatar" style="float:left"/>
+                            <img src="../../includes/img/articleIcon.png" class="md-avatar" style="float:left"/>
+                            <div class="md-list-item-text">
+                              <br>
+                              <h3>Optimize/Customize</h3>
+                              <h3 class="articleName">{{ today[0].OptimizeCnt }}</h3>
+                              
+                            </div>
+                          </div>
+                        </md-list-item>
+
+                        <md-list-item class="md-3-line">
+                          <div style="width:95%;">
+                            <img src="../../includes/img/miscIcon.png" class="md-avatar" style="float:left"/>
                             <div class="md-list-item-text">
                               <br>
                               <h3>Miscellaneous</h3>
@@ -147,25 +146,25 @@
                 <md-content class="md-padding">
                   <form ng-submit="submitData()">
                     <div id="taskHolderOjt" class="container" style="max-width:100%;">
-                        <div class="jumbotron"  ng-if="exists==false">
+                        <div class="jumbotron" ng-if="exists==false">
                             <p style="font-size:30px;">Task Count for today </p>
                             <md-content layout-padding>
                                 <div>
                                       <md-input-container>
-                                          <label>Curated</label>
-                                          <input style="font-size:20px" ng-model="obj.curatedCnt" type="number" min="0">
+                                          <label>Fix Bugs</label>
+                                          <input style="font-size:20px" ng-model="obj.fixbugCnt" type="number" min="0">
                                       </md-input-container>
                                       <md-input-container>
-                                          <label>Drafted</label>
-                                          <input style="font-size:20px" ng-model="obj.draftedCnt" type="number" min="0">
+                                          <label>Responsive</label>
+                                          <input style="font-size:20px" ng-model="obj.responsiveCnt" type="number" min="0">
                                       </md-input-container>
                                       <md-input-container>
-                                          <label>Pictures</label>
-                                          <input style="font-size:20px" ng-model="obj.pictureCnt" type="number" min="0">
+                                          <label>Backup</label>
+                                          <input style="font-size:20px" ng-model="obj.backupCnt" type="number" min="0">
                                       </md-input-container>
                                       <md-input-container>
-                                          <label>Videos</label>
-                                          <input style="font-size:20px" ng-model="obj.videoCnt" type="number" min="0">
+                                          <label>Optimize/Customize</label>
+                                          <input style="font-size:20px" ng-model="obj.optimizeCnt" type="number" min="0">
                                       </md-input-container>
                                       <md-input-container>
                                           <label>Miscellaneous</label>
@@ -291,25 +290,21 @@ $(document).ready(function(){
 });
 </script>
 
-
 <script>
     var app = angular.module('taskFieldsApp', ['ngMaterial']);
     var x=0;
-    app.config(['$qProvider', function ($qProvider) {
-      $qProvider.errorOnUnhandledRejections(false);
-    }]);
     app.controller('taskFieldsController', function($scope, $http, $mdDialog) {
       $scope.obj = {
-        $curatedCnt: 0,
-        $draftedCnt: 0,
-        $pictureCnt: 0,
-        $videoCnt: 0,
+        $fixbugCnt: 0,
+        $responsiveCnt: 0,
+        $backupCnt: 0,
+        $optimizeCnt: 0,
         $miscCnt: 0
       };
        $scope.init = function () {
-          $http.get("queries/getMyDailyTrackerTodayContentMarketingAsisstantTracker.php").then(function(response) {
+          $http.get("../../queries/getMyDailyTrackerTodayOjtWebdevTracker.php").then(function (response) {
             $scope.today = response.data.records;
-            if($scope.today[0].ContentMarketingAssistantId==""){
+            if($scope.today[0].OJTWebDevId==""){
               $scope.exists=false;
             }else{
               $scope.exists=true;
@@ -323,13 +318,12 @@ $(document).ready(function(){
             .parent(angular.element(document.querySelector('#popupContainer')))
             .clickOutsideToClose(true)
             .title('Successful Insertion!')
-            .textContent('You have successfully ADDED your Task Count.')
+            .textContent('You have successfully ADDED Task.')
             .ariaLabel('Alert Dialog Demo')
             .ok('Got it!')
             .targetEvent(ev)
           );
         }
-
         
         $scope.showEdit = function(ev) {
           $mdDialog.show(
@@ -343,40 +337,37 @@ $(document).ready(function(){
             .targetEvent(ev)
           );
         }
-
         $scope.submitData = function() {
-          $http.post('insertFunctions/insertContentMarketingAssistant.php', {
-              'curatedCnt': $scope.obj.curatedCnt,
-              'draftedCnt': $scope.obj.draftedCnt,
-              'pictureCnt': $scope.obj.pictureCnt,
-              'videoCnt': $scope.obj.videoCnt,
+          $http.post('../../insertFunctions/insertOJTWebDevTracker.php', {
+              'fixbugCnt': $scope.obj.fixbugCnt, 
+              'responsiveCnt': $scope.obj.responsiveCnt,
+              'backupCnt': $scope.obj.backupCnt,
+              'optimizeCnt': $scope.obj.optimizeCnt,
               'miscCnt': $scope.obj.miscCnt
               }).then(function(data, status){
                 $scope.init();
                 $scope.showAlert();
               })
         };
-
         $scope.editData = function() {
-          $http.post('editFunctions/editDailyTaskContentMarketingAssistant.php', {
-            'id': $scope.modalcontentmarketingassistantId,
-            'curatedCnt': $scope.modalcuratedCnt,
-            'draftedCnt': $scope.modaldraftedCnt,
-            'pictureCnt': $scope.modalpictureCnt,
-            'videoCnt':  $scope.modalvideoCnt,
+          $http.post('../../editFunctions/editDailyTaskOJTWebDev.php', {
+            'id': $scope.modalojtwebdevId,
+            'fixbugCnt': $scope.modalfixbugCnt,
+            'responsiveCnt': $scope.modalresponsiveCnt,
+            'backupCnt': $scope.modalbackupCnt,
+            'optimizeCnt': $scope.modaloptimizeCnt,
             'miscCnt': $scope.modalmiscCnt
           }).then(function(data, status){
                 $scope.init();
                 $scope.showEdit();
           })
         };
-
         $scope.modal = function() {
-            $scope.modalcontentmarketingassistantId = $scope.today[0].ContentMarketingAssistantId;
-            $scope.modalcuratedCnt = $scope.today[0].CuratedCnt;
-            $scope.modaldraftedCnt = $scope.today[0].DraftedCnt;
-            $scope.modalpictureCnt = $scope.today[0].PictureCnt;
-            $scope.modalvideoCnt = $scope.today[0].VideoCnt;
+            $scope.modalojtwebdevId = $scope.today[0].OJTWebDevId;
+            $scope.modalfixbugCnt = $scope.today[0].FixBugCnt;
+            $scope.modalresponsiveCnt = $scope.today[0].ResponsiveCnt;
+            $scope.modalbackupCnt = $scope.today[0].BackupCnt;
+            $scope.modaloptimizeCnt = $scope.today[0].OptimizeCnt;
             $scope.modalmiscCnt = $scope.today[0].MiscCnt;
         };
   });
