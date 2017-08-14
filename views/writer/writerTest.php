@@ -56,13 +56,16 @@
                           </md-checkbox>
                         </md-list-item>
                       </form>
-                      <!--Edit Modal-->
-                      <form ng-submit="editData()">
-                          <div id="optionModal" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
+                      
+                        <!-- Edit Modal Start -->
+                        <div id="optionModal" class="modal fade" role="dialog">
+                          <div class="modal-dialog">
+                            
+                           <form ng-submit="editData()">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h2 id="modalHeaderEditDelete">Task</h2>
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  <h4 class="modal-title"><strong>Task</strong></h4>
                                 </div>
                                 <div class="modal-body">
                                   <input type="text" class="inp form-control" ng-model="modalArticle" value="{{modalArticle}}" required>
@@ -72,9 +75,9 @@
                                   <button type="submit" class="btn btn-warning" onclick="$('#optionModal').modal('hide');">Edit <span class="fa fa-edit"></span></button>
                                 </div>
                               </div>
-                            </div>
+                            </form>
                           </div>
-                      </form>
+                        </div>
                       <!--END of Edit Modal-->
                   </md-content>
                 </md-content>
@@ -227,7 +230,7 @@
                 $scope.init();
                 $scope.showAlert();
               })
-        };
+        };  
 
         $scope.editData = function() {
           $http.post('../../editFunctions/editDailyTaskWriter.php', {
