@@ -32,23 +32,23 @@
       <div ng-controller="taskFieldsController" data-ng-init="init()">
 
       <md-content>
-            <md-tabs md-dynamic-height md-border-bottom>
-              <md-tab label="daily tracker">
-                <md-content class="md-padding">
-                  <span class="md-display-2" >Daily Tracker </span>
-                  <md-button class="md-warn md-raised" ng-if="exists==true" ng-click="modal()" data-target="#optionModal" data-toggle="modal">Edit <span class="fa fa-edit"></span></md-button>
-                   <!--Edit Modal-->
-                    <div id="optionModal" class="modal fade" role="dialog">
-                      <div class="modal-dialog">
-                        <form ng-submit="editData()">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h2 id="modalHeaderEditDelete">Task</h2>
-                            </div>
-                            <div class="modal-body">
-                              <md-content layout-padding>
-                                <div> 
-                                  <label>Commenting 10 per day</label>
+        <md-tabs md-dynamic-height md-border-bottom>
+        <md-tab label="daily tracker">
+        <md-content class="md-padding">
+          <span class="md-display-2" >Daily Tracker </span>
+          <md-button class="md-warn md-raised" ng-if="exists==true" ng-click="modal()" data-target="#optionModal" data-toggle="modal">Edit <span class="fa fa-edit"></span></md-button>
+            <!--Edit Modal-->
+            <div id="optionModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <form ng-submit="editData()">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h2 id="modalHeaderEditDelete">Task</h2>
+                    </div>
+                    <div class="modal-body">
+                      <md-content layout-padding>
+                        <div> 
+                        <label>Commenting 10 per day</label>
                                   <select ng-model="modalcomment">
                                     <option ng-repeat="x in options">{{x}}<option>
                                   </select><br>
