@@ -231,6 +231,7 @@
                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
                 <span class="hidden-xs"><?php echo $_SESSION['firstName']." ".$_SESSION['lastName'] ?></span>
               </a>
+
               <ul class="dropdown-menu">
                 <!-- The user image in the menu -->
                 <li class="user-header">
@@ -256,6 +257,7 @@
                   </div>
                   <!-- /.row -->
                 </li>
+
                 <!-- Menu Footer-->
                 <li class="user-footer">
                   <div class="pull-left">
@@ -280,6 +282,3 @@
       //loads sidebar from external php
       include ("sidebar.php");
     ?>
-
-  </body>
-</html>

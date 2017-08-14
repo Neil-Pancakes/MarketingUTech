@@ -25,4 +25,10 @@
 			return false;
 		}
 	}
+
+	function announcementPending($user_id) {
+		global $mysqli;
+		$query = 'SELECT `id` FROM `announcement` WHERE `user_id` = "'.$user_id.'" AND `isBroadcast` = "'.$jobTitle.'"';
+
+	}
 ?>
