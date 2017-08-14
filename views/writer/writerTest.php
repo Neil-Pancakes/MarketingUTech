@@ -65,8 +65,8 @@
                                   <h2 id="modalHeaderEditDelete">Task</h2>
                                 </div>
                                 <div class="modal-body">
-                                  <input type="text" class="inp form-control" ng-model="modalArticle" value="{{modalArticle}}" required>
-                                  <input type="text" class="inp form-control" ng-model="modalWordCnt" value="{{modalWordCnt}}" required>
+                                  <input type="text" class="inp form-control" ng-model="modalArticle" required>
+                                  <input type="text" class="inp form-control" ng-model="modalWordCnt" required>
                                 </div>
                                 <div class="modal-footer">
                                   <button type="submit" class="btn btn-warning" onclick="$('#optionModal').modal('hide');">Edit <span class="fa fa-edit"></span></button>
@@ -112,6 +112,47 @@
                     </div>
                 </md-content>
               </md-tab>
+              <md-tab label="team member tasks">
+                <md-content class="md-padding">
+                  <md-list flex>
+                    <md-list-item class="md-3-line" ng-repeat="x in team">
+                      <div style="width:95%;">
+                        <img src="../../includes/img/writerIcon.png" class="md-avatar" style="float:left"/>
+                        <div class="md-list-item-text">
+                        
+                          <h3 class="articleName">{{ x.Name }}</h3>
+                          <button class="btn btn-xs btn-primary">View</button>
+                          <button class="btn btn-xs btn-success" data-toggle="modal" data-target="#addTask{{x.Id}}">Add Task</button>
+                            <form ng-submit="addAdditional()">
+                              <div id="addTask{{x.Id}}" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h2 id="modalHeaderEditDelete">Task</h2>
+                                    </div>
+                                    <div class="modal-body">
+                                      <input value="{{x.Id}}">
+                                      <input class="form-control" ng-model="addTaskName" required>
+                                      <select class="form-control" ng-model="addTaskType" required>
+                                        <option value="Text">Text</option>
+                                        <option value="Int">Count</option>
+                                        <option value="Binary">Yes/No</option>
+                                      </select>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="submit" class="btn btn-success" onclick="$('#addTask').modal('hide');">Add Task <span class="fa fa-plus-circle"></span></button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                          </form>
+                        </div>
+                      </div>
+                    </md-list-item>
+                  </md-list>
+                </md-content>
+              </md-tab>
+
             </md-tabs>
           </md-content>
         </div>  
@@ -147,6 +188,9 @@
               $scope.deleteList[$x] = false;
               $scope.items.push($scope.today[$x].WriterId);
             }
+          });
+          $http.get("../../queries/getTeam/getWriterTeam.php").then(function (response) {
+            $scope.team = response.data.records;
           });  
         };
         $scope.articleSet = {articles: []};
@@ -255,6 +299,16 @@
           if($scope.selected.length==0){
             $scope.delBtn = false;
           }
+        };
+        $scope.addAdditional = function(){
+          alert($scope.Id);
+          $http.post('../../insertFunctions/insertAdditionalTask.php', {
+              'id': $scope.x.Id,
+              'name': $scope.addTaskName,
+              'type': $scope.addTaskType
+            }).then(function(data, status){
+                $scope.init();
+            })
         };
 
         $scope.modal = function(article, wordCnt, id) {
