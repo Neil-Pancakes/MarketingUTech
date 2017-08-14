@@ -136,18 +136,20 @@
                       </div>
                       <button type="button" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#update'.$row["id"].'" onclick="updateCheckOJT('.$row["id"].')"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
                       <!-- Modal -->
-                      <div id="update'.$row["id"].'" class="modal fade" role="dialog">
-                        <div class="modal-dialog modal-lg">
+                      <div id="update'.$row["id"].'" class="modal fade" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
 
                           <!-- Update Modal content-->
                           <form id="update-form" action="updateEmployee.php" method="GET">
                             <div class="modal-content">
                               <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
                                 <h4 class="modal-title"><strong>Edit</strong></h4>
                               </div>
                               <div class="modal-body">
-                                <div class="row">
+                                <div class="form-group row">
                                   <div class="col-md-3">
                                     <h4>Basic Info</h4>
                                     <input type="text" name="id" value="'.$row["id"].'" hidden />

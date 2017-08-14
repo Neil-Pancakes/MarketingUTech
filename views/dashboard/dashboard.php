@@ -20,8 +20,10 @@
 
     <!-- REQUIRED JS SCRIPTS -->
     <script src="../../includes/js/jquery-3.2.1.min.js"></script>
-    <script src="../../node_modules/moment/moment.js"></script>
     <script src="../../includes/js/bootstrap.min.js"></script>
+    <script src="../../includes/js/bootstrap-modal.js"></script>
+    <script src="../../includes/js/bootstrap-modalmanager.js"></script>
+    <script src="../../node_modules/moment/moment.js"></script>
     <script src="../../includes/js/AdminLTE_app.min.js"></script>
     <script src="../../includes/js/googleSignout.js"></script>
     <script src="../../includes/sweetalert/sweetalert.min.js"></script>
@@ -42,6 +44,7 @@
     <!-- Styles.css !-->
     <link rel="stylesheet" href="../../includes/css/styles.css">
     <link rel="stylesheet" href="../../includes/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../includes/css/bootstrap-modal.css">
     <link rel="stylesheet" href="../../includes/css/font-awesome.min.css">
     <link rel="stylesheet" href="../../includes/css/ionicons.min.css">
     <link rel="stylesheet" href="../../includes/css/AdminLTE/AdminLTE.min.css">
