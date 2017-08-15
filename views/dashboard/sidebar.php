@@ -47,19 +47,84 @@
 
           <?php
           //LINK DECLARATIONS
-            $editor = '<li id="taskTracker"><a href="../editor/editorTest.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
-            $writer = '<li id="taskTracker"><a href="../writer/writerTest.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
-            $trackimo_cs = '<li id="taskTracker"><a href="../trackimo_cs/trackimoCSTest.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
-            $soc_med = '<li id="taskTracker"><a href="../soc_med/socialMediaTest.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
-            $multimedia = '<li id="taskTracker"><a href="../multimedia/multimediaTest.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
-            $data_proc = '<li id="taskTracker"><a href="../data_processor/dataprocessorTest.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
-            $seo_spc = '<li id="taskTracker"><a href="../seo_spc/seoSpecialistTest.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
-            $wp_dev = '<li id="taskTracker"><a href="../wp_dev/wordpressDeveloperTest.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
-            $cont_mktg = '<li id="taskTracker"><a href="../cont_mktg/contentmarketingTest.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
-            $ojt_web = '<li id="taskTracker"><a href="../ojt_web_dev/ojtWeb.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
-            $ojt_seo = '<li id="taskTracker"><a href="../ojt_seo/ojtSeo.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
-            $ojt_sys_dev = '<li id="taskTracker"><a href="../ojt_sys_dev/ojtSystemDeveloper.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
-            $ojt_research = '<li id="taskTracker"><a href="../ojt_research/ojtResearch.php"><i class="fa fa-tasks"></i> <span>Daily Task Tracker</span></a></li>';
+            $editor = '<li id="taskTracker">
+                        <a href="../editor/editorTest.php">
+                          <i class="fa fa-tasks"></i>
+                          <span>Daily Task Tracker</span>
+                        </a>
+                      </li>';
+            $writer = '<li id="taskTracker">
+                        <a href="../writer/writerTest.php">
+                          <i class="fa fa-tasks"></i> 
+                          <span>Daily Task Tracker</span>
+                        </a>
+                      </li>';
+            $trackimo_cs = '<li id="taskTracker">
+                              <a href="../trackimo_cs/trackimoCSTest.php">
+                                <i class="fa fa-tasks"></i> 
+                                <span>Daily Task Tracker</span>
+                              </a>
+                            </li>';
+            $soc_med = '<li id="taskTracker">
+                          <a href="../soc_med/socialMediaTest.php">
+                            <i class="fa fa-tasks"></i> 
+                            <span>Daily Task Tracker</span>
+                          </a><
+                        /li>';
+            $multimedia = '<li id="taskTracker">
+                            <a href="../multimedia/multimediaTest.php">
+                              <i class="fa fa-tasks"></i> 
+                              <span>Daily Task Tracker</span>
+                            </a>
+                          </li>';
+            $data_proc = '<li id="taskTracker">
+                            <a href="../data_processor/dataprocessorTest.php">
+                              <i class="fa fa-tasks"></i> 
+                              <span>Daily Task Tracker</span>
+                            </a>
+                          </li>';
+            $seo_spc = '<li id="taskTracker">
+                          <a href="../seo_spc/seoSpecialistTest.php">
+                            <i class="fa fa-tasks"></i> 
+                            <span>Daily Task Tracker</span>
+                          </a>
+                        </li>';
+            $wp_dev = '<li id="taskTracker">
+                        <a href="../wp_dev/wordpressDeveloperTest.php">
+                          <i class="fa fa-tasks"></i> 
+                          <span>Daily Task Tracker</span>
+                        </a>
+                      </li>';
+            $cont_mktg = '<li id="taskTracker">
+                            <a href="../cont_mktg/contentmarketingTest.php">
+                              <i class="fa fa-tasks"></i> 
+                              <span>Daily Task Tracker</span>
+                            </a>
+                          </li>';
+            $ojt_web = '<li id="taskTracker">
+                          <a href="../ojt_web_dev/ojtWeb.php">
+                            <i class="fa fa-tasks"></i> 
+                            <span>Daily Task Tracker</span>
+                          </a>
+                        </li>';
+            $ojt_seo = '<li id="taskTracker">
+                          <a href="../ojt_seo/ojtSeo.php">
+                            <i class="fa fa-tasks"></i> 
+                            <span>Daily Task Tracker</span>
+                          </a>
+                        </li>';
+            $ojt_sys_dev = '<li id="taskTracker">
+                              <a href="../ojt_sys_dev/ojtSystemDeveloper.php">
+                                <i class="fa fa-tasks"></i> 
+                                <span>Daily Task Tracker</span>
+                              </a>
+                            </li>';
+            $ojt_research = '<li id="taskTracker">
+                              <a href="../ojt_research/ojtResearch.php">
+                                <i class="fa fa-tasks"></i> 
+                                <span>Daily Task Tracker</span>
+                              </a>
+                            </li>';
 
             if (isset($_SESSION['user_id']) && isset($_SESSION['jobTitle'])) {
               switch ($_SESSION['jobTitle']) {

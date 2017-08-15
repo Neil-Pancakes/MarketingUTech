@@ -166,70 +166,103 @@
 		                }
 
 		                echo '
-		                  <tr id="edit'.$row["id"].'">
+		                  <tr>
 		                      <td>'.$date.'</td>
 		                      <td>'.$timeIn.'</td>
 		                      <td>'.$timeOut.'</td>
 		                      <td>'.$lunchIn.'</td>
 		                      <td>'.$lunchOut.'</td>
-		                      <td>'.$renderedTime.'</td>
-		                      <td>'.$renderedLunch.'</td>
-		                      <td>'.$underTime.'</td>
-		                      <td>'.$overTime.'</td>
+		                      <td>
+		                        ';
+		                        if($renderedTime != "-"){
+		                          echo sprintf("%.1f", $renderedTime);
+		                        }else{
+		                          echo $renderedTime;
+		                        }
+		                      echo '
+		                      </td>
+		                      <td>
+		                        ';
+		                        if($renderedLunch != "-"){
+		                          echo sprintf("%.1f", $renderedLunch);
+		                        }else{
+		                          echo $renderedLunch;
+		                        }
+		                      echo '
+		                      </td>
+		                      <td>
+		                        ';
+		                        if($underTime != "-"){
+		                          echo sprintf("%.1f", $underTime);
+		                        }else{
+		                          echo $underTime;
+		                        }
+		                      echo '
+		                      </td>
+		                      <td>
+		                        ';
+		                        if($overTime != "-"){
+		                          echo sprintf("%.1f", $overTime);
+		                        }else{
+		                          echo $overTime;
+		                        }
+		                      echo '
+		                      </td>
+
 		                      <td> 
 		                      <button type="button" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#edit'.$row["id"].'"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
 		                      ';
 
-		                      $function_true = "ajax('OTStatus".$row["id"]."', 'overtimeStatus.php?status=true&user_id=".$user_id."&date_id=".$date_id."')";
-		                      $function_false = "ajax('OTStatus".$row["id"]."', 'overtimeStatus.php?status=false&user_id=".$user_id."&date_id=".$date_id."')";
+		                      $function_true = "ajax('OTStatus".$row["id"]."', 'overtimeStatus.php?status=true&user_id=".$user_id."&date_id=".$row["id"]."')";
+		                      $function_false = "ajax('OTStatus".$row["id"]."', 'overtimeStatus.php?status=false&user_id=".$user_id."&date_id=".$row["id"]."')";
 		                      echo '<span id="OTStatus'.$row["id"].'">';
 		                      if($row["overtimeStatus"] == 'true'){
-		                        echo '<button id="btnFalse'.$row["id"].'" type="button" class="btn btn-xs btn-danger" onclick="'.$function_true.'"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></button>';
+		                        echo '<button id="btnFalse'.$row["id"].'" type="button" class="btn btn-xs btn-danger" onclick="'.$function_false.'"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></button>';
 		                      }else{
-		                        echo '<button id="btnTrue'.$row["id"].'" type="button" class="btn btn-xs btn-success" onclick="'.$function_false.'"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></button>';
+		                        echo '<button id="btnTrue'.$row["id"].'" type="button" class="btn btn-xs btn-success" onclick="'.$function_true.'"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></button>';
 		                      }
 		                      echo '</span>';
 
 		                      echo '
+			                      <!-- Modal -->
+			                      <div id="edit'.$row["id"].'" class="modal fade" role="dialog">
+			                        <div class="modal-dialog">
+
+			                          <!-- Update Modal content-->
+			                          <form id="edit-form" action="updateEmployeeTimetable.php" method="GET">
+			                            <div class="modal-content">
+			                              <div class="modal-header">
+			                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+			                                <h4 class="modal-title"><strong>'.$date.'</strong></h4>
+			                              </div>
+			                              <div class="modal-body">
+			                                <div class="row">
+			                                  <div class="col-md-6">
+			                                    <input type="text" name="user_id" value="'.$user_id.'" hidden />
+			                                    <input type="text" name="date_id" value="'.$row["id"].'" hidden />
+			                                    <input type="text" name="date" value="'.$date.'" hidden />
+			                                    <label for="timeIn">Time In</label><br>
+			                                    <input type="time" name="timeIn" value="'.$input_timeIn.'" /><br><br>
+			                                    <label for="timeOut">Time Out</label><br>
+			                                    <input type="time" name="timeOut" value="'.$input_timeOut.'" /><br><br>
+			                                  </div>
+			                                  <div class="col-md-6">
+			                                    <label for="lunchIn">Lunch In</label><br>
+			                                    <input type="time" name="lunchIn" value="'.$input_lunchIn.'" /><br><br>
+			                                    <label for="lunchOut">Lucn Out</label><br>
+			                                    <input type="time" name="lunchOut" value="'.$input_lunchOut.'" /><br><br>
+			                                  </div>
+			                                </div>
+			                              </div>
+			                              <div class="modal-footer">
+			                                <input type="submit" class="btn btn-warning" value="Edit" />
+			                              </div>
+			                            </div>
+			                          </form>
+
+			                        </div>
+			                      </div>
 		                      </td>
-		                      <!-- Modal -->
-		                      <div id="edit'.$row["id"].'" class="modal fade" role="dialog">
-		                        <div class="modal-dialog">
-
-		                          <!-- Update Modal content-->
-		                          <form id="edit-form" action="updateEmployeeTimetable.php" method="GET">
-		                            <div class="modal-content">
-		                              <div class="modal-header">
-		                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-		                                <h4 class="modal-title"><strong>'.$date.'</strong></h4>
-		                              </div>
-		                              <div class="modal-body">
-		                                <div class="row">
-		                                  <div class="col-md-6">
-		                                    <input type="text" name="user_id" value="'.$user_id.'" hidden />
-		                                    <input type="text" name="date_id" value="'.$date_id.'" hidden />
-		                                    <input type="text" name="date" value="'.$date.'" hidden />
-		                                    <label for="timeIn">Time In</label><br>
-		                                    <input type="time" name="timeIn" value="'.$input_timeIn.'" /><br><br>
-		                                    <label for="timeOut">Time Out</label><br>
-		                                    <input type="time" name="timeOut" value="'.$input_timeOut.'" /><br><br>
-		                                  </div>
-		                                  <div class="col-md-6">
-		                                    <label for="lunchIn">Lunch In</label><br>
-		                                    <input type="time" name="lunchIn" value="'.$input_lunchIn.'" /><br><br>
-		                                    <label for="lunchOut">Lucn Out</label><br>
-		                                    <input type="time" name="lunchOut" value="'.$input_lunchOut.'" /><br><br>
-		                                  </div>
-		                                </div>
-		                              </div>
-		                              <div class="modal-footer">
-		                                <input type="submit" class="btn btn-warning" value="Edit" />
-		                              </div>
-		                            </div>
-		                          </form>
-
-		                        </div>
-		                      </div>
 		                  </tr>
 		                ';
 		              }
