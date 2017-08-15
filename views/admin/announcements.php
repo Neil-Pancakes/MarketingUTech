@@ -25,9 +25,9 @@
     <section class="content">
       <br><br>
         <!-- Trigger the #addModal with a button -->
-        <div><button class="btn btn-success" data-toggle="modal" data-target="#addModal"><strong>Create <strong><span class="glyphicon glyphicon-plus"></span></button></div>
+        <div><button data-toggle="modal" data-target="#addModal" type="button" class="btn btn-success"><strong>Create <strong><span class="glyphicon glyphicon-plus"></span></button></div>
         <!-- Modal -->
-        <div id="addModal" class="modal fade" role="dialog">
+        <div id="addModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-dialog">
 
             <!-- Modal content-->
@@ -41,13 +41,26 @@
                   <div class="row">
                     <div class="col-md-6">
                       <label>Send to all: </label>
-                      <input type="checkbox" name="send_to_all"><br><br>
+                      <input type="checkbox" name="isBroadcast"><br><br>
+                      <!--
                       <label>Send to: </label> 
                       <button id="add_send_to" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span></button>
                       <br>
                       <div class="add_field">
                         
                       </div>
+                      -->
+                      <select class="userSelect" multiple="multiple" name="user[]" style="width: 100%;">
+                        <?php 
+                          $query = "SELECT `id`, CONCAT(`firstName`, ' ', `lastName`) AS `name` FROM `users`";
+                          $result = $mysqli->query($query);
+                          if ($result) {
+                            while ($row = $result->fetch_array()) {
+                              echo '<option value="'.$row['id'].'" required>'.$row['name'].'</option>';
+                            }
+                          }
+                        ?>
+                      </select>
                     </div>
                     <div class="col-md-6">
                       <label>Title</label><br>
@@ -75,7 +88,20 @@
             </tr>
         </thead>
         <tbody id="announcement-tbody">
-          
+          <?php 
+            $query = "SELECT * FROM `announcement`; ";
+            $result = $mysqli->query($query);
+            if ($result) {
+              while($row = $result->fetch_array()) {
+                echo '<tr id='.$row['id'].'>
+                  <td>'.$row['title'].'</td>
+                  <td>'.$row['created'].'</td>
+                  <td>'.$row['message'].'</td>
+                  <td>Meme</td>';
+                echo '</tr>';
+              }
+            }
+          ?>
         </tbody>
       </table>
     </section>
@@ -90,6 +116,8 @@
 <!-- ./wrapper -->
 <script>
   document.getElementById("employeeList").setAttribute("class", "active");
+
+  $(".userSelect").select2();
 
   $(document).ready(function(){
       $('#announcementList').DataTable({

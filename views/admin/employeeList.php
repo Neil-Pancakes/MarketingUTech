@@ -149,8 +149,8 @@
                                 <h4 class="modal-title"><strong>Edit</strong></h4>
                               </div>
                               <div class="modal-body">
-                                <div class="form-group row">
-                                  <div class="col-md-3">
+                                <div class="row">
+                                  <div class="form-group col-md-4">
                                     <h4>Basic Info</h4>
                                     <input type="text" name="id" value="'.$row["id"].'" hidden />
                                     <label for="firstName">First Name</label><br>
@@ -204,7 +204,7 @@
                                       echo '</select><br><br>';
                                   echo'
                                   </div>
-                                  <div id="dateOfHire'.$row["id"].'" class="col-md-3">
+                                  <div id="dateOfHire'.$row["id"].'" class="form-group col-md-4">
                                     <h4>Date of Hire</h4>
                                     <label for="">Trainee</label><br>
                                     <input type="date" name="dateHiredTrainee" value="'.$row["dateHiredTrainee"].'" /><br><br>
@@ -213,7 +213,7 @@
                                     <label for="dateHiredRegular">Regular</label><br>
                                     <input type="date" name="dateHiredRegular" value="'.$row["dateHiredRegular"].'" /><br><br>
                                   </div>
-                                  <div id="compensation'.$row["id"].'" class="col-md-3">
+                                  <div id="compensation'.$row["id"].'" class="col-md-4">
                                     <h4>Current Compensation</h4>
                                     <label for="basicPay">Basic Pay</label><br>
                                     <input type="number" name="basicPay" value="'.$row["basicPay"].'" step="0.01" min="0" onkeypress="return isDecimal(event)" required/><br><br>
@@ -224,7 +224,7 @@
                                     <label for="meal">Meal</label><br>
                                     <input type="number" name="meal" value="'.$row["meal"].'" step="0.01" min="0" onkeypress="return isDecimal(event)" required/><br><br>
                                   </div>
-                                  <div class="col-md-3">
+                                  <div class="form-group col-md-4">
                                     <h4>Contact Number</h4>
                                     <label for="mobileNumber">Mobile Number</label>
                                     <input type="text" name="mobileNumber" value="'.$row["mobileNumber"].'" onkeypress="return isNumber(event)" /><br><br>
@@ -238,7 +238,7 @@
                                   </div>
                               
                                   <!-- if type is OJT else hide -->
-                                  <div id="update_ojt_info'.$row['id'].'" class="col-md-3">
+                                  <div id="update_ojt_info'.$row['id'].'" class="form-group col-md-4">
                                     <h4>OJT Info</h4>
                                     <label for="OJT_hoursTotal">Total hours</label><br>
                                     <input type="number" name="OJT_hoursTotal" value="'.$row["OJT_hoursTotal"].'" step="0.1" onkeypress="return isDecimal(event)" required/><br><br>
