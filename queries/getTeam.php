@@ -4,20 +4,18 @@ header("Content-Type: application/json; charset=UTF-8");
 require("../functions/sql_connect.php");
 session_start();
 
-$val = $_SESSION['user_id'];
-$result = $mysqli->query("SELECT *
-FROM `additional_task`
-WHERE `user_id` = $val");
+$val = 'OJT'; /*$_SESSION['jobTitle'];*/
+$result = $mysqli->query("SELECT `u`.`id`, CONCAT(`u`.`firstName`,' ', `u`.`lastName`) AS `name`
+FROM `users` `u`
+WHERE `u`.`jobTitle`= '$val'");  
 
 $outp = "";
 while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
     if ($outp != "") {
         $outp .= ",";
     }
-    $outp .= '{"AdditionalTaskId":"'  . $rs["additional_task_id"] . '",';
-    $outp .= '"Name":"'  . $rs["name"] . '",';
-    $outp .= '"Type":"'  . $rs["type"] . '",';
-    $outp .= '"UserId":"'   . $rs["user_id"]        . '"}';
+    $outp .= '{"Id":"'  . $rs["id"] . '",';
+    $outp .= '"Name":"'  . $rs["name"] . '"}';
 }
 $outp ='{"records":['.$outp.']}';
 $mysqli->close();

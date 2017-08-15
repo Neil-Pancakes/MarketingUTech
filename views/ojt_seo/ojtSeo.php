@@ -32,56 +32,54 @@
       <div ng-controller="taskFieldsController" data-ng-init="init()">
 
       <md-content>
-            <md-tabs md-dynamic-height md-border-bottom>
-              <md-tab label="daily tracker">
-                <md-content class="md-padding">
-                  <span class="md-display-2" >Daily Tracker </span>
-                  <md-button class="md-warn md-raised" ng-if="exists==true" ng-click="modal()" data-target="#optionModal" data-toggle="modal">Edit <span class="fa fa-edit"></span></md-button>
-                   <!--Edit Modal-->
-                      <form ng-submit="editData()">
-                          <div id="optionModal" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h2 id="modalHeaderEditDelete">Task</h2>
+        <md-tabs md-dynamic-height md-border-bottom>
+        <md-tab label="daily tracker">
+        <md-content class="md-padding">
+          <span class="md-display-2" >Daily Tracker </span>
+          <md-button class="md-warn md-raised" ng-if="exists==true" ng-click="modal()" data-target="#optionModal" data-toggle="modal">Edit <span class="fa fa-edit"></span></md-button>
+            <!--Edit Modal-->
+            <div id="optionModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <form ng-submit="editData()">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h2 id="modalHeaderEditDelete">Task</h2>
+                    </div>
+                    <div class="modal-body">
+                      <md-content layout-padding>
+                        <div> 
+                        <label>Commenting 10 per day</label>
+                                  <select ng-model="modalcomment">
+                                    <option ng-repeat="x in options">{{x}}<option>
+                                  </select><br>
+                                  <label>Site Audit</label>
+                                  <select ng-model="modalsite">
+                                    <option ng-repeat="x in options">{{x}}</option>
+                                  </select><br>
+                                  <label>Schema Markup</label>
+                                  <select ng-model="modalschema">
+                                    <option ng-repeat="x in options">{{x}}</option>
+                                  </select><br>
+                                  <label>Competitor Backlink Analysis</label>
+                                  <select ng-model="modalcompetitor">
+                                    <option ng-repeat="x in options">{{x}}</option>
+                                  </select><br>
+                                  <label>Relationship Link Research</label>
+                                  <select ng-model="modalrelationship">
+                                    <option ng-repeat="x in options">{{x}}</option>
+                                  </select>
+                                  <textarea ng-model="modalmisc" placeholder="Miscellaneous Ex: I did this today..." rows="15"id="comment_text" cols="20" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" style="border:solid 1px lightgrey; margin-left:5%;"></textarea>
+                              </md-content>
                                 </div>
-                                <div class="modal-body">
-                                  <md-content layout-padding>
-                                    <div> 
-                                          <label>Commenting 10 per day</label>
-                                            <select ng-model="modalcomment">
-                                                <option ng-repeat="x in options">{{x}}<option>
-                                            <select><br>
-                                          <label>Site Audit</label>
-                                            <select ng-model="modalsite">
-                                                <option ng-repeat="x in options">{{x}}</option>
-                                            </select><br>
-                                          <label>Schema Markup</label>
-                                          <select ng-model="modalschema">
-                                              <option ng-repeat="x in options">{{x}}</option>
-                                          </select><br>
-                                          <label>Competitor Backlink Analysis</label>
-                                          <select ng-model="modalcompetitor">
-                                              <option ng-repeat="x in options">{{x}}</option>
-                                          </select><br>
-                                          <label>Relationship Link Research</label>
-                                          <select ng-model="modalrelationship">
-                                              <option ng-repeat="x in options">{{x}}</option>
-                                          </select>
-                                        <textarea ng-model="modalmisc" placeholder="Miscellaneous 
-              Ex: I did this today..." rows="15"id="comment_text" cols="20" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" style="border:solid 1px lightgrey; margin-left:5%;"></textarea>
-                                  
-                                      </md-content>
-                                    </div>
                                 </md-content>
                                 </div>
                                 <div class="modal-footer">
                                   <button type="submit" class="btn btn-warning" onclick="$('#optionModal').modal('hide');">Edit <span class="fa fa-edit"></span></button>
                                 </div>
                               </div>
-                            </div>
+                            </form>
                           </div>
-                      </form>
+                        </div>
                       <!--END of Edit Modal-->
                   <md-content>
                     <md-list flex>
@@ -231,7 +229,9 @@
       $('#homeTab').removeClass('active');
       $('#trackerTab').addClass('active');
   });
+</script>
 
+<script>
     var app = angular.module('taskFieldsApp', ['ngMaterial']);
     var x=0;
     app.config(['$qProvider', function ($qProvider) {

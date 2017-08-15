@@ -193,12 +193,6 @@
 </body>
 
 <script>
-  document.getElementById("taskTracker").setAttribute("class", "active");
-
-  $(document).ready(function(){
-    $('#homeTab').removeClass('active');
-    $('#trackerTab').addClass('active');
-  });
 
   var app = angular.module('taskFieldsApp', ['ngMaterial']);
   var x=0;
@@ -287,5 +281,14 @@
           $scope.modalmodifypageCnt = $scope.today[0].ModifyPagesCnt;
           $scope.modalmiscCnt = $scope.today[0].MiscCnt;
       };
+  });
+</script>
+
+<script>
+  document.getElementById("taskTracker").setAttribute("class", "active");
+
+  $(document).ready(function(){
+    $('#homeTab').removeClass('active');
+    $('#trackerTab').addClass('active');
   });
 </script>

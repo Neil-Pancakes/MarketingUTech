@@ -2,20 +2,21 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 require("../functions/sql_connect.php");
-$postdata = file_get_contents("php://input");
-$request = json_decode($postdata, true);
 
+$result = $mysqli->query("SELECT `t`.`name`, `a`.`additional_task_tracker_id`, `a`.`task`
+FROM `additional_task_tracker` `a`
+INNER JOIN `additional_task` `t`
+ON `t`.`additional_task_id` = `a`.`additional_task_id` AND `a`.`track_date` = CURDATE()");
 
-$id = $request['additionalTaskId'];
-
-$result = $mysqli->query("SELECT `additional_task_tracker_id`, `task`
-FROM `additional_task_tracker`
-WHERE `track_date` = CURDATE() AND `additional_task_id` = $id");
-
-
-$rs = $result->fetch_array(MYSQLI_ASSOC);
-    $outp .= '{"AdditionalTaskTrackerId":"'  . $rs["additional_task_id"] . '",';
+$outp = "";
+while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
+    if ($outp != "") {
+        $outp .= ",";
+    }
+    $outp .= '{"AdditionalTaskTrackerId":"'  . $rs["additional_task_tracker_id"] . '",';
+    $outp .= '"Name":"'   . $rs["name"]        . '",';
     $outp .= '"Task":"'   . $rs["task"]        . '"}';
+}
 $outp ='{"records":['.$outp.']}';
 
 $mysqli->close();
