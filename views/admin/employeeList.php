@@ -135,10 +135,10 @@
                         </div>
                       </div>
                       <button type="button" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#update'.$row["id"].'" onclick="updateCheckOJT('.$row["id"].')"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+                      
                       <!-- Modal -->
-                      <div id="update'.$row["id"].'" class="modal fade" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog modal-lg" role="document">
-
+                      <div class="modal fade" id="update'.$row["id"].'" tab-index="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
                           <!-- Update Modal content-->
                           <form id="update-form" action="updateEmployee.php" method="GET">
                             <div class="modal-content">

@@ -250,7 +250,7 @@
                       echo '
                       </td>
                       <!-- Modal -->
-                      <div id="edit'.$row["id"].'" class="modal fade" role="dialog">
+                      <div class="modal fade" id="edit'.$row["id"].'" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog">
 
                           <!-- Update Modal content-->
