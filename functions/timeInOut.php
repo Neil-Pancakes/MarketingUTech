@@ -221,8 +221,8 @@
 		                    $datetime2 = strtotime($row["timeOut"]);
 		                    $renderedTime = abs(number_format(round(($datetime2 - $datetime1)/3600,1),1));
 		                    $underTime = number_format(8.0 - $renderedTime, 1);
-		                    if($underTime < 0){
-		                      $overTime = abs($underTime);
+		                    if($renderedTime > 8){
+		                      $overTime = $renderedTime - 8;
 		                      $underTime = 0;
 		                    }else{
 		                      $overTime = 0;
@@ -236,8 +236,8 @@
 				               $datetime2 = strtotime($row["timeOut"]);
 				               $renderedTime = abs(number_format(round((($datetime2 - $datetime1)/3600) - $renderedLunch, 1),2));
 				               $underTime = number_format(8.0 - $renderedTime, 1);
-				               if($underTime < 0){
-			                      $overTime = abs($underTime);
+				               if($renderedTime > 8){
+			                      $overTime = $renderedTime - 8;
 			                      $underTime = 0;
 			                    }else{
 			                      $overTime = 0;
