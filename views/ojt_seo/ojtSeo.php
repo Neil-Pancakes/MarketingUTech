@@ -150,6 +150,14 @@
                               <p style="text-align:left;">{{today[0].Misc}}</p>
                           </md-card-content>
                         </md-card>
+                        <md-list-item class="md-3-line" ng-repeat="x in todayAdditional track by $index">
+                          <img src="../../includes/img/taskIcon.png" class="md-avatar" style="float:left"/>
+                            <div class="md-list-item-text">
+                              <h3>{{x.Name}}</h3>
+                              <h3 class="articleName">{{ x.Task }}</h3>
+                              
+                            </div>
+                        </md-list-item>
                   </md-content>
                 </md-content>
               </md-tab>
@@ -272,7 +280,7 @@
                     
                     </md-list-item>
                     <div align="center">
-                      <md-button type="submit" class=" md-raised md-primary" style="width:20%; margin-top:3%;">Submit</md-button>
+                      <md-button ng-show="addExists" type="submit" class=" md-raised md-primary" style="width:20%; margin-top:3%;">Submit</md-button>
                     </div>
                     </form>
                   </md-list>
@@ -328,6 +336,11 @@
           });  
           $http.get("../../queries/getAdditionalTasks.php").then(function (response) {
             $scope.additionalTasks = response.data.records;
+            if($scope.additionalTasks.length>0){
+              $scope.addExists = true;
+            }else{
+              $scope.addExists = false;
+            }
           });
           $http.get("../../queries/getMyDailyTrackerTodayAdditionalTaskTracker.php").then(function (response) {
             $scope.todayAdditional = response.data.records;

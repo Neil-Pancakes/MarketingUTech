@@ -130,6 +130,14 @@
                                       </div>
                                     </div>
                                   </md-list-item>
+                                  <md-list-item class="md-3-line" ng-repeat="x in todayAdditional track by $index">
+                          <img src="../../includes/img/taskIcon.png" class="md-avatar" style="float:left"/>
+                            <div class="md-list-item-text">
+                              <h3>{{x.Name}}</h3>
+                              <h3 class="articleName">{{ x.Task }}</h3>
+                              
+                            </div>
+                        </md-list-item>
                             </md-content>
                           </md-content>
                         </md-tab>
@@ -237,7 +245,7 @@
                     
                     </md-list-item>
                     <div align="center">
-                      <md-button type="submit" class=" md-raised md-primary" style="width:20%; margin-top:3%;">Submit</md-button>
+                      <md-button ng-show="addExists" type="submit" class=" md-raised md-primary" style="width:20%; margin-top:3%;">Submit</md-button>
                     </div>
                     </form>
                   </md-list>
@@ -260,13 +268,6 @@
 </div>
 <!-- ./wrapper -->
 <script>
-  document.getElementById("taskTracker").setAttribute("class", "active");
-
-  $(document).ready(function(){
-      $('#homeTab').removeClass('active');
-      $('#trackerTab').addClass('active');
-  });
-
     var app = angular.module('taskFieldsApp', ['ngMaterial']);
     var x=0;
     app.config(['$qProvider', function ($qProvider) {
@@ -298,10 +299,16 @@
           });  
           $http.get("../../queries/getAdditionalTasks.php").then(function (response) {
             $scope.additionalTasks = response.data.records;
+            if($scope.additionalTasks.length>0){
+              $scope.addExists = true;
+            }else{
+              $scope.addExists = false;
+            }
           });
           $http.get("../../queries/getMyDailyTrackerTodayAdditionalTaskTracker.php").then(function (response) {
-            $scope.t 
-          };
+            $scope.todayAdditional = response.data.records;
+          });
+        };
         
         $scope.showAlert = function(ev) {
           $mdDialog.show(
@@ -342,7 +349,6 @@
         };
 
         $scope.submitAdditionalTask = function() {
-          alert($scope.additionalIdSet.additionalId);
             $http.post('../../insertFunctions/insertAdditionalTaskTracker.php', {
               'idSet': $scope.additionalIdSet.additionalId, 
               'taskSet': $scope.additionalSet.additional
@@ -373,7 +379,6 @@
         };
 
         $scope.addAdditional = function(){
-          alert($scope.addTaskName);
           $http.post('../../insertFunctions/insertAdditionalTask.php', {
               'userId': $scope.addTaskUserId,
               'name': $scope.addTaskName,
@@ -397,5 +402,14 @@
             $scope.addTaskName = "";
             $scope.addTaskType = "";
         };
+  });
+</script>
+
+<script>
+document.getElementById("taskTracker").setAttribute("class", "active");
+
+  $(document).ready(function(){
+      $('#homeTab').removeClass('active');
+      $('#trackerTab').addClass('active');
   });
 </script>

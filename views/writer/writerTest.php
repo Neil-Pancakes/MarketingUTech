@@ -189,7 +189,7 @@
                     
                     </md-list-item>
                     <div align="center">
-                      <md-button type="submit" class=" md-raised md-primary" style="width:20%; margin-top:3%;">Submit</md-button>
+                      <md-button ng-show="addExists" type="submit" class=" md-raised md-primary" style="width:20%; margin-top:3%;">Submit</md-button>
                     </div>
                     </form>
                   </md-list>
@@ -238,6 +238,11 @@
           });  
           $http.get("../../queries/getAdditionalTasks.php").then(function (response) {
             $scope.additionalTasks = response.data.records;
+            if($scope.additionalTasks.length>0){
+              $scope.addExists = true;
+            }else{
+              $scope.addExists = false;
+            }
           });
           $http.get("../../queries/getMyDailyTrackerTodayAdditionalTaskTracker.php").then(function (response) {
             $scope.todayAdditional = response.data.records;
@@ -328,7 +333,6 @@
         };  
 
         $scope.submitAdditionalTask = function() {
-          alert($scope.additionalIdSet.additionalId);
             $http.post('../../insertFunctions/insertAdditionalTaskTracker.php', {
               'idSet': $scope.additionalIdSet.additionalId, 
               'taskSet': $scope.additionalSet.additional
