@@ -41,8 +41,8 @@
                   <div class="row">
                     <div class="col-md-6">
                       <label>Send to all: </label>
-                      <input type="checkbox" name="isBroadcast"><br><br>
-                      <select class="userSelect" multiple="multiple" name="user[]" style="width: 100%;">
+                      <input id="sendToAll" type="checkbox" name="isBroadcast"><br><br>
+                      <select id="multipleUser" class="userSelect" multiple="multiple" name="user[]" style="width: 100%;">
                         <?php 
                           $query = "SELECT `id`, CONCAT(`firstName`, ' ', `lastName`) AS `name` FROM `users`";
                           $result = $mysqli->query($query);
@@ -56,9 +56,9 @@
                     </div>
                     <div class="col-md-6">
                       <label>Title</label><br>
-                      <input type="text" name="title" required/><br><br>
+                      <input id="announcementTitle" type="text" name="title" required/><br><br>
                       <label>Message</label><br>
-                      <textarea name="message" rows="4" cols="30" required></textarea>
+                      <textarea id="announcementMessage" name="message" rows="4" cols="30" required></textarea>
                     </div>
                   </div>
                 </div>
@@ -151,6 +151,7 @@
                 data: data,
                 success: function (data) {
                   swal("Success!", "Announcement has been updated", "success");
+                  $('#announcement-form').trigger('reset');
                   $('.modal').modal('hide');
                   if(data == "|error|"){
                     swal("Error!", "An error has occurred", "error");
