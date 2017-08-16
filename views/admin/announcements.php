@@ -32,7 +32,7 @@
 
             <!-- Modal content-->
             <div class="modal-content">
-              <form action="createAnnouncement.php" method="POST">
+              <form id="createAnnouncement" action="createAnnouncement.php" method="POST">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                   <h4 class="modal-title">Create announcement</h4>
@@ -42,14 +42,6 @@
                     <div class="col-md-6">
                       <label>Send to all: </label>
                       <input type="checkbox" name="isBroadcast"><br><br>
-                      <!--
-                      <label>Send to: </label> 
-                      <button id="add_send_to" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span></button>
-                      <br>
-                      <div class="add_field">
-                        
-                      </div>
-                      -->
                       <select class="userSelect" multiple="multiple" name="user[]" style="width: 100%;">
                         <?php 
                           $query = "SELECT `id`, CONCAT(`firstName`, ' ', `lastName`) AS `name` FROM `users`";
@@ -178,4 +170,45 @@
     // hide proposition list
     $('#name_list_' + id).hide();
   }
+</script>
+<script>
+  $(document).on('submit', '[id^=createAnnouncement]', function (e) {
+    e.preventDefault();
+
+    var data = $(this).serialize();
+
+    swal({
+      title: "Are you sure?",
+      text: "Create new Announcement",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonClass: "btn-success",
+      confirmButtonText: "Update",
+      cancelButtonText: "Cancel",
+      cancelButtonClass: "btn-danger",
+      closeOnConfirm: false,
+      showLoaderOnConfirm: true
+    },
+      function (isConfirm) {
+          if (isConfirm) {
+            setTimeout(function(){
+              $.ajax({
+                type: 'POST',
+                url: 'createAnnouncement.php',
+                data: data,
+                success: function (data) {
+                  swal("Success!", "Announcement has been added", "success");
+                  $('.modal').modal('hide');
+                  document.getElementById("announcement-tbody").innerHTML = data;
+                },
+                error: function (data) {
+                  swal("Error!", "An error has occurred", "error");
+                }
+              });
+            }, 1500);
+          }
+      });
+
+    return false;
+  });
 </script>
