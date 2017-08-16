@@ -14,7 +14,7 @@
       }
     </style>
 </head>
-<body ng-app="taskFieldsApp" >
+<body ng-app="taskFieldsApp">
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -134,7 +134,7 @@
                         <img src="../../includes/img/writerIcon.png" class="md-avatar" style="float:left"/>
                         <div class="md-list-item-text">
                         <h3 class="articleName">{{ x.Name }}</h3>
-                          <button class="btn btn-xs btn-primary">View</button>
+                          <button class="btn btn-xs btn-primary" ng-click="viewTasks">View</button>
                           <button class="btn btn-xs btn-success" ng-click="addTaskModal(x.Id)" data-toggle="modal" data-target="#addTask">Add Task</button>
                             
                           
