@@ -41,8 +41,8 @@
                   <div class="row">
                     <div class="col-md-6">
                       <label>Send to all: </label>
-                      <input id="sendToAll" type="checkbox" name="isBroadcast"><br><br>
-                      <select id="multipleUser" class="userSelect" multiple="multiple" name="user[]" style="width: 100%;">
+                      <input id="sendToAll" type="checkbox" name="isBroadcast" onclick="isBroadcastClick()"><br><br>
+                      <select id="multipleUser" class="userSelect" multiple="multiple" name="user[]" style="width: 100%;" data-tags="true" data-placeholder="Select user/s" data-allow-clear="true">
                         <?php 
                           $query = "SELECT `id`, CONCAT(`firstName`, ' ', `lastName`) AS `name` FROM `users`";
                           $result = $mysqli->query($query);
@@ -75,21 +75,41 @@
             <tr>
                 <th>Title</th>
                 <th>Date Created</th>
+                <th>Recipient/s</th>
                 <th>Message</th>
+                <th>Status</th>
                 <th class="no-sort">Edit/Delete</th>
             </tr>
         </thead>
         <tbody id="announcement-tbody">
           <?php 
-            $query = "SELECT * FROM `announcement`; ";
-            $result = $mysqli->query($query);
+            $result = $mysqli->query("SELECT * FROM `announcement`");
             if ($result) {
               while($row = $result->fetch_array()) {
+                //For Recipient Field
+                if ($row['isBroadcast'] == "true"){
+                  $recipient = "Broadcast";
+                } else {
+                  $userResult = $mysqli->query("SELECT CONCAT(firstName, ' ', lastName) AS `name` FROM `users` WHERE id = '".$row['user_id']."'");
+                  if ($userResult) {
+                    $userRow = $userResult->fetch_array();
+                    $recipient = $userRow['name'];
+                  }
+                }
+                //For Status field
+                if($row['status'] == "true"){
+                  $status = "Active";
+                } else {
+                  $status = "Inactive";
+                }
+
                 echo '<tr id='.$row['id'].'>
-                  <td></td>
+                  <td>'.$row['title'].'</td>
                   <td>'.date("F d, Y", strtotime($row['created'])).'</td>
+                  <td>'.$recipient.'</td>
                   <td>'.$row['message'].'</td>
-                  <td>Meme</td>';
+                  <td>'.$status.'</td>
+                  <td></td>';
                 echo '</tr>';
               }
             }
@@ -123,8 +143,12 @@
         }]
       });
   });
-</script>
-<script>
+
+  function isBroadcastClick(){
+    var select = document.getElementById("multipleUser");
+    select.disabled = !select.disabled;
+  }
+
   $(document).on('submit', '[id^=announcement-form]', function (e) {
     e.preventDefault(); 
 
@@ -153,6 +177,7 @@
                   swal("Success!", "Announcement has been updated", "success");
                   $('#announcement-form').trigger('reset');
                   $('.modal').modal('hide');
+                  $(".userSelect").select2();
                   if(data == "|error|"){
                     swal("Error!", "An error has occurred", "error");
                   }else{

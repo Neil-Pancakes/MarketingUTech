@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.6.5.2
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 16, 2017 at 07:38 AM
--- Server version: 10.1.16-MariaDB
--- PHP Version: 5.5.38
+-- Generation Time: Aug 16, 2017 at 03:14 PM
+-- Server version: 10.1.21-MariaDB
+-- PHP Version: 7.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -56,12 +56,25 @@ CREATE TABLE `additional_task_tracker` (
 CREATE TABLE `announcement` (
   `id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
+  `status` enum('true','false') NOT NULL DEFAULT 'true',
   `isBroadcast` enum('true','false') NOT NULL DEFAULT 'false',
+  `title` varchar(255) NOT NULL,
   `message` varchar(255) DEFAULT NULL,
   `createdByUserID` int(11) DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `announcement`
+--
+
+INSERT INTO `announcement` (`id`, `user_id`, `status`, `isBroadcast`, `title`, `message`, `createdByUserID`, `created`, `modified`) VALUES
+(2, 3, 'true', 'false', 'Title', 'Message', 3, '2017-08-16 12:47:29', '2017-08-16 12:47:29'),
+(3, NULL, 'true', 'true', 'Broadcast', 'Broadcast Message', 3, '2017-08-16 12:54:55', '2017-08-16 12:54:55'),
+(4, 5, 'true', 'false', 'fdgg', 'dfgdfg', 3, '2017-08-16 12:56:44', '2017-08-16 12:56:44'),
+(5, NULL, 'true', 'true', 'Teter', 'dfawe', 3, '2017-08-16 12:56:55', '2017-08-16 12:56:55'),
+(6, 5, 'true', 'false', 'Meme', 'efsdf', 3, '2017-08-16 13:05:15', '2017-08-16 13:05:15');
 
 -- --------------------------------------------------------
 
@@ -565,7 +578,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `oauth_uid`, `firstName`, `lastName`, `email`, `password`, `picture`, `isAdmin`, `workStatus`, `jobTitle`, `birthday`, `noOfAbsences`, `scheduledTimeIn`, `scheduledTimeOut`, `OJT_hoursTotal`, `OJT_hoursRemaining`, `OJT_allowanceDaily`, `dateHiredTrainee`, `dateHiredProbationary`, `dateHiredRegular`, `basicPay`, `allowance`, `transportation`, `meal`, `mobileNumber`, `telephoneNumber`, `address`, `created`, `modified`) VALUES
 (3, '114331649460731421461', 'Francis', 'Yap', 'francisyap.utech@gmail.com', '$2y$10$Y83gylhdLdPIAjsmB0FQXecGYLFsHnuKZqYtfCEnUBLrzSKGHWntK', '', 1, 'OJT', 'OJT SEO', '1997-10-04', NULL, NULL, NULL, 300, 299.2, 100, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 917, 420, '', '2017-07-28 16:50:28', '2017-08-13 13:35:44'),
 (4, '114341613641607862512', 'Francis', 'Yap', 'francisj.yap@gmail.com', '$2y$10$lgl9QoVAxEU7KiCiuHaEOexI10yb.Oo7kqOpjmXBV2ucZVtVtoXKu', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-07-28 18:25:55', '2017-07-28 18:25:55'),
-(5, '115364617561313755233', 'Tristan', 'James', 'tjlerias.utech@gmail.com', '$2y$10$meUQs/oKJ0TsMhOMcZnvQOHW4ZxmTIrSCqOiDxdzfte3LVhx.q5jy', NULL, 0, 'OJT', 'OJT SEO', '1997-10-04', NULL, NULL, NULL, 300, 294, 100, '0000-00-00', '0000-00-00', '2017-08-05', 25000, 2000, 250, 500, 917, 420, 'TJ''s House', '2017-08-01 17:02:32', '2017-08-13 13:37:02');
+(5, '115364617561313755233', 'Tristan', 'James', 'tjlerias.utech@gmail.com', '$2y$10$meUQs/oKJ0TsMhOMcZnvQOHW4ZxmTIrSCqOiDxdzfte3LVhx.q5jy', NULL, 0, 'OJT', 'OJT SEO', '1997-10-04', NULL, NULL, NULL, 300, 294, 100, '0000-00-00', '0000-00-00', '2017-08-05', 25000, 2000, 250, 500, 917, 420, 'TJ\'s House', '2017-08-01 17:02:32', '2017-08-13 13:37:02');
 
 -- --------------------------------------------------------
 
@@ -806,7 +819,7 @@ ALTER TABLE `additional_task_tracker`
 -- AUTO_INCREMENT for table `announcement`
 --
 ALTER TABLE `announcement`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `content_marketing_assistant_tracker`
 --

@@ -1,7 +1,6 @@
 <?php
 	session_start();
 	require '../../functions/php_globals.php';
-	session_start();
 
 	$title = mysqli_real_escape_string($mysqli, $_POST['title']);
 	$message = mysqli_real_escape_string($mysqli, $_POST['message']);
@@ -14,16 +13,16 @@
 
 	if($isBroadcast == 'false'){
 		foreach ($_POST['user'] as $user_id) {
-			$query = 'INSERT INTO announcement (user_id, message, createdByUserID)
-				VALUES ("'.$user_id.'", "'.$message.'", "'.$_SESSION['user_id'].'")
+			$query = 'INSERT INTO announcement (`user_id`, `title`, `message`, `createdByUserID`)
+				VALUES ("'.$user_id.'", "'.$title.'", "'.$message.'", "'.$_SESSION['user_id'].'")
 			';
 			if(!mysqli_query($mysqli, $query)){
 				$error = 'true';
 			}
 		}
 	}else{
-		$query = 'INSERT INTO announcement (isBroadcast, message, createdByUserID)
-				VALUES ("'.$isBroadcast.'", "'.$message.'", "'.$_SESSION['user_id'].'")
+		$query = 'INSERT INTO announcement (`isBroadcast`, `title`, `message`, `createdByUserID`)
+				VALUES ("'.$isBroadcast.'", "'.$title.'", "'.$message.'", "'.$_SESSION['user_id'].'")
 			';
 
 		if(!mysqli_query($mysqli, $query)){
@@ -32,15 +31,33 @@
 	}
 
 	if($error != 'true'){
-		$query = "SELECT * FROM `announcement`; ";
-        $result = $mysqli->query($query);
+		$result = $mysqli->query("SELECT * FROM `announcement`");
         if ($result) {
           while($row = $result->fetch_array()) {
+            //For Recipient Field
+            if ($row['isBroadcast'] == "true"){
+              $recipient = "Broadcast";
+            } else {
+              $userResult = $mysqli->query("SELECT CONCAT(firstName, ' ', lastName) AS `name` FROM `users` WHERE id = '".$row['user_id']."'");
+              if ($userResult) {
+                $userRow = $userResult->fetch_array();
+                $recipient = $userRow['name'];
+              }
+            }
+            //For Status field
+            if($row['status'] == "true"){
+              $status = "Active";
+            } else {
+              $status = "Inactive";
+            }
+
             echo '<tr id='.$row['id'].'>
-              <td></td>
+              <td>'.$row['title'].'</td>
               <td>'.date("F d, Y", strtotime($row['created'])).'</td>
+              <td>'.$recipient.'</td>
               <td>'.$row['message'].'</td>
-              <td>Meme</td>';
+              <td>'.$status.'</td>
+              <td></td>';
             echo '</tr>';
           }
         }
