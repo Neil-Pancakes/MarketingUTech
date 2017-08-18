@@ -101,7 +101,7 @@
         </thead>
         <tbody id="timetable-tbody">
           <?php
-            $month = date('F');
+            $month = date('m');
             $date = date('d'); 
             $year = date('Y');
             $until = date('Y-m-d');
