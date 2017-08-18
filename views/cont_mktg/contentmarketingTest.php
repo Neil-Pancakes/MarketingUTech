@@ -35,9 +35,9 @@
                   <span class="md-display-2" >Daily Tracker </span>
                   <md-button class="md-warn md-raised" ng-if="exists==true" ng-click="modal()" data-target="#optionModal" data-toggle="modal">Edit <span class="fa fa-edit"></span></md-button>
                    <!--Edit Modal-->
-                      <form ng-submit="editData()">
-                          <div id="optionModal" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
+                      <div id="optionModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                          <form ng-submit="editData()">
                               <div class="modal-content">
                                 <div class="modal-header">
                                   <h2 id="modalHeaderEditDelete">Task</h2>
@@ -73,9 +73,9 @@
                                   <button type="submit" class="btn btn-warning" onclick="$('#optionModal').modal('hide');">Edit <span class="fa fa-edit"></span></button>
                                 </div>
                               </div>
-                            </div>
-                          </div>
-                      </form>
+                          </form>
+                        </div>
+                      </div>
                       <!--END of Edit Modal-->
                   <md-content>
                     <md-list flex>

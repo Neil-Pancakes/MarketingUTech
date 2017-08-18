@@ -31,9 +31,9 @@
                     </md-card-content>
                   </md-card>
                   <!--Edit Modal-->
-                      <form ng-submit="editData()">
-                          <div id="optionModal" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
+                      <div id="optionModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                          <form ng-submit="editData()">
                               <div class="modal-content">
                                 <div class="modal-header">
                                   <h2 id="modalHeaderEditDelete">Task</h2>
@@ -46,37 +46,39 @@
                                   <button type="submit" class="btn btn-warning" onclick="$('#optionModal').modal('hide');">Edit <span class="fa fa-edit"></span></button>
                                 </div>
                               </div>
-                            </div>
-                          </div>
-                      </form>
-                      <!--END of Edit <Modal--></Modal-->
+                          </form>
+                        </div>
+                      </div>
+                      <!--END of Edit Modal-->
                 </md-content>         
               </md-tab>
-                    <md-tab label="add tasks">
-                        <md-content class="md-padding" ng-if="exists==false">
-                            <form ng-submit="submitData()">
-                                <div id="taskHolderOjt" class="container">
-                                    <div class="jumbotron">
-                                        <p style="font-size:30px;">Tasks for today</p>
-                                        <div class="task-group">
-                                            <textarea placeholder="Task Description 
+              <!-- Add Tasks Pane -->
+              <md-tab label="add tasks">
+                <md-content class="md-padding">
+                    <form ng-submit="submitData()">
+                        <div id="taskHolderOjt" class="container" style="max-width:100%;">
+                            <div class="jumbotron" ng-if="exists==false">
+                                <p style="font-size:30px;">Tasks for today</p>
+                                <div class="task-group">
+                                    <textarea placeholder="Task Description 
 
-                        Ex: I did this today..." rows="15" ng-model="obj.dailyTask" id="comment_text" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
-                                            <div class="footer" align="center">
-                                                <md-button id="submitBtn" type="submit" class=" md-raised md-primary" ng-model="submitBtn" style="width:60%; margin-right:10%">Submit</md-button>
-                                            </div>
-                                        </div>
+                Ex: I did this today..." rows="15" ng-model="obj.dailyTask" id="comment_text" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
+                                    <div class="footer" align="center">
+                                        <md-button id="submitBtn" type="submit" class=" md-raised md-primary" ng-model="submitBtn" style="width:60%; margin-right:10%">Submit</md-button>
                                     </div>
                                 </div>
-                            </form>
-                        </md-content>
-                        <div class="jumbotron" ng-if="exists==true">
-                          <h2>You have already created a Task today</h2>
+                            </div>
+                            <div class="jumbotron" ng-if="exists==true">
+                              <h2>You have already created a Task today</h2>
+                            </div>
                         </div>
-              </md-tab>
-            </md-tabs>
-          </md-content>
-        </div>  
+                    </form>
+                </md-content>
+            </md-tab>
+            <!-- END of Add Tasks Pane -->
+          </md-tabs>
+        </md-content>
+      </div>  
 
       <!-- Your Page Content Here -->
       </section>

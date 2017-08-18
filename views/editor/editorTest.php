@@ -42,11 +42,11 @@
                         <div align="center">
                           <md-button ng-show="delBtn" type="submit" class=" md-raised" style="width:20%; background-color:darkred; color:white;">Delete <span class="fa fa-trash"></span></md-button>
                         </div>
-                        <md-list-item class="md-3-line" ng-repeat="x in today" ng-click="modal(x.Article, x.WordCnt, x.WriterId)">
+                        <md-list-item class="md-3-line" ng-repeat="x in today" ng-click="modal(x.ArticleTitle, x.WordCount, x.WriterId)">
                           <div style="width:95%;" data-target="#optionModal" data-toggle="modal">
                             <img src="../../includes/img/articleIcon.png" class="md-avatar" style="float:left"/>
                             <div class="md-list-item-text">
-                              <h3>{{ x.WriterName }}</h3>
+                              <h3>{{ x.ArticleTitle }}</h3>
                               <h3 class="articleName">{{ x.WriterId }}</h3>
                               <h4 class="wordsChanged">{{ x.WordCount }} Words Changed</h4>
                             </div>
@@ -57,9 +57,9 @@
                         </md-list-item>
                       </form>
                       <!--Edit Modal-->
-                      <form ng-submit="editData()">
-                          <div id="optionModal" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
+                      <div id="optionModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                          <form ng-submit="editData()">
                               <div class="modal-content">
                                 <div class="modal-header">
                                   <h2 id="modalHeaderEditDelete">Task</h2>
@@ -72,9 +72,9 @@
                                   <button type="submit" class="btn btn-warning" onclick="$('#optionModal').modal('hide');">Edit <span class="fa fa-edit"></span></button>
                                 </div>
                               </div>
-                            </div>
-                          </div>
-                      </form>
+                          </form>
+                        </div>
+                      </div>
                       <!--END of Edit Modal-->
                       
                   </md-content>
