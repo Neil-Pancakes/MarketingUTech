@@ -393,8 +393,7 @@
             $scope.addTaskType = "";
       };
   });
-</script>
-<script>
+
   document.getElementById("taskTracker").setAttribute("class", "active");
   
   $(document).ready(function(){
@@ -402,4 +401,4 @@
       $('#homeTab').removeClass('active');
       $('#trackerTab').addClass('active');
   });
-</script>
+</script> 
