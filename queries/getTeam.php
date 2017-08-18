@@ -4,10 +4,12 @@ header("Content-Type: application/json; charset=UTF-8");
 require("../functions/sql_connect.php");
 session_start();
 
-$val = 'OJT'; /*$_SESSION['jobTitle'];*/
+$val = 'OJT Web Development';//$_SESSION['jobTitle'];
+//echo "JOB TITLE: ".$val."";
+$id = $_SESSION['user_id'];
 $result = $mysqli->query("SELECT `u`.`id`, CONCAT(`u`.`firstName`,' ', `u`.`lastName`) AS `name`
 FROM `users` `u`
-WHERE `u`.`jobTitle`= '$val'");  
+WHERE `u`.`jobTitle`= '$val' AND `u`.`id` !=$id");  
 
 $outp = "";
 while($rs = $result->fetch_array(MYSQLI_ASSOC)) {

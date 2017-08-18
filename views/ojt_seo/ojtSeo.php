@@ -107,105 +107,159 @@
                       </div>
                     </div>
                   </md-list-item>
-
-                  <md-list-item class="md-3-line">
-                    <div style="width:95%;">
-                      <img src="../../includes/img/responsiveDesign.png" class="md-avatar" style="float:left"/>
-                      <div class="md-list-item-text">
-                        <br>
-                        <h3>Schema Markup</h3>
-                        <h3 class="articleName">{{ today[0].SchemaMarkup }}</h3>
-                      </div>
+                        <md-list-item class="md-3-line">
+                          <div style="width:95%;">
+                            <img src="../../includes/img/miscIcon.png" class="md-avatar" style="float:left"/>
+                            <div class="md-list-item-text">
+                              <br>
+                              <h3>Relationship Link Research</h3>
+                              <h3 class="articleName">{{ today[0].RelationshipLinkResearch }}</h3>
+                              
+                            </div>
+                          </div>
+                        </md-list-item>
+                        <md-card>
+                          <span class="md-headline">Miscellaneous</span>
+                          <md-card-content>
+                              <p style="text-align:left;">{{today[0].Misc}}</p>
+                          </md-card-content>
+                        </md-card>
+                        <md-list-item class="md-3-line" ng-repeat="x in todayAdditional track by $index">
+                          <img src="../../includes/img/taskIcon.png" class="md-avatar" style="float:left"/>
+                            <div class="md-list-item-text">
+                              <h3>{{x.Name}}</h3>
+                              <h3 class="articleName">{{ x.Task }}</h3>
+                              
+                            </div>
+                        </md-list-item>
+                  </md-content>
+                </md-content>
+              </md-tab>
+              <md-tab label="add tasks">
+                <md-content class="md-padding">
+                  <form ng-submit="submitData()">
+                    <div id="taskHolderOjt" class="container" style="max-width:100%;">
+                        <div class="jumbotron"  ng-if="exists==false">
+                            <p style="font-size:30px;">Tasks for today </p>
+                            <md-content layout-padding>
+                                <div>
+                                      <br>
+                                      <md-input-container>
+                                          <label>Commenting 10 per day</label>
+                                          <md-select ng-model="status.p1">
+                                              <md-option ng-repeat="x in options">{{x}}</md-option>
+                                          </md-select>
+                                      </md-input-container>
+                                      <md-input-container>
+                                          <label>Site Audit</label>
+                                          <md-select ng-model="status.p2">
+                                              <md-option ng-repeat="x in options">{{x}}</md-option>
+                                          </md-select>
+                                      </md-input-container>
+                                      <md-input-container>
+                                          <label>Schema Markup</label>
+                                          <md-select ng-model="status.p3">
+                                              <md-option ng-repeat="x in options">{{x}}</md-option>
+                                          </md-select>
+                                      </md-input-container>
+                                      <md-input-container>
+                                          <label>Competitor Backlink Analysis</label>
+                                          <md-select ng-model="status.p4">
+                                              <md-option ng-repeat="x in options">{{x}}</md-option>
+                                          </md-select>
+                                      </md-input-container>
+                                      <md-input-container>
+                                          <label>Relationship Link Research</label>
+                                          <md-select ng-model="status.p5">
+                                              <md-option ng-repeat="x in options">{{x}}</md-option>
+                                          </md-select>
+                                      </md-input-container>
+                                        <textarea ng-model="status.taskDesc" placeholder="Miscellaneous 
+              Ex: I did this today..." rows="15"id="comment_text" cols="20" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" style="border:solid 1px lightgrey; margin-left:5%;"></textarea>
+                                  
+                                  </div>
+                            </md-content>
+                          <div class="footer" align="center">
+                              <md-button id="submitBtn" type="submit" class=" md-raised md-primary" ng-model="submitBtn" style="width:60%; margin-right:10%">Submit</md-button>
+                          </div>
+                        </div>
+                        <div class="jumbotron" ng-if="exists==true">
+                          <h2>You have already created a Task Count today</h2>
+                        </div>
                     </div>
-                  </md-list-item>
+                  </form>
+                </md-content>
+              </md-tab>
 
-                  <md-list-item class="md-3-line">
-                    <div style="width:95%;">
-                      <img src="../../includes/img/articleIcon.png" class="md-avatar" style="float:left"/>
-                      <div class="md-list-item-text">
-                        <br>
-                        <h3>Competitor Backlink Analysis</h3>
-                        <h3 class="articleName">{{ today[0].CompetitorBacklinkAnalysis }}</h3>
-                      </div>
-                    </div>
-                  </md-list-item>
-
-                  <md-list-item class="md-3-line">
-                    <div style="width:95%;">
-                      <img src="../../includes/img/miscIcon.png" class="md-avatar" style="float:left"/>
-                      <div class="md-list-item-text">
-                        <br>
-                        <h3>Relationship Link Research</h3>
-                        <h3 class="articleName">{{ today[0].RelationshipLinkResearch }}</h3>
-                      </div>
-                    </div>
-                  </md-list-item>
-
-                  <md-card>
-                    <span class="md-headline">Miscellaneous</span>
-                    <md-card-content>
-                        <p style="text-align:left;">{{today[0].Misc}}</p>
-                    </md-card-content>
-                  </md-card>
-              </md-list>
-            </md-content>
-
-            <md-tab label="add tasks">
-              <md-content class="md-padding">
-                <form ng-submit="submitData()">
-                  <div id="taskHolderOjt" class="container" style="max-width:100%;">
-                      <div class="jumbotron"  ng-if="exists==false">
-                          <p style="font-size:30px;">Tasks for today </p>
-                          <md-content layout-padding>
-                              <div>
-                                    <br>
-                                    <md-input-container>
-                                        <label>Commenting 10 per day</label>
-                                        <md-select ng-model="status.p1">
-                                            <md-option ng-repeat="x in options">{{x}}</md-option>
-                                        </md-select>
-                                    </md-input-container>
-                                    <md-input-container>
-                                        <label>Site Audit</label>
-                                        <md-select ng-model="status.p2">
-                                            <md-option ng-repeat="x in options">{{x}}</md-option>
-                                        </md-select>
-                                    </md-input-container>
-                                    <md-input-container>
-                                        <label>Schema Markup</label>
-                                        <md-select ng-model="status.p3">
-                                            <md-option ng-repeat="x in options">{{x}}</md-option>
-                                        </md-select>
-                                    </md-input-container>
-                                    <md-input-container>
-                                        <label>Competitor Backlink Analysis</label>
-                                        <md-select ng-model="status.p4">
-                                            <md-option ng-repeat="x in options">{{x}}</md-option>
-                                        </md-select>
-                                    </md-input-container>
-                                    <md-input-container>
-                                        <label>Relationship Link Research</label>
-                                        <md-select ng-model="status.p5">
-                                            <md-option ng-repeat="x in options">{{x}}</md-option>
-                                        </md-select>
-                                    </md-input-container>
-                                      <textarea ng-model="status.taskDesc" placeholder="Miscellaneous 
-            Ex: I did this today..." rows="15"id="comment_text" cols="20" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" style="border:solid 1px lightgrey; margin-left:5%;"></textarea>
-                                
-                                </div>
-                          </md-content>
-                        <div class="footer" align="center">
-                            <md-button id="submitBtn" type="submit" class=" md-raised md-primary" ng-model="submitBtn" style="width:60%; margin-right:10%">Submit</md-button>
+              <md-tab label="team member tasks">
+                <md-content class="md-padding">
+                  <md-list flex>
+                    <md-list-item class="md-3-line" ng-repeat="x in team">
+                      <div style="width:95%;">
+                        <img src="../../includes/img/writerIcon.png" class="md-avatar" style="float:left"/>
+                        <div class="md-list-item-text">
+                        <h3 class="articleName">{{ x.Name }}</h3>
+                          <button class="btn btn-xs btn-primary">View</button>
+                          <button class="btn btn-xs btn-success" ng-click="addTaskModal(x.Id)" data-toggle="modal" data-target="#addTask">Add Task</button>
+                            
+                          
                         </div>
                       </div>
-                      <div class="jumbotron" ng-if="exists==true">
-                        <h2>You have already created a Task Count today</h2>
-                      </div>
-                  </div>
-                </form>
-              </md-content>
-            </md-tab>
-            
+                    </md-list-item>
+                    <div id="addTask" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                <form ng-submit="addAdditional()">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h2 id="modalHeaderEditDelete">Task</h2>
+                                    </div>
+                                    <div class="modal-body">
+                                      <input ng-model="addTaskUserId">
+                                      <input class="form-control" ng-model="addTaskName" required>
+                                      <select class="form-control" ng-model="addTaskType" required>
+                                        <option value="Text">Text</option>
+                                        <option value="Int">Count</option>
+                                        <option value="Binary">Yes/No</option>
+                                      </select>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="submit" class="btn btn-success" onclick="$('#addTask').modal('hide');">Add Task <span class="fa fa-plus-circle"></span></button>
+                                    </div>
+                                  </div>
+                                  </form>
+                                </div>
+                              </div>
+                  </md-list>
+                </md-content>
+              </md-tab>
+              <md-tab label="additional tasks">
+                <md-content class="md-padding">
+                  <md-list flex>
+                  <form ng-submit="submitAdditionalTask()">
+                    <md-list-item class="md-3-line" ng-repeat="x in additionalTasks track by $index">
+                    <img src="../../includes/img/taskIcon.png" class="md-avatar" style="float:left"/>
+                    <div class="md-list-item-text">
+                    <h3>{{x.Name}}</h3>
+                      
+                        <input ng-model="additionalId[$index]" ng-init="additionalIdSet.additionalId[$index] = x.AdditionalTaskId" hidden>
+                        <textarea ng-if='x.Type=="Text"' ng-model="additionalSet.additional[$index]" rows="5" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
+                        <input ng-if='x.Type=="Int"' ng-model="additionalSet.additional[$index]" type="number" required>
+                        <select ng-if='x.Type=="Binary"' ng-model="additionalSet.additional[$index]" required>
+                          <option value="Yes">Yes</option>
+                          <option value="No">No</option>
+                        </select>
+                        
+                     
+                    </div>
+                    
+                    </md-list-item>
+                    <div align="center">
+                      <md-button ng-show="addExists" type="submit" class=" md-raised md-primary" style="width:20%; margin-top:3%;">Submit</md-button>
+                    </div>
+                    </form>
+                  </md-list>
+                </md-content>
+              </md-tab>
             </md-tabs>
           </md-content>
 
@@ -220,14 +274,6 @@
   
 </div>
 <!-- ./wrapper -->
-<script>
-  document.getElementById("taskTracker").setAttribute("class", "active");
-  
-  $(document).ready(function(){
-      $('#homeTab').removeClass('active');
-      $('#trackerTab').addClass('active');
-  });
-</script>
 
 <script>
     var app = angular.module('taskFieldsApp', ['ngMaterial']);
@@ -236,6 +282,10 @@
       $qProvider.errorOnUnhandledRejections(false);
     }]);
     app.controller('taskFieldsController', function($scope, $http, $mdDialog) {
+      $scope.additionalSet = {additional: []};
+      $scope.additionalIdSet = {additionalId: []};
+      $scope.additional = [];
+      $scope.additionalId = [];
       $scope.options = ["Yes", "No"];
       $scope.status = {
         $p1: "",
@@ -253,7 +303,21 @@
             }else{
               $scope.exists=true;
             }
-          }); 
+          });
+          $http.get("../../queries/getTeam.php").then(function (response) {
+            $scope.team = response.data.records;
+          });  
+          $http.get("../../queries/getAdditionalTasks.php").then(function (response) {
+            $scope.additionalTasks = response.data.records;
+            if($scope.additionalTasks.length>0){
+              $scope.addExists = true;
+            }else{
+              $scope.addExists = false;
+            }
+          });
+          $http.get("../../queries/getMyDailyTrackerTodayAdditionalTaskTracker.php").then(function (response) {
+            $scope.todayAdditional = response.data.records;
+          });  
         };
         
         $scope.showAlert = function(ev) {
@@ -294,6 +358,24 @@
                 $scope.showAlert();
               })
         };
+
+        $scope.submitAdditionalTask = function() {
+          alert($scope.additionalIdSet.additionalId);
+            $http.post('../../insertFunctions/insertAdditionalTaskTracker.php', {
+              'idSet': $scope.additionalIdSet.additionalId, 
+              'taskSet': $scope.additionalSet.additional
+              }).then(function(data, status){
+                $scope.additionalSet = {additional: []};
+                $scope.additionalIdSet = {additionalId: []};
+                
+                $scope.additionalSet.additional = [];
+                $scope.additionalIdSet.additionalId = [];
+                $scope.show = false;
+                $scope.init();
+                $scope.showAlert();
+              })
+        };  
+
         $scope.editData = function() {
           $http.post('../../editFunctions/editDailyTaskOJTSeo.php', {
             'id': $scope.modalojtseoId,
@@ -308,6 +390,18 @@
                 $scope.showEdit();
           })
         };
+
+        $scope.addAdditional = function(){
+          alert($scope.addTaskName);
+          $http.post('../../insertFunctions/insertAdditionalTask.php', {
+              'userId': $scope.addTaskUserId,
+              'name': $scope.addTaskName,
+              'type': $scope.addTaskType
+            }).then(function(data, status){
+                $scope.init();
+            })
+        };
+
         $scope.modal = function() {
             $scope.modalojtseoId = $scope.today[0].OJTSeoId;
             $scope.modalcomment = $scope.today[0].Comment;
@@ -317,5 +411,19 @@
             $scope.modalrelationship = $scope.today[0].RelationshipLinkResearch;
             $scope.modalmisc = $scope.today[0].Misc;
         };
+
+        $scope.addTaskModal = function(id) {
+            $scope.addTaskUserId = id;
+            $scope.addTaskName = "";
+            $scope.addTaskType = "";
+      };
+  });
+</script>
+<script>
+  document.getElementById("taskTracker").setAttribute("class", "active");
+  
+  $(document).ready(function(){
+      $('#homeTab').removeClass('active');
+      $('#trackerTab').addClass('active');
   });
 </script>

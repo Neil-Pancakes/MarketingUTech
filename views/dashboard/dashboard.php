@@ -1,6 +1,6 @@
 <?php
-  include("../../functions/ifNotLoggedIn.php");
   include("../../functions/php_globals.php");
+  include("../../functions/ifNotLoggedIn.php");
   include("../../functions/generalDBFunctions.php");
 
   date_default_timezone_set("Asia/Manila");
@@ -21,8 +21,8 @@
     <!-- REQUIRED JS SCRIPTS -->
     <script src="../../includes/js/jquery-3.2.1.min.js"></script>
     <script src="../../includes/js/bootstrap.min.js"></script>
-    <script src="../../includes/js/bootstrap-modal.js"></script>
-    <script src="../../includes/js/bootstrap-modalmanager.js"></script>
+    <!--<script src="../../includes/js/bootstrap-modal.js"></script>
+    <script src="../../includes/js/bootstrap-modalmanager.js"></script>-->
     <script src="../../node_modules/moment/moment.js"></script>
     <script src="../../includes/js/AdminLTE_app.min.js"></script>
     <script src="../../includes/js/googleSignout.js"></script>
@@ -35,6 +35,7 @@
     <script src="../../includes/js/angular-aria.min.js"></script>
     <script src="../../includes/js/angular-messages.min.js"></script>
     <script src="../../includes/js/angular-material.min.js"></script>
+    <script src="../../includes/js/select2.full.js"></script>
 
     <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
     <script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
@@ -44,13 +45,14 @@
     <!-- Styles.css !-->
     <link rel="stylesheet" href="../../includes/css/styles.css">
     <link rel="stylesheet" href="../../includes/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../includes/css/bootstrap-modal.css">
+    <!--<link rel="stylesheet" href="../../includes/css/bootstrap-modal.css">-->
     <link rel="stylesheet" href="../../includes/css/font-awesome.min.css">
     <link rel="stylesheet" href="../../includes/css/ionicons.min.css">
     <link rel="stylesheet" href="../../includes/css/AdminLTE/AdminLTE.min.css">
     <link rel="stylesheet" href="../../includes/css/AdminLTE/skins/skin-purple.min.css">
     <link rel="stylesheet" href="../../includes/sweetalert/sweetalert.css">
     <link rel="stylesheet" href="../../includes/css/angular-material.min.css">
+    <link rel="stylesheet" href="../../includes/css/select2.css">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">   
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">

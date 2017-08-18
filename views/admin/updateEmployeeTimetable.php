@@ -9,25 +9,25 @@
 		if($_GET['timeIn'] === ''){
 			$timeIn = '0000-00-00 00:00:00';
 		}else{
-			$timeIn = date("Y-m-d H:i", strtotime($_GET['timeIn']));
+			$timeIn = date("Y-m-d H:i", strtotime($date." ".$_GET['timeIn']));
 		}
 
 		if($_GET['timeOut'] === ''){
 			$timeOut = '0000-00-00 00:00:00';
 		}else{
-			$timeOut = date("Y-m-d H:i", strtotime($_GET['timeOut']));
+			$timeOut = date("Y-m-d H:i", strtotime($date." ".$_GET['timeOut']));
 		}
 
 		if($_GET['lunchIn'] === ''){
 			$lunchIn = '0000-00-00 00:00:00';
 		}else{
-			$lunchIn = date("Y-m-d H:i", strtotime($_GET['lunchIn']));
+			$lunchIn = date("Y-m-d H:i", strtotime($date." ".$_GET['lunchIn']));
 		}
 
 		if($_GET['lunchOut'] === ''){
 			$lunchOut = '0000-00-00 00:00:00';
 		}else{
-			$lunchOut = date("Y-m-d H:i", strtotime($_GET['lunchOut']));
+			$lunchOut = date("Y-m-d H:i", strtotime($date." ".$_GET['lunchOut']));
 		}
 
 		$query = 'UPDATE `timetable`
@@ -76,7 +76,7 @@
 	            }
 
 	            if(mysqli_query($mysqli, $query)){
-		        	$month = date('F');
+		        	$month = date('m');
 		            $date = date('d'); 
 		            $year = date('Y');
 		            $until = date('Y-m-d');

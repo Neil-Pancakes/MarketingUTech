@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 13, 2017 at 06:22 PM
+-- Generation Time: Aug 16, 2017 at 03:14 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.1
 
@@ -56,12 +56,25 @@ CREATE TABLE `additional_task_tracker` (
 CREATE TABLE `announcement` (
   `id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
+  `status` enum('true','false') NOT NULL DEFAULT 'true',
   `isBroadcast` enum('true','false') NOT NULL DEFAULT 'false',
+  `title` varchar(255) NOT NULL,
   `message` varchar(255) DEFAULT NULL,
   `createdByUserID` int(11) DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `announcement`
+--
+
+INSERT INTO `announcement` (`id`, `user_id`, `status`, `isBroadcast`, `title`, `message`, `createdByUserID`, `created`, `modified`) VALUES
+(2, 3, 'true', 'false', 'Title', 'Message', 3, '2017-08-16 12:47:29', '2017-08-16 12:47:29'),
+(3, NULL, 'true', 'true', 'Broadcast', 'Broadcast Message', 3, '2017-08-16 12:54:55', '2017-08-16 12:54:55'),
+(4, 5, 'true', 'false', 'fdgg', 'dfgdfg', 3, '2017-08-16 12:56:44', '2017-08-16 12:56:44'),
+(5, NULL, 'true', 'true', 'Teter', 'dfawe', 3, '2017-08-16 12:56:55', '2017-08-16 12:56:55'),
+(6, 5, 'true', 'false', 'Meme', 'efsdf', 3, '2017-08-16 13:05:15', '2017-08-16 13:05:15');
 
 -- --------------------------------------------------------
 
@@ -793,10 +806,20 @@ ALTER TABLE `writer_tracker`
 --
 
 --
+-- AUTO_INCREMENT for table `additional_task`
+--
+ALTER TABLE `additional_task`
+  MODIFY `additional_task_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `additional_task_tracker`
+--
+ALTER TABLE `additional_task_tracker`
+  MODIFY `additional_task_tracker_id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `announcement`
 --
 ALTER TABLE `announcement`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `content_marketing_assistant_tracker`
 --
