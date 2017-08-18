@@ -179,9 +179,10 @@
                           </span>
                         </a>
                         <ul class="treeview-menu">
-                          <li><a href="#">Weekly</a></li>
-                          <li><a href="#">Monthly</a></li>
-                          <li><a href="#">Yearly</a></li>
+                          <li><a href="../reports/salaryReports.php">Salary Report</a></li>
+                          <li><a href="../reports/weeklyReports.php">Weekly</a></li>
+                          <li><a href="../reports/monthlyReports.php">Monthly</a></li>
+                          <li><a href="../reports/yearlyReports.php">Yearly</a></li>
                         </ul>
                       </li>';
                 echo '<li class="treeview">

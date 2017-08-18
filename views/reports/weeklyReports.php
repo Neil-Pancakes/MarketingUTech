@@ -1,13 +1,12 @@
 <?php
-  require ("php_globals.php");
-  include ("dashboard.php");
+  require ("../../functions/php_globals.php");
+  include ("../dashboard/dashboard.php");
 ?>
-<div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
     	<h1>
     		<?php
-	    		$currentweek = (int)(date('d',time())/7);
+	    		$currentweek = (int)(date('j',time())/7);
                 $currentmonth = date('n',time());
                 $currentyear = date('Y',time());
 
@@ -65,15 +64,19 @@
                                 $days = 0;
                                 while ($daysWorked = mysqli_fetch_assoc($res)) {
                                     $mydate = $daysWorked['date'];
+                                    $dayofweek = date("w",strtotime($mydate));
                                     $week = date("j",strtotime($mydate));
                                     $month = date("n",strtotime($mydate));
                                     $year = date("Y",strtotime($mydate));
+                                    //  week of work is compared to the actual week
+                                    //  month of work is compared to the actual month
+                                    //  year of work is compared to the actual year
                                     if ($week/7<=$currentweek&&$month==$currentmonth&&$year==$currentyear) {
                                         $minHours = 0;
                                         if ($row['workStatus'] == 'Regular') {
                                             $minHours = 8;
                                         }
-                                        if ($daysWorked['totalHours']>$minHours) {
+                                        if ($daysWorked['totalHours']>$minHours && ($dayofweek!=0 || $dayofweek!=6)) {
                                             $days++;
                                         }
                                     }
@@ -99,3 +102,4 @@
         </div>
 	</section>
 </div>
+<script src="../../functions/xmlConverter.js"></script>

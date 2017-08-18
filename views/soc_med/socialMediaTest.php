@@ -6,9 +6,7 @@
   //   header("Location:../home/home.php");
   // }
 ?>
-<body ng-app="taskFieldsApp" >
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+<body ng-app="taskFieldsApp">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>Social Media Specialist

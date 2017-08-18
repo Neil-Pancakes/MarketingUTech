@@ -15,9 +15,7 @@
       }
     </style>
 </head>
-<body ng-app="taskFieldsApp" >
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+<body ng-app="taskFieldsApp">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>OJT SEO
@@ -132,9 +130,10 @@
                               
                             </div>
                         </md-list-item>
+                    </md-list>
                   </md-content>
-                </md-content>
               </md-tab>
+
               <md-tab label="add tasks">
                 <md-content class="md-padding">
                   <form ng-submit="submitData()">
@@ -198,76 +197,68 @@
                       <div style="width:95%;">
                         <img src="../../includes/img/writerIcon.png" class="md-avatar" style="float:left"/>
                         <div class="md-list-item-text">
-                        <h3 class="articleName">{{ x.Name }}</h3>
+                          <h3 class="articleName">{{ x.Name }}</h3>
                           <button class="btn btn-xs btn-primary">View</button>
                           <button class="btn btn-xs btn-success" ng-click="addTaskModal(x.Id)" data-toggle="modal" data-target="#addTask">Add Task</button>
-                            
-                          
                         </div>
                       </div>
                     </md-list-item>
                     <div id="addTask" class="modal fade" role="dialog">
-                                <div class="modal-dialog">
-                                <form ng-submit="addAdditional()">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h2 id="modalHeaderEditDelete">Task</h2>
-                                    </div>
-                                    <div class="modal-body">
-                                      <input ng-model="addTaskUserId">
-                                      <input class="form-control" ng-model="addTaskName" required>
-                                      <select class="form-control" ng-model="addTaskType" required>
-                                        <option value="Text">Text</option>
-                                        <option value="Int">Count</option>
-                                        <option value="Binary">Yes/No</option>
-                                      </select>
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button type="submit" class="btn btn-success" onclick="$('#addTask').modal('hide');">Add Task <span class="fa fa-plus-circle"></span></button>
-                                    </div>
-                                  </div>
-                                  </form>
-                                </div>
-                              </div>
-                  </md-list>
-                </md-content>
-              </md-tab>
-              <md-tab label="additional tasks">
-                <md-content class="md-padding">
-                  <md-list flex>
-                  <form ng-submit="submitAdditionalTask()">
-                    <md-list-item class="md-3-line" ng-repeat="x in additionalTasks track by $index">
+                      <div class="modal-dialog">
+                      <form ng-submit="addAdditional()">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h2 id="modalHeaderEditDelete">Task</h2>
+                          </div>
+                          <div class="modal-body">
+                            <input ng-model="addTaskUserId">
+                            <input class="form-control" ng-model="addTaskName" required>
+                            <select class="form-control" ng-model="addTaskType" required>
+                              <option value="Text">Text</option>
+                              <option value="Int">Count</option>
+                              <option value="Binary">Yes/No</option>
+                            </select>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="submit" class="btn btn-success" onclick="$('#addTask').modal('hide');">Add Task <span class="fa fa-plus-circle"></span></button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </md-list>
+              </md-content>
+            </md-tab>
+
+            <md-tab label="additional tasks">
+              <md-content class="md-padding">
+                <md-list flex>
+                <form ng-submit="submitAdditionalTask()">
+                  <md-list-item class="md-3-line" ng-repeat="x in additionalTasks track by $index">
                     <img src="../../includes/img/taskIcon.png" class="md-avatar" style="float:left"/>
                     <div class="md-list-item-text">
-                    <h3>{{x.Name}}</h3>
-                      
-                        <input ng-model="additionalId[$index]" ng-init="additionalIdSet.additionalId[$index] = x.AdditionalTaskId" hidden>
-                        <textarea ng-if='x.Type=="Text"' ng-model="additionalSet.additional[$index]" rows="5" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
-                        <input ng-if='x.Type=="Int"' ng-model="additionalSet.additional[$index]" type="number" required>
-                        <select ng-if='x.Type=="Binary"' ng-model="additionalSet.additional[$index]" required>
-                          <option value="Yes">Yes</option>
-                          <option value="No">No</option>
-                        </select>
-                        
-                     
+                      <h3>{{x.Name}}</h3>
+                      <input ng-model="additionalId[$index]" ng-init="additionalIdSet.additionalId[$index] = x.AdditionalTaskId" hidden>
+                      <textarea ng-if='x.Type=="Text"' ng-model="additionalSet.additional[$index]" rows="5" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
+                      <input ng-if='x.Type=="Int"' ng-model="additionalSet.additional[$index]" type="number" required>
+                      <select ng-if='x.Type=="Binary"' ng-model="additionalSet.additional[$index]" required>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                      </select>
                     </div>
-                    
-                    </md-list-item>
-                    <div align="center">
-                      <md-button ng-show="addExists" type="submit" class=" md-raised md-primary" style="width:20%; margin-top:3%;">Submit</md-button>
-                    </div>
-                    </form>
-                  </md-list>
-                </md-content>
-              </md-tab>
-            </md-tabs>
-          </md-content>
-
-      </div>
-      </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
+                  </md-list-item>
+                  <div align="center">
+                    <md-button ng-show="addExists" type="submit" class=" md-raised md-primary" style="width:20%; margin-top:3%;">Submit</md-button>
+                  </div>
+                </form>
+              </md-list>
+            </md-content>
+          </md-tab>
+        </md-tabs>
+      </md-content>
+    </div>
+  </section>
+</body>
 
   <!-- Control Sidebar Start-->
   <?php include '../dashboard/control_sidebar.php'; ?>

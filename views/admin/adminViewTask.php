@@ -22,8 +22,6 @@
   $_SESSION["filter_id"] = $_GET["id"];*/
 ?>
 
-<!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper" ng-app="taskFieldsApp" ng-cloak ng-controller="taskFieldsController as ctrl" data-ng-init="init()">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <ol class="breadcrumb">
@@ -33,9 +31,8 @@
     </section>
 
     <!-- Main content -->
-    <section class="content">
+    <section class="content" ng-app="taskFieldsApp" ng-cloak ng-controller="taskFieldsController as ctrl" data-ng-init="init()">
       <form ng-submit="search()">
-        <div>
           <input type="text" name="user_id" value="<?php echo $_GET["id"]; ?>" hidden />
           <md-content layout-padding ng-cloak>
             <div layout-gt-xs="row">
@@ -49,14 +46,13 @@
             </div>
           </md-content>
         </form>
-      </div>
       
       <table id="timetable" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
             <tr>
                 <th>Time Stamp</th>
 
-<?php
+                <?php
 
                 //Writer
                 
