@@ -198,6 +198,7 @@
                         </ul>
                       </li>';
                 echo '<li id="announcements"><a href="../admin/announcements.php"><i class="fa fa-sticky-note"></i><span>Announcements</span></a></li>';
+                echo '<li id="holidays"><a href="../admin/holidays.php"><i class="fa fa-tree"></i><span>Holidays</span></a></li>';
               }
             }
           ?>
