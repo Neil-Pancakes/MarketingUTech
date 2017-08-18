@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 18, 2017 at 11:34 AM
+-- Generation Time: Aug 18, 2017 at 11:46 AM
 -- Server version: 5.6.25
 -- PHP Version: 5.6.11
 
@@ -60,6 +60,8 @@ CREATE TABLE IF NOT EXISTS `announcement` (
   `isBroadcast` enum('true','false') NOT NULL DEFAULT 'false',
   `title` varchar(255) NOT NULL,
   `message` varchar(255) DEFAULT NULL,
+  `isRead` enum('true','false') NOT NULL DEFAULT 'false',
+  `endDate` date DEFAULT NULL,
   `createdByUserID` int(11) DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -69,12 +71,12 @@ CREATE TABLE IF NOT EXISTS `announcement` (
 -- Dumping data for table `announcement`
 --
 
-INSERT INTO `announcement` (`id`, `user_id`, `status`, `isBroadcast`, `title`, `message`, `createdByUserID`, `created`, `modified`) VALUES
-(2, 3, 'true', 'false', 'Title', 'Message', 3, '2017-08-16 12:47:29', '2017-08-16 12:47:29'),
-(3, NULL, 'true', 'true', 'Broadcast', 'Broadcast Message', 3, '2017-08-16 12:54:55', '2017-08-16 12:54:55'),
-(4, 5, 'true', 'false', 'fdgg', 'dfgdfg', 3, '2017-08-16 12:56:44', '2017-08-16 12:56:44'),
-(5, NULL, 'true', 'true', 'Teter', 'dfawe', 3, '2017-08-16 12:56:55', '2017-08-16 12:56:55'),
-(6, 5, 'true', 'false', 'Meme', 'efsdf', 3, '2017-08-16 13:05:15', '2017-08-16 13:05:15');
+INSERT INTO `announcement` (`id`, `user_id`, `status`, `isBroadcast`, `title`, `message`, `isRead`, `endDate`, `createdByUserID`, `created`, `modified`) VALUES
+(2, 3, 'true', 'false', 'Title', 'Message', 'false', NULL, 3, '2017-08-16 12:47:29', '2017-08-16 12:47:29'),
+(3, NULL, 'true', 'true', 'Broadcast', 'Broadcast Message', 'false', NULL, 3, '2017-08-16 12:54:55', '2017-08-16 12:54:55'),
+(4, 5, 'true', 'false', 'fdgg', 'dfgdfg', 'false', NULL, 3, '2017-08-16 12:56:44', '2017-08-16 12:56:44'),
+(5, NULL, 'true', 'true', 'Teter', 'dfawe', 'false', NULL, 3, '2017-08-16 12:56:55', '2017-08-16 12:56:55'),
+(6, 5, 'true', 'false', 'Meme', 'efsdf', 'false', NULL, 3, '2017-08-16 13:05:15', '2017-08-16 13:05:15');
 
 -- --------------------------------------------------------
 
