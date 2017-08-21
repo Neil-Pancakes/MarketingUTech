@@ -2,7 +2,7 @@
   require ("../../functions/php_globals.php");
   require ("../dashboard/dashboard.php");
 
-  /*if (!isAdmin($_SESSION['user_id'])) {
+  if (!isAdmin($_SESSION['user_id'])) {
     header("Location:../home/home.php");
   }
 
@@ -19,7 +19,7 @@
     }
   }
 
-  $_SESSION["filter_id"] = $_GET["id"];*/
+  $_SESSION["filter_id"] = $_GET["id"];
 ?>
 
     <!-- Content Header (Page header) -->
