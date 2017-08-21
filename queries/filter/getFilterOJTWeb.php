@@ -27,8 +27,8 @@ while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
     $outp .= '"BackupCnt":"'   . $rs["backup_cnt"]        . '",';
     $outp .= '"OptimizeCnt":"'   . $rs["optimize_cnt"]        . '",';
     $outp .= '"MiscCnt":"'   . $rs["misc_cnt"]        . '"}';
-    $outp ='{"records":['.$outp.']}';
 }
+$outp ='{"records":['.$outp.']}';
 $mysqli->close();
 echo($outp);
 ?>

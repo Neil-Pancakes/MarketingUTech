@@ -41,7 +41,7 @@
                 <h4>Filter Date</h4>
                 <md-datepicker ng-model="ctrl.startDate" md-placeholder="Start date" required></md-datepicker>
                 <md-datepicker ng-model="ctrl.endDate" md-placeholder="End date" required></md-datepicker>
-                <md-button class="md-accent md-raised md-hue-2" type="submit">Filter</md-button>
+                <md-button class="md-accent md-raised md-hue-2" type="submit">Search</md-button>
               </div>
             </div>
           </md-content>
@@ -134,57 +134,57 @@
             <td ng-show="Writer">{{x.Article}}</td>
             <td ng-show="Writer">{{x.WordCnt}}</td>
 
-            <td ng-show="Editor">{{Article}}</td>
-            <td ng-show="Editor">{{Writer}}</td>
-            <td ng-show="Editor">{{WordCnt}}</td>
+            <td ng-show="Editor">{{x.Article}}</td>
+            <td ng-show="Editor">{{x.Writer}}</td>
+            <td ng-show="Editor">{{x.WordCnt}}</td>
 
-            <td ng-show="Marketing">{{Task}}</td>
+            <td ng-show="Marketing">{{x.Task}}</td>
 
-            <td ng-show="SocialMediaSpecialist">{{FBCnt}}</td>
-            <td ng-show="SocialMediaSpecialist">{{PinterestCnt}}</td>
-            <td ng-show="SocialMediaSpecialist">{{MBCnt}}</td>
-            <td ng-show="SocialMediaSpecialist">{{TaftCnt</td>
-            <td ng-show="SocialMediaSpecialist">{{WACnt}}</td>
+            <td ng-show="SocialMediaSpecialist">{{x.FBCnt}}</td>
+            <td ng-show="SocialMediaSpecialist">{{x.PinterestCnt}}</td>
+            <td ng-show="SocialMediaSpecialist">{{x.MBCnt}}</td>
+            <td ng-show="SocialMediaSpecialist">{{x.TaftCnt</td>
+            <td ng-show="SocialMediaSpecialist">{{x.WACnt}}</td>
 
-            <td ng-show="MultimediaSpecialist">{{FeaturedCnt}}</td>
-            <td ng-show="MultimediaSpecialist">{{GraphicCnt}}</td>
-            <td ng-show="MultimediaSpecialist">{{BannerCnt}}</td>
-            <td ng-show="MultimediaSpecialist">{{MiscCnt}}</td>
+            <td ng-show="MultimediaSpecialist">{{x.FeaturedCnt}}</td>
+            <td ng-show="MultimediaSpecialist">{{x.GraphicCnt}}</td>
+            <td ng-show="MultimediaSpecialist">{{x.BannerCnt}}</td>
+            <td ng-show="MultimediaSpecialist">{{x.MiscCnt}}</td>
 
-            <td ng-show="DataProcessor">{{Status}}</td>
-            <td ng-show="DataProcessor">{{Task}}</td>
+            <td ng-show="DataProcessor">{{x.Status}}</td>
+            <td ng-show="DataProcessor">{{x.Task}}</td>
             
-            <td ng-show="WordpressDeveloper">{{FixBugCnt}}</td>
-            <td ng-show="WordpressDeveloper">{{CreatePageCnt}}</td>
-            <td ng-show="WordpressDeveloper">{{ResponsiveCnt}}</td>
-            <td ng-show="WordpressDeveloper">{{ModifyCnt}}</td>
-            <td ng-show="WordpressDeveloper">{{MiscCnt}}</td>
+            <td ng-show="WordpressDeveloper">{{x.FixBugCnt}}</td>
+            <td ng-show="WordpressDeveloper">{{x.CreatePageCnt}}</td>
+            <td ng-show="WordpressDeveloper">{{x.ResponsiveCnt}}</td>
+            <td ng-show="WordpressDeveloper">{{x.ModifyCnt}}</td>
+            <td ng-show="WordpressDeveloper">{{x.MiscCnt}}</td>
 
-            <td ng-show="ContentMarketingAssistant">{{CuratedCnt}}</td>
-            <td ng-show="ContentMarketingAssistant">{{DraftedCnt}}</td>
-            <td ng-show="ContentMarketingAssistant">{{PictureCnt}}</td>
-            <td ng-show="ContentMarketingAssistant">{{VideoCnt</td>
-            <td ng-show="ContentMarketingAssistant">{{MiscCnt}}</td>
+            <td ng-show="ContentMarketingAssistant">{{x.CuratedCnt}}</td>
+            <td ng-show="ContentMarketingAssistant">{{x.DraftedCnt}}</td>
+            <td ng-show="ContentMarketingAssistant">{{x.PictureCnt}}</td>
+            <td ng-show="ContentMarketingAssistant">{{x.VideoCnt}}</td>
+            <td ng-show="ContentMarketingAssistant">{{x.MiscCnt}}</td>
 
-            <td ng-show="OJTWebDevelopment">{{FixBugCnt}}</td>
-            <td ng-show="OJTWebDevelopment">{{ResponsiveCnt}}</td>
-            <td ng-show="OJTWebDevelopment">{{BackupCnt}}</td>
-            <td ng-show="OJTWebDevelopment">{{OptimizeCnt</td>
-            <td ng-show="OJTWebDevelopment">{{MiscCnt}}</td>
+            <td ng-show="OJTWebDevelopment">{{x.FixBugCnt}}</td>
+            <td ng-show="OJTWebDevelopment">{{x.ResponsiveCnt}}</td>
+            <td ng-show="OJTWebDevelopment">{{x.BackupCnt}}</td>
+            <td ng-show="OJTWebDevelopment">{{x.OptimizeCnt}}</td>
+            <td ng-show="OJTWebDevelopment">{{x.MiscCnt}}</td>
             
-            <td ng-show="OJTSEO">{{Comment}}</td>
-            <td ng-show="OJTSEO">{{SiteAudit}}</td>
-            <td ng-show="OJTSEO">{{Schema}}</td>
-            <td ng-show="OJTSEO">{{Competitor</td>
-            <td ng-show="OJTSEO">{{Relationship}}</td>
-            <td ng-show="OJTSEO">{{Misc}}</td>
+            <td ng-show="OJTSEO">{{x.Comment}}</td>
+            <td ng-show="OJTSEO">{{x.SiteAudit}}</td>
+            <td ng-show="OJTSEO">{{x.SchemaMarkup}}</td>
+            <td ng-show="OJTSEO">{{x.CompetitorBacklinkAnalysis}}</td>
+            <td ng-show="OJTSEO">{{x.RelationshipLinkResearch}}</td>
+            <td ng-show="OJTSEO">{{x.Misc}}</td>
             
-            <td ng-show="OJTDeveloperforAutomatedDataSystem">{{CreateWebsite}}</td>
-            <td ng-show="OJTDeveloperforAutomatedDataSystem">{{Organize}}</td>
-            <td ng-show="OJTDeveloperforAutomatedDataSystem">{{Misc}}</td>
+            <td ng-show="OJTDeveloperforAutomatedDataSystem">{{x.CreateWebsite}}</td>
+            <td ng-show="OJTDeveloperforAutomatedDataSystem">{{x.Organize}}</td>
+            <td ng-show="OJTDeveloperforAutomatedDataSystem">{{x.Misc}}</td>
             
-            <td ng-show="OJTResearcher">{{Niche}}</td>
-            <td ng-show="OJTResearcher">{{NumCompanies}}</td>
+            <td ng-show="OJTResearcher">{{x.Niche}}</td>
+            <td ng-show="OJTResearcher">{{x.NumCompanies}}</td>
           </tr>
         </tbody>
       </table>
