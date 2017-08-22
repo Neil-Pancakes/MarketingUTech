@@ -4,16 +4,16 @@
 	if(isset($_GET["id"]) && isset($_GET["date"]) && isset($_GET["holidayType"])){
 		$date = date('Y-m-d', strtotime(strtr($_GET['date'], '/', '-')));
 
-		$query = 'SELECT * FROM holidays WHERE date = "'.$date.'"';
-		$result = mysqli_query($mysqli, $query);
+		$query = 'SELECT * FROM `holidays` WHERE `date` = "'.$date.'"';
+		$result = $mysqli->query($query);
 		if(mysqli_num_rows($result) < 1){
 			$query = 'UPDATE holidays
-				SET date="'.$date.'", type="'.strtolower($_GET["holidayType"]).'"
-				WHERE id="'.$_GET["id"].'"
+				SET `date` = "'.$date.'", `type` = "'.$_GET["holidayType"].'"
+				WHERE `id` =  "'.$_GET["id"].'"
 			';
-			if(mysqli_query($mysqli, $query)){
-				$query = "SELECT * FROM holidays";
-		        $result = mysqli_query($mysqli, $query);
+			if($mysqli->query($query)){
+				$query = "SELECT * FROM `holidays`";
+		        $result = $mysqli->query($query);
 		        if($result){
 		        	while($row = mysqli_fetch_assoc($result)){
 	                  echo '
