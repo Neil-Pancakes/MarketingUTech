@@ -27,6 +27,8 @@
     <link rel="stylesheet" type="text/css" href="includes/css/styles.css">
     <link rel="stylesheet" href="includes/css/signin.css">
 
+    <link rel="shortcut icon" href="includes/img/universaltechlogo2.jpg" />
+
   </head>
 
   <body>

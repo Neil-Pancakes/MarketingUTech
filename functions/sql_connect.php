@@ -3,7 +3,7 @@
 	$server_address = "localhost"; 
 	$username = "root";
 	$password = "";
-	$database_name = "tracker";
+	$database_name = "eims_utech";
 
 	$mysqli = new mysqli($server_address, $username, $password, $database_name);
 	

@@ -16,6 +16,7 @@
 	} else {
 		$_SESSION['error'] = "Username or Password is invalid.";
 		header("Location: ../index?err");
+		die();
 	}
 
 	if( password_verify($pass, $pass_db) ) {
@@ -36,5 +37,6 @@
 	} else {
 		$_SESSION['error'] = "Username or Password is invalid.";
 		header("Location: ../index?err");
+		die();
 	}
 ?>

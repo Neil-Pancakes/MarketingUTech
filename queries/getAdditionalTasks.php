@@ -10,11 +10,15 @@ FROM `additional_task`
 WHERE `user_id` = $val");
 
 $outp = "";
-$rs = $result->fetch_array(MYSQLI_ASSOC);
+while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
+    if ($outp != "") {
+        $outp .= ",";
+    }
     $outp .= '{"AdditionalTaskId":"'  . $rs["additional_task_id"] . '",';
     $outp .= '"Name":"'  . $rs["name"] . '",';
     $outp .= '"Type":"'  . $rs["type"] . '",';
     $outp .= '"UserId":"'   . $rs["user_id"]        . '"}';
+}
 $outp ='{"records":['.$outp.']}';
 $mysqli->close();
 

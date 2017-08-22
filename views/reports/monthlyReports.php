@@ -1,17 +1,15 @@
 <?php
-  require ("php_globals.php");
-  include ("dashboard.php");
+  require ("../../functions/php_globals.php");
+  include ("../dashboard/dashboard.php");
 ?>
-<div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
     	<h1>
     		Month of 
     		<?php
-	    		$monthdisplay = date('F',time());
-                $currentmonth = date('m',time());
+                $currentmonth = date('F',time());
                 $currentyear = date('Y',time());
-	    		echo "$monthdisplay";
+	    		echo $currentmonth;
 	    	?>
 	    	<small>Report</small>
 	    </h1>
@@ -43,15 +41,17 @@
                                 $days = 0;
                                 while ($daysWorked = mysqli_fetch_assoc($res)) {
                                     $mydate = $daysWorked['date'];
-                                    $month = date("n",strtotime($mydate));
+                                    $dayofweek = date("w",strtotime($mydate));
+                                    $month = date("F",strtotime($mydate));
                                     $year = date("Y",strtotime($mydate));
                                     //  month of work is compared to the actual month
+                                    //  year of work is compared to the actual year
                                     if ($month==$currentmonth && $year == $currentyear) {
                                         $minHours = 0;
                                         if ($row['workStatus'] == 'Regular') {
                                             $minHours = 8;
                                         }
-                                        if ($daysWorked['totalHours']>$minHours) {
+                                        if ($daysWorked['totalHours']>$minHours&&($dayofweek!=0||$dayofweek!=6)) {
                                             $days++;
                                         }
                                     }
@@ -77,3 +77,4 @@
         </div>
 	</section>
 </div>
+<script src="../../functions/xmlConverter.js"></script>

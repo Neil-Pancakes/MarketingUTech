@@ -1,9 +1,6 @@
 <?php
   require ("../dashboard/dashboard.php");
 ?>
-
-<!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -81,39 +78,7 @@
         <h2>Time History Today</h2>
           <table class="table table-condensed">
             <tbody id="timeToday-tbody">
-              <?php
-                $query = "SELECT `timeIn`, `timeOut`, `lunchIn`, `lunchOut`, `date`
-                      FROM `timetable`
-                      WHERE DATE(`date`) = DATE(CURRENT_TIMESTAMP) AND user_id = ".$_SESSION["user_id"];
-                $result = mysqli_query($mysqli, $query);
-                if ($result->num_rows == 1){
-                  $row = mysqli_fetch_assoc($result);
-                  if($row['timeOut'] != 0){
-                    echo '<tr>';
-                    echo '<td>Timed Out: </td>';
-                    echo '<td>'.$row['timeOut'].'</td>';
-                    echo '</tr>';
-                  }
-                  if($row['lunchOut'] != 0){
-                    echo '<tr>';
-                    echo '<td>Lunch Out: </td>';
-                    echo '<td>'.$row['lunchOut'].'</td>';
-                    echo '</tr>';
-                  }
-                  if($row['lunchIn'] != 0){
-                    echo '<tr>';
-                    echo '<td>Lunch In: </td>';
-                    echo '<td>'.$row['lunchIn'].'</td>';
-                    echo '</tr>';
-                  }
-                  if($row['timeIn'] != 0){
-                    echo '<tr>';
-                    echo '<td>Time In: </td>';
-                    echo '<td>'.$row['timeIn'].'</td>';
-                    echo '</tr>';
-                  }
-                }
-              ?>
+              <?php displayTimetableToday(); //generalDBFunctions.php ?>
             </tbody>
           </table>
         </div>
@@ -154,39 +119,31 @@
   }
 
   $(document).on('click', '#btnTimeIn', function(event){
-    ajax("../../functions/timeInOut.php?timeIn", "Time in?", "", "Time IN Successful!", "Time in");
+    ajax("timeIn", "Time in?", "", "Time IN Successful!", "Time in");
   });
 
   $(document).on('click', '#btnTimeOut', function(event){
-    ajax("../../functions/timeInOut.php?timeOut", "Time Out?", "", "Time OUT Successful!", "Time out");
+    ajax("timeOut", "Time Out?", "", "Time OUT Successful!", "Time out");
   });
 
   $(document).on('click', '#btnLunchIn', function(event){
-    ajax("../../functions/timeInOut.php?lunchIn", "Lunch in?", "", "Lunch IN Successful!", "Lunch in");
+    ajax("lunchTimeIn", "Lunch in?", "", "Lunch IN Successful!", "Lunch in");
   });
 
   $(document).on('click', '#btnLunchOut', function(event){
-    ajax("../../functions/timeInOut.php?lunchOut",  "Lunch out?", "", "Lunch OUT Successful!", "Lunch out");
+    ajax("lunchTimeOut", "Lunch out?", "", "Lunch OUT Successful!", "Lunch out");
   });
 
-  function ajax(phpUrl, titleText, textText, successText, confirmBtnText){
-      // Variable to hold request
+  function ajax(action, titleText, textText, successText, confirmBtnText){
       var request;
-
-      // Prevent default posting of form - put here to work in case of errors
       event.preventDefault();
 
-      // Abort any pending request
       if (request) {
           request.abort();
       }
 
-      // setup some local variables
       var $btn = $(this);
 
-      // Let's disable the button for the duration of the Ajax request.
-      // Note: we disable elements AFTER the form data has been serialized.
-      // Disabled form elements will not be serialized.
       $btn.prop("disabled", true);
 
       swal({
@@ -205,8 +162,9 @@
           if (isConfirm) {
             setTimeout(function(){
               request = $.ajax({
-                url: phpUrl,
-                type: "GET"
+                url: "../../functions/timeInOut.php",
+                data: {action: action},
+                type: "POST"
               });
 
               // Callback handler that will be called on success

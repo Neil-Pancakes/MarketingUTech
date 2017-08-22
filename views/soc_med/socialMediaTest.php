@@ -6,9 +6,7 @@
   //   header("Location:../home/home.php");
   // }
 ?>
-<body ng-app="taskFieldsApp" >
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+<body ng-app="taskFieldsApp">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>Social Media Specialist
@@ -25,9 +23,9 @@
                   <span class="md-display-2" >Daily Tracker </span>
                   <md-button class="md-warn md-raised" ng-if="exists==true" ng-click="modal()" data-target="#optionModal" data-toggle="modal">Edit <span class="fa fa-edit"></span></md-button>
                    <!--Edit Modal-->
-                      <form ng-submit="editData()" >
-                          <div id="optionModal" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
+                      <div id="optionModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                          <form ng-submit="editData()" >
                               <div class="modal-content">
                                 <div class="modal-header">
                                   <h2 id="modalHeaderEditDelete">Task</h2>
@@ -57,15 +55,15 @@
                                             <input type="text" class="inp form-control" ng-model="modalwaCnt">
                                         </md-input-container>
                                     </div>
-                                </md-content>
+                                  </md-content>
                                 </div>
                                 <div class="modal-footer">
                                   <button type="submit" class="btn btn-warning" onclick="$('#optionModal').modal('hide');">Edit <span class="fa fa-edit"></span></button>
                                 </div>
                               </div>
-                            </div>
-                          </div>
                           </form>
+                        </div>
+                      </div>
                           <!--END of Edit Modal-->
                             <md-content>
                               <md-list flex>
@@ -130,6 +128,14 @@
                                       </div>
                                     </div>
                                   </md-list-item>
+                                  <md-list-item class="md-3-line" ng-repeat="x in todayAdditional track by $index">
+                          <img src="../../includes/img/taskIcon.png" class="md-avatar" style="float:left"/>
+                            <div class="md-list-item-text">
+                              <h3>{{x.Name}}</h3>
+                              <h3 class="articleName">{{ x.Task }}</h3>
+                              
+                            </div>
+                        </md-list-item>
                             </md-content>
                           </md-content>
                         </md-tab>
@@ -174,6 +180,77 @@
                             </form>
                           </md-content>
                         </md-tab>
+                        <md-tab label="team member tasks">
+                <md-content class="md-padding">
+                  <md-list flex>
+                    <md-list-item class="md-3-line" ng-repeat="x in team">
+                      <div style="width:95%;">
+                        <img src="../../includes/img/writerIcon.png" class="md-avatar" style="float:left"/>
+                        <div class="md-list-item-text">
+                        <h3 class="articleName">{{ x.Name }}</h3>
+                          <button class="btn btn-xs btn-primary">View</button>
+                          <button class="btn btn-xs btn-success" ng-click="addTaskModal(x.Id)" data-toggle="modal" data-target="#addTask">Add Task</button>
+                            
+                          
+                        </div>
+                      </div>
+                    </md-list-item>
+                    <div id="addTask" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                <form ng-submit="addAdditional()">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h2 id="modalHeaderEditDelete">Task</h2>
+                                    </div>
+                                    <div class="modal-body">
+                                      <input ng-model="addTaskUserId">
+                                      <input class="form-control" ng-model="addTaskName" required>
+                                      <select class="form-control" ng-model="addTaskType" required>
+                                        <option value="Text">Text</option>
+                                        <option value="Int">Count</option>
+                                        <option value="Binary">Yes/No</option>
+                                      </select>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="submit" class="btn btn-success" onclick="$('#addTask').modal('hide');">Add Task <span class="fa fa-plus-circle"></span></button>
+                                    </div>
+                                  </div>
+                                  </form>
+                                </div>
+                              </div>
+                  </md-list>
+                </md-content>
+              </md-tab>
+              <md-tab label="additional tasks">
+                <md-content class="md-padding">
+                  <md-list flex>
+                  <form ng-submit="submitAdditionalTask()">
+                    <md-list-item class="md-3-line" ng-repeat="x in additionalTasks track by $index">
+                    <img src="../../includes/img/taskIcon.png" class="md-avatar" style="float:left"/>
+                    <div class="md-list-item-text">
+                    <h3>{{x.Name}}</h3>
+                      
+                        <input ng-model="additionalId[$index]" ng-init="additionalIdSet.additionalId[$index] = x.AdditionalTaskId" hidden>
+                        <textarea ng-if='x.Type=="Text"' ng-model="additionalSet.additional[$index]" rows="5" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
+                        <input ng-if='x.Type=="Int"' ng-model="additionalSet.additional[$index]" type="number" required>
+                        <select ng-if='x.Type=="Binary"' ng-model="additionalSet.additional[$index]" required>
+                          <option value="Yes">Yes</option>
+                          <option value="No">No</option>
+                        </select>
+                        
+                     
+                    </div>
+                    
+                    </md-list-item>
+                    <div align="center">
+                      <md-button ng-show="addExists" type="submit" class=" md-raised md-primary" style="width:20%; margin-top:3%;">Submit</md-button>
+                    </div>
+                    </form>
+                  </md-list>
+                </md-content>
+              </md-tab>
+
+
                       </md-tabs>
                     </md-content>
                   </div>  
@@ -189,19 +266,16 @@
 </div>
 <!-- ./wrapper -->
 <script>
-  document.getElementById("taskTracker").setAttribute("class", "active");
-
-  $(document).ready(function(){
-      $('#homeTab').removeClass('active');
-      $('#trackerTab').addClass('active');
-  });
-
     var app = angular.module('taskFieldsApp', ['ngMaterial']);
     var x=0;
     app.config(['$qProvider', function ($qProvider) {
       $qProvider.errorOnUnhandledRejections(false);
     }]);
     app.controller('taskFieldsController', function($scope, $http, $mdDialog) {
+      $scope.additionalSet = {additional: []};
+      $scope.additionalIdSet = {additionalId: []};
+      $scope.additional = [];
+      $scope.additionalId = [];
       $scope.obj = {
         $fbbalayCnt: 0,
         $pinterestbalayCnt: 0,
@@ -217,7 +291,21 @@
             }else{
               $scope.exists=true;
             }
+          });
+          $http.get("../../queries/getTeam.php").then(function (response) {
+            $scope.team = response.data.records;
           });  
+          $http.get("../../queries/getAdditionalTasks.php").then(function (response) {
+            $scope.additionalTasks = response.data.records;
+            if($scope.additionalTasks.length>0){
+              $scope.addExists = true;
+            }else{
+              $scope.addExists = false;
+            }
+          });
+          $http.get("../../queries/getMyDailyTrackerTodayAdditionalTaskTracker.php").then(function (response) {
+            $scope.todayAdditional = response.data.records;
+          });
         };
         
         $scope.showAlert = function(ev) {
@@ -257,6 +345,23 @@
                 $scope.showAlert();
               })
         };
+
+        $scope.submitAdditionalTask = function() {
+            $http.post('../../insertFunctions/insertAdditionalTaskTracker.php', {
+              'idSet': $scope.additionalIdSet.additionalId, 
+              'taskSet': $scope.additionalSet.additional
+              }).then(function(data, status){
+                $scope.additionalSet = {additional: []};
+                $scope.additionalIdSet = {additionalId: []};
+                
+                $scope.additionalSet.additional = [];
+                $scope.additionalIdSet.additionalId = [];
+                $scope.show = false;
+                $scope.init();
+                $scope.showAlert();
+              })
+        };  
+
         $scope.editData = function() {
           $http.post('../../editFunctions/editDailyTaskSocialMedia.php', {
             'id': $scope.modalsocialmediaId,
@@ -270,6 +375,17 @@
                 $scope.showEdit();
           })
         };
+
+        $scope.addAdditional = function(){
+          $http.post('../../insertFunctions/insertAdditionalTask.php', {
+              'userId': $scope.addTaskUserId,
+              'name': $scope.addTaskName,
+              'type': $scope.addTaskType
+            }).then(function(data, status){
+                $scope.init();
+            })
+        };
+
         $scope.modal = function() {
             $scope.modalsocialmediaId = $scope.today[0].SocialMediaId;
             $scope.modalfacebookCnt = $scope.today[0].FacebookCnt;
@@ -278,5 +394,20 @@
             $scope.modaltaftCnt = $scope.today[0].TaftCnt;
             $scope.modalwaCnt = $scope.today[0].WACnt;
         };
+
+        $scope.addTaskModal = function(id) {
+            $scope.addTaskUserId = id;
+            $scope.addTaskName = "";
+            $scope.addTaskType = "";
+        };
+  });
+</script>
+
+<script>
+document.getElementById("taskTracker").setAttribute("class", "active");
+
+  $(document).ready(function(){
+      $('#homeTab').removeClass('active');
+      $('#trackerTab').addClass('active');
   });
 </script>

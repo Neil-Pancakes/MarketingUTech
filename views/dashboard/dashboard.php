@@ -1,6 +1,6 @@
 <?php
-  include("../../functions/ifNotLoggedIn.php");
   include("../../functions/php_globals.php");
+  include("../../functions/ifNotLoggedIn.php");
   include("../../functions/generalDBFunctions.php");
 
   date_default_timezone_set("Asia/Manila");
@@ -20,8 +20,10 @@
 
     <!-- REQUIRED JS SCRIPTS -->
     <script src="../../includes/js/jquery-3.2.1.min.js"></script>
-    <script src="../../node_modules/moment/moment.js"></script>
     <script src="../../includes/js/bootstrap.min.js"></script>
+    <!--<script src="../../includes/js/bootstrap-modal.js"></script>
+    <script src="../../includes/js/bootstrap-modalmanager.js"></script>-->
+    <script src="../../node_modules/moment/moment.js"></script>
     <script src="../../includes/js/AdminLTE_app.min.js"></script>
     <script src="../../includes/js/googleSignout.js"></script>
     <script src="../../includes/sweetalert/sweetalert.min.js"></script>
@@ -33,27 +35,30 @@
     <script src="../../includes/js/angular-aria.min.js"></script>
     <script src="../../includes/js/angular-messages.min.js"></script>
     <script src="../../includes/js/angular-material.min.js"></script>
+    <script src="../../includes/js/select2.full.js"></script>
+    <script src="../../includes/js/jquery.dataTables.min.js"></script>
+    <script src="../../includes/js/dataTables.responsive.min.js"></script>
+    <script src="../../includes/js/bootstrap-datetimepicker.min.js"></script>
 
     <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
-    <script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
     
     <!-- Styles.css !-->
     <link rel="stylesheet" href="../../includes/css/styles.css">
     <link rel="stylesheet" href="../../includes/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="../../includes/css/bootstrap-modal.css">-->
     <link rel="stylesheet" href="../../includes/css/font-awesome.min.css">
     <link rel="stylesheet" href="../../includes/css/ionicons.min.css">
     <link rel="stylesheet" href="../../includes/css/AdminLTE/AdminLTE.min.css">
-    <link rel="stylesheet" href="../../includes/css/AdminLTE/skins/skin-purple.min.css">
+    <link rel="stylesheet" href="../../includes/css/AdminLTE/skins/skin-green.min.css">
     <link rel="stylesheet" href="../../includes/sweetalert/sweetalert.css">
     <link rel="stylesheet" href="../../includes/css/angular-material.min.css">
+    <link rel="stylesheet" href="../../includes/css/select2.css">
+    <link rel="stylesheet" href="../../includes/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../../includes/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" href="../../includes/css/bootstrap-datetimepicker.min.css">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">   
-    <link rel="stylesheet" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
 
     <link rel="shortcut icon" href="../../includes/img/universaltechlogo2.jpg" />
 
@@ -102,7 +107,7 @@
   
   </head>
 
-  <body class="hold-transition skin-purple sidebar-mini">
+  <body class="hold-transition skin-green sidebar-mini">
 
   <div class="wrapper">
 
@@ -228,6 +233,7 @@
                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
                 <span class="hidden-xs"><?php echo $_SESSION['firstName']." ".$_SESSION['lastName'] ?></span>
               </a>
+
               <ul class="dropdown-menu">
                 <!-- The user image in the menu -->
                 <li class="user-header">
@@ -253,6 +259,7 @@
                   </div>
                   <!-- /.row -->
                 </li>
+
                 <!-- Menu Footer-->
                 <li class="user-footer">
                   <div class="pull-left">
@@ -278,5 +285,14 @@
       include ("sidebar.php");
     ?>
 
-  </body>
-</html>
+    <div class="content-wrapper">
+    <?php 
+      $numPending = announcementPending($_SESSION['user_id']);
+      if($numPending > 0) {
+        echo '
+        <br>
+        <div class="col-md-12">
+          <div class="alert alert-danger" role="alert">ATTENTION! You have '.$numPending.' unread messages.</div>
+        </div>';
+      }
+    ?>

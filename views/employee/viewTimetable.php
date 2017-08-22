@@ -8,8 +8,6 @@
   }
 ?>
 
-<!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -70,7 +68,7 @@
         </thead>
         <tbody id="timetable-tbody">
           <?php
-            $month = date('F');
+            $month = date('m');
             $date = date('d'); 
             $year = date('Y');
             $until = date('Y-m-d');
@@ -94,6 +92,7 @@
                   $timeOut = "-";
                   $renderedTime = "-";
                   $underTime = "-";
+                  $overTime = "-";
                 }else{
                   $timeOut = date("h:i A", strtotime($row["timeOut"]));
                   $datetime1 = date("H:i", strtotime($row["timeIn"]));
@@ -102,8 +101,8 @@
                   $datetime2 = strtotime($datetime2);
                   $renderedTime = abs(number_format(round(($datetime2 - $datetime1)/3600,1),1));
                   $underTime = number_format(8.0 - $renderedTime, 1);
-                  if($underTime < 0){
-                    $overTime = abs($underTime);
+                  if($renderedTime > 8){
+                    $overTime = $renderedTime - 8;
                     $underTime = 0;
                   }else{
                     $overTime = 0;
@@ -117,7 +116,6 @@
                 if($row["lunchIn"] == 0){
                   $lunchIn = "-";
                   $renderedLunch = "-";
-                  $overTime = "-";
                 }else{
                   $lunchIn = date("h:i A", strtotime($row["lunchIn"]));
                 }
@@ -125,7 +123,6 @@
                 if($row["lunchOut"] == 0){
                   $lunchOut = "-";
                   $renderedLunch = "-";
-                  $overTime = "-";
                 }else{
                   $lunchOut = date("h:i A", strtotime($row["lunchOut"]));
                   $datetime3 = date("H:i", strtotime($row["lunchIn"]));
