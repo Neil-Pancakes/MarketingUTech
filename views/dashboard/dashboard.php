@@ -1,4 +1,5 @@
 <?php
+  ob_start();
   include("../../functions/php_globals.php");
   include("../../functions/ifNotLoggedIn.php");
   include("../../functions/generalDBFunctions.php");
