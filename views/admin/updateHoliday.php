@@ -7,8 +7,7 @@
 		$query = 'SELECT * FROM `holidays` WHERE `date` = "'.$date.'"';
 		$result = $mysqli->query($query);
 		if(mysqli_num_rows($result) < 1){
-			$query = 'UPDATE holidays
-				SET `date` = "'.$date.'", `type` = "'.$_GET["holidayType"].'"
+			$query = 'UPDATE `holidays` SET `date` = "'.$date.'", `type` = "'.$_GET["holidayType"].'"
 				WHERE `id` =  "'.$_GET["id"].'"
 			';
 			if($mysqli->query($query)){

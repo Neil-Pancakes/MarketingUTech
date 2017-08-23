@@ -44,6 +44,7 @@
           <!-- Sidebar Start -->
           <li id="homeTab"><a href="../home/home.php"><i class="fa fa-home"></i> <span>Home</span></a></li>
           <li id="viewTimetable"><a href="../employee/viewTimetable.php"><i class="fa fa-table"></i> <span>View Timetable</span></a></li>
+          <li id="viewAnnouncements"><a href="../employee/viewAnnouncements.php"><i class="fa fa-sticky-note"></i> <span>View Announcements</span></a></li>
 
           <?php
           //LINK DECLARATIONS
