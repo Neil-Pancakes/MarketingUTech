@@ -76,34 +76,39 @@
         </thead>
         <tbody id="announcement-tbody">
           <?php 
-            $result = $mysqli->query("SELECT * FROM `announcement`");
+            $result = $mysqli->query("SELECT * FROM `announcement_content`");
             if ($result) {
               while($row = $result->fetch_array()) {
-                //For Recipient Field
-                if ($row['isBroadcast'] == "true"){
-                  $recipient = "Broadcast";
-                } else {
-                  $userResult = $mysqli->query("SELECT CONCAT(firstName, ' ', lastName) AS `name` FROM `users` WHERE id = '".$row['user_id']."'");
-                  if ($userResult) {
-                    $userRow = $userResult->fetch_array();
-                    $recipient = $userRow['name'];
+                $result2 = $mysqli->query("SELECT * FROM `announcement` WHERE `announcement_id` = '".$row['id']."'");
+                if($result2){
+                  while($row2 = $result2->fetch_array()) {
+                    //For Recipient Field
+                    if ($row2['isBroadcast'] == "true"){
+                      $recipient = "Broadcast";
+                    } else {
+                      $userResult = $mysqli->query("SELECT CONCAT(firstName, ' ', lastName) AS `name` FROM `users` WHERE id = '".$row2['user_id']."'");
+                      if ($userResult) {
+                        $userRow = $userResult->fetch_array();
+                        $recipient = $userRow['name'];
+                      }
+                    }
+                    //For Status field
+                    if($row2['status'] == "true"){
+                      $status = "Active";
+                    } else {
+                      $status = "Inactive";
+                    }
+
+                    echo '<tr id='.$row['id'].'>
+                      <td>'.$row['title'].'</td>
+                      <td>'.date("F d, Y", strtotime($row2['created'])).'</td>
+                      <td>'.$recipient.'</td>
+                      <td>'.$row['message'].'</td>
+                      <td>'.$status.'</td>
+                      <td></td>';
+                    echo '</tr>';
                   }
                 }
-                //For Status field
-                if($row['status'] == "true"){
-                  $status = "Active";
-                } else {
-                  $status = "Inactive";
-                }
-
-                echo '<tr id='.$row['id'].'>
-                  <td>'.$row['title'].'</td>
-                  <td>'.date("F d, Y", strtotime($row['created'])).'</td>
-                  <td>'.$recipient.'</td>
-                  <td>'.$row['message'].'</td>
-                  <td>'.$status.'</td>
-                  <td></td>';
-                echo '</tr>';
               }
             }
           ?>
