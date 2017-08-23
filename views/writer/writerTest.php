@@ -164,6 +164,9 @@
                               </div>
                   </md-list>
                 </md-content>
+                <div ng-show="showTeam" align="center">
+                  <h2>You don't have any Team Members</h2>
+                </div>
               </md-tab>
               <md-tab label="additional tasks">
                 <md-content class="md-padding">
@@ -233,6 +236,9 @@
           });
           $http.get("../../queries/getTeam.php").then(function (response) {
             $scope.team = response.data.records;
+            if($scope.team.length==0){
+              $scope.showTeam = true;
+            }
           });  
           $http.get("../../queries/getAdditionalTasks.php").then(function (response) {
             $scope.additionalTasks = response.data.records;
