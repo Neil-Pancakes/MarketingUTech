@@ -52,7 +52,7 @@
             </div> 
         </div>
       </form>
-      <table id="timetable" class="display" cellspacing="0" width="100%">
+      <table id="timetable" class="table display" width="100%">
         <thead>
             <tr>
                 <th>Date</th>

@@ -7,6 +7,7 @@
         Time Keeper
         <small>UniversalTech</small>
       </h1>
+    </section>
 
     <!-- Main content -->
     <section class="content">
@@ -92,8 +93,10 @@
   <!-- Control Sidebar Start-->
   <?php include '../dashboard/control_sidebar.php'; ?>
 
+<!-- End of div wrapper-->
 </div>
-<!-- ./wrapper -->
+<!-- End of body-->
+</body>
 
 <script>
   document.getElementById("homeTab").setAttribute("class", "active");

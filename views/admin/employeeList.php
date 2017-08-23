@@ -13,10 +13,11 @@
         Employee List
         <small>UniversalTech</small>
       </h1>
+    </section>
 
     <!-- Main content -->
     <section class="content">
-      <table id="empList" class="table table-striped table-bordered" cellspacing="0" width="100%">
+      <table id="empList" class="table" cellspacing="0" width="100%">
         <thead>
             <tr>
                 <th>Name</th>

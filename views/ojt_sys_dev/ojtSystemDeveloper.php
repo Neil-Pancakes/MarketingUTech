@@ -160,6 +160,9 @@
                     </div>
                   </md-list>
                 </md-content>
+                <div ng-show="showTeam" align="center">
+                  <h2>You don't have any Team Members</h2>
+                </div>
               </md-tab>
               <md-tab label="additional tasks">
                 <md-content class="md-padding">
@@ -221,6 +224,23 @@
             }else{
               $scope.exists=true;
             }
+          });
+          $http.get("../../queries/getTeam.php").then(function (response) {
+            $scope.team = response.data.records;
+            if($scope.team.length==0){
+              $scope.showTeam = true;
+            }
+          });  
+          $http.get("../../queries/getAdditionalTasks.php").then(function (response) {
+              $scope.additionalTasks = response.data.records;
+              if($scope.additionalTasks.length>0){
+                $scope.addExists = true;
+              }else{
+                $scope.addExists = false;
+              }
+          });
+          $http.get("../../queries/getMyDailyTrackerTodayAdditionalTaskTracker.php").then(function (response) {
+              $scope.todayAdditional = response.data.records;
           });  
         };
           
