@@ -1,6 +1,5 @@
 <?php
-  ob_start();
-  include("../../functions/php_globals.php");
+  require("../../functions/php_globals.php");
   include("../../functions/ifNotLoggedIn.php");
   include("../../functions/generalDBFunctions.php");
 
@@ -22,8 +21,6 @@
     <!-- REQUIRED JS SCRIPTS -->
     <script src="../../includes/js/jquery-3.2.1.min.js"></script>
     <script src="../../includes/js/bootstrap.min.js"></script>
-    <!--<script src="../../includes/js/bootstrap-modal.js"></script>
-    <script src="../../includes/js/bootstrap-modalmanager.js"></script>-->
     <script src="../../node_modules/moment/moment.js"></script>
     <script src="../../includes/js/AdminLTE_app.min.js"></script>
     <script src="../../includes/js/googleSignout.js"></script>
@@ -46,7 +43,6 @@
     <!-- Styles.css !-->
     <link rel="stylesheet" href="../../includes/css/styles.css">
     <link rel="stylesheet" href="../../includes/css/bootstrap.min.css">
-    <!--<link rel="stylesheet" href="../../includes/css/bootstrap-modal.css">-->
     <link rel="stylesheet" href="../../includes/css/font-awesome.min.css">
     <link rel="stylesheet" href="../../includes/css/ionicons.min.css">
     <link rel="stylesheet" href="../../includes/css/AdminLTE/AdminLTE.min.css">
@@ -62,49 +58,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
 
     <link rel="shortcut icon" href="../../includes/img/universaltechlogo2.jpg" />
-
-    <style>
-      a {
-        text-decoration: none;
-        cursor: pointer;
-      }
-      .container {
-        font-family: 'Roboto', sans-serif;
-      }
-      .sweet-alert {
-        background-color: #F8F8F8;
-        box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
-      }
-      .calendar th {
-        height: 30px;
-        text-align: center;
-        font-weight: 700;
-      }
-      .calendar td {
-        height: 100px;
-      }
-      .calendar td a {
-        display: block;
-        width: 100%;
-        height: 100%;
-      }
-      .today {
-        background: green;
-      }
-      .calendar th:nth-of-type(7), .calendar td:nth-of-type(7) {
-        color: blue;
-      }
-      .calendar th:nth-of-type(1), .calendar td:nth-of-type(1) {
-        color: red;
-      }
-      
-      .calendar.table-bordered > tbody > tr > td{
-          border:1px solid black;
-      }
-      .calendar.table-bordered > tbody > tr > th{
-          border:1px solid black;
-      }
-    </style>
   
   </head>
 

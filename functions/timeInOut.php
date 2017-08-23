@@ -12,7 +12,7 @@
 		if(!daysExist()){
 			createNewDays();
 		}
-		header("location: ../views/home/home.php");
+		header("location:../views/home/home.php");
 	}
 
 	if(isset($_POST['action']) && !empty($_POST['action'])) {
