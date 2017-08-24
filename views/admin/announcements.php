@@ -199,7 +199,7 @@
 <script>
   document.getElementById("announcements").setAttribute("class", "active");
 
-  $("#multipleUser").select2();
+  $(".userSelect").select2();
   var select = document.getElementById("multipleUser");
 
   $(document).ready(function(){
