@@ -84,7 +84,7 @@
 
                   $created = date("F d, Y", strtotime($row2['created']));
                   //For Status field
-                  if($row2['status'] == "true"){
+                  if($row['status'] == "true"){
                     $status = "Active";
                   } else {
                     $status = "Inactive";
@@ -122,7 +122,19 @@
                     </td>
                     <td>'.$row['message'].'</td>
                     <td>'.$status.'</td>
-                    <td><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal'.$row['id'].'">Edit</button></td>
+                    <td>
+                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal'.$row['id'].'">Edit</button> ';
+                      $function_true = "ajax('status".$row['id']."', 'true', '".$row['id']."', 'Activate')";
+                      $function_false = "ajax('status".$row['id']."', 'false', '".$row['id']."', 'Deactivate')";
+                      echo '<span id="status'.$row["id"].'">';
+                      if($status == 'Active'){
+                        echo '<button id="btnFalse'.$row["id"].'" type="button" class="btn btn btn-danger" onclick="'.$function_false.'">Deactivate</button>';
+                      }else{
+                        echo '<button id="btnTrue'.$row["id"].'" type="button" class="btn btn btn-success" onclick="'.$function_true.'">Activate</button>';
+                      }
+                      echo '</span>';
+                    echo '
+                    </td>
                     <!-- Modal -->
                     <div id="modal'.$row['id'].'" class="modal fade" role="dialog">
                       <div class="modal-dialog">
@@ -320,4 +332,46 @@
       });
     return false;
   });
+
+  function ajax(btnID, stat, a_id, text){
+    swal({
+      title: "Are you sure?",
+      text: text,
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonClass: "btn-success",
+      confirmButtonText: "Yes",
+      cancelButtonText: "Cancel",
+      cancelButtonClass: "btn-danger",
+      closeOnConfirm: false,
+      showLoaderOnConfirm: true
+    },
+      function (isConfirm) {
+          if (isConfirm) {
+            setTimeout(function(){
+              $.ajax({
+                type: 'POST',
+                data: {status:stat, id:a_id},
+                url: "announcementStatus.php",
+                success: function (data) {
+                  $('.modal').modal('hide');
+                  if(data == '|error|'){
+                    swal("Error!", "An error has occurred", "error");
+                  }else{
+                    var parts = data.split('|');
+                    swal("Success!", "Announcement has been " + text.toLowerCase() + "d", "success");
+                    document.getElementById(btnID).innerHTML=parts[0];
+                    document.getElementById(a_id).innerHTML=parts[1];
+                  }
+                },
+                error: function (data) {
+                  swal("Error!", "An error has occurred", "error");
+                }
+              });
+            }, 1500);
+          }
+      });
+
+    return false;
+  }
 </script>
