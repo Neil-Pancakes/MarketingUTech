@@ -32,26 +32,24 @@
                 </div>
                 <div class="modal-body">
                   <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                       <label>Send to all: </label>
-                      <input id="sendToAll" type="checkbox" name="isBroadcast" onclick="isBroadcastClick()"><br><br>
+                      <input id="sendToAll" type="checkbox" name="isBroadcast" onclick="isBroadcastClick()"><br>
                       <select id="multipleUser" class="userSelect" multiple="multiple" name="user[]" style="width: 100%;" data-tags="true" data-placeholder="Select user/s" data-allow-clear="true">
                         <?php 
                           $query = "SELECT `id`, CONCAT(`firstName`, ' ', `lastName`) AS `name` FROM `users`";
                           $result = $mysqli->query($query);
                           if ($result) {
                             while ($row = $result->fetch_array()) {
-                              echo '<option value="'.$row['id'].'" required>'.$row['name'].'</option>';
+                              echo '<option value="'.$row['id'].'" >'.$row['name'].'</option>';
                             }
                           }
                         ?>
-                      </select>
-                    </div>
-                    <div class="col-md-6">
+                      </select><br><br>
                       <label>Title</label><br>
                       <input id="announcementTitle" type="text" name="title" required/><br><br>
                       <label>Message</label><br>
-                      <textarea id="announcementMessage" name="message" rows="4" cols="30" required></textarea>
+                      <textarea id="announcementMessage" name="message" rows="4" cols="77" required></textarea>
                     </div>
                   </div>
                 </div>
@@ -80,34 +78,108 @@
             if ($result) {
               while($row = $result->fetch_array()) {
                 $result2 = $mysqli->query("SELECT * FROM `announcement` WHERE `announcement_id` = '".$row['id']."'");
-                if($result2){
-                  while($row2 = $result2->fetch_array()) {
-                    //For Recipient Field
-                    if ($row2['isBroadcast'] == "true"){
-                      $recipient = "Broadcast";
-                    } else {
-                      $userResult = $mysqli->query("SELECT CONCAT(firstName, ' ', lastName) AS `name` FROM `users` WHERE id = '".$row2['user_id']."'");
+                $result3 = $mysqli->query("SELECT * FROM `announcement` WHERE `announcement_id` = '".$row['id']."'");
+                if($result2 && $result3){
+                  $row2 = $result2->fetch_array();
+
+                  $created = date("F d, Y", strtotime($row2['created']));
+                  //For Status field
+                  if($row2['status'] == "true"){
+                    $status = "Active";
+                  } else {
+                    $status = "Inactive";
+                  }
+
+                  $recipient = array();
+                  $recipient_id = array();
+                  //For Recipient Field
+                  if ($row2['isBroadcast'] == "true"){
+                    array_push($recipient, "Broadcast");
+                    //$recipient = "Broadcast";
+                  } else {
+                    while($row3 = $result3->fetch_array()) {
+                      $userResult = $mysqli->query("SELECT id, CONCAT(firstName, ' ', lastName) AS `name` FROM `users` WHERE id = '".$row3['user_id']."'");
                       if ($userResult) {
                         $userRow = $userResult->fetch_array();
-                        $recipient = $userRow['name'];
+                        array_push($recipient, $userRow['name']);
+                        array_push($recipient, ", ");
+                        array_push($recipient_id, $userRow['id']);
+                        //$recipient = $userRow['name'];
                       }
                     }
-                    //For Status field
-                    if($row2['status'] == "true"){
-                      $status = "Active";
-                    } else {
-                      $status = "Inactive";
-                    }
-
-                    echo '<tr id='.$row['id'].'>
-                      <td>'.$row['title'].'</td>
-                      <td>'.date("F d, Y", strtotime($row2['created'])).'</td>
-                      <td>'.$recipient.'</td>
-                      <td>'.$row['message'].'</td>
-                      <td>'.$status.'</td>
-                      <td></td>';
-                    echo '</tr>';
+                    array_pop($recipient);
                   }
+
+                  echo '<tr id='.$row['id'].'>
+                    <td>'.$row['title'].'</td>
+                    <td>'.$created.'</td>
+                    <td>
+                    ';
+                      foreach($recipient as $user){
+                        echo $user;
+                      }
+                    echo '
+                    </td>
+                    <td>'.$row['message'].'</td>
+                    <td>'.$status.'</td>
+                    <td><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal'.$row['id'].'">Edit</button></td>
+                    <!-- Modal -->
+                    <div id="modal'.$row['id'].'" class="modal fade" role="dialog">
+                      <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Edit Announcement</h4>
+                          </div>
+                          <form>
+                            <div class="modal-body">
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <label>Send to all: </label>';
+                                  $function = "modalIsBroadcast('multipleUser".$row['id']."')";
+                                  if($row2['isBroadcast'] == 'true'){
+                                    echo '
+                                    <input id="sendToAll" type="checkbox" name="isBroadcast" onclick="'.$function.'" checked><br>
+                                    <select id="multipleUser'.$row['id'].'" class="userSelect" multiple="multiple" name="user[]" style="width: 100%;" data-tags="true" data-placeholder="Select user/s" data-allow-clear="true" disabled>
+                                    ';
+                                  }else{
+                                    echo '
+                                    <input id="sendToAll" type="checkbox" name="isBroadcast" onclick="'.$function.'"><br>
+                                    <select id="multipleUser'.$row['id'].'" class="userSelect" multiple="multiple" name="user[]" style="width: 100%;" data-tags="true" data-placeholder="Select user/s" data-allow-clear="true">
+                                    ';
+                                  }
+                                    $query4 = "SELECT `id`, CONCAT(`firstName`, ' ', `lastName`) AS `name` FROM `users`";
+                                    $result4 = $mysqli->query($query4);
+                                    if ($result4) {
+                                      while ($row4 = $result4->fetch_array()) {
+                                        if(in_array($row4['id'], $recipient_id)) {
+                                          echo '<option value="'.$row4['id'].'" selected>'.$row4['name'].'</option>';
+                                        }else{
+                                          echo '<option value="'.$row4['id'].'">'.$row4['name'].'</option>';
+                                        }
+                                      }
+                                    }
+                                  echo '
+                                  </select><br><br>
+                                  <label>Title</label><br>
+                                  <input id="announcementTitle" type="text" name="title" required/><br><br>
+                                  <label>Message</label><br>
+                                  <textarea id="announcementMessage" name="message" rows="4" cols="77" required></textarea>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">Edit</button>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                    ';
+                  echo '</tr>';
                 }
               }
             }
@@ -144,6 +216,11 @@
 
   function isBroadcastClick(){
     var select = document.getElementById("multipleUser");
+    select.disabled = !select.disabled;
+  }
+
+  function modalIsBroadcast(id){
+    var select = document.getElementById(id);
     select.disabled = !select.disabled;
   }
 
