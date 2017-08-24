@@ -2,49 +2,85 @@
 	session_start();
 	require '../../functions/php_globals.php';
 
-	if(isset($_POST['title']) && isset($_POST['message'])){
+	if(isset($_POST['announcementContent_id']) && isset($_POST['title']) && isset($_POST['message'])){
+		$id = $_POST['announcementContent_id'];
 		$title = mysqli_real_escape_string($mysqli, $_POST['title']);
 		$message = mysqli_real_escape_string($mysqli, $_POST['message']);
 		$isBroadcast = 'false';
 		$error = 'false';
 		$error_msg = '';
+		$new_userid = array();
+		$old_userid = array();
+
+		if(isset($_POST['user'])){
+			foreach ($_POST['user'] as $user_id) {
+				array_push($new_userid, $user_id);
+			}
+		}
+
+		$query = 'SELECT * FROM `announcement` WHERE `announcement_id` = "'.$id.'"';
+		$result = mysqli_query($mysqli,$query);
+		if($result){
+			while($row = mysqli_fetch_assoc($result)){
+				array_push($old_userid, $row['user_id']);
+			}
+		}else{
+			$error = 'true';
+		}
 
 		if (isset($_POST['isBroadcast'])) {
 			$isBroadcast = 'true';
 		}
 
-		$query = 'SELECT * FROM announcement_content WHERE title="'.$title.'" AND message="'.$message.'"';
+		$query = 'UPDATE announcement_content
+			SET `title`="'.$title.'", `message`="'.$message.'"
+			WHERE `id` = "'.$id.'"
+		';
 		$result = mysqli_query($mysqli, $query);
-		if(mysqli_num_rows($result) < 1){
-			$query = 'INSERT INTO announcement_content (`title`, `message`)
-				VALUES ("'.$title.'", "'.$message.'")
-			';
+		if($result){
+			if($isBroadcast == 'false'){
+				$query = 'DELETE FROM `announcement` WHERE `announcement_id` = "'.$id.'" AND `isBroadcast` = "true"';
+				if(mysqli_query($mysqli, $query)){
+					if(!empty($old_userid)){
+						foreach($old_userid as $old){
+							if(!in_array($old, $new_userid)){
+								$qry_del = 'DELETE FROM `announcement` WHERE `user_id` = "'.$old.'"';
+								if(!mysqli_query($mysqli, $qry_del)){
+									$error = 'true';
+								}
+							}else{
+								if(($key = array_search($old, $new_userid)) !== false) {
+								    unset($new_userid[$key]);
+								}
+							}
+						}
+					}
 
-			if($mysqli->query($query)){
-				$insert_id = $mysqli->insert_id;
-				if($isBroadcast == 'false'){
-					foreach ($_POST['user'] as $user_id) {
-						$query = 'INSERT INTO announcement (`announcement_id`, `user_id`, `createdByUserID`) 
-							VALUES ("'.$insert_id.'", "'.$user_id.'", "'.$_SESSION['user_id'].'")
+					foreach($new_userid as $new){
+						$qry_new = 'INSERT INTO `announcement` (`announcement_id`, `user_id`, `createdByUserID`) 
+							VALUES ("'.$id.'", "'.$new.'", "'.$_SESSION['user_id'].'")
 						';
-						if(!mysqli_query($mysqli, $query)){
+						if(!mysqli_query($mysqli, $qry_new)){
 							$error = 'true';
 						}
 					}
-				}else{
-					$query = 'INSERT INTO announcement (`announcement_id`, `isBroadcast`, `createdByUserID`)
-						VALUES ("'.$insert_id.'", "'.$isBroadcast.'", "'.$_SESSION['user_id'].'")
-					';
-					if(!mysqli_query($mysqli, $query)){
+				}
+			}else{
+				foreach($old_userid as $old){
+					$qry_del = 'DELETE FROM `announcement` WHERE `user_id` = "'.$old.'"';
+					if(!mysqli_query($mysqli, $qry_del)){
 						$error = 'true';
 					}
 				}
-			}else{
-				$error = 'true';
+				$query = 'INSERT INTO `announcement` (`announcement_id`, `isBroadcast`, `createdByUserID`)
+					VALUES ("'.$id.'", "'.$isBroadcast.'", "'.$_SESSION['user_id'].'")
+				';
+				if(!mysqli_query($mysqli, $query)){
+					$error = 'true';
+				}
 			}
 		}else{
 			$error = 'true';
-			$error_msg = '|exists|';
 		}
 
 		if($error != 'true'){
