@@ -103,8 +103,8 @@
                                       <h2 id="modalHeaderEditDelete">Task</h2>
                                     </div>
                                     <div class="modal-body">
-                                      <input ng-model="addTaskUserId">
-                                      <input class="form-control" ng-model="addTaskName" required>
+                                      <input ng-model="addTaskUserId" hidden>
+                                      <input class="form-control" placeholder="Task Name" ng-model="addTaskName" required>
                                       <select class="form-control" ng-model="addTaskType" required>
                                         <option value="Text">Text</option>
                                         <option value="Int">Count</option>
@@ -146,11 +146,14 @@
                     
                     </md-list-item>
                     <div align="center">
-                      <md-button type="submit" class=" md-raised md-primary" style="width:20%; margin-top:3%;">Submit</md-button>
+                      <md-button ng-show="addExists" type="submit" class=" md-raised md-primary" style="width:20%; margin-top:3%;">Submit</md-button>
                     </div>
                     </form>
                   </md-list>
                 </md-content>
+                <div ng-show="!addExists" align="center">
+                  <h2>You don't have any additional Tasks</h2>
+                </div>
               </md-tab>
 
             </md-tabs>
