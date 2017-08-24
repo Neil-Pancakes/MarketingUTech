@@ -164,9 +164,9 @@
                                   echo '
                                   </select><br><br>
                                   <label>Title</label><br>
-                                  <input id="announcementTitle" type="text" name="title" required/><br><br>
+                                  <input id="announcementTitle" type="text" name="title" value="'.$row['title'].'" required/><br><br>
                                   <label>Message</label><br>
-                                  <textarea id="announcementMessage" name="message" rows="4" cols="77" required></textarea>
+                                  <textarea id="announcementMessage" name="message" rows="4" cols="77" required>'.$row['message'].'</textarea>
                                 </div>
                               </div>
                             </div>
