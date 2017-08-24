@@ -94,7 +94,7 @@
 
                   $created = date("F d, Y", strtotime($row2['created']));
                   //For Status field
-                  if($row2['status'] == "true"){
+                  if($row['status'] == "true"){
                     $status = "Active";
                   } else {
                     $status = "Inactive";

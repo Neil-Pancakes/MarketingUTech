@@ -1,54 +1,25 @@
 <?php
-	session_start();
 	require '../../functions/php_globals.php';
 
-	if(isset($_POST['title']) && isset($_POST['message'])){
-		$title = mysqli_real_escape_string($mysqli, $_POST['title']);
-		$message = mysqli_real_escape_string($mysqli, $_POST['message']);
-		$isBroadcast = 'false';
-		$error = 'false';
-		$error_msg = '';
+	if(isset($_POST['status']) && isset($_POST['id'])){
+		$status = $_POST['status'];
+		$id = $_POST['id'];
+		$query = 'UPDATE `announcement_content`
+			SET `status` = "'.$status.'"
+			WHERE `id` = "'.$id.'"
+		';
 
-		if (isset($_POST['isBroadcast'])) {
-			$isBroadcast = 'true';
-		}
+		if(mysqli_query($mysqli, $query)){
+			$function_true = "ajax('status".$id."', 'true', '".$id."', 'Activate')";
+            $function_false = "ajax('status".$id."', 'false', '".$id."', 'Deactivate')";
 
-		$query = 'SELECT * FROM announcement_content WHERE title="'.$title.'" AND message="'.$message.'"';
-		$result = mysqli_query($mysqli, $query);
-		if(mysqli_num_rows($result) < 1){
-			$query = 'INSERT INTO announcement_content (`title`, `message`)
-				VALUES ("'.$title.'", "'.$message.'")
-			';
-
-			if($mysqli->query($query)){
-				$insert_id = $mysqli->insert_id;
-				if($isBroadcast == 'false'){
-					foreach ($_POST['user'] as $user_id) {
-						$query = 'INSERT INTO announcement (`announcement_id`, `user_id`, `createdByUserID`) 
-							VALUES ("'.$insert_id.'", "'.$user_id.'", "'.$_SESSION['user_id'].'")
-						';
-						if(!mysqli_query($mysqli, $query)){
-							$error = 'true';
-						}
-					}
-				}else{
-					$query = 'INSERT INTO announcement (`announcement_id`, `isBroadcast`, `createdByUserID`)
-						VALUES ("'.$insert_id.'", "'.$isBroadcast.'", "'.$_SESSION['user_id'].'")
-					';
-					if(!mysqli_query($mysqli, $query)){
-						$error = 'true';
-					}
-				}
+			if($status == 'true'){
+				echo '<button id="btnFalse'.$id.'" type="button" class="btn btn btn-danger" onclick="'.$function_false.'">Deactivate</button>|';
 			}else{
-				$error = 'true';
+				echo '<button id="btnTrue'.$id.'" type="button" class="btn btn btn-success" onclick="'.$function_true.'">Activate</button>|';
 			}
-		}else{
-			$error = 'true';
-			$error_msg = '|exists|';
-		}
 
-		if($error != 'true'){
-			$result = $mysqli->query("SELECT * FROM `announcement_content`");
+			$result = $mysqli->query("SELECT * FROM `announcement_content` WHERE `id` = '".$id."'");
             if ($result) {
               while($row = $result->fetch_array()) {
                 $result2 = $mysqli->query("SELECT * FROM `announcement` WHERE `announcement_id` = '".$row['id']."'");
@@ -96,7 +67,19 @@
                     </td>
                     <td>'.$row['message'].'</td>
                     <td>'.$status.'</td>
-                    <td><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal'.$row['id'].'">Edit</button></td>
+                    <td>
+                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal'.$row['id'].'">Edit</button> ';
+                      $function_true = "ajax('status".$row['id']."', 'true', '".$row['id']."', 'Activate')";
+                      $function_false = "ajax('status".$row['id']."', 'false', '".$row['id']."', 'Deactivate')";
+                      echo '<span id="status'.$row["id"].'">';
+                      if($status == 'Active'){
+                        echo '<button id="btnFalse'.$row["id"].'" type="button" class="btn btn btn-danger" onclick="'.$function_false.'">Deactivate</button>';
+                      }else{
+                        echo '<button id="btnTrue'.$row["id"].'" type="button" class="btn btn btn-success" onclick="'.$function_true.'">Activate</button>';
+                      }
+                      echo '</span>';
+                    echo '
+                    </td>
                     <!-- Modal -->
                     <div id="modal'.$row['id'].'" class="modal fade" role="dialog">
                       <div class="modal-dialog">
@@ -107,21 +90,22 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">Edit Announcement</h4>
                           </div>
-                          <form id="modal-edit-form">
+                          <form id="modal-edit-form" action="updateAnnouncement.php" method="POST">
                             <div class="modal-body">
                               <div class="row">
                                 <div class="col-md-12">
+                                  <input type="text" name="announcementContent_id" value="'.$row['id'].'" required hidden/>
                                   <label>Send to all: </label>';
                                   $function = "modalIsBroadcast('multipleUser".$row['id']."')";
                                   if($row2['isBroadcast'] == 'true'){
                                     echo '
                                     <input id="sendToAll" type="checkbox" name="isBroadcast" onclick="'.$function.'" checked><br>
-                                    <select id="multipleUser'.$row['id'].'" class="userSelect" multiple="multiple" name="user[]" style="width: 100%;" data-tags="true" data-placeholder="Select user/s" data-allow-clear="true" disabled>
+                                    <select id="multipleUser'.$row['id'].'" class="userSelect" multiple="multiple" name="user[]" style="width: 100%;" data-tags="true" data-placeholder="Select user/s" data-allow-clear="true" disabled required>
                                     ';
                                   }else{
                                     echo '
                                     <input id="sendToAll" type="checkbox" name="isBroadcast" onclick="'.$function.'"><br>
-                                    <select id="multipleUser'.$row['id'].'" class="userSelect" multiple="multiple" name="user[]" style="width: 100%;" data-tags="true" data-placeholder="Select user/s" data-allow-clear="true">
+                                    <select id="multipleUser'.$row['id'].'" class="userSelect" multiple="multiple" name="user[]" style="width: 100%;" data-tags="true" data-placeholder="Select user/s" data-allow-clear="true" required>
                                     ';
                                   }
                                     $query4 = "SELECT `id`, CONCAT(`firstName`, ' ', `lastName`) AS `name` FROM `users`";
@@ -144,10 +128,10 @@
                                 </div>
                               </div>
                             </div>
+                            <div class="modal-footer">
+                              <button type="submit" class="btn btn-warning">Edit</button>
+                            </div>
                           </form>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-warning" data-dismiss="modal">Edit</button>
-                          </div>
                         </div>
 
                       </div>
@@ -158,13 +142,7 @@
               }
             }
 		}else{
-			if($error_msg == ''){
-				echo '|error|';
-			}else{
-				echo $error_msg;
-			}
+			echo '|error|';
 		}
-	}else{
-		echo '|error|';
 	}
 ?>
