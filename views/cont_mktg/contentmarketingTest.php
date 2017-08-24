@@ -262,6 +262,9 @@
                     </form>
                   </md-list>
                 </md-content>
+                <div ng-show="!addExists" align="center">
+                  <h2>You don't have any additional Tasks</h2>
+                </div>
               </md-tab>
 
             </md-tabs>

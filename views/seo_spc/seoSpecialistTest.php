@@ -146,11 +146,14 @@
                     
                     </md-list-item>
                     <div align="center">
-                      <md-button type="submit" class=" md-raised md-primary" style="width:20%; margin-top:3%;">Submit</md-button>
+                      <md-button ng-show="addExists" type="submit" class=" md-raised md-primary" style="width:20%; margin-top:3%;">Submit</md-button>
                     </div>
                     </form>
                   </md-list>
                 </md-content>
+                <div ng-show="!addExists" align="center">
+                  <h2>You don't have any additional Tasks</h2>
+                </div>
               </md-tab>
 
             </md-tabs>
