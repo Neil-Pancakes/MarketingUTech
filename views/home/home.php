@@ -1,5 +1,6 @@
 <?php
   require ("../dashboard/dashboard.php");
+  //include ("../../functions/timeInOut.php");
 ?>
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -32,45 +33,7 @@
       </div>
 
       <div id="time-btns">
-        <?php
-          $query = "SELECT `timeIn`, `timeOut`, `lunchIn`, `lunchOut`
-                FROM `timetable`
-                WHERE DATE(`date`) = DATE(CURRENT_TIMESTAMP) AND user_id = ".$_SESSION["user_id"];
-          $result = mysqli_query($mysqli, $query);
-          if ($result->num_rows == 1){
-            $row = mysqli_fetch_assoc($result);
-            if ($row['timeIn'] == 0) {
-              echo '<div class="col-md-12 text-center">';
-              echo '<button type="button" class="btn btn-success timeBtn" id="btnTimeIn">Time In</button>';
-              echo '</div>';
-            } else if ($row['timeIn'] != 0 && $row['timeOut'] == 0 && $row['lunchIn'] == 0 && $row['lunchOut'] == 0) {
-              echo '<div class="col-md-6 text-center">';
-              echo '<button type="button" class="btn btn-danger timeBtn" id="btnTimeOut">Time Out</button>';
-              echo '</div>';
-              echo '<div class="col-md-6 text-center">';
-              echo '<button type="button" class="btn btn-warning timeBtn" id="btnLunchIn">Lunch Time In</button>';
-              echo '</div>';
-            } else if ($row['timeIn'] != 0 && $row['timeOut'] == 0 && $row['lunchIn'] != 0 && $row['lunchOut'] == 0) {
-              echo '<div class="col-md-6 text-center">';
-              echo '<button type="button" class="btn btn-danger timeBtn" id="btnTimeOut">Time Out</button>';
-              echo '</div>';
-              echo '<div class="col-md-6 text-center">';
-              echo '<button type="button" class="btn btn-warning timeBtn" id="btnLunchOut">Lunch Time Out</button>';
-              echo '</div>';
-            } else if ($row['timeIn'] != 0 && $row['timeOut'] == 0 && $row['lunchIn'] != 0 && $row['lunchOut'] != 0) {
-              echo '<div class="col-md-12 text-center">';
-              echo '<button type="button" class="btn btn-danger timeBtn" id="btnTimeOut">Time Out</button>';
-              echo '</div>';
-            } else if ($row['timeIn'] != 0 && $row['timeOut'] != 0) {
-              echo '<div class="col-md-12 text-center">';
-              echo '<button type="button" class="btn btn-success timeBtn disabled">Time In</button>';
-              echo '</div>';
-            }
-          } else {
-            header("location:../../functions/timeInOut.php?newDays");
-            exit();
-          }
-        ?>
+        <?php displayTimeBtns(); //generalDBFunctions.php ?>
       </div>
     </div>
 
@@ -162,45 +125,45 @@
         showLoaderOnConfirm: true
       },
       function (isConfirm) {
-          if (isConfirm) {
-            setTimeout(function(){
-              request = $.ajax({
-                url: "../../functions/timeInOut.php",
-                data: {action: action},
-                type: "POST"
-              });
+        if (isConfirm) {
+          setTimeout(function(){
+            request = $.ajax({
+              url: "../../functions/timeInOut.php",
+              data: {action: action},
+              type: "POST"
+            });
 
-              // Callback handler that will be called on success
-              request.done(function (response, textStatus, jqXHR){
-                  var parts = response.split('|');
-                  if(parts[1] == "fail"){
-                    swal("Error!", "An error has occurred", "error");
-                  }else{
-                    swal(successText, "", "success");
-                    //document.getElementById("alertMsg").innerHTML=parts[0];
-                    document.getElementById("time-btns").innerHTML=parts[0];
-                    document.getElementById("timeToday-tbody").innerHTML=parts[1];
-                  }       
-              });
-
-              // Callback handler that will be called on failure
-              request.fail(function (jqXHR, textStatus, errorThrown){
+            // Callback handler that will be called on success
+            request.done(function (response, textStatus, jqXHR){
+                var parts = response.split('|');
+                if(parts[1] == "fail"){
                   swal("Error!", "An error has occurred", "error");
-                  // Log the error to the console
-                  console.error(
-                      "The following error occurred: "+
-                      textStatus, errorThrown
-                  );
-              });
+                }else{
+                  swal(successText, "", "success");
+                  //document.getElementById("alertMsg").innerHTML=parts[0];
+                  document.getElementById("time-btns").innerHTML=parts[0];
+                  document.getElementById("timeToday-tbody").innerHTML=parts[1];
+                }       
+            });
 
-              // Callback handler that will be called regardless
-              // if the request failed or succeeded
-              request.always(function () {
-                  // Reenable the inputs
-                  $btn.prop("disabled", false);
-              });
-            }, 500);
-          }
+            // Callback handler that will be called on failure
+            request.fail(function (jqXHR, textStatus, errorThrown){
+                swal("Error!", "An error has occurred", "error");
+                // Log the error to the console
+                console.error(
+                    "The following error occurred: "+
+                    textStatus, errorThrown
+                );
+            });
+
+            // Callback handler that will be called regardless
+            // if the request failed or succeeded
+            request.always(function () {
+                // Reenable the inputs
+                $btn.prop("disabled", false);
+            });
+          }, 500);
+        }
       });
   }
 </script>

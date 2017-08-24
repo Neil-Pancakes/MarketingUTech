@@ -21,6 +21,7 @@
     <!-- REQUIRED JS SCRIPTS -->
     <script src="../../includes/js/jquery-3.2.1.min.js"></script>
     <script src="../../includes/js/bootstrap.min.js"></script>
+    <script src="../../includes/js/bootstrap-table.js"></script>
     <script src="../../node_modules/moment/moment.js"></script>
     <script src="../../includes/js/AdminLTE_app.min.js"></script>
     <script src="../../includes/js/googleSignout.js"></script>
