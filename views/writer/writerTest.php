@@ -147,8 +147,8 @@
                                       <h2 id="modalHeaderEditDelete">Task</h2>
                                     </div>
                                     <div class="modal-body">
-                                      <input ng-model="addTaskUserId">
-                                      <input class="form-control" ng-model="addTaskName" required>
+                                      <input ng-model="addTaskUserId" hidden>
+                                      <input class="form-control" placeholder="Task Name" ng-model="addTaskName" required>
                                       <select class="form-control" ng-model="addTaskType" required>
                                         <option value="Text">Text</option>
                                         <option value="Int">Count</option>
