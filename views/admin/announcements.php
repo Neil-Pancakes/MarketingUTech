@@ -35,7 +35,7 @@
                     <div class="col-md-12">
                       <label>Send to all: </label>
                       <input id="sendToAll" type="checkbox" name="isBroadcast" onclick="isBroadcastClick()"><br>
-                      <select id="multipleUser" class="userSelect" multiple="multiple" name="user[]" style="width: 100%;" data-tags="true" data-placeholder="Select user/s" data-allow-clear="true">
+                      <select id="multipleUser" class="userSelect" multiple="multiple" name="user[]" style="width: 100%;" data-tags="true" data-placeholder="Select user/s" data-allow-clear="true" required>
                         <?php 
                           $query = "SELECT `id`, CONCAT(`firstName`, ' ', `lastName`) AS `name` FROM `users`";
                           $result = $mysqli->query($query);
@@ -133,21 +133,22 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">Edit Announcement</h4>
                           </div>
-                          <form>
+                          <form id="modal-edit-form" action="updateAnnouncement.php" method="POST">
                             <div class="modal-body">
                               <div class="row">
                                 <div class="col-md-12">
+                                  <input type="text" name="announcementContent_id" value="'.$row['id'].'" required hidden/>
                                   <label>Send to all: </label>';
                                   $function = "modalIsBroadcast('multipleUser".$row['id']."')";
                                   if($row2['isBroadcast'] == 'true'){
                                     echo '
                                     <input id="sendToAll" type="checkbox" name="isBroadcast" onclick="'.$function.'" checked><br>
-                                    <select id="multipleUser'.$row['id'].'" class="userSelect" multiple="multiple" name="user[]" style="width: 100%;" data-tags="true" data-placeholder="Select user/s" data-allow-clear="true" disabled>
+                                    <select id="multipleUser'.$row['id'].'" class="userSelect" multiple="multiple" name="user[]" style="width: 100%;" data-tags="true" data-placeholder="Select user/s" data-allow-clear="true" disabled required>
                                     ';
                                   }else{
                                     echo '
                                     <input id="sendToAll" type="checkbox" name="isBroadcast" onclick="'.$function.'"><br>
-                                    <select id="multipleUser'.$row['id'].'" class="userSelect" multiple="multiple" name="user[]" style="width: 100%;" data-tags="true" data-placeholder="Select user/s" data-allow-clear="true">
+                                    <select id="multipleUser'.$row['id'].'" class="userSelect" multiple="multiple" name="user[]" style="width: 100%;" data-tags="true" data-placeholder="Select user/s" data-allow-clear="true" required>
                                     ';
                                   }
                                     $query4 = "SELECT `id`, CONCAT(`firstName`, ' ', `lastName`) AS `name` FROM `users`";
@@ -170,10 +171,10 @@
                                 </div>
                               </div>
                             </div>
+                            <div class="modal-footer">
+                              <button type="submit" class="btn btn-warning">Edit</button>
+                            </div>
                           </form>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-warning" data-dismiss="modal">Edit</button>
-                          </div>
                         </div>
 
                       </div>
@@ -199,7 +200,11 @@
 <script>
   document.getElementById("announcements").setAttribute("class", "active");
 
-  $("#multipleUser").select2();
+  $(".userSelect").select2();
+
+  function select2Ajax(){
+    $(".userSelect").select2();    
+  }
   var select = document.getElementById("multipleUser");
 
   $(document).ready(function(){
@@ -254,6 +259,52 @@
                   $('.modal').modal('hide');
                   $("#multipleUser").select2();
                   select.disabled = false;
+                  if(data == "|error|"){
+                    swal("Error!", "An error has occurred", "error");
+                  }else if(data == "|exists|"){
+                    swal("Error!", "Announcement already exists", "error");
+                  }else{
+                    document.getElementById("announcement-tbody").innerHTML=data;
+                    select2Ajax();
+                  }
+                },
+                error: function (data) {
+                  swal("Error!", "An error has occurred", "error");
+                }
+              });
+            }, 1500);
+          }
+      });
+    return false;
+  });
+
+  $(document).on('submit', '[id^=modal-edit-form]', function (e) {
+    e.preventDefault(); 
+
+    var data = $(this).serialize();
+
+    swal({
+      title: "Are you sure?",
+      text: "Edit announcement",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonClass: "btn-success",
+      confirmButtonText: "Create",
+      cancelButtonText: "Cancel",
+      cancelButtonClass: "btn-danger",
+      closeOnConfirm: false,
+      showLoaderOnConfirm: true
+    },
+      function (isConfirm) {
+          if (isConfirm) {
+            setTimeout(function(){
+              $.ajax({
+                type: 'POST',
+                url: 'updateAnnouncement.php',
+                data: data,
+                success: function (data) {
+                  swal("Success!", "Announcement has been edited", "success");
+                  $('.modal').modal('hide');
                   if(data == "|error|"){
                     swal("Error!", "An error has occurred", "error");
                   }else{
