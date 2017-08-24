@@ -19,30 +19,24 @@
 			VALUES ("'.$title.'", "'.$message.'")
 		';
 
-		if(mysqli_query($mysqli, $query)){
-			$query = 'SELECT id FROM announcement_content WHERE title="'.$title.'" AND message="'.$message.'"';
-			$result = mysqli_query($mysqli, $query);
-			if($result){
-				$row = mysqli_fetch_assoc($result);
-				if($isBroadcast == 'false'){
-					foreach ($_POST['user'] as $user_id) {
-						$query = 'INSERT INTO announcement (`announcement_id`, `user_id`, `createdByUserID`) 
-							VALUES ("'.$row['id'].'", "'.$user_id.'", "'.$_SESSION['user_id'].'")
-						';
-						if(!mysqli_query($mysqli, $query)){
-							$error = 'true';
-						}
-					}
-				}else{
-					$query = 'INSERT INTO announcement (`announcement_id`, `isBroadcast`, `createdByUserID`)
-						VALUES ("'.$row['id'].'", "'.$isBroadcast.'", "'.$_SESSION['user_id'].'")
+		if($mysqli->query($query)){
+			$insert_id = $mysqli->insert_id;
+			if($isBroadcast == 'false'){
+				foreach ($_POST['user'] as $user_id) {
+					$query = 'INSERT INTO announcement (`announcement_id`, `user_id`, `createdByUserID`) 
+						VALUES ("'.$insert_id.'", "'.$user_id.'", "'.$_SESSION['user_id'].'")
 					';
 					if(!mysqli_query($mysqli, $query)){
 						$error = 'true';
 					}
 				}
 			}else{
-				$error = 'true';
+				$query = 'INSERT INTO announcement (`announcement_id`, `isBroadcast`, `createdByUserID`)
+					VALUES ("'.$insert_id.'", "'.$isBroadcast.'", "'.$_SESSION['user_id'].'")
+				';
+				if(!mysqli_query($mysqli, $query)){
+					$error = 'true';
+				}
 			}
 		}else{
 			$error = 'true';

@@ -41,7 +41,7 @@
                           $result = $mysqli->query($query);
                           if ($result) {
                             while ($row = $result->fetch_array()) {
-                              echo '<option value="'.$row['id'].'" >'.$row['name'].'</option>';
+                              echo '<option value="'.$row['id'].'">'.$row['name'].'</option>';
                             }
                           }
                         ?>
@@ -199,7 +199,8 @@
 <script>
   document.getElementById("announcements").setAttribute("class", "active");
 
-  $(".userSelect").select2();
+  $("#multipleUser").select2();
+  var select = document.getElementById("multipleUser");
 
   $(document).ready(function(){
       $('#announcementList').DataTable({
@@ -215,7 +216,6 @@
   });
 
   function isBroadcastClick(){
-    var select = document.getElementById("multipleUser");
     select.disabled = !select.disabled;
   }
 
@@ -252,7 +252,8 @@
                   swal("Success!", "Announcement has been updated", "success");
                   $('#announcement-form').trigger('reset');
                   $('.modal').modal('hide');
-                  $(".userSelect").select2();
+                  $("#multipleUser").select2();
+                  select.disabled = false;
                   if(data == "|error|"){
                     swal("Error!", "An error has occurred", "error");
                   }else{
