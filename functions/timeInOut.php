@@ -32,7 +32,7 @@
 			$user_id = $_SESSION['user_id'];
 			if(!hasTime('timeIn', $user_id)){
 				$query = 'UPDATE `timetable` 
-						SET `timeIn` = CURRENT_TIMESTAMP, `modified` = CURRENT_TIMESTAMP
+						SET `timeIn` = CURRENT_TIMESTAMP
 						WHERE `user_id` = "'.$user_id.'" AND DATE(`date`) = DATE(CURRENT_TIMESTAMP);';
 				if(mysqli_query($mysqli, $query)){
 
@@ -55,7 +55,7 @@
 			if(!hasTime("timeOut", $user_id)) {
 				$today = date('Y-m-d', time());
 				$query = 'UPDATE `timetable` 
-						SET `timeOut` = CURRENT_TIMESTAMP, `modified` = CURRENT_TIMESTAMP
+						SET `timeOut` = CURRENT_TIMESTAMP
 						WHERE `user_id` = "'.$user_id.'" AND DATE(`date`) = DATE(CURRENT_TIMESTAMP);';
 				if(mysqli_query($mysqli, $query)) {
 					$query = 'SELECT * 

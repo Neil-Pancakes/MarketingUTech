@@ -152,7 +152,8 @@
                                     <label for="lastName">Last Name</label><br>
                                     <input type="text" name="lastName" value="'.$row["lastName"].'" onkeypress="return isLetter(event)" required/><br><br>
                                     <label for="email">Email</label><br>
-                                    <input type="email" name="email" value="'.$row["email"].'" required/><br><br>
+                                    <input type="email" name="email" value="'.$row["email"].'" disabled/>
+                                    <input type="email" name="email" value="'.$row["email"].'" hidden/><br><br>
                                     <label for="jobTitle">Job Title</label><br>
                                     <input type="text" name="jobTitle" value="'.$row["jobTitle"].'" onkeypress="return isLetter(event)" required/><br><br>
                                     <label for="workStatus">Work status</label><br>

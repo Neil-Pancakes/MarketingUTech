@@ -128,18 +128,17 @@
 		$result = mysqli_query($mysqli, $query);
 		if($result){
 			while($row = mysqli_fetch_assoc($result)){
-				$query = 'SELECT * FROM `announcement` WHERE `announcement_id` = "'.$row['id'].'" AND `user_id` = "'.$user_id.'" AND `isRead` = "false" OR `isBroadcast` = "true" AND `announcement_id` = "'.$row['id'].'"';
+				$query = 'SELECT * FROM `announcement` WHERE `announcement_id` = "'.$row['id'].'" AND `user_id` = "'.$user_id.'" AND `isRead` = "false"';
 				$result2 = $mysqli->query($query);
-				if($result2) {
+				if($result2->num_rows > 0) {
 					$row2 = $result2->fetch_assoc();
 					if($row2['isRead'] == 'true'){
 						$isRead = "Read";
 					} else {
-						$isRead = "Unread";
+						$isRead = "<strong>Unread</strong>";
 					}
 					echo "
 						<tr id='".$row['id']."' data-toggle='modal' data-target='#viewModal'>
-						<td>".$row['id']."</td>
 						<td>".$row['title']."</td>
 						<td>".$isRead."</td>
 						</tr>
@@ -148,30 +147,33 @@
 				}
 			}
 		}
+	}
 
-		// $query = "SELECT `a`.`id`, `a`.`isRead`, `ac`.`title`, `ac`.`message`
-		// 	FROM `announcement` AS `a`
-		// 	LEFT JOIN `announcement_content` AS `ac` 
-		// 	ON `ac`.`id` = `a`.`announcement_id` 
-		// 	WHERE `a`.`user_id` = '".$user_id."' OR `a`.`isBroadcast` = 'true'
-		// 	ORDER BY `a`.`id`";
-		// $result = $mysqli->query($query);
-		// if($result) {
-		// 	while($row = $result->fetch_assoc()){
-		// 		if($row['isRead'] == 'true'){
-		// 			$isRead = "Read";
-		// 		} else {
-		// 			$isRead = "Unread";
-		// 		}
-		// 		echo "
-		// 			<tr id='".$row['id']."' data-toggle='modal' data-target='#viewModal'>
-		// 			<td>".$row['id']."</td>
-		// 			<td>".$row['title']."</td>
-		// 			<td>".$isRead."</td>
-		// 			</tr>
-		// 			<p id='msg_".$row['id']."' hidden>".$row['message']."</p>
-		// 		";
-		// 	}
-		// }
+	function loadBroadcasts() {
+		global $mysqli;
+
+		$query = 'SELECT * FROM `announcement_content` WHERE `status` = "true"';
+		$result = mysqli_query($mysqli, $query);
+		if($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+				$query = 'SELECT * FROM `announcement` WHERE `announcement_id` = "'.$row['id'].'" AND `isBroadcast` = "true" AND `isRead` = "false"';
+				$result2 = $mysqli->query($query);
+				if($result2->num_rows > 0) {
+					$row2 = $result2->fetch_assoc();
+					if($row2['isRead'] == 'true'){
+						$isRead = "Read";
+					} else {
+						$isRead = "<strong>Unread</strong>";
+					}
+					echo "
+						<tr id='".$row['id']."' data-toggle='modal' data-target='#viewModal'>
+						<td>".$row['title']."</td>
+						<td>".$isRead."</td>
+						</tr>
+						<p id='msg_".$row['id']."' hidden>".$row['message']."</p>
+					";
+				}
+			}
+		}
 	}
 ?>

@@ -14,7 +14,6 @@
 		<table id="tbl-announcements" class="table" width="100%">
 			<thead>
 				<tr>
-					<th>ID</th>
 					<th>Title</th>
 					<th>Status</th>
 				</tr>
@@ -22,7 +21,8 @@
 
 			<tbody>
 				<?php 
-					loadAnnouncements($_SESSION['user_id']);
+					loadAnnouncements($_SESSION['user_id']); //generalDBFunctions.php
+					loadBroadcasts(); //generalDBFunctions.php
 				?>
 			</tbody>
 		</table>
@@ -78,8 +78,7 @@
 	  $('#tbl-announcements').on("click", "tr", function(){
 	  	var tr = $(this).closest("tr");
 	    var id = "msg_" + tr.attr('id');
-	    console.log( table.row( this ).data()[1]);
-	  	$("#modal-title").text(table.row( this ).data()[1]);
+	  	$("#modal-title").text(table.row( this ).data()[0]);
 	  	$("#modal-msg").text(document.getElementById(id).innerHTML);
 	  });
   });

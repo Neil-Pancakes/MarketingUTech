@@ -43,8 +43,7 @@
 						address = '".$address."',
 						OJT_hoursTotal = '".$OJT_hoursTotal."',
 						OJT_hoursRemaining = '".$OJT_hoursRemaining."',
-						OJT_allowanceDaily = '".$OJT_allowanceDaily."',
-						modified = NOW()
+						OJT_allowanceDaily = '".$OJT_allowanceDaily."'
 					WHERE id = '".$id."'
 				";
 
@@ -92,8 +91,7 @@
 						birthday = '".$birthday."',
 						mobileNumber = '".$mobileNumber."',
 						telephoneNumber = '".$telephoneNumber."',
-						address = '".$address."',
-						modified = NOW()
+						address = '".$address."'
 					WHERE id = '".$id."'
 				";
 
@@ -328,7 +326,7 @@
 	        }
 			//header("location: employeeList.php");
 		}else{
-			echo "update error";
+			echo "result update error";
 		}
 	}else{
 		echo "isset error";
