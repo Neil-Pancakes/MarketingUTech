@@ -30,11 +30,16 @@
 		global $mysqli;
 		$numPending = 0;
 
-		$query = 'SELECT COUNT(`id`) FROM `announcement` WHERE `user_id` = "'.$user_id.'" AND `isRead` = "false" AND `status` = "true" OR `isBroadcast` = "true"';
+		$query = 'SELECT COUNT(*)
+			FROM announcement
+			INNER JOIN announcement_content ON announcement.announcement_id = announcement_content.id AND announcement.user_id = 5
+			WHERE announcement.isRead = "false" AND announcement_content.status = "true" OR announcement.isBroadcast = "true"
+		';
+
 		$result = $mysqli->query($query);
 		if($result) {
 			$row = $result->fetch_assoc();
-			$numPending = $row['COUNT(`id`)'];
+			$numPending = $row['COUNT(*)'];
 		}
 
 		return $numPending;
