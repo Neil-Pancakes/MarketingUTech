@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 23, 2017 at 04:23 PM
+-- Generation Time: Aug 25, 2017 at 10:17 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -73,7 +73,8 @@ CREATE TABLE `announcement` (
 --
 
 INSERT INTO `announcement` (`id`, `announcement_id`, `user_id`, `status`, `isBroadcast`, `isRead`, `endDate`, `createdByUserID`, `created`, `modified`) VALUES
-(2, 10, NULL, 'true', 'true', 'false', NULL, 5, '2017-08-23 14:19:37', '2017-08-23 14:19:37');
+(4, 11, NULL, 'true', 'true', 'false', NULL, 5, '2017-08-25 08:16:40', '2017-08-25 08:16:40'),
+(5, 12, 5, 'true', 'false', 'false', NULL, 5, '2017-08-25 08:17:21', '2017-08-25 08:17:21');
 
 -- --------------------------------------------------------
 
@@ -84,15 +85,17 @@ INSERT INTO `announcement` (`id`, `announcement_id`, `user_id`, `status`, `isBro
 CREATE TABLE `announcement_content` (
   `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
-  `message` varchar(255) NOT NULL
+  `message` varchar(255) NOT NULL,
+  `status` enum('true','false') NOT NULL DEFAULT 'true'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `announcement_content`
 --
 
-INSERT INTO `announcement_content` (`id`, `title`, `message`) VALUES
-(10, 'alec', 'alec <3');
+INSERT INTO `announcement_content` (`id`, `title`, `message`, `status`) VALUES
+(11, 'Test', 'Test', 'true'),
+(12, 'asd', 'asd', 'true');
 
 -- --------------------------------------------------------
 
@@ -860,12 +863,12 @@ ALTER TABLE `additional_task_tracker`
 -- AUTO_INCREMENT for table `announcement`
 --
 ALTER TABLE `announcement`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `announcement_content`
 --
 ALTER TABLE `announcement_content`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `content_marketing_assistant_tracker`
 --
