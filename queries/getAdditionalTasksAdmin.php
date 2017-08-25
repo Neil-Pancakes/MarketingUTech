@@ -5,12 +5,16 @@ require("../functions/sql_connect.php");
 $postdata = file_get_contents("php://input");
 session_start();
 
-$val = $_SESSION['user_id'];
-
+$var1 =  $_GET['startDate'];
+$var2 =  $_GET['endDate'];
+$id = $_GET['userId'];
 $result = $mysqli->query("SELECT `t`.`name`, `a`.`additional_task_tracker_id`, `a`.`task`, `a`.`entry_time`
 FROM `additional_task_tracker` `a`
 INNER JOIN `additional_task` `t`
-ON `t`.`additional_task_id` = `a`.`additional_task_id` AND `a`.`track_date` = CURDATE() AND `t`.`user_id`=$val");
+ON `t`.`additional_task_id` = `a`.`additional_task_id` 
+AND `a`.`track_date` >= $var1
+AND `a`.`track_date` <= $var2
+AND `t`.`user_id`=$id");
 
 $outp = "";
 while($rs = $result->fetch_array(MYSQLI_ASSOC)) {

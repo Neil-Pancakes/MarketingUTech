@@ -250,7 +250,6 @@
         };
 
         $scope.submitAdditionalTask = function() {
-          alert($scope.additionalIdSet.additionalId);
             $http.post('../../insertFunctions/insertAdditionalTaskTracker.php', {
               'idSet': $scope.additionalIdSet.additionalId, 
               'taskSet': $scope.additionalSet.additional
@@ -277,7 +276,6 @@
         };
         
         $scope.addAdditional = function(){
-          alert($scope.addTaskName);
           $http.post('../../insertFunctions/insertAdditionalTask.php', {
               'userId': $scope.addTaskUserId,
               'name': $scope.addTaskName,

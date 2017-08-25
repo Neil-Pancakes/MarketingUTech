@@ -417,7 +417,6 @@
           }
         };
         $scope.addAdditional = function(){
-          alert($scope.addTaskName);
           $http.post('../../insertFunctions/insertAdditionalTask.php', {
               'userId': $scope.addTaskUserId,
               'name': $scope.addTaskName,
