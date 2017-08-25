@@ -32,7 +32,7 @@
 
 		$query = 'SELECT COUNT(*)
 			FROM announcement
-			INNER JOIN announcement_content ON announcement.announcement_id = announcement_content.id AND announcement.user_id = 5
+			LEFT JOIN announcement_content ON announcement.announcement_id = announcement_content.id AND announcement.user_id = "'.$user_id.'"
 			WHERE announcement.isRead = "false" AND announcement_content.status = "true" OR announcement.isBroadcast = "true"
 		';
 
