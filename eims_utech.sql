@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 25, 2017 at 10:17 AM
+-- Generation Time: Aug 25, 2017 at 10:27 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -59,7 +59,6 @@ CREATE TABLE `announcement` (
   `id` int(11) NOT NULL,
   `announcement_id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `status` enum('true','false') NOT NULL DEFAULT 'true',
   `isBroadcast` enum('true','false') NOT NULL DEFAULT 'false',
   `isRead` enum('true','false') NOT NULL DEFAULT 'false',
   `endDate` date DEFAULT NULL,
@@ -72,9 +71,11 @@ CREATE TABLE `announcement` (
 -- Dumping data for table `announcement`
 --
 
-INSERT INTO `announcement` (`id`, `announcement_id`, `user_id`, `status`, `isBroadcast`, `isRead`, `endDate`, `createdByUserID`, `created`, `modified`) VALUES
-(4, 11, NULL, 'true', 'true', 'false', NULL, 5, '2017-08-25 08:16:40', '2017-08-25 08:16:40'),
-(5, 12, 5, 'true', 'false', 'false', NULL, 5, '2017-08-25 08:17:21', '2017-08-25 08:17:21');
+INSERT INTO `announcement` (`id`, `announcement_id`, `user_id`, `isBroadcast`, `isRead`, `endDate`, `createdByUserID`, `created`, `modified`) VALUES
+(4, 11, NULL, 'true', 'false', NULL, 5, '2017-08-25 08:16:40', '2017-08-25 08:16:40'),
+(5, 12, 5, 'false', 'false', NULL, 5, '2017-08-25 08:17:21', '2017-08-25 08:17:21'),
+(6, 13, 3, 'false', 'false', NULL, 5, '2017-08-25 08:20:03', '2017-08-25 08:20:03'),
+(7, 13, 5, 'false', 'false', NULL, 5, '2017-08-25 08:20:03', '2017-08-25 08:20:03');
 
 -- --------------------------------------------------------
 
@@ -94,8 +95,9 @@ CREATE TABLE `announcement_content` (
 --
 
 INSERT INTO `announcement_content` (`id`, `title`, `message`, `status`) VALUES
-(11, 'Test', 'Test', 'true'),
-(12, 'asd', 'asd', 'true');
+(11, 'Test', 'Test', 'false'),
+(12, 'asd', 'asd', 'true'),
+(13, 'asdasd', 'asdasd', 'true');
 
 -- --------------------------------------------------------
 
@@ -863,12 +865,12 @@ ALTER TABLE `additional_task_tracker`
 -- AUTO_INCREMENT for table `announcement`
 --
 ALTER TABLE `announcement`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `announcement_content`
 --
 ALTER TABLE `announcement_content`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `content_marketing_assistant_tracker`
 --
