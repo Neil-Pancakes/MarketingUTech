@@ -30,18 +30,18 @@
 		global $mysqli;
 		$numPending = 0;
 
-		$query = 'SELECT COUNT(*)
-			FROM announcement
-			LEFT JOIN announcement_content ON announcement.announcement_id = announcement_content.id AND announcement.user_id = "'.$user_id.'"
-			WHERE announcement.isRead = "false" AND announcement_content.status = "true" OR announcement.isBroadcast = "true"
-		';
-
-		$result = $mysqli->query($query);
-		if($result) {
-			$row = $result->fetch_assoc();
-			$numPending = $row['COUNT(*)'];
-		}
-
+		$query = 'SELECT * FROM `announcement_content` WHERE `status` = "true"';
+		$result = mysqli_query($mysqli, $query);
+		if($result){
+			while($row = mysqli_fetch_assoc($result)){
+				$query = 'SELECT COUNT(`id`) FROM `announcement` WHERE `announcement_id` = "'.$row['id'].'" AND `user_id` = "'.$user_id.'" AND `isRead` = "false" OR `isBroadcast` = "true" AND `announcement_id` = "'.$row['id'].'"';
+				$result2 = $mysqli->query($query);
+				if($result2) {
+					$row = $result2->fetch_assoc();
+					$numPending += $row['COUNT(`id`)'];
+				}
+			}
+		}	
 		return $numPending;
 	}
 
@@ -124,29 +124,54 @@
 	function loadAnnouncements($user_id) {
 		global $mysqli;
 
-		$query = "SELECT `a`.`id`, `a`.`isRead`, `ac`.`title`, `ac`.`message`
-			FROM `announcement` AS `a`
-			LEFT JOIN `announcement_content` AS `ac` 
-			ON `ac`.`id` = `a`.`announcement_id` 
-			WHERE `a`.`user_id` = '".$user_id."' OR `a`.`isBroadcast` = 'true'
-			ORDER BY `a`.`id`";
-		$result = $mysqli->query($query);
-		if($result) {
-			while($row = $result->fetch_assoc()){
-				if($row['isRead'] == 'true'){
-					$isRead = "Read";
-				} else {
-					$isRead = "Unread";
+		$query = 'SELECT * FROM `announcement_content` WHERE `status` = "true"';
+		$result = mysqli_query($mysqli, $query);
+		if($result){
+			while($row = mysqli_fetch_assoc($result)){
+				$query = 'SELECT * FROM `announcement` WHERE `announcement_id` = "'.$row['id'].'" AND `user_id` = "'.$user_id.'" AND `isRead` = "false" OR `isBroadcast` = "true" AND `announcement_id` = "'.$row['id'].'"';
+				$result2 = $mysqli->query($query);
+				if($result2) {
+					$row2 = $result2->fetch_assoc();
+					if($row2['isRead'] == 'true'){
+						$isRead = "Read";
+					} else {
+						$isRead = "Unread";
+					}
+					echo "
+						<tr id='".$row['id']."' data-toggle='modal' data-target='#viewModal'>
+						<td>".$row['id']."</td>
+						<td>".$row['title']."</td>
+						<td>".$isRead."</td>
+						</tr>
+						<p id='msg_".$row['id']."' hidden>".$row['message']."</p>
+					";
 				}
-				echo "
-					<tr id='".$row['id']."' data-toggle='modal' data-target='#viewModal'>
-					<td>".$row['id']."</td>
-					<td>".$row['title']."</td>
-					<td>".$isRead."</td>
-					</tr>
-					<p id='msg_".$row['id']."' hidden>".$row['message']."</p>
-				";
 			}
 		}
+
+		// $query = "SELECT `a`.`id`, `a`.`isRead`, `ac`.`title`, `ac`.`message`
+		// 	FROM `announcement` AS `a`
+		// 	LEFT JOIN `announcement_content` AS `ac` 
+		// 	ON `ac`.`id` = `a`.`announcement_id` 
+		// 	WHERE `a`.`user_id` = '".$user_id."' OR `a`.`isBroadcast` = 'true'
+		// 	ORDER BY `a`.`id`";
+		// $result = $mysqli->query($query);
+		// if($result) {
+		// 	while($row = $result->fetch_assoc()){
+		// 		if($row['isRead'] == 'true'){
+		// 			$isRead = "Read";
+		// 		} else {
+		// 			$isRead = "Unread";
+		// 		}
+		// 		echo "
+		// 			<tr id='".$row['id']."' data-toggle='modal' data-target='#viewModal'>
+		// 			<td>".$row['id']."</td>
+		// 			<td>".$row['title']."</td>
+		// 			<td>".$isRead."</td>
+		// 			</tr>
+		// 			<p id='msg_".$row['id']."' hidden>".$row['message']."</p>
+		// 		";
+		// 	}
+		// }
 	}
 ?>
