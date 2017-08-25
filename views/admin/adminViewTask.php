@@ -188,6 +188,22 @@
           </tr>
         </tbody>
       </table>
+      <table class="table table-striped table-bordered" cellspacing="0" width="100%" ng-show="show">
+          <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>Name of Task</th>
+                <th>Task Description</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr ng-repeat="x in todayAdditional">
+                <td>{{x.Time}}</td>
+                <td>{{x.Name}}</td>
+                <td>{{x.Task}}</td>
+              </tr>
+          </tbody>
+      <table>
       <div style="margin-bottom:30%;"></div> <!--Used because of visual bug-->
     </section>
     <!-- /.content -->
@@ -222,8 +238,10 @@
           $scope.OJTDeveloperforAutomatedDataSystem = false;
           $scope.OJTResearcher = false;
         };
+        $scope.show=false;
 
         $scope.search = function(){
+          $scope.show=true;
           $scope.date1 = moment($scope.ctrl.startDate).format('YYYY-MM-DD');
           $scope.date2 = moment($scope.ctrl.endDate).format('YYYY-MM-DD');
           if($scope.userJob=="Writer"){
@@ -313,6 +331,9 @@
               $scope.tracker = response.data.records;
             });
           }
+          $http.get('../../queries/getAdditionalTasksAdmin.php?userId="'+$scope.userId+'"&startDate="'+$scope.date1+'"&endDate="'+$scope.date2+'"').then(function (response) {
+            $scope.todayAdditional = response.data.records;
+          }); 
         }
     });
 </script>
