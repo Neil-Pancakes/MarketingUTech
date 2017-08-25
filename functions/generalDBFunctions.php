@@ -30,7 +30,7 @@
 		global $mysqli;
 		$numPending = 0;
 
-		$query = 'SELECT COUNT(`id`) FROM `announcement` WHERE `user_id` = "'.$user_id.'" AND `isRead` = "false" OR `isBroadcast` = "true"';
+		$query = 'SELECT COUNT(`id`) FROM `announcement` WHERE `user_id` = "'.$user_id.'" AND `isRead` = "false" AND `status` = "true" OR `isBroadcast` = "true"';
 		$result = $mysqli->query($query);
 		if($result) {
 			$row = $result->fetch_assoc();

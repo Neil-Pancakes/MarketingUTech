@@ -217,6 +217,7 @@
   function select2Ajax(){
     $(".userSelect").select2();    
   }
+  
   var select = document.getElementById("multipleUser");
 
   $(document).ready(function(){

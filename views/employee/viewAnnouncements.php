@@ -61,6 +61,8 @@
 </body>
 
 <script type="text/javascript">
+	document.getElementById("viewAnnouncements").setAttribute("class", "active");
+
   $(document).ready(function(){
 	  var table = $('#tbl-announcements').DataTable({
 	    "responsive": true,
