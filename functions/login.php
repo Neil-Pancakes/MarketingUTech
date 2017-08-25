@@ -15,7 +15,7 @@
 		$pass_db = $row['password'];
 	} else {
 		$_SESSION['error'] = "Username or Password is invalid.";
-		header("Location: ../index?err");
+		header("Location: ../index.php?err");
 		die();
 	}
 
@@ -36,7 +36,7 @@
 		header("Location: ../views/home/home.php");
 	} else {
 		$_SESSION['error'] = "Username or Password is invalid.";
-		header("Location: ../index?err");
+		header("Location: ../index.php?err");
 		die();
 	}
 ?>

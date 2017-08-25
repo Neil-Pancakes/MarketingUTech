@@ -86,7 +86,7 @@
     }
 
     function onFailure(error) {
-      window.location.href = "index";
+      window.location.href = "index.php";
     }
 
     function renderButton() {
