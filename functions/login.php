@@ -31,6 +31,8 @@
 
 		if($row['picture'] == null) {
 			$_SESSION['picture'] = "../../includes/img/fancy2.png";
+		} else {
+			$_SESSION['picture'] = $row['picture'];
 		}
 
 		header("Location: ../views/home/home.php");

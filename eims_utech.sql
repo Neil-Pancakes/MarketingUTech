@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.3
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 25, 2017 at 10:27 AM
--- Server version: 10.1.21-MariaDB
--- PHP Version: 5.6.30
+-- Generation Time: Aug 25, 2017 at 10:40 AM
+-- Server version: 10.1.16-MariaDB
+-- PHP Version: 5.5.38
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -545,7 +543,21 @@ INSERT INTO `timetable` (`id`, `user_id`, `date`, `timeIn`, `timeOut`, `lunchIn`
 (113, 3, '2017-08-28', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-11 09:44:14', '2017-08-11 09:44:14'),
 (114, 3, '2017-08-29', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-11 09:44:14', '2017-08-11 09:44:14'),
 (115, 3, '2017-08-30', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-11 09:44:14', '2017-08-11 09:44:14'),
-(116, 3, '2017-08-31', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-11 09:44:14', '2017-08-11 09:44:14');
+(116, 3, '2017-08-31', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-11 09:44:14', '2017-08-11 09:44:14'),
+(117, 6, '2017-08-25', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-25 08:39:17', '2017-08-25 08:39:17'),
+(118, 6, '2017-08-26', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-25 08:39:17', '2017-08-25 08:39:17'),
+(119, 6, '2017-08-27', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-25 08:39:17', '2017-08-25 08:39:17'),
+(120, 6, '2017-08-28', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-25 08:39:17', '2017-08-25 08:39:17'),
+(121, 6, '2017-08-29', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-25 08:39:17', '2017-08-25 08:39:17'),
+(122, 6, '2017-08-30', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-25 08:39:17', '2017-08-25 08:39:17'),
+(123, 6, '2017-08-31', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-25 08:39:17', '2017-08-25 08:39:17'),
+(124, 7, '2017-08-25', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-25 08:39:47', '2017-08-25 08:39:47'),
+(125, 7, '2017-08-26', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-25 08:39:47', '2017-08-25 08:39:47'),
+(126, 7, '2017-08-27', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-25 08:39:47', '2017-08-25 08:39:47'),
+(127, 7, '2017-08-28', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-25 08:39:47', '2017-08-25 08:39:47'),
+(128, 7, '2017-08-29', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-25 08:39:47', '2017-08-25 08:39:47'),
+(129, 7, '2017-08-30', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-25 08:39:47', '2017-08-25 08:39:47'),
+(130, 7, '2017-08-31', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-25 08:39:47', '2017-08-25 08:39:47');
 
 -- --------------------------------------------------------
 
@@ -618,7 +630,9 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `oauth_uid`, `firstName`, `lastName`, `email`, `password`, `picture`, `isAdmin`, `workStatus`, `jobTitle`, `birthday`, `noOfAbsences`, `scheduledTimeIn`, `scheduledTimeOut`, `OJT_hoursTotal`, `OJT_hoursRemaining`, `OJT_allowanceDaily`, `dateHiredTrainee`, `dateHiredProbationary`, `dateHiredRegular`, `basicPay`, `allowance`, `transportation`, `meal`, `mobileNumber`, `telephoneNumber`, `address`, `created`, `modified`) VALUES
 (3, '114331649460731421461', 'Francis', 'Yap', 'francisyap.utech@gmail.com', '$2y$10$Y83gylhdLdPIAjsmB0FQXecGYLFsHnuKZqYtfCEnUBLrzSKGHWntK', '', 1, 'OJT', 'OJT SEO', '1997-10-04', NULL, NULL, NULL, 300, 299.2, 100, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 917, 420, '', '2017-07-28 16:50:28', '2017-08-13 13:35:44'),
 (4, '114341613641607862512', 'Francis', 'Yap', 'francisj.yap@gmail.com', '$2y$10$lgl9QoVAxEU7KiCiuHaEOexI10yb.Oo7kqOpjmXBV2ucZVtVtoXKu', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-07-28 18:25:55', '2017-07-28 18:25:55'),
-(5, '115364617561313755233', 'Tristan', 'James', 'tjlerias.utech@gmail.com', '$2y$10$meUQs/oKJ0TsMhOMcZnvQOHW4ZxmTIrSCqOiDxdzfte3LVhx.q5jy', NULL, 1, 'OJT', 'OJT SEO', '1997-10-04', NULL, NULL, NULL, 300, 294, 100, '0000-00-00', '0000-00-00', '2017-08-05', 25000, 2000, 250, 500, 917, 420, 'TJ\'s House', '2017-08-01 17:02:32', '2017-08-13 13:37:02');
+(5, '115364617561313755233', 'Tristan', 'James', 'tjlerias.utech@gmail.com', '$2y$10$meUQs/oKJ0TsMhOMcZnvQOHW4ZxmTIrSCqOiDxdzfte3LVhx.q5jy', NULL, 1, 'OJT', 'OJT SEO', '1997-10-04', NULL, NULL, NULL, 300, 294, 100, '0000-00-00', '0000-00-00', '2017-08-05', 25000, 2000, 250, 500, 917, 420, 'TJ''s House', '2017-08-01 17:02:32', '2017-08-13 13:37:02'),
+(6, '115136298002144337425', 'Neil', 'Llenes', 'neilllenes.utech@gmail.com', '$2y$10$egfkOh8.fVaMLEPvR3PvPO6EF.6tVd66R./4CrtzicKxbMjfqQTN.', 'https://lh3.googleusercontent.com/-MpHVyx4L8Es/AAAAAAAAAAI/AAAAAAAAAAA/APJypA0YAGSvCySazU40Tq0qowOJF4cSYQ/s96-c/photo.jpg', 1, 'OJT', 'OJT Web Development', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-08-25 16:39:15', '2017-08-25 16:39:15'),
+(7, '102482443114236503223', 'Neil Patrick', 'Llenes', 'neil.llenes@gmail.com', '$2y$10$YEF8paoNN1CYqzInrIA2ROV5UlvRMKXNDfqhC7mKjwzjVpRcGKpVG', 'https://lh5.googleusercontent.com/-qux1Rglr8oo/AAAAAAAAAAI/AAAAAAAAAE8/Vw21y2IUiaw/s96-c/photo.jpg', 0, 'OJT', 'OJT Web Development', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-08-25 16:39:45', '2017-08-25 16:39:45');
 
 -- --------------------------------------------------------
 
@@ -935,7 +949,7 @@ ALTER TABLE `social_media_tracker`
 -- AUTO_INCREMENT for table `timetable`
 --
 ALTER TABLE `timetable`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
 --
 -- AUTO_INCREMENT for table `trackimo_cs_tracker`
 --
@@ -945,7 +959,7 @@ ALTER TABLE `trackimo_cs_tracker`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `wordpress_developer_tracker`
 --
@@ -971,7 +985,6 @@ ALTER TABLE `additional_task`
 --
 ALTER TABLE `additional_task_tracker`
   ADD CONSTRAINT `additional_task_tracker_fk` FOREIGN KEY (`additional_task_id`) REFERENCES `additional_task` (`additional_task_id`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
