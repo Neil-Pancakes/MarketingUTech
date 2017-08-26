@@ -28,6 +28,7 @@
 		$_SESSION['lastName'] = $row['lastName'];
 		$_SESSION['email'] = $row['email'];
 		$_SESSION['jobTitle'] = $row['jobTitle'];
+		$_SESSION['flexitime'] = $row['flexitime'];
 
 		if($row['picture'] == null) {
 			$_SESSION['picture'] = "../../includes/img/fancy2.png";

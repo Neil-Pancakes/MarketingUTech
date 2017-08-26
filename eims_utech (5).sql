@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
--- https://www.phpmyadmin.net/
+-- version 4.4.12
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 25, 2017 at 04:35 PM
--- Server version: 10.1.21-MariaDB
--- PHP Version: 7.1.1
+-- Generation Time: Aug 26, 2017 at 08:48 AM
+-- Server version: 5.6.25
+-- PHP Version: 5.6.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -26,7 +26,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `additional_task`
 --
 
-CREATE TABLE `additional_task` (
+CREATE TABLE IF NOT EXISTS `additional_task` (
   `additional_task_id` int(11) NOT NULL,
   `name` varchar(50) DEFAULT NULL,
   `type` enum('Text','Int','Binary') DEFAULT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE `additional_task` (
 -- Table structure for table `additional_task_tracker`
 --
 
-CREATE TABLE `additional_task_tracker` (
+CREATE TABLE IF NOT EXISTS `additional_task_tracker` (
   `additional_task_tracker_id` int(11) NOT NULL,
   `task` text,
   `track_date` date DEFAULT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE `additional_task_tracker` (
 -- Table structure for table `announcement`
 --
 
-CREATE TABLE `announcement` (
+CREATE TABLE IF NOT EXISTS `announcement` (
   `id` int(11) NOT NULL,
   `announcement_id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
@@ -62,7 +62,7 @@ CREATE TABLE `announcement` (
   `endDate` date DEFAULT NULL,
   `createdByUserID` int(11) DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `announcement`
@@ -80,22 +80,22 @@ INSERT INTO `announcement` (`id`, `announcement_id`, `user_id`, `isBroadcast`, `
 -- Table structure for table `announcement_content`
 --
 
-CREATE TABLE `announcement_content` (
+CREATE TABLE IF NOT EXISTS `announcement_content` (
   `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `message` varchar(255) NOT NULL,
   `status` enum('true','false') NOT NULL DEFAULT 'true'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `announcement_content`
 --
 
 INSERT INTO `announcement_content` (`id`, `title`, `message`, `status`) VALUES
-(14, 'Francis', 'SELECT * FROM `announcement` WHERE `announcement_id` = \"\'.$row[\'id\'].\'\" AND `user_id` = \"\'.$user_id.\'\" AND `isRead` = \"false\" OR `isBroadcast` = \"true\" AND `announcement_id` = \"\'.$row[\'id\'].\'\"', 'true'),
-(15, 'TJ', 'SELECT * FROM `announcement` WHERE `announcement_id` = \"\'.$row[\'id\'].\'\" AND `user_id` = \"\'.$user_id.\'\" AND `isRead` = \"false\" OR `isBroadcast` = \"true\" AND `announcement_id` = \"\'.$row[\'id\'].\'\"', 'true'),
-(16, 'Neil', 'SELECT * FROM `announcement` WHERE `announcement_id` = \"\'.$row[\'id\'].\'\" AND `user_id` = \"\'.$user_id.\'\" AND `isRead` = \"false\" OR `isBroadcast` = \"true\" AND `announcement_id` = \"\'.$row[\'id\'].\'\"', 'true'),
-(17, 'Broadcast', 'SELECT * FROM `announcement` WHERE `announcement_id` = \"\'.$row[\'id\'].\'\" AND `user_id` = \"\'.$user_id.\'\" AND `isRead` = \"false\" OR `isBroadcast` = \"true\" AND `announcement_id` = \"\'.$row[\'id\'].\'\"', 'true');
+(14, 'Francis', 'SELECT * FROM `announcement` WHERE `announcement_id` = "''.$row[''id''].''" AND `user_id` = "''.$user_id.''" AND `isRead` = "false" OR `isBroadcast` = "true" AND `announcement_id` = "''.$row[''id''].''"', 'true'),
+(15, 'TJ', 'SELECT * FROM `announcement` WHERE `announcement_id` = "''.$row[''id''].''" AND `user_id` = "''.$user_id.''" AND `isRead` = "false" OR `isBroadcast` = "true" AND `announcement_id` = "''.$row[''id''].''"', 'true'),
+(16, 'Neil', 'SELECT * FROM `announcement` WHERE `announcement_id` = "''.$row[''id''].''" AND `user_id` = "''.$user_id.''" AND `isRead` = "false" OR `isBroadcast` = "true" AND `announcement_id` = "''.$row[''id''].''"', 'true'),
+(17, 'Broadcast', 'SELECT * FROM `announcement` WHERE `announcement_id` = "''.$row[''id''].''" AND `user_id` = "''.$user_id.''" AND `isRead` = "false" OR `isBroadcast` = "true" AND `announcement_id` = "''.$row[''id''].''"', 'true');
 
 -- --------------------------------------------------------
 
@@ -103,7 +103,7 @@ INSERT INTO `announcement_content` (`id`, `title`, `message`, `status`) VALUES
 -- Table structure for table `content_marketing_assistant_tracker`
 --
 
-CREATE TABLE `content_marketing_assistant_tracker` (
+CREATE TABLE IF NOT EXISTS `content_marketing_assistant_tracker` (
   `content_marketing_assistant_id` int(11) NOT NULL,
   `curated_cnt` int(11) DEFAULT NULL,
   `drafted_cnt` int(11) DEFAULT NULL,
@@ -113,7 +113,7 @@ CREATE TABLE `content_marketing_assistant_tracker` (
   `track_date` date NOT NULL,
   `entry_time` datetime NOT NULL,
   `user_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `content_marketing_assistant_tracker`
@@ -130,14 +130,14 @@ INSERT INTO `content_marketing_assistant_tracker` (`content_marketing_assistant_
 -- Table structure for table `data_processor_tracker`
 --
 
-CREATE TABLE `data_processor_tracker` (
+CREATE TABLE IF NOT EXISTS `data_processor_tracker` (
   `data_processor_id` int(11) NOT NULL,
   `daily_task` text NOT NULL,
   `task_status` varchar(50) NOT NULL,
   `track_date` date NOT NULL,
   `entry_time` datetime NOT NULL,
   `user_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `data_processor_tracker`
@@ -152,14 +152,14 @@ INSERT INTO `data_processor_tracker` (`data_processor_id`, `daily_task`, `task_s
 -- Table structure for table `editor_tracker`
 --
 
-CREATE TABLE `editor_tracker` (
+CREATE TABLE IF NOT EXISTS `editor_tracker` (
   `editor_id` int(11) NOT NULL,
   `writer_id` int(11) DEFAULT NULL,
   `word_cnt` int(11) NOT NULL,
   `track_date` date NOT NULL,
   `entry_time` datetime NOT NULL,
   `user_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `editor_tracker`
@@ -181,12 +181,12 @@ INSERT INTO `editor_tracker` (`editor_id`, `writer_id`, `word_cnt`, `track_date`
 -- Table structure for table `holidays`
 --
 
-CREATE TABLE `holidays` (
+CREATE TABLE IF NOT EXISTS `holidays` (
   `id` int(11) NOT NULL,
   `holiday_date` date NOT NULL,
   `type` enum('regular','special') NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `holidays`
@@ -210,13 +210,13 @@ INSERT INTO `holidays` (`id`, `holiday_date`, `type`, `created`) VALUES
 -- Table structure for table `marketing_tracker`
 --
 
-CREATE TABLE `marketing_tracker` (
+CREATE TABLE IF NOT EXISTS `marketing_tracker` (
   `marketing_id` int(11) NOT NULL,
   `daily_task` text NOT NULL,
   `track_date` date NOT NULL,
   `entry_time` datetime NOT NULL,
   `user_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `marketing_tracker`
@@ -234,7 +234,7 @@ INSERT INTO `marketing_tracker` (`marketing_id`, `daily_task`, `track_date`, `en
 -- Table structure for table `multimedia_tracker`
 --
 
-CREATE TABLE `multimedia_tracker` (
+CREATE TABLE IF NOT EXISTS `multimedia_tracker` (
   `multimedia_id` int(11) NOT NULL,
   `featured_image_cnt` int(11) NOT NULL,
   `graphic_designing_cnt` int(11) NOT NULL,
@@ -243,7 +243,7 @@ CREATE TABLE `multimedia_tracker` (
   `track_date` date NOT NULL,
   `entry_time` datetime NOT NULL,
   `user_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `multimedia_tracker`
@@ -260,7 +260,7 @@ INSERT INTO `multimedia_tracker` (`multimedia_id`, `featured_image_cnt`, `graphi
 -- Table structure for table `ojt_developer_system_tracker`
 --
 
-CREATE TABLE `ojt_developer_system_tracker` (
+CREATE TABLE IF NOT EXISTS `ojt_developer_system_tracker` (
   `ojt_developer_system_id` int(11) NOT NULL,
   `create_website` text,
   `organize` text,
@@ -268,7 +268,7 @@ CREATE TABLE `ojt_developer_system_tracker` (
   `track_date` date NOT NULL,
   `entry_time` datetime NOT NULL,
   `user_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ojt_developer_system_tracker`
@@ -284,14 +284,14 @@ INSERT INTO `ojt_developer_system_tracker` (`ojt_developer_system_id`, `create_w
 -- Table structure for table `ojt_researcher_tracker`
 --
 
-CREATE TABLE `ojt_researcher_tracker` (
+CREATE TABLE IF NOT EXISTS `ojt_researcher_tracker` (
   `ojt_researcher_id` int(11) NOT NULL,
   `niche` text,
   `num_companies` text,
   `track_date` date NOT NULL,
   `entry_time` datetime NOT NULL,
   `user_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ojt_researcher_tracker`
@@ -307,7 +307,7 @@ INSERT INTO `ojt_researcher_tracker` (`ojt_researcher_id`, `niche`, `num_compani
 -- Table structure for table `ojt_seo_tracker`
 --
 
-CREATE TABLE `ojt_seo_tracker` (
+CREATE TABLE IF NOT EXISTS `ojt_seo_tracker` (
   `ojt_seo_id` int(11) NOT NULL,
   `comment` enum('Yes','No') DEFAULT 'No',
   `site_audit` enum('Yes','No') DEFAULT 'No',
@@ -318,7 +318,7 @@ CREATE TABLE `ojt_seo_tracker` (
   `track_date` date NOT NULL,
   `entry_time` datetime NOT NULL,
   `user_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ojt_seo_tracker`
@@ -335,7 +335,7 @@ INSERT INTO `ojt_seo_tracker` (`ojt_seo_id`, `comment`, `site_audit`, `schema_ma
 -- Table structure for table `ojt_webdev_tracker`
 --
 
-CREATE TABLE `ojt_webdev_tracker` (
+CREATE TABLE IF NOT EXISTS `ojt_webdev_tracker` (
   `ojt_webdev_id` int(11) NOT NULL,
   `fix_bugs_cnt` int(11) DEFAULT NULL,
   `responsive_cnt` int(11) DEFAULT NULL,
@@ -345,7 +345,7 @@ CREATE TABLE `ojt_webdev_tracker` (
   `track_date` date NOT NULL,
   `entry_time` datetime NOT NULL,
   `user_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ojt_webdev_tracker`
@@ -362,13 +362,13 @@ INSERT INTO `ojt_webdev_tracker` (`ojt_webdev_id`, `fix_bugs_cnt`, `responsive_c
 -- Table structure for table `seo_specialist_tracker`
 --
 
-CREATE TABLE `seo_specialist_tracker` (
+CREATE TABLE IF NOT EXISTS `seo_specialist_tracker` (
   `seospecialist_id` int(11) NOT NULL,
   `daily_task` text NOT NULL,
   `track_date` date NOT NULL,
   `entry_time` datetime NOT NULL,
   `user_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `seo_specialist_tracker`
@@ -385,7 +385,7 @@ INSERT INTO `seo_specialist_tracker` (`seospecialist_id`, `daily_task`, `track_d
 -- Table structure for table `social_media_tracker`
 --
 
-CREATE TABLE `social_media_tracker` (
+CREATE TABLE IF NOT EXISTS `social_media_tracker` (
   `social_media_id` int(11) NOT NULL,
   `fb_balay_cnt` int(11) NOT NULL,
   `pinterest_balay_cnt` int(11) NOT NULL,
@@ -395,7 +395,7 @@ CREATE TABLE `social_media_tracker` (
   `track_date` date NOT NULL,
   `entry_time` datetime NOT NULL,
   `user_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `social_media_tracker`
@@ -410,7 +410,7 @@ INSERT INTO `social_media_tracker` (`social_media_id`, `fb_balay_cnt`, `pinteres
 -- Table structure for table `timetable`
 --
 
-CREATE TABLE `timetable` (
+CREATE TABLE IF NOT EXISTS `timetable` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `date` date DEFAULT NULL,
@@ -425,7 +425,7 @@ CREATE TABLE `timetable` (
   `salaryToday` float NOT NULL DEFAULT '0',
   `status` enum('paid','unpaid','absent') DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=131 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `timetable`
@@ -496,7 +496,7 @@ INSERT INTO `timetable` (`id`, `user_id`, `date`, `timeIn`, `timeOut`, `lunchIn`
 (66, 5, '2017-08-23', '2017-08-23 09:34:16', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-01 09:02:36'),
 (67, 5, '2017-08-24', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-01 09:02:36'),
 (68, 5, '2017-08-25', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-01 09:02:36'),
-(69, 5, '2017-08-26', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-01 09:02:36'),
+(69, 5, '2017-08-26', '2017-08-26 06:38:50', '2017-08-26 06:40:18', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '8.0', 0, NULL, '2017-08-01 09:02:36'),
 (70, 5, '2017-08-27', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-01 09:02:36'),
 (71, 5, '2017-08-28', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-01 09:02:36'),
 (72, 5, '2017-08-29', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-01 09:02:36'),
@@ -565,13 +565,13 @@ INSERT INTO `timetable` (`id`, `user_id`, `date`, `timeIn`, `timeOut`, `lunchIn`
 -- Table structure for table `trackimo_cs_tracker`
 --
 
-CREATE TABLE `trackimo_cs_tracker` (
+CREATE TABLE IF NOT EXISTS `trackimo_cs_tracker` (
   `trackimo_cs_id` int(11) NOT NULL,
   `daily_task` text NOT NULL,
   `track_date` date NOT NULL,
   `entry_time` datetime NOT NULL,
   `user_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `trackimo_cs_tracker`
@@ -591,7 +591,7 @@ INSERT INTO `trackimo_cs_tracker` (`trackimo_cs_id`, `daily_task`, `track_date`,
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL,
   `oauth_uid` varchar(255) NOT NULL,
   `firstName` varchar(255) NOT NULL,
@@ -601,6 +601,7 @@ CREATE TABLE `users` (
   `picture` varchar(255) DEFAULT NULL,
   `isAdmin` tinyint(4) NOT NULL DEFAULT '0',
   `workStatus` enum('OJT','Trainee','Probationary','Regular') DEFAULT NULL,
+  `flexitime` enum('true','false') NOT NULL DEFAULT 'false',
   `jobTitle` enum('Editor','Writer','Marketing Specialist','Trackimo Customer Support','Social Media Specialist','Multimedia Specialist','Data Processor','SEO Specialist','Wordpress Developer','Content Marketing Assistant','OJT Web Development','OJT SEO','OJT System Developer','OJT Researcher') DEFAULT NULL,
   `birthday` date DEFAULT NULL,
   `noOfAbsences` int(11) DEFAULT NULL,
@@ -617,20 +618,20 @@ CREATE TABLE `users` (
   `transportation` float DEFAULT NULL,
   `meal` float DEFAULT NULL,
   `mobileNumber` char(12) DEFAULT NULL,
-  `telephoneNumber` char(8) DEFAULT NULL,
+  `telephoneNumber` char(10) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `oauth_uid`, `firstName`, `lastName`, `email`, `password`, `picture`, `isAdmin`, `workStatus`, `jobTitle`, `birthday`, `noOfAbsences`, `scheduledTimeIn`, `scheduledTimeOut`, `OJT_hoursTotal`, `OJT_hoursRemaining`, `OJT_allowanceDaily`, `dateHiredTrainee`, `dateHiredProbationary`, `dateHiredRegular`, `basicPay`, `allowance`, `transportation`, `meal`, `mobileNumber`, `telephoneNumber`, `address`, `created`) VALUES
-(3, '114331649460731421461', 'Francis Alec', 'Yap', 'francisyap.utech@gmail.com', '$2y$10$Y83gylhdLdPIAjsmB0FQXecGYLFsHnuKZqYtfCEnUBLrzSKGHWntK', '', 1, 'OJT', 'OJT SEO', '1997-10-04', NULL, NULL, NULL, 300, 299.2, 100, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '9175187060', '09175187', '297B Sikatuna St Alcohol St', '2017-07-28 08:50:28'),
-(5, '115364617561313755233', 'Tristan', 'James', 'tjlerias.utech@gmail.com', '$2y$10$meUQs/oKJ0TsMhOMcZnvQOHW4ZxmTIrSCqOiDxdzfte3LVhx.q5jy', NULL, 1, 'OJT', 'OJT SEO', '1997-10-04', NULL, NULL, NULL, 300, 294, 100, '0000-00-00', '0000-00-00', '2017-08-05', 25000, 2000, 250, 500, '917', '420', 'TJ\'s House', '2017-08-01 09:02:32'),
-(6, '115136298002144337425', 'Neil', 'Llenes', 'neilllenes.utech@gmail.com', '$2y$10$egfkOh8.fVaMLEPvR3PvPO6EF.6tVd66R./4CrtzicKxbMjfqQTN.', 'https://lh3.googleusercontent.com/-MpHVyx4L8Es/AAAAAAAAAAI/AAAAAAAAAAA/APJypA0YAGSvCySazU40Tq0qowOJF4cSYQ/s96-c/photo.jpg', 1, 'OJT', 'OJT Web Development', '1997-01-01', NULL, NULL, NULL, 400, 100, 100, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '917', '32', 'Neil Home', '2017-08-25 08:39:15'),
-(7, '102482443114236503223', 'Neil Patrick', 'Llenes', 'neil.llenes@gmail.com', '$2y$10$YEF8paoNN1CYqzInrIA2ROV5UlvRMKXNDfqhC7mKjwzjVpRcGKpVG', 'https://lh5.googleusercontent.com/-qux1Rglr8oo/AAAAAAAAAAI/AAAAAAAAAE8/Vw21y2IUiaw/s96-c/photo.jpg', 0, 'OJT', 'OJT Web Development', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-08-25 08:39:45');
+INSERT INTO `users` (`id`, `oauth_uid`, `firstName`, `lastName`, `email`, `password`, `picture`, `isAdmin`, `workStatus`, `flexitime`, `jobTitle`, `birthday`, `noOfAbsences`, `scheduledTimeIn`, `scheduledTimeOut`, `OJT_hoursTotal`, `OJT_hoursRemaining`, `OJT_allowanceDaily`, `dateHiredTrainee`, `dateHiredProbationary`, `dateHiredRegular`, `basicPay`, `allowance`, `transportation`, `meal`, `mobileNumber`, `telephoneNumber`, `address`, `created`) VALUES
+(3, '114331649460731421461', 'Francis Alec', 'Yap', 'francisyap.utech@gmail.com', '$2y$10$Y83gylhdLdPIAjsmB0FQXecGYLFsHnuKZqYtfCEnUBLrzSKGHWntK', '', 1, 'OJT', 'false', 'OJT SEO', '1997-10-04', NULL, NULL, NULL, 300, 299.2, 100, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '9175187060', '03225324', '297B Sikatuna St Alcohol St', '2017-07-28 08:50:28'),
+(5, '115364617561313755233', 'Tristan', 'James', 'tjlerias.utech@gmail.com', '$2y$10$meUQs/oKJ0TsMhOMcZnvQOHW4ZxmTIrSCqOiDxdzfte3LVhx.q5jy', NULL, 1, 'OJT', 'false', 'OJT SEO', '1997-10-04', NULL, NULL, NULL, 300, 294, 100, '0000-00-00', '0000-00-00', '2017-08-05', 25000, 2000, 250, 500, '917', '420', 'TJ''s House', '2017-08-01 09:02:32'),
+(6, '115136298002144337425', 'Neil', 'Llenes', 'neilllenes.utech@gmail.com', '$2y$10$egfkOh8.fVaMLEPvR3PvPO6EF.6tVd66R./4CrtzicKxbMjfqQTN.', 'https://lh3.googleusercontent.com/-MpHVyx4L8Es/AAAAAAAAAAI/AAAAAAAAAAA/APJypA0YAGSvCySazU40Tq0qowOJF4cSYQ/s96-c/photo.jpg', 1, 'OJT', 'false', 'OJT Web Development', '1997-01-01', NULL, NULL, NULL, 400, 100, 100, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '917', '32', 'Neil Home', '2017-08-25 08:39:15'),
+(7, '102482443114236503223', 'Neil Patrick', 'Llenes', 'neil.llenes@gmail.com', '$2y$10$YEF8paoNN1CYqzInrIA2ROV5UlvRMKXNDfqhC7mKjwzjVpRcGKpVG', 'https://lh5.googleusercontent.com/-qux1Rglr8oo/AAAAAAAAAAI/AAAAAAAAAE8/Vw21y2IUiaw/s96-c/photo.jpg', 0, 'OJT', 'false', 'OJT Web Development', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-08-25 08:39:45');
 
 -- --------------------------------------------------------
 
@@ -638,7 +639,7 @@ INSERT INTO `users` (`id`, `oauth_uid`, `firstName`, `lastName`, `email`, `passw
 -- Table structure for table `wordpress_developer_tracker`
 --
 
-CREATE TABLE `wordpress_developer_tracker` (
+CREATE TABLE IF NOT EXISTS `wordpress_developer_tracker` (
   `wordpress_developer_id` int(11) NOT NULL,
   `fix_bug_cnt` int(11) DEFAULT NULL,
   `create_pages_cnt` int(11) DEFAULT NULL,
@@ -648,7 +649,7 @@ CREATE TABLE `wordpress_developer_tracker` (
   `track_date` date NOT NULL,
   `entry_time` datetime NOT NULL,
   `user_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `wordpress_developer_tracker`
@@ -665,14 +666,14 @@ INSERT INTO `wordpress_developer_tracker` (`wordpress_developer_id`, `fix_bug_cn
 -- Table structure for table `writer_tracker`
 --
 
-CREATE TABLE `writer_tracker` (
+CREATE TABLE IF NOT EXISTS `writer_tracker` (
   `writer_id` int(11) NOT NULL,
   `article_title` varchar(50) NOT NULL,
   `word_cnt` int(11) NOT NULL,
   `track_date` date NOT NULL,
   `entry_time` datetime NOT NULL,
   `user_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `writer_tracker`
@@ -877,97 +878,97 @@ ALTER TABLE `additional_task_tracker`
 -- AUTO_INCREMENT for table `announcement`
 --
 ALTER TABLE `announcement`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `announcement_content`
 --
 ALTER TABLE `announcement_content`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `content_marketing_assistant_tracker`
 --
 ALTER TABLE `content_marketing_assistant_tracker`
-  MODIFY `content_marketing_assistant_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `content_marketing_assistant_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `data_processor_tracker`
 --
 ALTER TABLE `data_processor_tracker`
-  MODIFY `data_processor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `data_processor_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `editor_tracker`
 --
 ALTER TABLE `editor_tracker`
-  MODIFY `editor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `editor_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT for table `holidays`
 --
 ALTER TABLE `holidays`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `marketing_tracker`
 --
 ALTER TABLE `marketing_tracker`
-  MODIFY `marketing_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `marketing_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `multimedia_tracker`
 --
 ALTER TABLE `multimedia_tracker`
-  MODIFY `multimedia_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `multimedia_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `ojt_developer_system_tracker`
 --
 ALTER TABLE `ojt_developer_system_tracker`
-  MODIFY `ojt_developer_system_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ojt_developer_system_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `ojt_researcher_tracker`
 --
 ALTER TABLE `ojt_researcher_tracker`
-  MODIFY `ojt_researcher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ojt_researcher_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `ojt_seo_tracker`
 --
 ALTER TABLE `ojt_seo_tracker`
-  MODIFY `ojt_seo_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ojt_seo_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `ojt_webdev_tracker`
 --
 ALTER TABLE `ojt_webdev_tracker`
-  MODIFY `ojt_webdev_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ojt_webdev_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `seo_specialist_tracker`
 --
 ALTER TABLE `seo_specialist_tracker`
-  MODIFY `seospecialist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `seospecialist_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `social_media_tracker`
 --
 ALTER TABLE `social_media_tracker`
-  MODIFY `social_media_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `social_media_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `timetable`
 --
 ALTER TABLE `timetable`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=131;
 --
 -- AUTO_INCREMENT for table `trackimo_cs_tracker`
 --
 ALTER TABLE `trackimo_cs_tracker`
-  MODIFY `trackimo_cs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `trackimo_cs_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `wordpress_developer_tracker`
 --
 ALTER TABLE `wordpress_developer_tracker`
-  MODIFY `wordpress_developer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `wordpress_developer_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `writer_tracker`
 --
 ALTER TABLE `writer_tracker`
-  MODIFY `writer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `writer_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=96;
 --
 -- Constraints for dumped tables
 --
