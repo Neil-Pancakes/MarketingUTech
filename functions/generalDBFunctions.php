@@ -128,17 +128,19 @@
 		$result = mysqli_query($mysqli, $query);
 		if($result){
 			while($row = mysqli_fetch_assoc($result)){
-				$query = 'SELECT * FROM `announcement` WHERE `announcement_id` = "'.$row['id'].'" AND `user_id` = "'.$user_id.'" AND `isRead` = "false"';
+				$query = 'SELECT * FROM `announcement` WHERE `announcement_id` = "'.$row['id'].'" AND `user_id` = "'.$user_id.'"';
 				$result2 = $mysqli->query($query);
 				if($result2->num_rows > 0) {
 					$row2 = $result2->fetch_assoc();
 					if($row2['isRead'] == 'true'){
 						$isRead = "Read";
+						echo "<tr id='".$row['id']."' data-toggle='modal' data-target='#viewModal'>";
 					} else {
 						$isRead = "<strong>Unread</strong>";
+						$function = 'ajaxRead("'.$row2['id'].'", "'.$row['id'].'")';
+						echo "<tr id='".$row['id']."' data-toggle='modal' data-target='#viewModal' onclick='".$function."'>";
 					}
 					echo "
-						<tr id='".$row['id']."' data-toggle='modal' data-target='#viewModal'>
 						<td>".$row['title']."</td>
 						<td>".$isRead."</td>
 						</tr>
@@ -156,17 +158,19 @@
 		$result = mysqli_query($mysqli, $query);
 		if($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
-				$query = 'SELECT * FROM `announcement` WHERE `announcement_id` = "'.$row['id'].'" AND `isBroadcast` = "true" AND `isRead` = "false"';
+				$query = 'SELECT * FROM `announcement` WHERE `announcement_id` = "'.$row['id'].'" AND `isBroadcast` = "true"';
 				$result2 = $mysqli->query($query);
 				if($result2->num_rows > 0) {
 					$row2 = $result2->fetch_assoc();
 					if($row2['isRead'] == 'true'){
 						$isRead = "Read";
+						echo "<tr id='".$row['id']."' data-toggle='modal' data-target='#viewModal'>";
 					} else {
 						$isRead = "<strong>Unread</strong>";
+						$function = 'ajaxRead("'.$row2['id'].'", "'.$row['id'].'")';
+						echo "<tr id='".$row['id']."' data-toggle='modal' data-target='#viewModal' onclick='".$function."'>";
 					}
 					echo "
-						<tr id='".$row['id']."' data-toggle='modal' data-target='#viewModal'>
 						<td>".$row['title']."</td>
 						<td>".$isRead."</td>
 						</tr>
