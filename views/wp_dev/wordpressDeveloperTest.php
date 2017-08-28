@@ -183,49 +183,137 @@
                 </md-content>
               </md-tab>
               <md-tab label="team member tasks">
-                <md-content class="md-padding">
-                  <md-list flex>
-                    <md-list-item class="md-3-line" ng-repeat="x in team">
-                      <div style="width:95%;">
-                        <img src="../../includes/img/writerIcon.png" class="md-avatar" style="float:left"/>
-                        <div class="md-list-item-text">
-                        <h3 class="articleName">{{ x.Name }}</h3>
-                          <button class="btn btn-xs btn-primary">View</button>
-                          <button class="btn btn-xs btn-success" ng-click="addTaskModal(x.Id)" data-toggle="modal" data-target="#addTask">Add Task</button>
-                            
+              <md-content class="md-padding">
+                <md-list flex>
+                  <md-list-item class="md-3-line" ng-repeat="x in team">
+                    <div style="width:95%;">
+                      <img src="../../includes/img/writerIcon.png" class="md-avatar" style="float:left"/>
+                      <div class="md-list-item-text">
+                      <h3 class="articleName">{{ x.Name }}</h3>
+                        <button class="btn btn-xs btn-primary" ng-click="viewTask(x.Id)" data-toggle="modal" data-target="#viewTask">View</button>
+                        <button class="btn btn-xs btn-success" ng-click="addTaskModal(x.Id)" data-toggle="modal" data-target="#addTask">Add Task</button>
                           
-                        </div>
+                        
                       </div>
-                    </md-list-item>
-                    <div id="addTask" class="modal fade" role="dialog">
-                                <div class="modal-dialog">
-                                <form ng-submit="addAdditional()">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h2 id="modalHeaderEditDelete">Task</h2>
-                                    </div>
-                                    <div class="modal-body">
-                                      <input ng-model="addTaskUserId" hidden>
-                                      <input class="form-control" placeholder="Task Name" ng-model="addTaskName" required>
-                                      <select class="form-control" ng-model="addTaskType" required>
-                                        <option value="Text">Text</option>
-                                        <option value="Int">Count</option>
-                                        <option value="Binary">Yes/No</option>
-                                      </select>
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button type="submit" class="btn btn-success" onclick="$('#addTask').modal('hide');">Add Task <span class="fa fa-plus-circle"></span></button>
-                                    </div>
+                    </div>
+                  </md-list-item>
+                  <div id="viewTask" class="modal fade" role="dialog" style="padding-top:10%;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header" style="background-color:#00b8e6; color:white;">
+                            <h2 id="modalHeaderEditDelete">Task</h2>
+                          </div>
+                          <div class="modal-body">
+                            <md-content>
+                              <md-list flex>
+                                  <div align="center">
+                                    <md-button ng-show="delBtn" type="submit" class=" md-raised" style="width:20%; background-color:darkred; color:white;">Delete <span class="fa fa-trash"></span></md-button>
                                   </div>
-                                  </form>
+                                  <md-list-item class="md-3-line">
+                                    <div style="width:95%;">
+                                      <img src="../../includes/img/bugFix.png" class="md-avatar" style="float:left"/>
+                                      <div class="md-list-item-text">
+                                        <br>
+                                        <h3>Fix Bugs</h3>
+                                        <h3 class="articleName">{{ teamTracker[0].FixBugCnt }}</h3>
+                                        
+                                      </div>
+                                    </div>
+                                  </md-list-item>
+                                  <md-list-item class="md-3-line">
+                                    <div style="width:95%;">
+                                      <img src="../../includes/img/pageIcon.png" class="md-avatar" style="float:left"/>
+                                      <div class="md-list-item-text">
+                                        <br>
+                                        <h3>Create Pages</h3>
+                                        <h3 class="articleName">{{ teamTracker[0].CreatePagesCnt }}</h3>
+                                        
+                                      </div>
+                                    </div>
+                                  </md-list-item>
+
+                                  <md-list-item class="md-3-line">
+                                    <div style="width:95%;">
+                                      <img src="../../includes/img/responsiveDesign.png" class="md-avatar" style="float:left"/>
+                                      <div class="md-list-item-text">
+                                        <br>
+                                        <h3>Responsive Design</h3>
+                                        <h3 class="articleName">{{ teamTracker[0].ResponsiveDesignCnt }}</h3>
+                                        
+                                      </div>
+                                    </div>
+                                  </md-list-item>
+
+                                  <md-list-item class="md-3-line">
+                                    <div style="width:95%;">
+                                      <img src="../../includes/img/articleIcon.png" class="md-avatar" style="float:left"/>
+                                      <div class="md-list-item-text">
+                                        <br>
+                                        <h3>Modify Pages</h3>
+                                        <h3 class="articleName">{{ teamTracker[0].ModifyPagesCnt }}</h3>
+                                        
+                                      </div>
+                                    </div>
+                                  </md-list-item>
+
+                                  <md-list-item class="md-3-line">
+                                    <div style="width:95%;">
+                                      <img src="../../includes/img/miscIcon.png" class="md-avatar" style="float:left"/>
+                                      <div class="md-list-item-text">
+                                        <br>
+                                        <h3>Miscellaneous</h3>
+                                        <h3 class="articleName">{{ teamTracker[0].MiscCnt }}</h3>
+                                        
+                                      </div>
+                                    </div>
+                                  </md-list-item>
+                                  <md-list-item class="md-3-line" ng-repeat="x in todayAdditional track by $index">
+                                    <img src="../../includes/img/taskIcon.png" class="md-avatar" style="float:left"/>
+                                      <div class="md-list-item-text">
+                                        <h3>{{x.Name}}</h3>
+                                        <h3 class="articleName">{{ x.Task }}</h3>
+                                        
+                                      </div>
+                                  </md-list-item>
+                            </md-content>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" onclick="$('#viewTask').modal('hide');">Close <span class="fa fa-close"></span></button>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+
+                  <div id="addTask" class="modal fade" role="dialog" style="padding-top:10%;">
+                              <div class="modal-dialog">
+                              <form ng-submit="addAdditional()">
+                                <div class="modal-content">
+                                  <div class="modal-header" style="background-color:#00cc00; color:white;">
+                                    <h2 id="modalHeaderEditDelete">Task</h2>
+                                  </div>
+                                  <div class="modal-body">
+                                    <input ng-model="addTaskUserId" hidden>
+                                    <input class="form-control" placeholder="Task Name" ng-model="addTaskName" required>
+                                    <select class="form-control" ng-model="addTaskType" required>
+                                      <option value="Text">Text</option>
+                                      <option value="Int">Count</option>
+                                      <option value="Binary">Yes/No</option>
+                                    </select>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success" onclick="$('#addTask').modal('hide');">Add Task <span class="fa fa-plus-circle"></span></button>
+                                    <button type="button" class="btn btn-danger" onclick="$('#addTask').modal('hide');">Close <span class="fa fa-close"></span></button>
+                                  </div>
                                 </div>
+                                </form>
                               </div>
-                  </md-list>
-                </md-content>
-                <div ng-show="showTeam" align="center">
-                  <h2>You don't have any Team Members</h2>
-                </div>
-              </md-tab>
+                            </div>
+                </md-list>
+              </md-content>
+              <div ng-show="showTeam" align="center">
+                <h2>You don't have any Team Members</h2>
+              </div>
+            </md-tab>
               <md-tab label="additional tasks">
                 <md-content class="md-padding">
                   <md-list flex>
@@ -393,7 +481,6 @@
       };
       
       $scope.addAdditional = function(){
-          alert($scope.addTaskName);
           $http.post('../../insertFunctions/insertAdditionalTask.php', {
               'userId': $scope.addTaskUserId,
               'name': $scope.addTaskName,
@@ -417,6 +504,12 @@
             $scope.addTaskName = "";
             $scope.addTaskType = "";
       };
+      
+      $scope.viewTask = function(userId){
+        $http.get('../../queries/getTeamTracker/getTeamWordpress.php?id='+userId).then(function (response){
+          $scope.teamTracker = response.data.records;
+        });
+    };
   });
 </script>
 
