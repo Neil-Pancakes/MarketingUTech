@@ -253,3 +253,7 @@
         </div>';
       }
     ?>
+    <?php
+      $wasFilled = isTaskTrackerAnswered($_SESSION['user_id']); //generalDBFunctions.php;
+
+    ?>
