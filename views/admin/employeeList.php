@@ -1,6 +1,7 @@
 <?php
   require ("../../functions/php_globals.php");
   include ("../dashboard/dashboard.php");
+  include ("adminFunctions.php");
 
   if (!isAdmin($_SESSION['user_id'])) {
     header("Location:../home/home.php");
@@ -131,8 +132,8 @@
                       <button type="button" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#update'.$row["id"].'" onclick="updateCheckOJT('.$row["id"].')"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
                       
                       <!-- Modal -->
-                      <div class="modal fade" id="update'.$row["id"].'" tab-index="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
+                      <div class="modal fade" id="update'.$row["id"].'" role="dialog">
+                        <div class="modal-dialog modal-lg">
                           <!-- Update Modal content-->
                           <form id="update-form" action="updateEmployee.php" method="GET">
                             <div class="modal-content">
@@ -147,100 +148,67 @@
                                   <div class="form-group col-md-4">
                                     <h4>Basic Info</h4>
                                     <input type="text" name="id" value="'.$row["id"].'" hidden />
-                                    <label for="firstName">First Name</label><br>
-                                    <input type="text" name="firstName" value="'.$row["firstName"].'" onkeypress="return isLetter(event)" required/><br><br>
-                                    <label for="lastName">Last Name</label><br>
-                                    <input type="text" name="lastName" value="'.$row["lastName"].'" onkeypress="return isLetter(event)" required/><br><br>
-                                    <label for="email">Email</label><br>
-                                    <input type="email" name="email" value="'.$row["email"].'" disabled/>
-                                    <input type="email" name="email" value="'.$row["email"].'" hidden/><br><br>
-                                    <label for="jobTitle">Job Title</label><br>
-                                    <input type="text" name="jobTitle" value="'.$row["jobTitle"].'" onkeypress="return isLetter(event)" required/><br><br>
-                                    <label for="workStatus">Work status</label><br>
-                                    <select id="update_workStatus'.$row["id"].'" name="workStatus" onchange="updateCheckOJT('.$row["id"].')" required>
-                                    '; 
-                                      if($row["workStatus"] == "OJT") {
-                                        echo '
-                                          <option value="OJT" selected>OJT</option>
-                                          <option value="Trainee">Trainee</option>
-                                          <option value="Probationary">Probationary</option>
-                                          <option value="Regular">Regular</option>
-                                        ';
-                                      }else if($row["workStatus"] == "Trainee"){
-                                        echo '
-                                          <option value="OJT">OJT</option>
-                                          <option value="Trainee" selected>Trainee</option>
-                                          <option value="Probationary">Probationary</option>
-                                          <option value="Regular">Regular</option>
-                                        ';
-                                      }else if($row["workStatus"] == "Probationary"){
-                                        echo '
-                                          <option value="OJT" selected>OJT</option>
-                                          <option value="Trainee">Trainee</option>
-                                          <option value="Probationary" selected>Probationary</option>
-                                          <option value="Regular">Regular</option>
-                                        ';
-                                      }else if($row["workStatus"] == "Regular"){
-                                        echo '
-                                          <option value="OJT" selected>OJT</option>
-                                          <option value="Trainee">Trainee</option>
-                                          <option value="Probationary">Probationary</option>
-                                          <option value="Regular" selected>Regular</option>
-                                        ';
-                                      }else{
-                                        echo '
-                                          <option value="" disabled selected>Select employee status</option>
-                                          <option value="OJT">OJT</option>
-                                          <option value="Trainee">Trainee</option>
-                                          <option value="Probationary">Probationary</option>
-                                          <option value="Regular">Regular</option>
-                                        ';
-                                      }
-                                      echo '</select><br><br>';
+                                    <div class="form-group">
+                                      <label for="firstName">First Name</label>
+                                      <input type="text" class="form-control" name="firstName" value="'.$row["firstName"].'" onkeypress="return isLetter(event)" required/>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="lastName">Last Name</label>
+                                      <input type="text" class="form-control" name="lastName" value="'.$row["lastName"].'" onkeypress="return isLetter(event)" required/>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="email">Email</label>
+                                      <input type="email" class="form-control" name="email" value="'.$row["email"].'" disabled/>
+                                      <input type="email" name="email" value="'.$row["email"].'" hidden/>
+                                    </div>';
+
+                                    displayJobTitleSelect($row);
+                                    displayWorkStatusSelect($row);
+
                                   echo'
                                   </div>
                                   <div id="dateOfHire'.$row["id"].'" class="form-group col-md-4">
                                     <h4>Date of Hire</h4>
-                                    <label for="">Trainee</label><br>
-                                    <input type="date" name="dateHiredTrainee" value="'.$row["dateHiredTrainee"].'" /><br><br>
+                                    <label for="dateHiredTrainee">Trainee</label><br>
+                                    <input type="date" class="form-control" name="dateHiredTrainee" value="'.$row["dateHiredTrainee"].'" /><br><br>
                                     <label for="dateHiredProbationary">Probationary</label><br>
-                                    <input type="date" name="dateHiredProbationary" value="'.$row["dateHiredProbationary"].'" /><br><br>
+                                    <input type="date" class="form-control" name="dateHiredProbationary" value="'.$row["dateHiredProbationary"].'" /><br><br>
                                     <label for="dateHiredRegular">Regular</label><br>
-                                    <input type="date" name="dateHiredRegular" value="'.$row["dateHiredRegular"].'" /><br><br>
+                                    <input type="date" class="form-control" name="dateHiredRegular" value="'.$row["dateHiredRegular"].'" /><br><br>
                                   </div>
-                                  <div id="compensation'.$row["id"].'" class="col-md-4">
+                                  <div id="compensation'.$row["id"].'" class="form-group col-md-4">
                                     <h4>Current Compensation</h4>
                                     <label for="basicPay">Basic Pay</label><br>
-                                    <input type="number" name="basicPay" value="'.$row["basicPay"].'" step="0.01" min="0" onkeypress="return isDecimal(event)" required/><br><br>
+                                    <input type="number" class="form-control" name="basicPay" value="'.$row["basicPay"].'" step="0.01" min="0" onkeypress="return isDecimal(event)" required/><br><br>
                                     <label for="allowance">Allowance</label><br>
-                                    <input type="number" name="allowance" value="'.$row["allowance"].'" step="0.01" min="0" onkeypress="return isDecimal(event)" required/><br><br>
+                                    <input type="number" class="form-control" name="allowance" value="'.$row["allowance"].'" step="0.01" min="0" onkeypress="return isDecimal(event)" required/><br><br>
                                     <label for="transportation">Transportation</label><br>
-                                    <input type="number" name="transportation" value="'.$row["transportation"].'" step="0.01" min="0" onkeypress="return isDecimal(event)" required/><br><br>
+                                    <input type="number" class="form-control" name="transportation" value="'.$row["transportation"].'" step="0.01" min="0" onkeypress="return isDecimal(event)" required/><br><br>
                                     <label for="meal">Meal</label><br>
-                                    <input type="number" name="meal" value="'.$row["meal"].'" step="0.01" min="0" onkeypress="return isDecimal(event)" required/><br><br>
+                                    <input type="number" class="form-control" name="meal" value="'.$row["meal"].'" step="0.01" min="0" onkeypress="return isDecimal(event)" required/><br><br>
                                   </div>
                                   <div class="form-group col-md-4">
                                     <h4>Contact Number</h4>
                                     <label for="mobileNumber">Mobile Number</label>
-                                    <input type="text" name="mobileNumber" value="'.$row["mobileNumber"].'" onkeypress="return isNumber(event)" /><br><br>
+                                    <input type="text" class="form-control" name="mobileNumber" value="'.$row["mobileNumber"].'" onkeypress="return isNumber(event)" /><br><br>
                                     <label for="telephoneNumber">Telephone Number</label>
-                                    <input type="text" name="telephoneNumber" value="'.$row["telephoneNumber"].'" onkeypress="return isNumber(event)" /><br><br>
+                                    <input type="text" class="form-control" name="telephoneNumber" value="'.$row["telephoneNumber"].'" onkeypress="return isNumber(event)" /><br><br>
                                     <h4>Other Info</h4>
                                     <label for="address">Address</label>
-                                    <input type="text" name="address" value="'.$row["address"].'" /><br><br>
+                                    <textarea type="text" class="form-control" name="address">'.$row["address"].'</textarea><br><br>
                                     <label for="birthday">Birthday</label>
-                                    <input type="date" name="birthday" value="'.$row["birthday"].'" required /><br><br>
+                                    <input type="date" class="form-control" name="birthday" value="'.$row["birthday"].'" required /><br><br>
                                   </div>
                               
                                   <!-- if type is OJT else hide -->
                                   <div id="update_ojt_info'.$row['id'].'" class="form-group col-md-4">
                                     <h4>OJT Info</h4>
                                     <label for="OJT_hoursTotal">Total hours</label><br>
-                                    <input type="number" name="OJT_hoursTotal" value="'.$row["OJT_hoursTotal"].'" step="0.1" onkeypress="return isDecimal(event)" required/><br><br>
+                                    <input type="number" class="form-control" name="OJT_hoursTotal" value="'.$row["OJT_hoursTotal"].'" step="0.1" onkeypress="return isDecimal(event)" required/><br><br>
                                     <label for="OJT_hoursRemaining">Hours Remaining</label><br>
-                                    <input type="number" name="OJT_hoursRemaining" value="'.$row["OJT_hoursRemaining"].'" step="0.1" onkeypress="return isDecimal(event)" required/><br><br>
+                                    <input type="number" class="form-control" name="OJT_hoursRemaining" value="'.$row["OJT_hoursRemaining"].'" step="0.1" onkeypress="return isDecimal(event)" required/><br><br>
                                     <label for="OJT_allowanceDaily">Allowance daily</label><br>
-                                    <input type="number" name="OJT_allowanceDaily" value="'.$row["OJT_allowanceDaily"].'" step="0.01" onkeypress="return isDecimal(event)" required/><br><br>
+                                    <input type="number" class="form-control" name="OJT_allowanceDaily" value="'.$row["OJT_allowanceDaily"].'" step="0.01" onkeypress="return isDecimal(event)" required/><br><br>
                                   </div>
                                 </div> <!-- end of row --> 
                               </div> <!-- end of modal-body -->

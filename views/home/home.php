@@ -12,42 +12,38 @@
 
     <!-- Main content -->
     <section class="content">
+      <div class="col-md-6">
+        <div id="alertMsg">
+          <?php
+            if (isset($_GET['succ'])){
+                echo '<div class="alert alert-success" role="alert">'.$_SESSION['alertMsg'].'</div>';
+            }
+            if (isset($_GET['err'])){
+                echo '<div class="alert alert-danger" role="alert">'.$_SESSION['alertMsg'].'</div>';
+            }
+          ?>
+        </div>
 
-    <div class="col-md-6">
-      <div id="alertMsg">
-        <?php
-          if (isset($_GET['succ'])){
-              echo '<div class="alert alert-success" role="alert">'.$_SESSION['alertMsg'].'</div>';
-          }
-          if (isset($_GET['err'])){
-              echo '<div class="alert alert-danger" role="alert">'.$_SESSION['alertMsg'].'</div>';
-          }
-        ?>
-      </div>
+        <div class="col-md-12">
+          <br><br>
+          <p class="timestamp" id="time"></p>
+          <p class="timestamp" id="date"></p>
+          <br><br>
+        </div>
 
-      <div class="col-md-12">
-        <br><br>
-        <p class="timestamp" id="time"></p>
-        <p class="timestamp" id="date"></p>
-        <br><br>
-      </div>
-
-      <div id="time-btns">
-        <?php displayTimeBtns(); //generalDBFunctions.php ?>
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="col-md-6 div-table">
-        <h2>Time History Today</h2>
-          <table class="table table-condensed">
-            <tbody id="timeToday-tbody">
-              <?php displayTimetableToday(); //generalDBFunctions.php ?>
-            </tbody>
-          </table>
+        <div id="time-btns">
+          <?php displayTimeBtns(); //generalDBFunctions.php ?>
         </div>
       </div>
 
+      <div class="col-md-6 div-table">
+        <h2>Time History Today</h2>
+        <table class="table table-condensed">
+          <tbody id="timeToday-tbody">
+            <?php displayTimetableToday(); //generalDBFunctions.php ?>
+          </tbody>
+        </table>
+      </div>
     </section>
     <!-- /.content -->
   </div>
