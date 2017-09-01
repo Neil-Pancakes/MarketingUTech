@@ -38,6 +38,7 @@
     <script src="../../includes/js/jquery.dataTables.min.js"></script>
     <script src="../../includes/js/dataTables.responsive.min.js"></script>
     <script src="../../includes/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../../includes/js/ui-grid.js"></script>
 
     <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
     
@@ -54,7 +55,8 @@
     <link rel="stylesheet" href="../../includes/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../../includes/css/responsive.dataTables.min.css">
     <link rel="stylesheet" href="../../includes/css/bootstrap-datetimepicker.min.css">
-
+    <link rel="stylesheet" href="../../includes/css/ui-grid.css">
+    
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">   
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
 
