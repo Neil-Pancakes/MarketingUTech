@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 26, 2017 at 08:48 AM
+-- Generation Time: Sep 01, 2017 at 10:20 AM
 -- Server version: 5.6.25
 -- PHP Version: 5.6.11
 
@@ -69,10 +69,10 @@ CREATE TABLE IF NOT EXISTS `announcement` (
 --
 
 INSERT INTO `announcement` (`id`, `announcement_id`, `user_id`, `isBroadcast`, `isRead`, `endDate`, `createdByUserID`, `created`) VALUES
-(9, 14, 3, 'false', 'false', NULL, 3, '2017-08-25 14:06:16'),
+(9, 14, 3, 'false', 'true', NULL, 3, '2017-08-25 14:06:16'),
 (10, 15, 5, 'false', 'false', NULL, 3, '2017-08-25 14:06:31'),
 (11, 16, 7, 'false', 'false', NULL, 3, '2017-08-25 14:06:48'),
-(12, 17, NULL, 'true', 'false', NULL, 3, '2017-08-25 14:06:57');
+(12, 17, NULL, 'true', 'true', NULL, 3, '2017-08-25 14:06:57');
 
 -- --------------------------------------------------------
 
@@ -84,18 +84,20 @@ CREATE TABLE IF NOT EXISTS `announcement_content` (
   `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `message` varchar(255) NOT NULL,
-  `status` enum('true','false') NOT NULL DEFAULT 'true'
+  `status` enum('true','false') NOT NULL DEFAULT 'true',
+  `dateUntil` date NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `announcement_content`
 --
 
-INSERT INTO `announcement_content` (`id`, `title`, `message`, `status`) VALUES
-(14, 'Francis', 'SELECT * FROM `announcement` WHERE `announcement_id` = "''.$row[''id''].''" AND `user_id` = "''.$user_id.''" AND `isRead` = "false" OR `isBroadcast` = "true" AND `announcement_id` = "''.$row[''id''].''"', 'true'),
-(15, 'TJ', 'SELECT * FROM `announcement` WHERE `announcement_id` = "''.$row[''id''].''" AND `user_id` = "''.$user_id.''" AND `isRead` = "false" OR `isBroadcast` = "true" AND `announcement_id` = "''.$row[''id''].''"', 'true'),
-(16, 'Neil', 'SELECT * FROM `announcement` WHERE `announcement_id` = "''.$row[''id''].''" AND `user_id` = "''.$user_id.''" AND `isRead` = "false" OR `isBroadcast` = "true" AND `announcement_id` = "''.$row[''id''].''"', 'true'),
-(17, 'Broadcast', 'SELECT * FROM `announcement` WHERE `announcement_id` = "''.$row[''id''].''" AND `user_id` = "''.$user_id.''" AND `isRead` = "false" OR `isBroadcast` = "true" AND `announcement_id` = "''.$row[''id''].''"', 'true');
+INSERT INTO `announcement_content` (`id`, `title`, `message`, `status`, `dateUntil`, `created`) VALUES
+(14, 'Francis', 'SELECT * FROM `announcement` WHERE `announcement_id` = "''.$row[''id''].''" AND `user_id` = "''.$user_id.''" AND `isRead` = "false" OR `isBroadcast` = "true" AND `announcement_id` = "''.$row[''id''].''"', 'true', '0000-00-00', '2017-08-28 08:19:41'),
+(15, 'TJ', 'SELECT * FROM `announcement` WHERE `announcement_id` = "''.$row[''id''].''" AND `user_id` = "''.$user_id.''" AND `isRead` = "false" OR `isBroadcast` = "true" AND `announcement_id` = "''.$row[''id''].''"', 'true', '0000-00-00', '2017-08-28 08:19:41'),
+(16, 'Neil', 'SELECT * FROM `announcement` WHERE `announcement_id` = "''.$row[''id''].''" AND `user_id` = "''.$user_id.''" AND `isRead` = "false" OR `isBroadcast` = "true" AND `announcement_id` = "''.$row[''id''].''"', 'true', '0000-00-00', '2017-08-28 08:19:41'),
+(17, 'Broadcast', 'SELECT * FROM `announcement` WHERE `announcement_id` = "''.$row[''id''].''" AND `user_id` = "''.$user_id.''" AND `isRead` = "false" OR `isBroadcast` = "true" AND `announcement_id` = "''.$row[''id''].''"', 'false', '0000-00-00', '2017-08-28 08:19:41');
 
 -- --------------------------------------------------------
 
@@ -425,7 +427,7 @@ CREATE TABLE IF NOT EXISTS `timetable` (
   `salaryToday` float NOT NULL DEFAULT '0',
   `status` enum('paid','unpaid','absent') DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=131 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=161 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `timetable`
@@ -540,7 +542,7 @@ INSERT INTO `timetable` (`id`, `user_id`, `date`, `timeIn`, `timeOut`, `lunchIn`
 (110, 3, '2017-08-25', '2017-08-25 13:22:19', '2017-08-25 13:22:27', '2017-08-25 13:22:23', '2017-08-25 13:22:25', '0.0', '0.0', 'false', '8.0', 0, NULL, '2017-08-11 09:44:14'),
 (111, 3, '2017-08-26', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-11 09:44:14'),
 (112, 3, '2017-08-27', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-11 09:44:14'),
-(113, 3, '2017-08-28', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-11 09:44:14'),
+(113, 3, '2017-08-28', '2017-08-28 07:24:47', '0000-00-00 00:00:00', '2017-08-28 07:28:07', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-11 09:44:14'),
 (114, 3, '2017-08-29', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-11 09:44:14'),
 (115, 3, '2017-08-30', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-11 09:44:14'),
 (116, 3, '2017-08-31', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-11 09:44:14'),
@@ -557,7 +559,37 @@ INSERT INTO `timetable` (`id`, `user_id`, `date`, `timeIn`, `timeOut`, `lunchIn`
 (127, 7, '2017-08-28', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-25 08:39:47'),
 (128, 7, '2017-08-29', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-25 08:39:47'),
 (129, 7, '2017-08-30', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-25 08:39:47'),
-(130, 7, '2017-08-31', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-25 08:39:47');
+(130, 7, '2017-08-31', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-08-25 08:39:47'),
+(131, 3, '2017-09-01', '2017-09-01 07:26:12', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:26'),
+(132, 3, '2017-09-02', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:26'),
+(133, 3, '2017-09-03', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:26'),
+(134, 3, '2017-09-04', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:26'),
+(135, 3, '2017-09-05', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:26'),
+(136, 3, '2017-09-06', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:26'),
+(137, 3, '2017-09-07', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:26'),
+(138, 3, '2017-09-08', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:26'),
+(139, 3, '2017-09-09', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:26'),
+(140, 3, '2017-09-10', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:26'),
+(141, 3, '2017-09-11', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:26'),
+(142, 3, '2017-09-12', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:26'),
+(143, 3, '2017-09-13', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:26'),
+(144, 3, '2017-09-14', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:26'),
+(145, 3, '2017-09-15', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:26'),
+(146, 3, '2017-09-16', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:26'),
+(147, 3, '2017-09-17', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:26'),
+(148, 3, '2017-09-18', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:26'),
+(149, 3, '2017-09-19', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:26'),
+(150, 3, '2017-09-20', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:26'),
+(151, 3, '2017-09-21', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:26'),
+(152, 3, '2017-09-22', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:26'),
+(153, 3, '2017-09-23', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:27'),
+(154, 3, '2017-09-24', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:27'),
+(155, 3, '2017-09-25', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:27'),
+(156, 3, '2017-09-26', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:27'),
+(157, 3, '2017-09-27', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:27'),
+(158, 3, '2017-09-28', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:27'),
+(159, 3, '2017-09-29', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:27'),
+(160, 3, '2017-09-30', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0.0', '0.0', 'false', '0.0', 0, NULL, '2017-09-01 05:13:27');
 
 -- --------------------------------------------------------
 
@@ -628,8 +660,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `oauth_uid`, `firstName`, `lastName`, `email`, `password`, `picture`, `isAdmin`, `workStatus`, `flexitime`, `jobTitle`, `birthday`, `noOfAbsences`, `scheduledTimeIn`, `scheduledTimeOut`, `OJT_hoursTotal`, `OJT_hoursRemaining`, `OJT_allowanceDaily`, `dateHiredTrainee`, `dateHiredProbationary`, `dateHiredRegular`, `basicPay`, `allowance`, `transportation`, `meal`, `mobileNumber`, `telephoneNumber`, `address`, `created`) VALUES
-(3, '114331649460731421461', 'Francis Alec', 'Yap', 'francisyap.utech@gmail.com', '$2y$10$Y83gylhdLdPIAjsmB0FQXecGYLFsHnuKZqYtfCEnUBLrzSKGHWntK', '', 1, 'OJT', 'false', 'OJT SEO', '1997-10-04', NULL, NULL, NULL, 300, 299.2, 100, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '9175187060', '03225324', '297B Sikatuna St Alcohol St', '2017-07-28 08:50:28'),
-(5, '115364617561313755233', 'Tristan', 'James', 'tjlerias.utech@gmail.com', '$2y$10$meUQs/oKJ0TsMhOMcZnvQOHW4ZxmTIrSCqOiDxdzfte3LVhx.q5jy', NULL, 1, 'OJT', 'false', 'OJT SEO', '1997-10-04', NULL, NULL, NULL, 300, 294, 100, '0000-00-00', '0000-00-00', '2017-08-05', 25000, 2000, 250, 500, '917', '420', 'TJ''s House', '2017-08-01 09:02:32'),
+(3, '114331649460731421461', 'Francis Alec', 'Yap', 'francisyap.utech@gmail.com', '$2y$10$Y83gylhdLdPIAjsmB0FQXecGYLFsHnuKZqYtfCEnUBLrzSKGHWntK', '', 1, 'OJT', 'false', 'OJT SEO', '1997-10-04', NULL, NULL, NULL, 300, 299.2, 100, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '09175187060', '0322532451', '297B Sikatuna St Alcohol St', '2017-07-28 08:50:28'),
+(5, '115364617561313755233', 'Tristan', 'James', 'tjlerias.utech@gmail.com', '$2y$10$meUQs/oKJ0TsMhOMcZnvQOHW4ZxmTIrSCqOiDxdzfte3LVhx.q5jy', NULL, 1, 'OJT', 'false', 'OJT SEO', '1997-10-04', NULL, NULL, NULL, 300, 294, 100, '0000-00-00', '0000-00-00', '2017-08-05', 25000, 2000, 250, 500, '0917', '420', 'TJ''s House', '2017-08-01 09:02:32'),
 (6, '115136298002144337425', 'Neil', 'Llenes', 'neilllenes.utech@gmail.com', '$2y$10$egfkOh8.fVaMLEPvR3PvPO6EF.6tVd66R./4CrtzicKxbMjfqQTN.', 'https://lh3.googleusercontent.com/-MpHVyx4L8Es/AAAAAAAAAAI/AAAAAAAAAAA/APJypA0YAGSvCySazU40Tq0qowOJF4cSYQ/s96-c/photo.jpg', 1, 'OJT', 'false', 'OJT Web Development', '1997-01-01', NULL, NULL, NULL, 400, 100, 100, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '917', '32', 'Neil Home', '2017-08-25 08:39:15'),
 (7, '102482443114236503223', 'Neil Patrick', 'Llenes', 'neil.llenes@gmail.com', '$2y$10$YEF8paoNN1CYqzInrIA2ROV5UlvRMKXNDfqhC7mKjwzjVpRcGKpVG', 'https://lh5.googleusercontent.com/-qux1Rglr8oo/AAAAAAAAAAI/AAAAAAAAAE8/Vw21y2IUiaw/s96-c/photo.jpg', 0, 'OJT', 'false', 'OJT Web Development', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-08-25 08:39:45');
 
@@ -948,7 +980,7 @@ ALTER TABLE `social_media_tracker`
 -- AUTO_INCREMENT for table `timetable`
 --
 ALTER TABLE `timetable`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=131;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=161;
 --
 -- AUTO_INCREMENT for table `trackimo_cs_tracker`
 --

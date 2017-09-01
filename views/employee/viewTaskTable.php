@@ -5,10 +5,10 @@
 
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li>
-      </ol>
+      <h1>
+        Task Table
+        <small>UniversalTech</small>
+      </h1>
     </section>
 
     <!-- Main content -->

@@ -16,6 +16,7 @@
 		        <small>".$row["firstName"]." ".$row["lastName"]."</small>";
         }
     	?>
+      <a href="changePassword.php" class="btn btn-danger" role="button" style="float:right">Change Password</a>
     </section>
 
     <!-- Main content -->
@@ -71,10 +72,9 @@
                     		<div>".$row["OJT_allowanceDaily"]."</div><br><br>
                 		</div>";
                   }
-            ?>
+              ?>
 		      			</div>
 		      		</div>
-	    ?>
     </section>
     <!-- /.content -->
   </div>

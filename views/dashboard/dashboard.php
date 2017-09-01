@@ -20,13 +20,19 @@
 
     <!-- REQUIRED JS SCRIPTS -->
     <script src="../../includes/js/jquery-3.2.1.min.js"></script>
+    <script src="../../node_modules/moment/moment.js"></script>
     <script src="../../includes/js/bootstrap.min.js"></script>
     <script src="../../includes/js/bootstrap-table.js"></script>
-    <script src="../../node_modules/moment/moment.js"></script>
+    <script src="../../includes/js/bootstrap-modal.js"></script>
+    <script src="../../includes/js/bootstrap-modalmanager.js"></script>
+    <script src="../../includes/js/bootstrap-datetimepicker.min.js"></script>
     <script src="../../includes/js/AdminLTE_app.min.js"></script>
     <script src="../../includes/js/googleSignout.js"></script>
     <script src="../../includes/sweetalert/sweetalert.min.js"></script>
     <script src="../../includes/js/xmlConverter.js"></script>
+    <script src="../../includes/js/select2.full.js"></script>
+    <script src="../../includes/js/jquery.dataTables.min.js"></script>
+    <script src="../../includes/js/dataTables.responsive.min.js"></script>
 
     <!-- AngularJS Dependencies - For Tasks -->
     <script src="../../includes/js/angular.min.js"></script>
@@ -34,10 +40,6 @@
     <script src="../../includes/js/angular-aria.min.js"></script>
     <script src="../../includes/js/angular-messages.min.js"></script>
     <script src="../../includes/js/angular-material.min.js"></script>
-    <script src="../../includes/js/select2.full.js"></script>
-    <script src="../../includes/js/jquery.dataTables.min.js"></script>
-    <script src="../../includes/js/dataTables.responsive.min.js"></script>
-    <script src="../../includes/js/bootstrap-datetimepicker.min.js"></script>
     <script src="../../includes/js/ui-grid.js"></script>
 
     <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
@@ -202,20 +204,6 @@
                   </p>
                 </li>
                 <!-- Menu Body -->
-                <li class="user-body">
-                  <div class="row">
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Followers</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Sales</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Friends</a>
-                    </div>
-                  </div>
-                  <!-- /.row -->
-                </li>
 
                 <!-- Menu Footer-->
                 <li class="user-footer">
