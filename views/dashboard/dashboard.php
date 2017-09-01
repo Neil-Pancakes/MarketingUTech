@@ -125,28 +125,40 @@
             <!-- /.messages-menu -->
 
             <!-- Notifications Menu -->
-            <li class="dropdown notifications-menu">
-              <!-- Menu toggle button -->
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="fa fa-bell-o"></i>
-                <span class="label label-warning">10</span>
-              </a>
-              <ul class="dropdown-menu">
-                <li class="header">You have 10 notifications</li>
-                <li>
-                  <!-- Inner Menu: contains the notifications -->
-                  <ul class="menu">
-                    <li><!-- start notification -->
-                      <a href="#">
-                        <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                      </a>
-                    </li>
-                    <!-- end notification -->
-                  </ul>
-                </li>
-                <li class="footer"><a href="#">View all</a></li>
-              </ul>
-            </li>
+            <?php
+               echo '<li class="dropdown notifications-menu">
+               <!-- Menu toggle button -->
+               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                 <i class="fa fa-bell-o"></i>';
+              $wasFilled = isTaskTrackerAnswered($_SESSION['user_id']); //generalDBFunctions.php;
+              if($wasFilled == false){
+                echo '<span class="label label-warning">!!!</span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <ul class="menu">
+                      <li>
+                        <h4><img src="../../includes/img/warning.png" style="max-height=20px; max-width:20px;"> You did not fill in your task tracker yesterday!</h4>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>';
+              }else{
+                echo '<span class="label label-warning"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <ul class="menu">
+                      <li>
+                        <h4><img src="../../includes/img/star.png" style="max-height=20px; max-width:20px;"> You have no notifications</h4>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>';
+              }
+            ?>
             <!-- Tasks Menu -->
             <li class="dropdown tasks-menu">
               <!-- Menu Toggle Button -->
@@ -240,8 +252,4 @@
           <div class="alert alert-danger" role="alert">ATTENTION! You have '.$numPending.' unread messages.</div>
         </div>';
       }
-    ?>
-    <?php
-      $wasFilled = isTaskTrackerAnswered($_SESSION['user_id']); //generalDBFunctions.php;
-
     ?>
