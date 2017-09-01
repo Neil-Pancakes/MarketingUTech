@@ -46,6 +46,8 @@
                           }
                         ?>
                       </select><br><br>
+                      <label>Date Until</label><br>
+                      <input id="dateUntil" name="dateUntil" type="date" disabled><br><br>
                       <label>Title</label><br>
                       <input id="announcementTitle" type="text" name="title" required/><br><br>
                       <label>Message</label><br>
@@ -224,6 +226,8 @@
   }
   
   var select = document.getElementById("multipleUser");
+  var dateUntil = document.getElementById("dateUntil");
+  var labelDateUntil = document.getElementById("labelDateUntil");
 
   $(document).ready(function(){
       $('#announcementList').DataTable({
@@ -240,11 +244,13 @@
 
   function isBroadcastClick(){
     select.disabled = !select.disabled;
+    dateUntil.disabled = !dateUntil.disabled;
   }
 
   function modalIsBroadcast(id){
     var select = document.getElementById(id);
     select.disabled = !select.disabled;
+    dateUntil.disabled = !dateUntil.disabled
   }
 
   $(document).on('submit', '[id^=announcement-form]', function (e) {

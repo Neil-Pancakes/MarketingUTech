@@ -242,7 +242,7 @@
 
     <div class="content-wrapper">
     <?php 
-      $numPending = announcementPending($_SESSION['user_id']);
+      $numPending = announcementPending($_SESSION['user_id']); //generalDBFunctions.php
       if($numPending > 0) {
         echo '
         <br>
