@@ -340,6 +340,19 @@
               })
         };
 
+        $scope.submitAdditionalTask = function() {
+            $http.post('../../insertFunctions/insertAdditionalTaskTracker.php', {
+              'idSet': $scope.additionalIdSet.additionalId, 
+              'taskSet': $scope.additionalSet.additional
+              }).then(function(data, status){
+                $scope.additionalSet = {additional: []};
+                $scope.additionalSet.additional = [];
+                $scope.show = false;
+                $scope.init();
+                $scope.showAlert();
+              })
+        };  
+
         $scope.editData = function() {
           $http.post('../../editFunctions/editDailyTaskMultimedia.php', {
             'id': $scope.modalmultimediaId,
@@ -353,12 +366,28 @@
           })
         };
 
+        $scope.addAdditional = function(){
+          $http.post('../../insertFunctions/insertAdditionalTask.php', {
+              'userId': $scope.addTaskUserId,
+              'name': $scope.addTaskName,
+              'type': $scope.addTaskType
+            }).then(function(data, status){
+                $scope.init();
+            })
+        };
+
         $scope.modal = function() {
             $scope.modalmultimediaId = $scope.today[0].MultimediaId;
             $scope.modalfeaturedimgCnt = $scope.today[0].FeaturedImageCnt;
             $scope.modalgraphicdesigningCnt = $scope.today[0].GraphicDesigningCnt;
             $scope.modalbannerCnt = $scope.today[0].BannerCnt;
             $scope.modalmiscCnt = $scope.today[0].MiscCnt;
+        };
+
+        $scope.addTaskModal = function(id) {
+            $scope.addTaskUserId = id;
+            $scope.addTaskName = "";
+            $scope.addTaskType = "";
         };
   });
 </script>

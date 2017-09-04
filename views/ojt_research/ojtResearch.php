@@ -141,9 +141,9 @@
                     <h3>{{x.Name}}</h3>
                       
                         <input ng-model="additionalId[$index]" ng-init="additionalIdSet.additionalId[$index] = x.AdditionalTaskId" hidden>
-                        <textarea ng-if='x.Type=="Text"' ng-model="additionalSet.additional[$index]" rows="5" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
-                        <input ng-if='x.Type=="Int"' ng-model="additionalSet.additional[$index]" type="number" required>
-                        <select ng-if='x.Type=="Binary"' ng-model="additionalSet.additional[$index]" required>
+                        <textarea ng-if='x.Type=="Text"' ng-model="additionalSet.additional[$index]" rows="5" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500"></textarea>
+                        <input ng-if='x.Type=="Int"' ng-model="additionalSet.additional[$index]" type="number">
+                        <select ng-if='x.Type=="Binary"' ng-model="additionalSet.additional[$index]">
                           <option value="Yes">Yes</option>
                           <option value="No">No</option>
                         </select>
@@ -265,6 +265,19 @@
             })
       };
 
+      $scope.submitAdditionalTask = function() {
+            $http.post('../../insertFunctions/insertAdditionalTaskTracker.php', {
+              'idSet': $scope.additionalIdSet.additionalId, 
+              'taskSet': $scope.additionalSet.additional
+              }).then(function(data, status){
+                $scope.additionalSet = {additional: []};
+                $scope.additionalSet.additional = [];
+                $scope.show = false;
+                $scope.init();
+                $scope.showAlert();
+              })
+        };  
+
       $scope.editData = function() {
         $http.post('../../editFunctions/editDailyTaskOjtResearcher.php', {
           'id': $scope.modalojtresearcherId,
@@ -276,10 +289,26 @@
         })
       };
 
+      $scope.addAdditional = function(){
+          $http.post('../../insertFunctions/insertAdditionalTask.php', {
+              'userId': $scope.addTaskUserId,
+              'name': $scope.addTaskName,
+              'type': $scope.addTaskType
+            }).then(function(data, status){
+                $scope.init();
+            })
+        };
+
       $scope.modal = function() {
           $scope.modalojtresearcherId = $scope.today[0].OJTResearcherId;
           $scope.modalniche = $scope.today[0].Niche;
           $scope.modalnumofcompanies = $scope.today[0].NumOfCompanies;
+      };
+
+      $scope.addTaskModal = function(id) {
+            $scope.addTaskUserId = id;
+            $scope.addTaskName = "";
+            $scope.addTaskType = "";
       };
   });
 </script>
