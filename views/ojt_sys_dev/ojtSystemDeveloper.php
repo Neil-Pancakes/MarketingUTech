@@ -207,60 +207,107 @@
 <script>
       var app = angular.module('taskFieldsApp', ['ngMaterial']);
       var x=0;
-
       app.config(['$qProvider', function ($qProvider) {
         $qProvider.errorOnUnhandledRejections(false);
       }]);
-
       app.controller('taskFieldsController', function($scope, $http, $mdDialog) {
         $scope.obj = {
           $createWebsite: "",
           $organize: "",
           $misc: ""
         };
-
-       $scope.init = function () {
-          $http.get("../../queries/getMyDailyTrackerTodayOjtDeveloperSystemTracker.php").then(function (response) {
-            $scope.today = response.data.records;
-            if($scope.today[0].OJTDeveloperSystemId==""){
-              $scope.exists=false;
-            }else{
-              $scope.exists=true;
-            }
-          });
-          $http.get("../../queries/getTeam.php").then(function (response) {
+         $scope.init = function () {
+            $http.get("../../queries/getMyDailyTrackerTodayOjtDeveloperSystemTracker.php").then(function (response) {
+              $scope.today = response.data.records;
+              if($scope.today[0].OJTDeveloperSystemId==""){
+                $scope.exists=false;
+              }else{
+                $scope.exists=true;
+              }
+            });
+            $http.get("../../queries/getTeam.php").then(function (response) {
             $scope.team = response.data.records;
             if($scope.team.length==0){
               $scope.showTeam = true;
             }
-          });  
-          $http.get("../../queries/getAdditionalTasks.php").then(function (response) {
+            });  
+            $http.get("../../queries/getAdditionalTasks.php").then(function (response) {
               $scope.additionalTasks = response.data.records;
               if($scope.additionalTasks.length>0){
                 $scope.addExists = true;
               }else{
                 $scope.addExists = false;
               }
-          });
-          $http.get("../../queries/getMyDailyTrackerTodayAdditionalTaskTracker.php").then(function (response) {
+            });
+            $http.get("../../queries/getMyDailyTrackerTodayAdditionalTaskTracker.php").then(function (response) {
               $scope.todayAdditional = response.data.records;
-          });  
-        };
+            });  
+          };
           
-        $scope.showAlert = function(ev) {
-          $mdDialog.show(
-            $mdDialog.alert()
-            .parent(angular.element(document.querySelector('#popupContainer')))
-            .clickOutsideToClose(true)
-            .title('Successful Insertion!')
-            .textContent('You have successfully ADDED a Task.')
-            .ariaLabel('Alert Dialog Demo')
-            .ok('Got it!')
-            .targetEvent(ev)
-          );
-        };
+          $scope.showAlert = function(ev) {
+            $mdDialog.show(
+              $mdDialog.alert()
+              .parent(angular.element(document.querySelector('#popupContainer')))
+              .clickOutsideToClose(true)
+              .title('Successful Insertion!')
+              .textContent('You have successfully ADDED a Task.')
+              .ariaLabel('Alert Dialog Demo')
+              .ok('Got it!')
+              .targetEvent(ev)
+            );
+          }
+  
+          
+          $scope.showEdit = function(ev) {
+            $mdDialog.show(
+              $mdDialog.alert()
+              .parent(angular.element(document.querySelector('#popupContainer')))
+              .clickOutsideToClose(true)
+              .title('Successful Edit!')
+              .textContent('You have successfully EDITED your Task.')
+              .ariaLabel('Alert Dialog Demo')
+              .ok('Got it!')
+              .targetEvent(ev)
+            );
+          }
+  
+          $scope.submitData = function() {
+            $http.post('../../insertFunctions/insertOjtDeveloperSystem.php', {
+                'createWebsite': $scope.obj.createWebsite,
+                'organize': $scope.obj.organize,
+                'misc': $scope.obj.misc
+                }).then(function(data, status){
+                  $scope.init();
+                  $scope.showAlert();
+                })
+          };
 
-        $scope.addAdditional = function(){
+          $scope.submitAdditionalTask = function() {
+            $http.post('../../insertFunctions/insertAdditionalTaskTracker.php', {
+              'idSet': $scope.additionalIdSet.additionalId, 
+              'taskSet': $scope.additionalSet.additional
+              }).then(function(data, status){
+                $scope.additionalSet = {additional: []};
+                $scope.additionalSet.additional = [];
+                $scope.show = false;
+                $scope.init();
+                $scope.showAlert();
+              })
+          };  
+
+         $scope.editData = function() {
+            $http.post('../../editFunctions/editDailyTaskOJTSystemDeveloper.php', {
+              'id': $scope.modalojtdevelopersystemId,
+              'createWebsite': $scope.modalcreatewebsite,
+              'organize': $scope.modalorganize,
+              'misc': $scope.modalmisc
+            }).then(function(data, status){
+                  $scope.init();
+                  $scope.showEdit();
+            })
+         };
+
+         $scope.addAdditional = function(){
           $http.post('../../insertFunctions/insertAdditionalTask.php', {
               'userId': $scope.addTaskUserId,
               'name': $scope.addTaskName,
@@ -268,23 +315,22 @@
             }).then(function(data, status){
                 $scope.init();
             })
-        };
+          };
+  
+          $scope.modal = function() {
+              $scope.modalojtdevelopersystemId = $scope.today[0].OJTDeveloperSystemId;
+              $scope.modalcreatewebsite = $scope.today[0].CreateWebsite;
+              $scope.modalorganize = $scope.today[0].Organize;
+              $scope.modalmisc = $scope.today[0].Misc;
+          };
 
-        $scope.modal = function() {
-            $scope.modalojtdevelopersystemId = $scope.today[0].OJTDeveloperSystemId;
-            $scope.modalcreatewebsite = $scope.today[0].CreateWebsite;
-            $scope.modalorganize = $scope.today[0].Organize;
-            $scope.modalmisc = $scope.today[0].Misc;
-        };
-
-        $scope.addTaskModal = function(id) {
+          $scope.addTaskModal = function(id) {
             $scope.addTaskUserId = id;
             $scope.addTaskName = "";
             $scope.addTaskType = "";
         };
-      });
-
-</script>
+  });
+</script> 
 <script>
   document.getElementById("taskTracker").setAttribute("class", "active");
   

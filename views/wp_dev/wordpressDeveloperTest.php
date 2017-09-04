@@ -324,9 +324,9 @@
                     <h3>{{x.Name}}</h3>
                       
                         <input ng-model="additionalId[$index]" ng-init="additionalIdSet.additionalId[$index] = x.AdditionalTaskId" hidden>
-                        <textarea ng-if='x.Type=="Text"' ng-model="additionalSet.additional[$index]" rows="5" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500" required></textarea>
-                        <input ng-if='x.Type=="Int"' ng-model="additionalSet.additional[$index]" type="number" required>
-                        <select ng-if='x.Type=="Binary"' ng-model="additionalSet.additional[$index]" required>
+                        <textarea ng-if='x.Type=="Text"' ng-model="additionalSet.additional[$index]" rows="5" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500"></textarea>
+                        <input ng-if='x.Type=="Int"' ng-model="additionalSet.additional[$index]" type="number">
+                        <select ng-if='x.Type=="Binary"' ng-model="additionalSet.additional[$index]">
                           <option value="Yes">Yes</option>
                           <option value="No">No</option>
                         </select>
@@ -456,10 +456,7 @@
               'taskSet': $scope.additionalSet.additional
               }).then(function(data, status){
                 $scope.additionalSet = {additional: []};
-                $scope.additionalIdSet = {additionalId: []};
-                
                 $scope.additionalSet.additional = [];
-                $scope.additionalIdSet.additionalId = [];
                 $scope.show = false;
                 $scope.init();
                 $scope.showAlert();
