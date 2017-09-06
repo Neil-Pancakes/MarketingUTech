@@ -132,36 +132,31 @@
                         <img src="../../includes/img/writerIcon.png" class="md-avatar" style="float:left"/>
                         <div class="md-list-item-text">
                         <h3 class="articleName">{{ x.Name }}</h3>
-                          <button class="btn btn-xs btn-primary" ng-click="viewTask(x.Id)" data-toggle="modal" data-target="#viewTask">View</button>
+                          <button class="btn btn-xs btn-primary" ng-click="viewTaskModal(x.Id)" data-toggle="modal" data-target="#viewTask">View</button>
                           <button class="btn btn-xs btn-success" ng-click="addTaskModal(x.Id)" data-toggle="modal" data-target="#addTask">Add Task</button>
                             
                           
                         </div>
                       </div>
                     </md-list-item>
-                    <div id="viewTask" class="modal fade" role="dialog" style="padding-top:10%;">
+                    
+                    <div id="viewTask" class="modal fade" role="dialog">
                       <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header" style="background-color:#00b8e6; color:white;">
                               <h2 id="modalHeaderEditDelete">Task</h2>
                             </div>
                             <div class="modal-body">
-                            <md-list-item class="md-3-line" ng-repeat="x in teamTracker">
+                            <md-list-item class="md-3-line" ng-repeat="x in teamAdditional">
                               <div style="width:95%;">
-                                <img src="../../includes/img/writerIcon.png" class="md-avatar" style="float:left"/>
+                                <img src="../../includes/img/taskIcon.png" class="md-avatar" style="float:left"/>
                                 <div class="md-list-item-text">
-                                
-                                  <h3 class="articleName">{{ x.Article }}</h3>
-                                  <h4 class="wordsChanged">{{ x.WordCnt }} Words Changed</h4>
-                                </div>
-                                <!--<md-list-item class="md-3-line" ng-repeat="x in todayAdditional track by $index">
-                                  <img src="../../includes/img/taskIcon.png" class="md-avatar" style="float:left"/>
-                                    <div class="md-list-item-text">
-                                      <h3>{{x.Name}}</h3>
-                                      <h3 class="articleName">{{ x.Task }}</h3>
+                                <h3>{{x.Name}}</h3>
+                                <h3 class="articleName">{{ x.Task }}</h3>
                                       
-                                    </div>
-                                </md-list-item>-->
+                              </div>
+                            </md-list-item>
+
                               </div>
                             </md-list-item>
                             </div>
@@ -474,9 +469,9 @@
         $scope.delBtn = true;
       }
     };
-    $scope.viewTask = function(userId){
-      $http.get('../../queries/getTeamTracker/getTeamWriter.php?id='+userId).then(function (response){
-        $scope.teamTracker = response.data.records;
+    $scope.viewTaskModal = function(userId){
+      $http.get('../../queries/getAdditionalTasksTeam.php?id='+userId).then(function (response){
+        $scope.teamAdditional = response.data.records;
       });
     };
   });
