@@ -210,8 +210,8 @@
                   <div id="viewTask" class="modal fade" role="dialog">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                          <div class="modal-header" style="background-color:#00b8e6; color:white;">
-                            <h2 id="modalHeaderEditDelete">Task</h2>
+                          <div class="modal-header" style="background-color:#001a4d; color:white;">
+                            <h2 id="modalHeaderEditDelete">Additional Tasks</h2>
                           </div>
                           <div class="modal-body">
                           <md-list-item class="md-3-line" ng-repeat="x in teamAdditional">
