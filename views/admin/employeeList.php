@@ -156,6 +156,7 @@
                                     <input type="email" name="email" value="'.$row["email"].'" hidden/><br><br>
                                     <label for="jobTitle">Job Title</label><br>
                                     <input type="text" name="jobTitle" value="'.$row["jobTitle"].'" onkeypress="return isLetter(event)" required/><br><br>
+                                    <select id="update_workStatus'.$row["id"].'" name="jobTitle" onchange="updateCheckOJT('.$row["id"].')" required>
                                     <label for="workStatus">Work status</label><br>
                                     <select id="update_workStatus'.$row["id"].'" name="workStatus" onchange="updateCheckOJT('.$row["id"].')" required>
                                     '; 

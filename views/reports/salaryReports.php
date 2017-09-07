@@ -2,8 +2,8 @@
   require ("../../functions/php_globals.php");
   include ("../dashboard/dashboard.php");
 ?>
-	<section class="content-header" style="background-color: #3a3c3f">
-		<h1 style="color: white">
+	<section class="content-header">
+		<h1>
 			<?php
 				$salarySched = ((date('j',time()) <= 15)? 'First Half' : 'Second Half');
 				$currentmonth = date('F',time());
@@ -12,6 +12,7 @@
 			?>
 		</h1>
 	</section>
+
 	<section class="content">
 		<div class="recentSalary" style="height: 50%">
 			<table class="table table-bordered table-hover table-condensed" id="table_wrapper">
