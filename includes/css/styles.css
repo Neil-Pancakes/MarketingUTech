@@ -83,3 +83,9 @@ a {
 .div-table {
   margin: auto;
   padding-top: 1cm;
+}
+
+.grid{
+  height: 400px;
+  min-width: 100%;
+}

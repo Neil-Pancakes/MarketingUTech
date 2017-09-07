@@ -82,4 +82,20 @@
 	  	$("#modal-msg").text(document.getElementById(id).innerHTML);
 	  });
   });
+
+  //a = announcement
+  //ac = announcement content
+  function ajaxRead(a_id, ac_id){
+  	$.ajax({
+	    type: 'POST',
+	    data: {a_id:a_id, ac_id:ac_id},
+	    url: "readAnnouncement.php",
+	    success: function (data) {
+	        document.getElementById(ac_id).innerHTML=data;
+	    },
+	    error: function (data) {
+	      swal("Error!", "An error has occurred", "error");
+	    }
+	});
+  }
 </script>

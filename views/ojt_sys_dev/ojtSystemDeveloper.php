@@ -128,13 +128,40 @@
                         <img src="../../includes/img/writerIcon.png" class="md-avatar" style="float:left"/>
                         <div class="md-list-item-text">
                         <h3 class="articleName">{{ x.Name }}</h3>
-                          <button class="btn btn-xs btn-primary">View</button>
-                          <button class="btn btn-xs btn-success" ng-click="addTaskModal(x.Id)" data-toggle="modal" data-target="#addTask">Add Task</button>
-                            
+                        <button class="btn btn-xs btn-primary" ng-click="viewTaskModal(x.Id)" data-toggle="modal" data-target="#viewTask">View</button>
+                        <button class="btn btn-xs btn-success" ng-click="addTaskModal(x.Id)" data-toggle="modal" data-target="#addTask">Add Task</button>
                           
-                        </div>
+                        
                       </div>
-                    </md-list-item>
+                    </div>
+                  </md-list-item>
+                  
+                  <div id="viewTask" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header" style="background-color:#001a4d; color:white;">
+                            <h2 id="modalHeaderEditDelete">Additional Tasks</h2>
+                          </div>
+                          <div class="modal-body">
+                          <md-list-item class="md-3-line" ng-repeat="x in teamAdditional">
+                            <div style="width:95%;">
+                              <img src="../../includes/img/taskIcon.png" class="md-avatar" style="float:left"/>
+                              <div class="md-list-item-text">
+                              <h3>{{x.Name}}</h3>
+                              <h3 class="articleName">{{ x.Task }}</h3>
+                                    
+                            </div>
+                          </md-list-item>
+
+                            </div>
+                          </md-list-item>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" onclick="$('#viewTask').modal('hide');">Close <span class="fa fa-close"></span></button>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
                     <div id="addTask" class="modal fade" role="dialog">
                       <div class="modal-dialog">
                       <form ng-submit="addAdditional()">
@@ -207,60 +234,107 @@
 <script>
       var app = angular.module('taskFieldsApp', ['ngMaterial']);
       var x=0;
-
       app.config(['$qProvider', function ($qProvider) {
         $qProvider.errorOnUnhandledRejections(false);
       }]);
-
       app.controller('taskFieldsController', function($scope, $http, $mdDialog) {
         $scope.obj = {
           $createWebsite: "",
           $organize: "",
           $misc: ""
         };
-
-       $scope.init = function () {
-          $http.get("../../queries/getMyDailyTrackerTodayOjtDeveloperSystemTracker.php").then(function (response) {
-            $scope.today = response.data.records;
-            if($scope.today[0].OJTDeveloperSystemId==""){
-              $scope.exists=false;
-            }else{
-              $scope.exists=true;
-            }
-          });
-          $http.get("../../queries/getTeam.php").then(function (response) {
+         $scope.init = function () {
+            $http.get("../../queries/getMyDailyTrackerTodayOjtDeveloperSystemTracker.php").then(function (response) {
+              $scope.today = response.data.records;
+              if($scope.today[0].OJTDeveloperSystemId==""){
+                $scope.exists=false;
+              }else{
+                $scope.exists=true;
+              }
+            });
+            $http.get("../../queries/getTeam.php").then(function (response) {
             $scope.team = response.data.records;
             if($scope.team.length==0){
               $scope.showTeam = true;
             }
-          });  
-          $http.get("../../queries/getAdditionalTasks.php").then(function (response) {
+            });  
+            $http.get("../../queries/getAdditionalTasks.php").then(function (response) {
               $scope.additionalTasks = response.data.records;
               if($scope.additionalTasks.length>0){
                 $scope.addExists = true;
               }else{
                 $scope.addExists = false;
               }
-          });
-          $http.get("../../queries/getMyDailyTrackerTodayAdditionalTaskTracker.php").then(function (response) {
+            });
+            $http.get("../../queries/getMyDailyTrackerTodayAdditionalTaskTracker.php").then(function (response) {
               $scope.todayAdditional = response.data.records;
-          });  
-        };
+            });  
+          };
           
-        $scope.showAlert = function(ev) {
-          $mdDialog.show(
-            $mdDialog.alert()
-            .parent(angular.element(document.querySelector('#popupContainer')))
-            .clickOutsideToClose(true)
-            .title('Successful Insertion!')
-            .textContent('You have successfully ADDED a Task.')
-            .ariaLabel('Alert Dialog Demo')
-            .ok('Got it!')
-            .targetEvent(ev)
-          );
-        };
+          $scope.showAlert = function(ev) {
+            $mdDialog.show(
+              $mdDialog.alert()
+              .parent(angular.element(document.querySelector('#popupContainer')))
+              .clickOutsideToClose(true)
+              .title('Successful Insertion!')
+              .textContent('You have successfully ADDED a Task.')
+              .ariaLabel('Alert Dialog Demo')
+              .ok('Got it!')
+              .targetEvent(ev)
+            );
+          }
+  
+          
+          $scope.showEdit = function(ev) {
+            $mdDialog.show(
+              $mdDialog.alert()
+              .parent(angular.element(document.querySelector('#popupContainer')))
+              .clickOutsideToClose(true)
+              .title('Successful Edit!')
+              .textContent('You have successfully EDITED your Task.')
+              .ariaLabel('Alert Dialog Demo')
+              .ok('Got it!')
+              .targetEvent(ev)
+            );
+          }
+  
+          $scope.submitData = function() {
+            $http.post('../../insertFunctions/insertOjtDeveloperSystem.php', {
+                'createWebsite': $scope.obj.createWebsite,
+                'organize': $scope.obj.organize,
+                'misc': $scope.obj.misc
+                }).then(function(data, status){
+                  $scope.init();
+                  $scope.showAlert();
+                })
+          };
 
-        $scope.addAdditional = function(){
+          $scope.submitAdditionalTask = function() {
+            $http.post('../../insertFunctions/insertAdditionalTaskTracker.php', {
+              'idSet': $scope.additionalIdSet.additionalId, 
+              'taskSet': $scope.additionalSet.additional
+              }).then(function(data, status){
+                $scope.additionalSet = {additional: []};
+                $scope.additionalSet.additional = [];
+                $scope.show = false;
+                $scope.init();
+                $scope.showAlert();
+              })
+          };  
+
+         $scope.editData = function() {
+            $http.post('../../editFunctions/editDailyTaskOJTSystemDeveloper.php', {
+              'id': $scope.modalojtdevelopersystemId,
+              'createWebsite': $scope.modalcreatewebsite,
+              'organize': $scope.modalorganize,
+              'misc': $scope.modalmisc
+            }).then(function(data, status){
+                  $scope.init();
+                  $scope.showEdit();
+            })
+         };
+
+         $scope.addAdditional = function(){
           $http.post('../../insertFunctions/insertAdditionalTask.php', {
               'userId': $scope.addTaskUserId,
               'name': $scope.addTaskName,
@@ -268,23 +342,28 @@
             }).then(function(data, status){
                 $scope.init();
             })
-        };
+          };
+  
+          $scope.modal = function() {
+              $scope.modalojtdevelopersystemId = $scope.today[0].OJTDeveloperSystemId;
+              $scope.modalcreatewebsite = $scope.today[0].CreateWebsite;
+              $scope.modalorganize = $scope.today[0].Organize;
+              $scope.modalmisc = $scope.today[0].Misc;
+          };
 
-        $scope.modal = function() {
-            $scope.modalojtdevelopersystemId = $scope.today[0].OJTDeveloperSystemId;
-            $scope.modalcreatewebsite = $scope.today[0].CreateWebsite;
-            $scope.modalorganize = $scope.today[0].Organize;
-            $scope.modalmisc = $scope.today[0].Misc;
-        };
-
-        $scope.addTaskModal = function(id) {
+          $scope.addTaskModal = function(id) {
             $scope.addTaskUserId = id;
             $scope.addTaskName = "";
             $scope.addTaskType = "";
-        };
-      });
+          };
 
-</script>
+          $scope.viewTaskModal = function(userId){
+            $http.get('../../queries/getAdditionalTasksTeam.php?id='+userId).then(function (response){
+              $scope.teamAdditional = response.data.records;
+            });
+          };
+  });
+</script> 
 <script>
   document.getElementById("taskTracker").setAttribute("class", "active");
   

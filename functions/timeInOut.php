@@ -19,7 +19,13 @@
 		$action = $_POST['action'];
 		switch($action) {
 			case 'timeIn': timeIn(); break;
-			case 'timeOut': timeOut(); break;
+			case 'timeOut':
+				if($_SESSION['flexitime'] == "true") {
+					timeOutFlex();
+				} else {
+					timeOut();
+				}
+				break;
 			case 'lunchTimeIn': lunchTimeIn(); break;
 			case 'lunchTimeOut': lunchTimeOut(); break;
 		}
@@ -47,6 +53,37 @@
 		}
 	}
 
+	//Update OJT Hours Remaining
+	function updateOJTHoursRemaining($OJT_hoursRemaining, $user_id, $today) {
+		global $mysqli;
+
+		$query = 'SELECT * FROM timetable WHERE user_id = '.$user_id.' AND date = "'.$today.'"	
+		';
+		$result = mysqli_query($mysqli, $query);
+		if($result){
+			$row = mysqli_fetch_assoc($result);
+			if($row["lunchOut"] > 0){
+	          	$datetime3 = strtotime($row["lunchIn"]);
+	          	$datetime4 = strtotime($row["lunchOut"]);
+	          	$renderedLunch = number_format(round(($datetime4 - $datetime3)/3600,1),1);
+	          	$datetime1 = strtotime($row["timeIn"]);
+	          	$datetime2 = strtotime($row["timeOut"]);
+	          	$renderedTime = number_format(round((($datetime2 - $datetime1)/3600) - $renderedLunch, 1),1);  
+	        }else{
+				 	$datetime1 = strtotime($row["timeIn"]);
+					$datetime2 = strtotime($row["timeOut"]);
+					$renderedTime = number_format(round(($datetime2 - $datetime1)/3600,1),1);
+	        }
+	        $OJT_hoursRemaining = number_format($OJT_hoursRemaining - $renderedTime, 1);
+	        $query = 'UPDATE users SET OJT_hoursRemaining ='.$OJT_hoursRemaining.'  WHERE id = "'.$user_id.'" ';
+	        if(!$mysqli->query($query)){
+	        	echo 'Something went wrong! 003';
+	        }
+		}else{
+			echo 'Something went wrong! 002';
+		}
+	}
+
 	//Time Out
 	function timeOut() {
 		global $mysqli;
@@ -54,46 +91,14 @@
 			$user_id = $_SESSION['user_id'];
 			if(!hasTime("timeOut", $user_id)) {
 				$today = date('Y-m-d', time());
-				$query = 'UPDATE `timetable` 
-						SET `timeOut` = CURRENT_TIMESTAMP
-						WHERE `user_id` = "'.$user_id.'" AND DATE(`date`) = DATE(CURRENT_TIMESTAMP);';
-				if(mysqli_query($mysqli, $query)) {
-					$query = 'SELECT * 
-						FROM users
-						WHERE id = "'.$user_id.'"';
-					$result = mysqli_query($mysqli, $query);				
+				$query = 'UPDATE `timetable` SET `timeOut` = CURRENT_TIMESTAMP WHERE `user_id` = "'.$user_id.'" AND DATE(`date`) = DATE(CURRENT_TIMESTAMP);';
+				if($mysqli->query($query)) {
+					$query = 'SELECT * FROM users WHERE id = "'.$user_id.'"';
+					$result = $mysqli->query($query);				
 					if($result) {
-						$row = mysqli_fetch_assoc($result);
+						$row = $result->fetch_assoc();
 						if($row['workStatus'] == 'OJT'){
-							$OJT_hoursRemaining = $row['OJT_hoursRemaining'];
-
-							$query = 'SELECT * FROM timetable WHERE user_id = '.$user_id.' AND date = "'.$today.'"	
-							';
-							$result = mysqli_query($mysqli, $query);
-							if($result){
-								$row = mysqli_fetch_assoc($result);
-								if($row["lunchOut"] > 0){
-				                  	$datetime3 = strtotime($row["lunchIn"]);
-				                  	$datetime4 = strtotime($row["lunchOut"]);
-				                  	$renderedLunch = number_format(round(($datetime4 - $datetime3)/3600,1),1);
-				                  	$datetime1 = strtotime($row["timeIn"]);
-				                  	$datetime2 = strtotime($row["timeOut"]);
-				                  	$renderedTime = number_format(round((($datetime2 - $datetime1)/3600) - $renderedLunch, 1),1);  
-				                }else{
-		             			 	$datetime1 = strtotime($row["timeIn"]);
-		              				$datetime2 = strtotime($row["timeOut"]);
-		              				$renderedTime = number_format(round(($datetime2 - $datetime1)/3600,1),1);
-				                }
-				                $OJT_hoursRemaining = number_format($OJT_hoursRemaining - $renderedTime, 1);
-				                $query = 'UPDATE users 
-				                	SET OJT_hoursRemaining = '.$OJT_hoursRemaining.'
-				                	WHERE id = "'.$user_id.'" ';
-				                if(!mysqli_query($mysqli, $query)){
-				                	echo 'Something went wrong! 003';
-				                }
-							}else{
-								echo 'Something went wrong! 002';
-							}
+							updateOJTHoursRemaining($row['OJT_hoursRemaining'], $user_id, $today);
 						}
 
 						$query = 'SELECT * FROM timetable WHERE user_id = "'.$user_id.'" AND date = DATE(CURRENT_TIMESTAMP);';
@@ -207,14 +212,7 @@
         	return false;
         }
 	}
-
-	function calcuTimeRender(){
-		global $mysqli;
-		$user_id = $_SESSION['user_id'];
-		$query  = "SELECT TIME_TO_SEC(TIMEDIFF(`timeOut`,`timeIn`)) / 60 FROM `timetable` WHERE `id` = ";
-	}
-
-
+	
 	function createNewDays(){
 		global $mysqli;
 		$user_id = $_SESSION['user_id'];

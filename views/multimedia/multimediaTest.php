@@ -178,13 +178,40 @@
                         <img src="../../includes/img/writerIcon.png" class="md-avatar" style="float:left"/>
                         <div class="md-list-item-text">
                         <h3 class="articleName">{{ x.Name }}</h3>
-                          <button class="btn btn-xs btn-primary">View</button>
-                          <button class="btn btn-xs btn-success" ng-click="addTaskModal(x.Id)" data-toggle="modal" data-target="#addTask">Add Task</button>
-                            
+                        <button class="btn btn-xs btn-primary" ng-click="viewTaskModal(x.Id)" data-toggle="modal" data-target="#viewTask">View</button>
+                        <button class="btn btn-xs btn-success" ng-click="addTaskModal(x.Id)" data-toggle="modal" data-target="#addTask">Add Task</button>
                           
-                        </div>
+                        
                       </div>
-                    </md-list-item>
+                    </div>
+                  </md-list-item>
+                  
+                  <div id="viewTask" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header" style="background-color:#001a4d; color:white;">
+                            <h2 id="modalHeaderEditDelete">Additional Tasks</h2>
+                          </div>
+                          <div class="modal-body">
+                          <md-list-item class="md-3-line" ng-repeat="x in teamAdditional">
+                            <div style="width:95%;">
+                              <img src="../../includes/img/taskIcon.png" class="md-avatar" style="float:left"/>
+                              <div class="md-list-item-text">
+                              <h3>{{x.Name}}</h3>
+                              <h3 class="articleName">{{ x.Task }}</h3>
+                                    
+                            </div>
+                          </md-list-item>
+
+                            </div>
+                          </md-list-item>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" onclick="$('#viewTask').modal('hide');">Close <span class="fa fa-close"></span></button>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
                     <div id="addTask" class="modal fade" role="dialog">
                                 <div class="modal-dialog">
                                 <form ng-submit="addAdditional()">
@@ -340,6 +367,19 @@
               })
         };
 
+        $scope.submitAdditionalTask = function() {
+            $http.post('../../insertFunctions/insertAdditionalTaskTracker.php', {
+              'idSet': $scope.additionalIdSet.additionalId, 
+              'taskSet': $scope.additionalSet.additional
+              }).then(function(data, status){
+                $scope.additionalSet = {additional: []};
+                $scope.additionalSet.additional = [];
+                $scope.show = false;
+                $scope.init();
+                $scope.showAlert();
+              })
+        };  
+
         $scope.editData = function() {
           $http.post('../../editFunctions/editDailyTaskMultimedia.php', {
             'id': $scope.modalmultimediaId,
@@ -353,12 +393,34 @@
           })
         };
 
+        $scope.addAdditional = function(){
+          $http.post('../../insertFunctions/insertAdditionalTask.php', {
+              'userId': $scope.addTaskUserId,
+              'name': $scope.addTaskName,
+              'type': $scope.addTaskType
+            }).then(function(data, status){
+                $scope.init();
+            })
+        };
+
         $scope.modal = function() {
             $scope.modalmultimediaId = $scope.today[0].MultimediaId;
             $scope.modalfeaturedimgCnt = $scope.today[0].FeaturedImageCnt;
             $scope.modalgraphicdesigningCnt = $scope.today[0].GraphicDesigningCnt;
             $scope.modalbannerCnt = $scope.today[0].BannerCnt;
             $scope.modalmiscCnt = $scope.today[0].MiscCnt;
+        };
+
+        $scope.addTaskModal = function(id) {
+            $scope.addTaskUserId = id;
+            $scope.addTaskName = "";
+            $scope.addTaskType = "";
+        };
+
+        $scope.viewTaskModal = function(userId){
+          $http.get('../../queries/getAdditionalTasksTeam.php?id='+userId).then(function (response){
+            $scope.teamAdditional = response.data.records;
+          });
         };
   });
 </script>

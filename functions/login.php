@@ -1,16 +1,16 @@
 <?php 
 	session_start();
-	require_once "sql_connect.php";
+	require "sql_connect.php";
 
 	$email = $_POST['inputEmail'];
 	$pass = $_POST['inputPassword'];
 	$pass_db = null;
 
 	$query = 'SELECT * FROM `users` WHERE `email` = "'.$email.'"';
-	$result = mysqli_query($mysqli, $query);
+	$result = $mysqli->query($query);
 
-	if($result) {
-		$row = mysqli_fetch_assoc($result);
+	if($result->num_rows > 0) {
+		$row = $result->fetch_assoc();
 
 		$pass_db = $row['password'];
 	} else {
@@ -28,6 +28,7 @@
 		$_SESSION['lastName'] = $row['lastName'];
 		$_SESSION['email'] = $row['email'];
 		$_SESSION['jobTitle'] = $row['jobTitle'];
+		$_SESSION['flexitime'] = $row['flexitime'];
 
 		if($row['picture'] == null) {
 			$_SESSION['picture'] = "../../includes/img/fancy2.png";
