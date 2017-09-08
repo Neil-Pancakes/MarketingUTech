@@ -425,10 +425,23 @@
               'name': $scope.addTaskName,
               'type': $scope.addTaskType
             }).then(function(data, status){
-                $scope.init();
+              $scope.init();
+              $scope.showAdditional();
             })
         };
 
+        $scope.showAdditional = function(ev) {
+          $mdDialog.show(
+            $mdDialog.alert()
+            .parent(angular.element(document.querySelector('#popupContainer')))
+            .clickOutsideToClose(true)
+            .title('Successful Insertion!')
+            .textContent('You have assigned your team member a Task.')
+            .ariaLabel('Alert Dialog Demo')
+            .ok('Got it!')
+            .targetEvent(ev)
+          );
+        }
       $scope.modal = function() {
           $scope.modalwordpressId = $scope.today[0].WordpressId;
           $scope.modalfixbugCnt = $scope.today[0].FixBugCnt;

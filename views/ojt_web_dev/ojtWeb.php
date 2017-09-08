@@ -213,7 +213,7 @@
                               <h2 id="modalHeaderEditDelete">Additional Tasks</h2>
                             </div>
                             <div class="modal-body">
-                            <md-list-item class="md-3-line" ng-repeat="x in teamAdditional">
+                            <md-list-item class="md-3-line" ng-repeat="x in teamAdditional" ng-click="modalAdditional(x.AdditionalTaskId, x.Name, x.Type, x.UserId)">
                               <div style="width:95%;">
                                 <img src="../../includes/img/taskIcon.png" class="md-avatar" style="float:left"/>
                                 <div class="md-list-item-text">
@@ -399,9 +399,9 @@
                 $scope.additionalSet.additional = [];
                 $scope.show = false;
                 $scope.init();
-                $scope.showAlert();
+                $scope.showAdditional();
               })
-        };  
+        };
 
         $scope.editData = function() {
           $http.post('../../editFunctions/editDailyTaskOJTWebDev.php', {
@@ -424,8 +424,22 @@
               'type': $scope.addTaskType
             }).then(function(data, status){
                 $scope.init();
+                $scope.showAdditional();
             })
         };
+
+        $scope.showAdditional = function(ev) {
+          $mdDialog.show(
+            $mdDialog.alert()
+            .parent(angular.element(document.querySelector('#popupContainer')))
+            .clickOutsideToClose(true)
+            .title('Successful Insertion!')
+            .textContent('You have assigned your team member a Task.')
+            .ariaLabel('Alert Dialog Demo')
+            .ok('Got it!')
+            .targetEvent(ev)
+          );
+        }
 
         $scope.modal = function() {
             $scope.modalojtwebdevId = $scope.today[0].OJTWebDevId;
