@@ -248,7 +248,7 @@
                           <div class="modal-body">
                             <input type="text" class="inp form-control" ng-model="modalAddTaskId" ng-hide="true" required>
                             <input type="text" class="inp form-control" ng-model="modalAddName" required>
-                            <select ng-model="modalAddType" required>
+                            <select class="form-control" ng-model="modalAddType" required>
                               <option value="Text">Text</option>
                               <option value="Int">Count</option>
                               <option value="Binary">Yes/No</option>
