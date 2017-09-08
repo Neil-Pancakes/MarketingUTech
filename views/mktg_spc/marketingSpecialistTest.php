@@ -52,6 +52,7 @@
                           <form ng-submit="editData()">
                               <div class="modal-content">
                                 <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
                                   <h2 id="modalHeaderEditDelete">Task</h2>
                                 </div>
                                 <div class="modal-body">
@@ -109,54 +110,86 @@
                   </md-list-item>
                   
                   <div id="viewTask" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header" style="background-color:#001a4d; color:white;">
-                            <h2 id="modalHeaderEditDelete">Additional Tasks</h2>
-                          </div>
-                          <div class="modal-body">
-                          <md-list-item class="md-3-line" ng-repeat="x in teamAdditional">
-                            <div style="width:95%;">
-                              <img src="../../includes/img/taskIcon.png" class="md-avatar" style="float:left"/>
-                              <div class="md-list-item-text">
-                              <h3>{{x.Name}}</h3>
-                              <h3 class="articleName">{{ x.Task }}</h3>
-                                    
-                            </div>
-                          </md-list-item>
-
-                            </div>
-                          </md-list-item>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" onclick="$('#viewTask').modal('hide');">Close <span class="fa fa-close"></span></button>
-                          </div>
+                  <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background-color:#001a4d; color:white;">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h2 id="modalHeaderEditDelete">Additional Tasks</h2>
                         </div>
-                    </div>
+                        <div class="modal-body">
+                        <md-list-item class="md-3-line" ng-repeat="x in teamAdditional" ng-click="modalAdditional(x.AdditionalTaskId, x.Name, x.Type, x.UserId)">
+                          <div style="width:95%;" data-target="#editAdditionalModal" data-toggle="modal">
+                            <img src="../../includes/img/taskIcon.png" class="md-avatar" style="float:left"/>
+                            <div class="md-list-item-text">
+                            <h3>{{x.Name}}</h3>
+                            <h3 class="articleName" ng-if="x.Type == 'Text'">Text</h3>
+                            <h3 class="articleName" ng-if="x.Type == 'Int'">Count</h3>
+                            <h3 class="articleName" ng-if="x.Type == 'Binary'">Yes/No</h3>
+                                  
+                          </div>
+                        </md-list-item>
+
+                          </div>
+                        </md-list-item>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-danger" onclick="$('#viewTask').modal('hide');">Close <span class="fa fa-close"></span></button>
+                        </div>
+                      </div>
                   </div>
-                    <div id="addTask" class="modal fade" role="dialog">
-                                <div class="modal-dialog">
-                                <form ng-submit="addAdditional()">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h2 id="modalHeaderEditDelete">Task</h2>
-                                    </div>
-                                    <div class="modal-body">
-                                      <input ng-model="addTaskUserId" hidden>
-                                      <input class="form-control" placeholder="Task Name" ng-model="addTaskName" required>
-                                      <select class="form-control" ng-model="addTaskType" required>
-                                        <option value="Text">Text</option>
-                                        <option value="Int">Count</option>
-                                        <option value="Binary">Yes/No</option>
-                                      </select>
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button type="submit" class="btn btn-success" onclick="$('#addTask').modal('hide');">Add Task <span class="fa fa-plus-circle"></span></button>
-                                    </div>
+                </div>
+                <!--Edit Additional Task Modal-->
+                <div id="editAdditionalModal" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+                    <form ng-submit="editAdditional()">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title"><strong>Additional Task</strong></h4>
+                        </div>
+                        <div class="modal-body">
+                          <input type="text" class="inp form-control" ng-model="modalAddTaskId" ng-hide="true" required>
+                          <input type="text" class="inp form-control" ng-model="modalAddName" required>
+                          <select ng-model="modalAddType" required>
+                            <option value="Text">Text</option>
+                            <option value="Int">Count</option>
+                            <option value="Binary">Yes/No</option>
+                          </select>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-warning" onclick="$('#editAdditionalModal').modal('hide');">Edit <span class="fa fa-edit"></span></button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <!--Edit Additional Task Modal-->
+
+                  <div id="addTask" class="modal fade" role="dialog">
+                              <div class="modal-dialog">
+                              <form ng-submit="addAdditional()">
+                                <div class="modal-content">
+                                  <div class="modal-header" style="background-color:#003300; color:white;">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h2 id="modalHeaderEditDelete">Task</h2>
                                   </div>
-                                  </form>
+                                  <div class="modal-body">
+                                    <input ng-model="addTaskUserId" hidden>
+                                    <input class="form-control" placeholder="Task Name" ng-model="addTaskName" required>
+                                    <select class="form-control" ng-model="addTaskType" required>
+                                      <option value="Text">Text</option>
+                                      <option value="Int">Count</option>
+                                      <option value="Binary">Yes/No</option>
+                                    </select>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success" onclick="$('#addTask').modal('hide');">Add Task <span class="fa fa-plus-circle"></span></button>
+                                    <button type="button" class="btn btn-danger" onclick="$('#addTask').modal('hide');">Close <span class="fa fa-close"></span></button>
+                                  </div>
                                 </div>
+                                </form>
                               </div>
+                            </div>  
                   </md-list>
                 </md-content>
                 <div ng-show="showTeam" align="center">
@@ -349,6 +382,24 @@
           $http.get('../../queries/getAdditionalTasksTeam.php?id='+userId).then(function (response){
             $scope.teamAdditional = response.data.records;
           });
+        };
+
+        $scope.editAdditional = function() {
+          $http.post('../../editFunctions/editAdditionalTask.php', {
+            'id': $scope.modalAddTaskId,
+            'name': $scope.modalAddName,
+            'type': $scope.modalAddType
+          }).then(function(data, status){
+            $scope.init();
+            $scope.viewTaskModal($scope.modalAddUserId);  
+          })
+        };
+
+        $scope.modalAdditional = function(taskId, name, type, userId) {
+          $scope.modalAddTaskId = taskId;
+          $scope.modalAddName = name;
+          $scope.modalAddType = type;
+          $scope.modalAddUserId = userId;
         };
   });
 </script>
