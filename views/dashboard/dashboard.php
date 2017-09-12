@@ -41,6 +41,8 @@
     <script src="../../includes/js/angular-messages.min.js"></script>
     <script src="../../includes/js/angular-material.min.js"></script>
     <script src="../../includes/js/ui-grid.js"></script>
+    <script src="../../includes/js/vfs_fonts.js"></script>
+    <script src="../../includes/js/pdfmake.js"></script>
 
     <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
     
