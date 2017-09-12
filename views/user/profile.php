@@ -16,7 +16,7 @@
 		        <small>".$row["firstName"]." ".$row["lastName"]."</small>";
         }
     	?>
-      <a href="changePassword.php" class="btn btn-danger" role="button" style="float:right">Change Password</a>
+      <a href="passwordChangeForm.php" class="btn btn-danger" role="button" style="float:right">Change Password</a>
     </section>
 
     <!-- Main content -->

@@ -135,9 +135,8 @@
 			                }
 
 			                $query = 'UPDATE timetable
-								SET totalHours = "'.$renderedTime.'", undertime = "'.$underTime.'", overtime = "'.$overTime.'"
-								WHERE user_id = "'.$user_id.'" AND date = DATE(CURRENT_TIMESTAMP)
-			                ';
+								SET totalHours = "'.$renderedTime.'", undertime = "'.$underTime.'", overtime = "'.$overTime.'" 
+								WHERE user_id = "'.$user_id.'" AND date = DATE(CURRENT_TIMESTAMP)';
 
 			                if(!mysqli_query($mysqli, $query)){
 			                	echo 'Something went wrong! 004';
