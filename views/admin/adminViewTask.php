@@ -59,7 +59,7 @@
           <h2 ng-show="empty" style="text-align:center;">Your task tracker is empty!</h2>
           <div ui-grid="grid1" ui-grid-exporter ui-grid-pagination class="grid"></div>
           <br>
-          <div id="grid2" ui-grid="{ data: todayAdditional }" ui-grid-pagination class="grid" ng-show="show"></div>
+          <div ui-grid="grid2" ui-grid-exporter ui-grid-pagination class="grid" ng-show="show"></div>
         </div>
       <div style="margin-bottom:30%;"></div> <!--Used because of visual bug-->
     </section>
@@ -199,7 +199,7 @@
 
           $http.get('../../queries/getAdditionalTasksAdmin.php?userId="'+$scope.userId+'"&startDate="0000-00-00"&endDate="9999-12-31"').then(function (response) {
             $scope.todayAdditional = response.data.records;
-            $scope.grid1.data = $scope.tracker;
+            $scope.grid2.data = $scope.todayAdditional;
             if($scope.todayAdditional.length>0){
               $scope.show=true;
 
@@ -307,9 +307,24 @@
           });
           
           $scope.grid1.data = $scope.tracker;
+          $scope.grid2.data = $scope.todayAdditional;
         }
 
         $scope.grid1 = {
+          enableGridMenu: true,
+          exporterLinkLabel: 'Task Tracker Report',
+          exporterPdfDefaultStyle: {fontSize: 9},
+          exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
+          exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color: 'red'},
+          exporterPdfOrientation: 'portrait',
+          exporterPdfPageSize: 'LETTER',
+          exporterPdfMaxGridWidth: 500,
+          onRegisterApi: function(gridApi){ 
+            $scope.gridApi1 = gridApi;
+          }
+        };
+
+        $scope.grid2 = {
           enableGridMenu: true,
           exporterLinkLabel: 'Task Tracker Report',
           exporterPdfDefaultStyle: {fontSize: 9},
