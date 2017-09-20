@@ -319,7 +319,7 @@
                                 <input ng-model="modalAddTrackerId" ng-hide="true">
                                 <textarea ng-if='mod.modalAddTrackerType=="Text"' ng-model="mod.modalAddTrackerTask" rows="5" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500"></textarea>
                                 <input ng-if='mod.modalAddTrackerType=="Int"' ng-model="mod.modalAddTrackerTask" class="form-control" type="number">
-                                <select ng-if='mod.modalAddTrackerType=="Binary"' ng-model="mod.modalAddTrackerTask">
+                                <select ng-if='mod.modalAddTrackerType=="Binary"' ng-model="mod.modalAddTrackerTask" class="form-control">
                                   <option value="Yes">Yes</option>
                                   <option value="No">No</option>
                                 </select>
@@ -382,18 +382,10 @@
               $scope.showTeam = true;
             }
           });  
-          $scope.statusSet = {status: []};
-          $scope.status = [];
           $http.get("../../queries/getAdditionalTasks.php").then(function (response) {
             $scope.additionalTasks = response.data.records;
             if($scope.additionalTasks.length>0){
               $scope.addExists = true;
-              $http.get("../../queries/getStatusAdditionalTask.php").then(function (response) {
-                $scope.todayAdditional = response.data.records;
-                if($scope.todayAdditional.length>0){
-                  $scope.hideInput = true;
-                }
-              });  
             }else{
               $scope.addExists = false;
             }

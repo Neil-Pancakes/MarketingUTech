@@ -228,41 +228,51 @@
                 </div>
               </md-tab>
               <md-tab label="additional tasks">
-                <md-content class="md-padding">
-                  <md-list flex>
-                  <form ng-submit="submitAdditionalTask()">
-                    <md-list-item class="md-3-line" ng-repeat="x in additionalTasks track by $index">
-                    <img src="../../includes/img/taskIcon.png" class="md-avatar" style="float:left"/>
-                    <div class="md-list-item-text">
-                    <h3>{{x.Name}}</h3>
-                      
-                        <input ng-model="additionalId[$index]" ng-init="additionalIdSet.additionalId[$index] = x.AdditionalTaskId" hidden>
-                        <textarea ng-if='x.Type=="Text"' ng-model="additionalSet.additional[$index]" rows="5" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500"></textarea>
-                        <input ng-if='x.Type=="Int"' ng-model="additionalSet.additional[$index]" type="number">
-                        <select ng-if='x.Type=="Binary"' ng-model="additionalSet.additional[$index]">
-                          <option value="Yes">Yes</option>
-                          <option value="No">No</option>
-                        </select>
-                        
-                     
-                    </div>
+              <md-content class="md-padding">
+                <md-list flex>
+                  <md-list-item class="md-3-line" ng-click="modalAddTracker(x.AdditionalTaskTrackerId, x.Name, x.Type, x.Task, x.Time, x.Date, x.AdditionalTaskId)" ng-repeat="x in additionalTasks track by $index" data-target="#insertAddTracker" data-toggle="modal">
                     
-                    </md-list-item>
-                    <div align="center">
-                      <md-button ng-show="addExists" type="submit" class=" md-raised md-primary" style="width:20%; margin-top:3%;">Submit</md-button>
+                    <img src="../../includes/img/taskIcon.png" class="md-avatar" style="float:left"/>
+                    
+                    <div class="md-list-item-text">
+                    <h3><strong>{{x.Name}}</strong></h3>
+                    <h3>{{x.Task}}</h3> 
                     </div>
-                    </form>
-                  </md-list>
-                </md-content>
-                <div ng-show="!addExists" align="center">
-                  <h2>You don't have any additional Tasks</h2>
-                </div>
-              </md-tab>
-
-
-            </md-tabs>
-          </md-content>
-        </div>  
+                  </md-list-item>
+                </md-list>
+                  <div id="insertAddTracker" class="modal fade" role="dialog">
+                      <div class="modal-dialog">
+                        <form ng-submit="editAdditionalTaskTracker()">
+                          <div class="modal-content">
+                            <div class="modal-header" style="background-color:#003300; color:white;">
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              <h2 id="modalHeaderEditDelete">Task</h2>
+                            </div>
+                            <div class="modal-body">
+                              <input ng-model="modalAddTrackerId" ng-hide="true">
+                              <textarea ng-if='mod.modalAddTrackerType=="Text"' ng-model="mod.modalAddTrackerTask" rows="5" cols="40" class="area ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" maxlength="2500"></textarea>
+                              <input ng-if='mod.modalAddTrackerType=="Int"' ng-model="mod.modalAddTrackerTask" class="form-control" type="number">
+                              <select ng-if='mod.modalAddTrackerType=="Binary"' ng-model="mod.modalAddTrackerTask" class="form-control">
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                              </select>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="submit" class="btn btn-warning" onclick="$('#insertAddTracker').modal('hide');">Edit Status <span class="fa fa-edit"></span></button>
+                              <button type="button" class="btn btn-danger" onclick="$('#insertAddTracker').modal('hide');">Close <span class="fa fa-close"></span></button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                    <div ng-show="!addExists" align="center">
+                      <h2>You don't have any additional Tasks</h2>
+                    </div>
+              </md-content>
+            </md-tab>
+          </md-tabs>
+        </md-content>
+      </div>  
 
       <!-- Your Page Content Here -->
       </section>
@@ -310,10 +320,8 @@
               $scope.addExists = false;
             }
           });
-          $http.get("../../queries/getMyDailyTrackerTodayAdditionalTaskTracker.php").then(function (response) {
-            $scope.todayAdditional = response.data.records;
-          });  
         };
+
         $scope.articleSet = {articles: []};
         $scope.wordSet = {words: []};
         $scope.additionalSet = {additional: []};
@@ -535,6 +543,35 @@
       $scope.modalAddType = type;
       $scope.modalAddUserId = userId;
     };
+
+    $scope.mod = {
+          $modalAddTrackerId: "",
+          $modalAddTrackerName: "",
+          $modalAddTrackerType: "",
+          $modalAddTrackerTask: "",
+          $modalAddTrackerTime: "",
+          $modalAddTrackerDate: "",
+          $modalAddTrackerTaskId: ""
+        };
+
+        $scope.modalAddTracker = function(trackerId, name, type, task, time, date, taskId) {
+            $scope.mod.modalAddTrackerId = trackerId;
+            $scope.mod.modalAddTrackerName = name;
+            $scope.mod.modalAddTrackerType = type;
+            $scope.mod.modalAddTrackerTask = task;
+            $scope.mod.modalAddTrackerTime = time;
+            $scope.mod.modalAddTrackerDate = date;
+            $scope.mod.modalAddTrackerTaskId = taskId;
+        };
+
+        $scope.editAdditionalTaskTracker = function() {
+          $http.post('../../editFunctions/editDailyTaskAdditionalTask.php', {
+            'id': $scope.mod.modalAddTrackerId,
+            'task': $scope.mod.modalAddTrackerTask
+          }).then(function(data, status){
+              $scope.init(); 
+          })
+        };
 
   });
 </script>
