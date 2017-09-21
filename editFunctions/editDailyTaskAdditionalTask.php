@@ -5,9 +5,10 @@
     if(count($request>0)){
         $id = $request['id'];
         $task = $request['task'];
-
         $query = "UPDATE `additional_task_tracker` 
-        SET `task` = '$task'
+        SET `task` = '$task',
+        `track_date` = CURDATE(),
+        `entry_time` = NOW()
         WHERE `additional_task_tracker_id` = $id";
 
         $result = mysqli_query($mysqli, $query);

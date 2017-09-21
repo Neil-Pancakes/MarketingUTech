@@ -15,11 +15,8 @@
       <div class="col-md-6">
         <div id="alertMsg">
           <?php
-            if (isset($_GET['succ'])){
+            if (isset($_GET['succ']) || isset($_GET['err'])){
                 echo '<div class="alert alert-success" role="alert">'.$_SESSION['alertMsg'].'</div>';
-            }
-            if (isset($_GET['err'])){
-                echo '<div class="alert alert-danger" role="alert">'.$_SESSION['alertMsg'].'</div>';
             }
           ?>
         </div>

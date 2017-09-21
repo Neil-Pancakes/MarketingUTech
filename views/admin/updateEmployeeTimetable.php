@@ -36,7 +36,7 @@
 		';
 		if(mysqli_query($mysqli, $query)){
 			$query = 'SELECT * FROM timetable WHERE date="'.$date.'" AND user_id = "'.$user_id.'" AND id = "'.$date_id.'"';
-			$result = mysqli_query($mysqli, $query);
+			$result = $mysqli->query($query);
 			if($result){
 				$row = mysqli_fetch_assoc($result);
 				if($row["timeOut"] > 0){
