@@ -305,7 +305,7 @@
                         <div class="modal-content">
                           <div class="modal-header" style="background-color:#003300; color:white;">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h2 id="modalHeaderEditDelete">Task</h2>
+                            <h2 id="modalHeaderEditDelete">{{mod.modalAddTrackerName}}</h2>>
                           </div>
                           <div class="modal-body">
                             <input ng-model="modalAddTrackerId" ng-hide="true">
